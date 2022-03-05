@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Mambo Go Live",
+            "url": "http://localhost:5500/public/",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

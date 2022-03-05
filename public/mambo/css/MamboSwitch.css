@@ -1,0 +1,92 @@
+/******************************************
+ *  Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+
+ *  Author : Alejandro Scotti
+ *  Created On : Sat Feb 26 2022
+ *  File : MamboSwitch.css
+ *******************************************/
+.switch-parent {
+    display: flex;
+    flex-direction: row;
+    width: 4rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.switch-input {
+    display: none;
+}
+
+.switch-container {
+    position: relative;
+    flex: 1 0 auto;
+    color: #000000;
+    background-color: #FFFFFF;
+    border-radius: 4rem;
+    border: 1px solid #A9A9A9;
+    pointer-events: none;
+}
+
+.switch-label-on {
+    display: none;
+    position: absolute;
+    font-size: .7rem;
+    left: .3rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.switch-label-off {
+    position: absolute;
+    font-size: .7rem;
+    right: .3rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.switch-handle {
+    display: inline-block;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4rem;
+    vertical-align: middle;
+    background-color: #f2f2f2;
+}
+
+.switch-input:checked ~ .switch-container {
+    color: #FFFFFF;
+    background-color: #000000;
+}
+
+.switch-input:checked ~ .switch-container .switch-label-off {
+    display: none;
+}
+
+.switch-input:checked ~ .switch-container .switch-label-on {
+    display: block;
+}
+
+.switch-input:checked ~ .switch-container .switch-handle {
+    left: calc(100% - 2rem);
+}
+
+.switch-disabled {
+    opacity: .6;
+    cursor: default;
+    pointer-events: none;
+}

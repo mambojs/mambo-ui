@@ -1,0 +1,323 @@
+/******************************************
+ *  Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+
+ *  Author : Alejandro Scotti
+ *  Created On : Sat Feb 26 2022
+ *  File : MamboCalendar.css
+ *******************************************/
+.calendar-parent {
+    display: flex;
+    flex-direction: column;
+    width: 17em;
+    overflow: hidden;
+    border: 1px solid #A9A9A9;
+    border-radius: .25rem;
+}
+
+.calendar-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.prev-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 2rem;
+    padding: 0;
+    color: white;
+    background: black;
+    border: none;
+    cursor: pointer;
+}
+
+.prev-button.hover {
+    background: #444;
+}
+
+.prev-button:before {
+    position: absolute;
+    content: "";
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 6px solid #FFFFFF;
+}
+
+.fast-button {
+    flex-grow: 1;
+    color: white;
+    font-size: 1rem;
+    padding: 0;
+    background: black;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fast-button.hover {
+    background: #444;
+}
+
+.next-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 2rem;
+    padding: 0;
+    color: white;
+    background: black;
+    border: none;
+    cursor: pointer;
+}
+
+.next-button.hover {
+    background: #444;
+}
+
+.next-button:before {
+    position: absolute;
+    content: "";
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid #FFFFFF;
+}
+
+.calendar-body {
+    height: 13.5em;
+}
+
+.dates-header-parent {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1.5em;
+    align-items: center;
+    justify-items: center;
+}
+
+.dates-header-day-name {
+    color: #A9A9A9;
+    font-size: .8rem;
+    cursor: default;
+}
+
+.dates-button-group {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 2em);
+    align-items: center;
+    justify-items: center;
+}
+
+.dates-button-group-button {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.dates-button-group-button:hover {
+    background-color: #cccccc;
+}
+
+.dates-button-group-button.selected {
+    background-color: #cccccc;
+}
+
+.dates-button-group-button-disabled {
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
+}
+
+.current-date {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    color: #e30000;
+}
+
+.current-date:hover {
+    background-color: #cccccc;
+}
+
+.current-date.selected {
+    background-color: #cccccc;
+}
+
+.other-month {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    color: #A9A9A9;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.other-month:hover {
+    background-color: #cccccc;
+}
+
+.months-button-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 4em);
+    align-items: center;
+    justify-items: center;
+}
+
+.months-button-group-button {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.months-button-group-button:hover {
+    background-color: #cccccc;
+}
+
+.months-button-group-button.selected {
+    background-color: #cccccc;
+}
+
+.months-button-group-button-disabled {
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
+}
+
+.years-button-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 4em);
+    align-items: center;
+    justify-items: center;
+}
+
+.years-button-group-button {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.years-button-group-button:hover {
+    background-color: #cccccc;
+}
+
+.years-button-group-button.selected {
+    background-color: #cccccc;
+}
+
+.years-button-group-button-disabled {
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
+}
+
+.other-decade {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    color: #A9A9A9;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.other-decade:hover {
+    background-color: #cccccc;
+}
+
+.decades-button-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 4em);
+    align-items: center;
+    justify-items: center;
+}
+
+.decades-button-group-button {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.decades-button-group-button:hover {
+    background-color: #cccccc;
+}
+
+.decades-button-group-button.selected {
+    background-color: #cccccc;
+}
+
+.decades-button-group-button-disabled {
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
+}
+
+.other-century {
+    border: none;
+    border-radius: 0;
+    font-size: 1rem;
+    color: #A9A9A9;
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+}
+
+.other-decade:hover {
+    background-color: #cccccc;
+}
+
+.calendar-footer-button {
+    text-align: center;
+    padding: .5rem;
+    color: #e30000;
+    font-size: .9rem;
+}
+
+.calendar-footer-button-disabled {
+    opacity: .6;
+    cursor: default;
+    pointer-events: none;
+    color: #000000;
+}
+
+.calendar-header-button-disabled {
+    opacity: .6;
+    cursor: default;
+    pointer-events: none;
+}

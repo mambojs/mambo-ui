@@ -1,0 +1,124 @@
+/******************************************
+ *  Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+
+ *  Author : Alejandro Scotti
+ *  Created On : Sat Feb 26 2022
+ *  File : MamboCheckboxRadio.css
+ *******************************************/
+.checkbox-radio-parent {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-radio-text-span {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #eee;
+}
+
+.checkbox-input:checked ~ .checkbox-span {
+    background-color: #000000;
+}
+
+.checkbox-span:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-input:checked ~ .checkbox-span:after {
+    display: block;
+}
+
+.checkbox-span:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.radio-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.radio-span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.radio-input:checked ~ .radio-span {
+    background-color: #000000;
+}
+
+.radio-span:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-input:checked ~ .radio-span:after {
+    display: block;
+}
+
+.radio-span:after {
+    top: .5rem;
+    left: .5rem;
+    width: .5rem;
+    height: .5rem;
+    border-radius: 50%;
+    background: white;
+}
+
+.checkbox-radio-disabled {
+    opacity: .6;
+    cursor: default;
+    pointer-events: none;
+}

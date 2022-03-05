@@ -1,0 +1,88 @@
+/******************************************
+ *  Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+
+ *  Author : Alejandro Scotti
+ *  Created On : Sat Feb 26 2022
+ *  File : app.css
+ *******************************************/
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap');
+
+html,
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+    padding: 0;
+}
+
+html,
+body * {
+    box-sizing: border-box;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+app-content {
+    width: 100%;
+    display: block;
+}
+
+app-body {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+app-body .title {
+    padding: 0.5rem;
+    border-left: 2px solid;
+    width: fit-app-body;
+}
+
+app-body menu {
+    flex: 0 0 15rem;
+    margin: 0 1rem 0 0;
+    padding-left: 1rem;
+    background-color: #f8f8f8;
+}
+
+app-body control {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 75%;
+}
+
+hr {
+    border: 1px solid #ccc;
+}

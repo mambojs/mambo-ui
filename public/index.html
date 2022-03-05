@@ -1,0 +1,172 @@
+﻿<!--  ******************************************
+    * Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
+    *
+    * Licensed under the Apache License, Version 2.0 (the "License");
+    * you may not use this file except in compliance with the License.
+    * You may obtain a copy of the License at
+    *
+    * http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Unless required by applicable law or agreed to in writing, software
+    * distributed under the License is distributed on an "AS IS" BASIS,
+    * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    * See the License for the specific language governing permissions and
+    * limitations under the License.
+
+    * Author : Alejandro Scotti
+    * Created On : Sat Feb 26 2022
+    * File : index.html
+ ****************************************** -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Mambo.js</title>
+    <link rel="icon" type="image/x-icon" href="#">
+
+    <!-- Mambo.js CSS Files - Order Alphabetically -->
+    <link href="mambo/css/MamboAudioPlayer.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboButton.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboButtonGroup.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboCalendar.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboCheckboxRadio.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboCheckboxRadioGroup.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboCombobox.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboDatePicker.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboDialog.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboDragDrop.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboDropdown.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboFileChooser.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboGrid.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboInput.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboSlideout.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboPercentage.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboPlayer.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboRating.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboSlideout.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboSlider.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboSwitch.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboTimePicker.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboTreeView.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboVideoPlayer.css" rel="stylesheet" type="text/css" />
+
+    <link href="app/demo/lib/prettify.css" rel="stylesheet" type="text/css" />
+    <link href="app/demo/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="app/css/app.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <app-content>
+        <header>
+            <h1>
+                Mambo.js
+            </h1>
+            <home-button></home-button>
+            <text>
+                <h2>Native JavaScript Frontend Library</h2>
+            </text>
+        </header>
+        <app-body>
+
+        </app-body>
+    </app-content>
+</body>
+<!-- IPFS - Order Alphabetically -->
+<!-- <script src="mambo/js/ipfs/hls.js"></script>
+<script src="mambo/js/ipfs/hlsjs-ipfs-loader.js"></script>
+<script src="mambo/js/ipfs/ipfs_add_readable_stream.js"></script>
+<script src="mambo/js/ipfs/ipfs_index.min.js"></script>
+<script src="mambo/js/ipfs/ipfs_video_readable_stream.js"></script>
+<script src="mambo/js/ipfs/ipfs_video_utils.js"></script>
+<script src="mambo/js/lib/m3u8-parser-min.js"></script> -->
+
+<!-- Dom.js -->
+<script src="mambo/js/lib/Dom.js"></script>
+
+<!-- Non-UI Components - Order Alphabetically -->
+<script src="mambo/js/utilities/MamboAPIManager.js"></script>
+<script src="mambo/js/utilities/MamboDateManager.js"></script>
+<script src="mambo/js/utilities/MamboEventManager.js"></script>
+<script src="mambo/js/utilities/MamboHistoryManager.js"></script>
+<script src="mambo/js/utilities/MamboIPFS.js"></script>
+<script src="mambo/js/utilities/MamboObjectManager.js"></script>
+<script src="mambo/js/utilities/MamboRouterManager.js"></script>
+<script src="mambo/js/utilities/MamboString.js"></script>
+<script src="mambo/js/utilities/MamboUtilities.js"></script>
+
+<!-- Mambo.js UI Components - Order Alphabetically -->
+<script src="mambo/js/ui/MamboAudioPlayer.js"></script>
+<script src="mambo/js/ui/MamboButton.js"></script>
+<script src="mambo/js/ui/MamboButtonGroup.js"></script>
+<script src="mambo/js/ui/MamboCalendar.js"></script>
+<script src="mambo/js/ui/MamboCheckboxRadio.js"></script>
+<script src="mambo/js/ui/MamboCheckboxRadioGroup.js"></script>
+<script src="mambo/js/ui/MamboCombobox.js"></script>
+<script src="mambo/js/ui/MamboDatePicker.js"></script>
+<script src="mambo/js/ui/MamboDialog.js"></script>
+<script src="mambo/js/ui/MamboDragDrop.js"></script>
+<script src="mambo/js/ui/MamboDraggable.js"></script>
+<script src="mambo/js/ui/MamboDropdown.js"></script>
+<script src="mambo/js/ui/MamboFileChooser.js"></script>
+<script src="mambo/js/ui/MamboFileUpload.js"></script>
+<script src="mambo/js/ui/MamboGraphics.js"></script>
+<script src="mambo/js/ui/MamboGrid.js"></script>
+<script src="mambo/js/ui/MamboInput.js"></script>
+<script src="mambo/js/ui/MamboPercentage.js"></script>
+<script src="mambo/js/ui/MamboPlayer.js"></script>
+<script src="mambo/js/ui/MamboRating.js"></script>
+<script src="mambo/js/ui/MamboSlideout.js"></script>
+<script src="mambo/js/ui/MamboSlider.js"></script>
+<script src="mambo/js/ui/MamboSwitch.js"></script>
+<script src="mambo/js/ui/MamboTheme.js"></script>
+<script src="mambo/js/ui/MamboTimePicker.js"></script>
+<script src="mambo/js/ui/MamboTreeView.js"></script>
+<script src="mambo/js/ui/MamboVideoPlayer.js"></script>
+
+<!-- Need to load all above resources before executing init.js -->
+<script src="mambo/js/utilities/MamboInitializer.js"></script>
+
+<!-- Demo Libraries -->
+<script src="app/demo/lib/run_prettify.js"></script>
+
+<!-- Demo JavaScript - Order Alphabetically -->
+<script src="app/demo/js/demoMamboButton.js"></script>
+<script src="app/demo/js/demoMamboButtonGroup.js"></script>
+<script src="app/demo/js/demoMamboCalendar.js"></script>
+<script src="app/demo/js/demoMamboCheckboxRadio.js"></script>
+<script src="app/demo/js/demoMamboCheckboxRadioGroup.js"></script>
+<script src="app/demo/js/demoMamboCombobox.js"></script>
+<script src="app/demo/js/demoMamboDatePicker.js"></script>
+<script src="app/demo/js/demoMamboDialog.js"></script>
+<script src="app/demo/js/demoMamboDragDrop.js"></script>
+<script src="app/demo/js/demoMamboDraggable.js"></script>
+<script src="app/demo/js/demoMamboDropdown.js"></script>
+<script src="app/demo/js/demoMamboEventManager.js"></script>
+<script src="app/demo/js/demoMamboFileChooser.js"></script>
+<script src="app/demo/js/demoMamboGraphics.js"></script>
+<script src="app/demo/js/demoMamboGrid.js"></script>
+<script src="app/demo/js/demoMamboGridTile.js"></script>
+<script src="app/demo/js/demoMamboHistoryManager.js"></script>
+<script src="app/demo/js/demoMamboImages.js"></script>
+<script src="app/demo/js/demoMamboInput.js"></script>
+<script src="app/demo/js/demoMamboPercentage.js"></script>
+<script src="app/demo/js/demoMamboPlayer.js"></script>
+<script src="app/demo/js/demoMamboRating.js"></script>
+<script src="app/demo/js/demoMamboSlideout.js"></script>
+<script src="app/demo/js/demoMamboSlider.js"></script>
+<script src="app/demo/js/demoMamboSwitch.js"></script>
+<script src="app/demo/js/demoMamboTreeView.js"></script>
+<script src="app/demo/js/demoMamboTimePicker.js"></script>
+
+<script src="app/demo/js/demo.js"></script>
+<script src="app/js/app.js"></script>
+<script>
+    app()
+</script>
+
+</html>
