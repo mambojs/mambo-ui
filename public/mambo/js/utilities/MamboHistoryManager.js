@@ -25,21 +25,31 @@ function MamboHistoryManager() {
     this.pushState = pushState;
     this.replaceState = replaceState;
 
+    this.currentLocation = location.href;
+
+    const self = this
+    const popstate = new Event("popstate");
+    const locationchange = new Event("locationchange");
+
     setupEventHandler();
+    checkHistory(); 
 
     function pushState(state, title, path) {
         setPageTitle(title);
         history.pushState(state, title, path);
+        window.dispatchEvent(popstate)
     }
 
     function clearState(state, title) {
         setPageTitle(title);
         history.replaceState(state, title, "/");
+        window.dispatchEvent(popstate)
     }
 
     function replaceState(state, title, path) {
         setPageTitle(title);
         history.replaceState(state, title, path);
+        window.dispatchEvent(popstate)
     }
 
     function setPageTitle(title) {
@@ -51,7 +61,15 @@ function MamboHistoryManager() {
 
     function setupEventHandler() {
         window.addEventListener("popstate", (ev) => {
-            //ev.state
+            window.dispatchEvent(locationchange)
         });
+    }
+
+    function checkHistory() {
+        if (history.state === null) {
+            replaceState({ path: location.pathname }, "", location.pathname);
+        } else {
+            window.dispatchEvent(locationchange)
+        }
     }
 }

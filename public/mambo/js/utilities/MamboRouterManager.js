@@ -18,8 +18,31 @@
  *  File : MamboRouterManager.js
  *******************************************/
 function MamboRouterManager() {
+
+    const routes = [
+        { name: "Home", path: "/" },
+        { name: "Button", path: "/ui-components/button/" }
+    ]
+
     window.addEventListener("locationchange", (ev) => {
-        alert(ev);
+        
+        let similarStatePath = "";
+
+        if (history.state.path.slice(-1)==="/") {
+            similarStatePath = history.state.path.slice(0,-1)
+        } else {
+            similarStatePath = history.state.path+"/"
+        }
+
+        const routeMatched = routes.filter( route => route.path = history.state.path || similarStatePath )
+
+        if (!routeMatched.length) {
+            console.log(`%c=> MamboJS: %c Location ${location.pathname} not found `, 'background: #000; color: #fff;', 'background: #000; color: red;')
+            return;
+        }
+
+        console.log(routeMatched[0])
     });
+
 }
 
