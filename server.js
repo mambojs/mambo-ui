@@ -33,13 +33,13 @@ const separator = process.platform === "win32" ? "\\" : "/";
 //Serves resources from public folder
 app.use(express.static(`${__dirname}/public`));
 
-// Return Index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(`${__dirname}/public/index.html`));
-});
-
 // Fetch a file
 app.get("/getFile", handleGetFileRequest);
+
+// Return Index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public/index.html"));
+});
 
 function handleGetFileRequest(req, res) {
   // Allow any domain on this route
