@@ -8,8 +8,8 @@ function demoDraggable(parentEle) {
     step();
 
     function withContainer() {
-        let container = domJS.createTag("div", { class: "draggable-container" });
-        domJS.append(parentEle, container);
+        let container = g_domJS.createTag("div", { class: "draggable-container" });
+        g_domJS.append(parentEle, container);
 
         const config = {
             css: {
@@ -30,13 +30,13 @@ function demoDraggable(parentEle) {
         };
 
         let draggable = new MamboDraggable(container, container, config);
-        let text = domJS.createTag("span", { class: "draggable-text", text: "Drag Inside" });
-        domJS.append(draggable.getParentTag(), text);
+        let text = g_domJS.createTag("span", { class: "draggable-text", text: "Drag Inside" });
+        g_domJS.append(draggable.getParentTag(), text);
     }
 
     function withoutContainer() {
-        let container = domJS.createTag("div", { class: "draggable-container" });
-        domJS.append(parentEle, container);
+        let container = g_domJS.createTag("div", { class: "draggable-container" });
+        g_domJS.append(parentEle, container);
 
         const config = {
             css: {
@@ -48,13 +48,13 @@ function demoDraggable(parentEle) {
         };
 
         let draggable = new MamboDraggable(container, null, config);
-        let text = domJS.createTag("span", { class: "draggable-text", text: "Drag Everywhere" });
-        domJS.append(draggable.getParentTag(), text);
+        let text = g_domJS.createTag("span", { class: "draggable-text", text: "Drag Everywhere" });
+        g_domJS.append(draggable.getParentTag(), text);
     }
 
     function horizontal() {
-        let container = domJS.createTag("div", { class: "draggable-container" });
-        domJS.append(parentEle, container);
+        let container = g_domJS.createTag("div", { class: "draggable-container" });
+        g_domJS.append(parentEle, container);
 
         const config = {
             css: {
@@ -67,13 +67,13 @@ function demoDraggable(parentEle) {
         };
 
         let draggable = new MamboDraggable(container, container, config);
-        let text = domJS.createTag("span", { class: "draggable-text", text: "Drag Horizontally" });
-        domJS.append(draggable.getParentTag(), text);
+        let text = g_domJS.createTag("span", { class: "draggable-text", text: "Drag Horizontally" });
+        g_domJS.append(draggable.getParentTag(), text);
     }
 
     function vertical() {
-        let container = domJS.createTag("div", { class: "draggable-container" });
-        domJS.append(parentEle, container);
+        let container = g_domJS.createTag("div", { class: "draggable-container" });
+        g_domJS.append(parentEle, container);
 
         const config = {
             css: {
@@ -86,13 +86,13 @@ function demoDraggable(parentEle) {
         };
 
         let draggable = new MamboDraggable(container, container, config);
-        let text = domJS.createTag("span", { class: "draggable-text", text: "Drag Vertically" });
-        domJS.append(draggable.getParentTag(), text);
+        let text = g_domJS.createTag("span", { class: "draggable-text", text: "Drag Vertically" });
+        g_domJS.append(draggable.getParentTag(), text);
     }
 
     function step() {
-        let container = domJS.createTag("div", { class: "draggable-container" });
-        domJS.append(parentEle, container);
+        let container = g_domJS.createTag("div", { class: "draggable-container" });
+        g_domJS.append(parentEle, container);
 
         const config = {
             css: {
@@ -105,7 +105,7 @@ function demoDraggable(parentEle) {
         };
 
         let draggable = new MamboDraggable(container, container, config);
-        let text = domJS.createTag("span", { class: "draggable-text", text: "Drag Steps" });
-        domJS.append(draggable.getParentTag(), text);
+        let text = g_domJS.createTag("span", { class: "draggable-text", text: "Drag Steps" });
+        g_domJS.append(draggable.getParentTag(), text);
     }
 }

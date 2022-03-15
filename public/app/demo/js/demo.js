@@ -19,9 +19,6 @@
  *******************************************/
 function demo() {
 
-    const m_scTheme = g_mamboObjMgr.get("MamboTheme");
-    const m_API = g_mamboObjMgr.get("MamboAPIManager");
-
     // Begin
     setup();
 
@@ -29,7 +26,6 @@ function demo() {
      * Begin setup
      */
     function setup() {
-        loadStyleTheme();
         loadHomeView();
     }
 
@@ -41,7 +37,7 @@ function demo() {
 
     function installDOM() {
 
-        domJS.empty("app-body");
+        g_domJS.empty("app-body");
         const html = `
         <menu>
             <h5 class="title">Select the component that you would like demo.</h5>
@@ -49,33 +45,15 @@ function demo() {
         </menu>
         <control></control>
         `;
-        domJS.append("app-body", html);
-    }
-
-    function loadStyleTheme() {
-        const alejandro = {
-            name: "alejandro",
-            theme: {
-                button: {
-                    button: "alejandro-button-button",
-                    img: "alejandro-button-img",
-                    selected: "alejandro-selected",
-                    hover: "alejandro-hover",
-                    disabled: "alejandro-button-disabled"
-                }
-            }
-        };
-
-        // Add theme alejandro
-        m_scTheme.addTheme(alejandro);
+        g_domJS.append("app-body", html);
     }
 
     /**
      * Install Home Button
      */
     function installHomeButton() {
-        const parent = domJS.getTag("home-button");
-        domJS.empty(parent);
+        const parent = g_domJS.getTag("home-button");
+        g_domJS.empty(parent);
         const config = {
             text: 'Home',
             fnClick: (context) => {
@@ -360,10 +338,10 @@ function demo() {
         }
 
         function installDOM() {
-            domJS.empty("control");
-            domJS.append("control", domJS.createTag("h3", { class: "title", text: hdrText }));
-            componentParentTag = domJS.createTag(eleName);
-            domJS.append("control", componentParentTag);
+            g_domJS.empty("control");
+            g_domJS.append("control", g_domJS.createTag("h3", { class: "title", text: hdrText }));
+            componentParentTag = g_domJS.createTag(eleName);
+            g_domJS.append("control", componentParentTag);
         }
 
         outputCode(`public/app/demo/js/${codePath}`);
@@ -372,9 +350,9 @@ function demo() {
 
     function outputCode(url) {
         console.log(url);
-        m_API.getFile(url).then((file) => {
-            const codeEle = domJS.createTag("code", { class: "prettyprint lang- basic", text: file });
-            domJS.append("control", codeEle);
+        g_API.getFile(url).then((file) => {
+            const codeEle = g_domJS.createTag("code", { class: "prettyprint lang- basic", text: file });
+            g_domJS.append("control", codeEle);
             PR.prettyPrint();
         }).catch(xhr => {
             console.log(xhr.responseText);

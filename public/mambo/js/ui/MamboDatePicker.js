@@ -26,9 +26,9 @@ function MamboDatePicker(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_graphics = g_mamboObjMgr.get("MamboGraphics");
-    const m_dateMgr = g_mamboObjMgr.get("MamboDateManager");
+    const m_utils = g_mamboUtils;
+    const m_graphics = g_mamboGraphics;
+    const m_dateMgr = g_mamboDateManager;
 
     // HTML tag variables
     let m_parentTag;
@@ -54,10 +54,10 @@ function MamboDatePicker(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`DatePicker: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`DatePicker: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -65,10 +65,10 @@ function MamboDatePicker(parentTag, options) {
     }
 
     function installDOM() {
-        m_datePickerParentTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_datePickerParentTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
         m_parentTag.innerHTML = '';
-        domJS.append(m_parentTag, m_datePickerParentTag);
+        g_mamboDomJS.append(m_parentTag, m_datePickerParentTag);
 
         installInput();
         installDropdown();
@@ -85,8 +85,8 @@ function MamboDatePicker(parentTag, options) {
 
     function installDropdown() {
         //create the wrapper div container for the input
-        m_dropdownWrapperTag = domJS.createTag("div", { class: m_config.css.dropdownWrapper });
-        domJS.append(m_datePickerParentTag, m_dropdownWrapperTag);
+        m_dropdownWrapperTag = g_mamboDomJS.createTag("div", { class: m_config.css.dropdownWrapper });
+        g_mamboDomJS.append(m_datePickerParentTag, m_dropdownWrapperTag);
 
         let dropdown = m_utils.extend(true, {}, m_config.dropdown);
         dropdown.css = m_utils.extend(true, m_config.css.dropdown, dropdown.css);
@@ -172,7 +172,7 @@ function MamboDatePicker(parentTag, options) {
     }
 
     function destroyDatePicker() {
-        domJS.remove(m_datePickerParentTag);
+        g_mamboDomJS.remove(m_datePickerParentTag);
     }
 
     function finishSetup() {

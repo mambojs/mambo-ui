@@ -31,7 +31,7 @@ function MamboGrid(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
     const m_colsMaxPxWidth = [];
     const m_componentsMapById = {};
     const m_componentsMapByColNbr = [];
@@ -71,10 +71,10 @@ function MamboGrid(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Data Grid: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Data Grid: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -91,12 +91,12 @@ function MamboGrid(parentTag, options) {
     }
 
     function installTiles() {
-        m_tileParentTag = domJS.createTag(m_config.tag.tilesParent, { class: m_config.css.tilesParent });
+        m_tileParentTag = g_mamboDomJS.createTag(m_config.tag.tilesParent, { class: m_config.css.tilesParent });
         m_tileIndexAttrName = 'data-grid-tile-index';
 
         // Set basic tile structure into parent tag
         m_parentTag.innerHTML = '';
-        domJS.append(m_parentTag, m_tileParentTag);
+        g_mamboDomJS.append(m_parentTag, m_tileParentTag);
 
         if (!validateGridData()) {
             return;
@@ -109,8 +109,8 @@ function MamboGrid(parentTag, options) {
 
     function installTile(tileData, tileIndex) {
         // Create tile parent tag
-        let tileTag = domJS.createTag(m_config.tag.tileItem, { class: m_config.css.tileItem, attr: { m_tileIndexAttrName: tileIndex } });
-        domJS.append(m_tileParentTag, tileTag);
+        let tileTag = g_mamboDomJS.createTag(m_config.tag.tileItem, { class: m_config.css.tileItem, attr: { m_tileIndexAttrName: tileIndex } });
+        g_mamboDomJS.append(m_tileParentTag, tileTag);
         m_tileParentTags[tileIndex] = tileTag;
 
         processTile(tileData, tileIndex, tileTag);
@@ -118,8 +118,8 @@ function MamboGrid(parentTag, options) {
 
     function processTile(tileData, tileIndex, tileTag) {
         if (m_config.tileHTML) {
-            let content = domJS.supplantHTML(m_config.tileHTML, tileData);
-            domJS.append(tileTag, content);
+            let content = g_mamboDomJS.supplantHTML(m_config.tileHTML, tileData);
+            g_mamboDomJS.append(tileTag, content);
         }
 
         // Invoke callback for each completed tile
@@ -129,18 +129,18 @@ function MamboGrid(parentTag, options) {
     }
 
     function installGrid() {
-        m_gridParentTag = domJS.createTag(m_config.tag.gridParent, { class: m_config.css.gridParent });
-        m_gridHdrTag = domJS.createTag(m_config.tag.gridHdr, { class: m_config.css.gridHdr });
-        m_gridBodyTag = domJS.createTag(m_config.tag.gridBody, { class: m_config.css.gridBody });
+        m_gridParentTag = g_mamboDomJS.createTag(m_config.tag.gridParent, { class: m_config.css.gridParent });
+        m_gridHdrTag = g_mamboDomJS.createTag(m_config.tag.gridHdr, { class: m_config.css.gridHdr });
+        m_gridBodyTag = g_mamboDomJS.createTag(m_config.tag.gridBody, { class: m_config.css.gridBody });
         m_gridBodyRowTagName = 'data-grid-row';
         m_rowIndexAttrName = 'data-grid-row-index';
 
         // Install grid parent tag
-        domJS.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
+        g_mamboDomJS.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
 
         // Set basic grid structure into parent tag
         m_parentTag.innerHTML = '';
-        domJS.append(m_parentTag, m_gridParentTag);
+        g_mamboDomJS.append(m_parentTag, m_gridParentTag);
 
         // Install the header tags
         installHdr();
@@ -148,20 +148,20 @@ function MamboGrid(parentTag, options) {
 
     function installHdr() {
         m_config.columns.forEach(column => {
-            let parentTag = domJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
+            let parentTag = g_mamboDomJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
             applyColCellElStyles(column, parentTag);
 
-            const txtEl = domJS.createTag('text', { text: (column.title ? column.title : column.name) });
-            domJS.append(parentTag, txtEl);
-            domJS.append(m_gridHdrTag, parentTag);
+            const txtEl = g_mamboDomJS.createTag('text', { text: (column.title ? column.title : column.name) });
+            g_mamboDomJS.append(parentTag, txtEl);
+            g_mamboDomJS.append(m_gridHdrTag, parentTag);
 
-            //Give it a millisecond for the domJS. to calculate .clientWidth
+            //Give it a millisecond for the g_mamboDomJS. to calculate .clientWidth
             setTimeout(() => {
-                m_colsMaxPxWidth.push(domJS.computeTagWidth(txtEl));
+                m_colsMaxPxWidth.push(g_mamboDomJS.computeTagWidth(txtEl));
             }, 1);
         });
 
-        //Give it a millisecond for the domJS. to calculate tags
+        //Give it a millisecond for the g_mamboDomJS. to calculate tags
         setTimeout(() => {
             installRows();
         }, 1);
@@ -186,15 +186,15 @@ function MamboGrid(parentTag, options) {
 
         function processRow(rowData, rowIndex) {
             // Create row parent tag
-            let rowTag = domJS.createTag(m_config.tag.row, { class: m_config.css.row, attr: { m_rowIndexAttrName: rowIndex } });
-            domJS.append(m_gridBodyTag, rowTag);
+            let rowTag = g_mamboDomJS.createTag(m_config.tag.row, { class: m_config.css.row, attr: { m_rowIndexAttrName: rowIndex } });
+            g_mamboDomJS.append(m_gridBodyTag, rowTag);
 
             // Loop through the header configuration
             m_config.columns.forEach((column, colIndex) => {
                 // Create cell parent
-                const parentTag = domJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
+                const parentTag = g_mamboDomJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
                 applyColCellElStyles(column, parentTag);
-                domJS.append(rowTag, parentTag);
+                g_mamboDomJS.append(rowTag, parentTag);
 
                 const context = {
                     column: column,
@@ -279,8 +279,8 @@ function MamboGrid(parentTag, options) {
             attr: context.column.attr,
             text
         };
-        const textTag = domJS.createTag('text', tagConfig);
-        domJS.append(context.parentTag, textTag);
+        const textTag = g_mamboDomJS.createTag('text', tagConfig);
+        g_mamboDomJS.append(context.parentTag, textTag);
 
         addComponentToMap({ column: context.column, colIndex: context.colIndex, component: textTag });
 
@@ -619,14 +619,14 @@ function MamboGrid(parentTag, options) {
             return;
         }
         // Save largest width value
-        const tagWidth = domJS.computeTagWidth(context.tag, context.parentTag);
+        const tagWidth = g_mamboDomJS.computeTagWidth(context.tag, context.parentTag);
         m_colsMaxPxWidth[context.colIndex] = tagWidth > m_colsMaxPxWidth[context.colIndex] ? tagWidth : m_colsMaxPxWidth[context.colIndex];
     }
 
     function setColsWidth() {
         // Declare style tag
         m_colStylesId = m_utils.getUniqueId();
-        let styleEl = domJS.createTag('style', { attr: { id: m_colStylesId } });
+        let styleEl = g_mamboDomJS.createTag('style', { attr: { id: m_colStylesId } });
 
         m_colsMaxPxWidth.forEach((width, index) => {
             // Create width adjustment style
@@ -638,11 +638,11 @@ function MamboGrid(parentTag, options) {
                     width:${adjWidth}px;
                     max-width:${adjWidth}px;
                 }`;
-            domJS.append(styleEl, document.createTextNode(`${hdrSelector},${bodySelector}${style}`));
+            g_mamboDomJS.append(styleEl, document.createTextNode(`${hdrSelector},${bodySelector}${style}`));
         });
 
         // Append to HTML HEAD tag
-        domJS.append('head', styleEl);
+        g_mamboDomJS.append('head', styleEl);
 
         finishSetup();
     }
@@ -755,7 +755,7 @@ function MamboGrid(parentTag, options) {
             events: {
                 inputChange: (context) => {
                     // example on how global event listener configuration works
-                    // 'input' is the domJS. tag name. 'Change' is the addEventListener name
+                    // 'input' is the g_mamboDomJS. tag name. 'Change' is the addEventListener name
                 }
             },
             maxColWidth: false,

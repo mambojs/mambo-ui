@@ -26,7 +26,7 @@ function MamboButtonGroup(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     const m_buttonsList = [];
@@ -52,15 +52,15 @@ function MamboButtonGroup(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
         if (!m_parentTag) {
-            console.error(`Button Group: domJS. tag ${parentTag} not found.`);
+            console.error(`Button Group: g_mamboDomJS. tag ${parentTag} not found.`);
             return;
         }
 
-        m_buttonGroupTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_buttonGroupTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-        domJS.append(m_parentTag, m_buttonGroupTag);
+        g_mamboDomJS.append(m_parentTag, m_buttonGroupTag);
 
         // Loop through all the buttons
         if (m_config.buttons) {
@@ -124,7 +124,7 @@ function MamboButtonGroup(parentTag, options) {
     }
 
     function destroyButtonGroup() {
-        domJS.remove(m_buttonGroupTag);
+        g_mamboDomJS.remove(m_buttonGroupTag);
     }
 
     function configure() {

@@ -26,7 +26,7 @@ function MamboFileChooser(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_wrapperTag;
@@ -49,15 +49,15 @@ function MamboFileChooser(parentTag, options) {
     }
 
     function installDOMTags() {
-        const parent = domJS.getTag(parentTag);
+        const parent = g_mamboDomJS.getTag(parentTag);
         if (!parent) {
-            console.error(`File Chooser: domJS. parent tag ${parent} was not found.`);
+            console.error(`File Chooser: g_mamboDomJS. parent tag ${parent} was not found.`);
             return;
         }
 
-        m_wrapperTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_wrapperTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-        domJS.append(parent, m_wrapperTag);
+        g_mamboDomJS.append(parent, m_wrapperTag);
 
         switch (m_config.buttonOnly) {
             case true:
@@ -114,7 +114,7 @@ function MamboFileChooser(parentTag, options) {
     }
 
     function destroyFileChooser() {
-        domJS.remove(m_wrapperTag);
+        g_mamboDomJS.remove(m_wrapperTag);
     }
 
     function configure() {

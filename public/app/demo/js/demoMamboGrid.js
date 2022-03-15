@@ -2,11 +2,11 @@ function demoGrid(parentEle) {
 
     const m_demoGraphics = new DemoGraphics();
 
-    let firstGrid = domJS.createTag(`${parentEle.tagName.toLowerCase()}-first`, { class: "first-grid" });
-    let secondGrid = domJS.createTag(`${parentEle.tagName.toLowerCase()}-second`, { class: "second-grid" });
+    let firstGrid = g_domJS.createTag(`${parentEle.tagName.toLowerCase()}-first`, { class: "first-grid" });
+    let secondGrid = g_domJS.createTag(`${parentEle.tagName.toLowerCase()}-second`, { class: "second-grid" });
 
-    domJS.append(parentEle, firstGrid);
-    domJS.append(parentEle, secondGrid);
+    g_domJS.append(parentEle, firstGrid);
+    g_domJS.append(parentEle, secondGrid);
 
     //First Grid
     const data = [
@@ -113,7 +113,7 @@ function demoGrid(parentEle) {
         },
         fnOpen: (context) => {
             // Callback when the dialog is opened
-            domJS.append(context.dialogContentTag, "<p style='padding:3em;'>Your Dialog content will go here</p>");
+            g_domJS.append(context.dialogContentTag, "<p style='padding:3em;'>Your Dialog content will go here</p>");
         },
         fnClose: (context) => {
             // Callback when the dialog is closed
@@ -137,11 +137,11 @@ function demoGrid(parentEle) {
 
             // Insert Header content
             const headerTag = context.slideout.getHeaderTag();
-            domJS.append(headerTag, "<h3>My Header Content</h3>");
+            g_domJS.append(headerTag, "<h3>My Header Content</h3>");
 
             // Insert Body content
             const bodyTag = context.slideout.getBodyTag();
-            domJS.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
+            g_domJS.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
         }
     }, {
         id: "dragDrop",
@@ -227,7 +227,7 @@ function demoGrid(parentEle) {
         },
         fnComplete: (context) => {
             const contentTag = context.dropdown.getContentTag();
-            domJS.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
+            g_domJS.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
         }
     }, {
         id: "combobox",
