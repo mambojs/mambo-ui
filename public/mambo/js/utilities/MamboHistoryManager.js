@@ -67,7 +67,7 @@ function MamboHistoryManager() {
     }
 
     function setPageTitle(title) {
-        const titleTag = domJS.getTag("title", "head");
+        const titleTag = g_mamboDomJS.getTag("title", "head");
         if (title && titleTag) {
             titleTag.innerText = title;
         }

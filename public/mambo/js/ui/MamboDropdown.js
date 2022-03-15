@@ -26,7 +26,7 @@ function MamboDropdown(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_parentTag;
@@ -50,10 +50,10 @@ function MamboDropdown(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Dropdown: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Dropdown: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -62,10 +62,10 @@ function MamboDropdown(parentTag, options) {
     }
 
     function installDOM() {
-        m_dropDownParentTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_dropDownParentTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
         m_parentTag.innerHTML = '';
-        domJS.append(m_parentTag, m_dropDownParentTag);
+        g_mamboDomJS.append(m_parentTag, m_dropDownParentTag);
 
         installOpenButton();
         installContainer();
@@ -91,8 +91,8 @@ function MamboDropdown(parentTag, options) {
     }
 
     function installContainer() {
-        m_dropdownContainerTag = domJS.createTag(m_config.tag.container, { class: m_config.css.container });
-        domJS.append(m_dropDownParentTag, m_dropdownContainerTag);
+        m_dropdownContainerTag = g_mamboDomJS.createTag(m_config.tag.container, { class: m_config.css.container });
+        g_mamboDomJS.append(m_dropDownParentTag, m_dropdownContainerTag);
     }
 
     function open() {
@@ -100,7 +100,7 @@ function MamboDropdown(parentTag, options) {
     }
 
     function openAnimation() {
-        domJS.addClass(m_dropdownContainerTag, m_config.css.open);
+        g_mamboDomJS.addClass(m_dropdownContainerTag, m_config.css.open);
         m_open = true;
         if (m_config.fnOpen) {
             m_config.fnOpen({ dropdown: self });
@@ -116,7 +116,7 @@ function MamboDropdown(parentTag, options) {
             return;
         }
 
-        domJS.removeClass(m_dropdownContainerTag, m_config.css.open);
+        g_mamboDomJS.removeClass(m_dropdownContainerTag, m_config.css.open);
         m_open = false;
         if (m_config.fnClose) {
             m_config.fnClose({ dropdown: self });
@@ -132,7 +132,7 @@ function MamboDropdown(parentTag, options) {
     }
 
     function destroyDropdown() {
-        domJS.remove(m_dropDownParentTag);
+        g_mamboDomJS.remove(m_dropDownParentTag);
     }
 
     function finishSetup() {

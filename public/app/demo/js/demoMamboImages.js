@@ -1,6 +1,6 @@
 function demoImages(parentEle) {
 
-    const m_graphics = g_mamboObjMgr.get("MamboGraphics");
+    const m_graphics = g_mamboGraphics;
 
     const images = m_graphics.getImages();
     const data = [];

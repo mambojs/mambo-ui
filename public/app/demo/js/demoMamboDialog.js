@@ -9,9 +9,9 @@ function demoDialog() {
             };
 
             // Install Dialog window
-            // First argument is the domJS. element where to install the Dialog. If null, the dialog will append into the BODY tag
+            // First argument is the g_domJS. element where to install the Dialog. If null, the dialog will append into the BODY tag
             new MamboDialog(null, dialogConfig, (context) => {
-                domJS.append(context.dialogContentTag, "<p style='padding:3em;'>Your Dialog content will go here</p>");
+                g_domJS.append(context.dialogContentTag, "<p style='padding:3em;'>Your Dialog content will go here</p>");
             });
         }
     };

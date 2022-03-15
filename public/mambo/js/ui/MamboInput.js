@@ -27,7 +27,7 @@ function MamboInput(parentTag, options) {
 
     // Config default values
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_parentTag;
@@ -57,22 +57,22 @@ function MamboInput(parentTag, options) {
     }
 
     function installDOM() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Input: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Input: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
         //create the wrapper div container for the input
-        m_wrapperTag = domJS.createTag("div", { class: m_config.css.inputWrapper });
+        m_wrapperTag = g_mamboDomJS.createTag("div", { class: m_config.css.inputWrapper });
         const tagConfig = {
             class: m_config.css.input,
             prop: m_config.prop,
             attr: m_config.attr,
             text: m_config.value
         };
-        m_inputTag = domJS.createTag(m_config.tag, tagConfig);
+        m_inputTag = g_mamboDomJS.createTag(m_config.tag, tagConfig);
 
         if (m_config.hidden) {
             m_wrapperTag.style.display = "none";
@@ -83,12 +83,12 @@ function MamboInput(parentTag, options) {
                 attr: { for: m_config.attr.name },
                 text: m_config.labelText
             };
-            m_labelTag = domJS.createTag('label', labelTagConfig);
-            domJS.append(m_parentTag, m_labelTag);
+            m_labelTag = g_mamboDomJS.createTag('label', labelTagConfig);
+            g_mamboDomJS.append(m_parentTag, m_labelTag);
         }
 
         // Append wrapper
-        domJS.append(m_parentTag, m_wrapperTag);
+        g_mamboDomJS.append(m_parentTag, m_wrapperTag);
 
         //if leftSide and rigthSide are false we create a common input
         if (!m_config.leftSide && !m_config.rightSide) {
@@ -127,7 +127,7 @@ function MamboInput(parentTag, options) {
     }
 
     function appendInputElement(parent) {
-        domJS.append(parent, m_inputTag);
+        g_mamboDomJS.append(parent, m_inputTag);
 
         if (m_config.maxLenWidth && (!m_config.leftSide && !m_config.rightSide)) {
             const width = `${m_config.attr.maxLength + m_config.maxLenWidthAdj}${m_config.maxLenWidthUnit}`;
@@ -165,8 +165,8 @@ function MamboInput(parentTag, options) {
                 prop: componentConfig.prop,
                 attr: componentConfig.attr
             };
-            let component = domJS.createTag("img", tagConfig);
-            domJS.append(m_wrapperTag, component);
+            let component = g_mamboDomJS.createTag("img", tagConfig);
+            g_mamboDomJS.append(m_wrapperTag, component);
         }
     }
 

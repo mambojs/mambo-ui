@@ -71,7 +71,7 @@ function demoHtml5player(parentTag) {
             <div id="demo-video" style="width: 50%;padding: 1em;"><h3>Video Player</h3></div>
             <div id="demo-audio" style="width: 50%;padding: 1em;"><h3>Audio Player</h3></div>
         </div>`;
-        domJS.append(parentTag, html);
+        g_domJS.append(parentTag, html);
 
         const config = {
             player: {

@@ -26,9 +26,9 @@ function MamboTimePicker(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_graphics = g_mamboObjMgr.get("MamboGraphics");
-    const m_dateMgr = g_mamboObjMgr.get("MamboDateManager");
+    const m_utils = g_mamboUtils;
+    const m_graphics = g_mamboGraphics;
+    const m_dateMgr = g_mamboDateManager;
 
     // HTML tag variables
     let m_parentTag;
@@ -49,10 +49,10 @@ function MamboTimePicker(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`TimePicker: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`TimePicker: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 

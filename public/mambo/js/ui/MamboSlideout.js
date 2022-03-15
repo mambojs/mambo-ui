@@ -26,8 +26,8 @@ function MamboSlideout(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_graphics = g_mamboObjMgr.get("MamboGraphics");
+    const m_utils = g_mamboUtils;
+    const m_graphics = g_mamboGraphics;
 
     // HTML tag variables
     let m_parentTag;
@@ -50,10 +50,10 @@ function MamboSlideout(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Slideout: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Slideout: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -63,20 +63,20 @@ function MamboSlideout(parentTag, options) {
     }
 
     function installDOM() {
-        m_slideoutHeaderTag = domJS.createTag(m_config.tag.header, { class: m_config.css.header });
-        m_slideoutBodyTag = domJS.createTag(m_config.tag.body, { class: m_config.css.body });
-        m_slideoutContentTag = domJS.createTag(m_config.tag.content, { class: m_config.css.content });
-        domJS.append(m_slideoutContentTag, m_slideoutHeaderTag).append(m_slideoutContentTag, m_slideoutBodyTag);
+        m_slideoutHeaderTag = g_mamboDomJS.createTag(m_config.tag.header, { class: m_config.css.header });
+        m_slideoutBodyTag = g_mamboDomJS.createTag(m_config.tag.body, { class: m_config.css.body });
+        m_slideoutContentTag = g_mamboDomJS.createTag(m_config.tag.content, { class: m_config.css.content });
+        g_mamboDomJS.append(m_slideoutContentTag, m_slideoutHeaderTag).append(m_slideoutContentTag, m_slideoutBodyTag);
 
-        m_slideoutOverlayTag = domJS.createTag(m_config.tag.overlay, { class: m_config.css.overlay });
-        domJS.append(m_parentTag, m_slideoutContentTag).append(m_parentTag, m_slideoutOverlayTag);
+        m_slideoutOverlayTag = g_mamboDomJS.createTag(m_config.tag.overlay, { class: m_config.css.overlay });
+        g_mamboDomJS.append(m_parentTag, m_slideoutContentTag).append(m_parentTag, m_slideoutOverlayTag);
 
         finishSetup();
     }
 
     function openAnimation() {
-        domJS.addClass(m_slideoutContentTag, "open");
-        domJS.addClass(m_slideoutOverlayTag, "fade-in");
+        g_mamboDomJS.addClass(m_slideoutContentTag, "open");
+        g_mamboDomJS.addClass(m_slideoutOverlayTag, "fade-in");
         if (m_config.fnOpen) {
             m_config.fnOpen({ slideout: self });
         }
@@ -87,15 +87,15 @@ function MamboSlideout(parentTag, options) {
     }
 
     function closeAnimation() {
-        domJS.removeClass(m_slideoutContentTag, "open");
-        domJS.removeClass(m_slideoutOverlayTag, "fade-in");
+        g_mamboDomJS.removeClass(m_slideoutContentTag, "open");
+        g_mamboDomJS.removeClass(m_slideoutOverlayTag, "fade-in");
         if (m_config.fnClose) {
             m_config.fnClose({ slideout: self });
         }
     }
 
     function destroySlideout() {
-        domJS.remove(m_slideoutContentTag).remove(m_slideoutOverlayTag);
+        g_mamboDomJS.remove(m_slideoutContentTag).remove(m_slideoutOverlayTag);
     }
 
     function installCloseButton() {

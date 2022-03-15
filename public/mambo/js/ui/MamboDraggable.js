@@ -26,7 +26,7 @@ function MamboDraggable(parentTag, containerTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_parentTag;
@@ -55,14 +55,14 @@ function MamboDraggable(parentTag, containerTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Draggable: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Draggable: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
-        m_containerTag = domJS.getTag(containerTag);
+        m_containerTag = g_mamboDomJS.getTag(containerTag);
         setOptionValues();
         installDOM();
     }
@@ -78,8 +78,8 @@ function MamboDraggable(parentTag, containerTag, options) {
             prop: m_config.prop,
             attr: m_config.attr
         };
-        m_draggableTag = domJS.createTag(m_config.tag.draggable, tagConfig);
-        domJS.append(m_parentTag, m_draggableTag);
+        m_draggableTag = g_mamboDomJS.createTag(m_config.tag.draggable, tagConfig);
+        g_mamboDomJS.append(m_parentTag, m_draggableTag);
         setupEventHandler();
         setEnable(m_enable);
         finishSetup();
@@ -201,7 +201,7 @@ function MamboDraggable(parentTag, containerTag, options) {
     }
 
     function destroyDraggable() {
-        domJS.remove(m_draggableTag);
+        g_mamboDomJS.remove(m_draggableTag);
     }
 
     function finishSetup() {

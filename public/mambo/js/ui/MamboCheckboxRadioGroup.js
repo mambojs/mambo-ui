@@ -26,7 +26,7 @@ function MamboCheckboxRadioGroup(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     const m_checkboxRadiosList = [];
@@ -49,15 +49,15 @@ function MamboCheckboxRadioGroup(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
         if (!m_parentTag) {
-            console.error(`Checkbox Group: domJS. tag ${parentTag} not found.`);
+            console.error(`Checkbox Group: g_mamboDomJS. tag ${parentTag} not found.`);
             return;
         }
 
-        m_checkboxRadioGroupTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_checkboxRadioGroupTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-        domJS.append(m_parentTag, m_checkboxRadioGroupTag);
+        g_mamboDomJS.append(m_parentTag, m_checkboxRadioGroupTag);
 
         // Loop through all the checkbox
         if (m_config.checkboxes) {
@@ -158,7 +158,7 @@ function MamboCheckboxRadioGroup(parentTag, options) {
     }
 
     function destroyCheckboxRadioGroup() {
-        domJS.remove(m_checkboxRadioGroupTag);
+        g_mamboDomJS.remove(m_checkboxRadioGroupTag);
     }
 
     function configure() {

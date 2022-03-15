@@ -18,19 +18,13 @@
  *  File : MamboInitializer.js
  *******************************************/
 // Do not change load order
-const domJS = new DomJS();
+const g_mamboDomJS = new DomJS();
 const g_mamboObjMgr = new MamboObjectManager();
 const g_mamboUtils = new MamboUtilities();
-g_mamboObjMgr.save(new MamboAPIManager());
-g_mamboObjMgr.save(new MamboGraphics());
-g_mamboObjMgr.save(new MamboUtilities());
-// g_mamboObjMgr.save(new MamboRouterManager(), "Router");
-// g_mamboObjMgr.save(new MamboHistoryManager());
-g_mamboObjMgr.save(new MamboEventManager());
-g_mamboObjMgr.save(new MamboEventDirectory());
-g_mamboObjMgr.save(new MamboDateManager());
-g_mamboObjMgr.save(new MamboString());
-g_mamboObjMgr.save(new MamboTheme());
+const g_mamboGraphics = new MamboGraphics();
+const g_mamboDateManager = new MamboDateManager();
+const g_mamboString = new MamboString();
+const g_mamboTheme = new MamboTheme();
 
 // Configure IPFS
 /* Ipfs.create({ repo: 'sc-ipfs-' + Math.random() }).then((ipfsInstance) => {

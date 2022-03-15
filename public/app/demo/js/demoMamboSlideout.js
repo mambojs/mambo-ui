@@ -34,11 +34,11 @@ function demoSlideout(parentTag) {
 
         // Insert Header content
         const headerTag = context.slideout.getHeaderTag();
-        domJS.append(headerTag, "<h3>My Header Content</h3>");
+        g_domJS.append(headerTag, "<h3>My Header Content</h3>");
 
         // Insert Body content
         const bodyTag = context.slideout.getBodyTag();
-        domJS.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
+        g_domJS.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
     }
 
 }
