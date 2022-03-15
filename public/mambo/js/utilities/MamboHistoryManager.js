@@ -24,12 +24,14 @@ function MamboHistoryManager() {
     this.clearState = clearState;
     this.pushState = pushState;
     this.replaceState = replaceState;
+    this.go = goToState;
+    this.back = backState;
+    this.forward = forwardState;
 
-    this.currentLocation = location.href;
-
-    const self = this
     const popstate = new Event("popstate");
     const locationchange = new Event("locationchange");
+
+    let self = this
 
     setupEventHandler();
     checkHistory(); 
@@ -42,7 +44,7 @@ function MamboHistoryManager() {
 
     function clearState(state, title) {
         setPageTitle(title);
-        history.replaceState(state, title, "/");
+        history.replaceState({ path: "/" }, title, "/");
         window.dispatchEvent(popstate)
     }
 
@@ -50,6 +52,18 @@ function MamboHistoryManager() {
         setPageTitle(title);
         history.replaceState(state, title, path);
         window.dispatchEvent(popstate)
+    }
+
+    function goToState(args) {
+        history.go(args);
+    }
+
+    function backState() {
+        history.back();
+    }
+
+    function forwardState() {
+        history.forward();
     }
 
     function setPageTitle(title) {

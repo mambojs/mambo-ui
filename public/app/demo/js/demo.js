@@ -371,7 +371,6 @@ function demo() {
 
 
     function outputCode(url) {
-        console.log(url);
         m_API.getFile(url).then((file) => {
             const codeEle = domJS.createTag("code", { class: "prettyprint lang- basic", text: file });
             domJS.append("control", codeEle);
@@ -380,4 +379,30 @@ function demo() {
             console.log(xhr.responseText);
         });
     }
+
+    const ROUTES = [
+        { 
+            name: "Home", 
+            path: "/", 
+            action: () => {
+                const control = document.querySelector('control')
+                control.innerHTML = "Home"
+            } 
+        },
+        { 
+            name: "Button",
+            path: "/ui-components/button/", 
+            action: () => { 
+                domJS.empty("control");
+                domJS.append("control", domJS.createTag("h3", { class: "title", text: "Button Component Demo" }));
+                let componentParentTag = domJS.createTag("demo-button");
+                domJS.append("control", componentParentTag);
+                demoButton(componentParentTag);
+                outputCode(`public/app/demo/js/demoMamboButton.js`)
+            } 
+        },
+        { name: "notfound", path: "/404" }
+    ]
+
+    mambo.$router.routes(ROUTES);
 }
