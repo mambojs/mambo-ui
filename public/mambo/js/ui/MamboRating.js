@@ -26,7 +26,7 @@ function MamboRating(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_parentTag;
@@ -52,10 +52,10 @@ function MamboRating(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Rating: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Rating: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -74,8 +74,8 @@ function MamboRating(parentTag, options) {
     }
 
     function installTags() {
-        m_ratingParentTag = domJS.createTag(m_config.tag.rating, { class: m_config.css.parent });
-        domJS.append(m_parentTag, m_ratingParentTag);
+        m_ratingParentTag = g_mamboDomJS.createTag(m_config.tag.rating, { class: m_config.css.parent });
+        g_mamboDomJS.append(m_parentTag, m_ratingParentTag);
 
         installLayers();
         setupEventHandler();
@@ -85,28 +85,28 @@ function MamboRating(parentTag, options) {
     }
 
     function installLayers() {
-        m_ratingEmptyTag = domJS.createTag(m_config.tag.empty, { class: m_config.css.empty });
-        domJS.append(m_ratingParentTag, m_ratingEmptyTag);
+        m_ratingEmptyTag = g_mamboDomJS.createTag(m_config.tag.empty, { class: m_config.css.empty });
+        g_mamboDomJS.append(m_ratingParentTag, m_ratingEmptyTag);
 
-        m_ratingSelectedTag = domJS.createTag(m_config.tag.selected, { class: m_config.css.selected });
-        domJS.append(m_ratingParentTag, m_ratingSelectedTag);
+        m_ratingSelectedTag = g_mamboDomJS.createTag(m_config.tag.selected, { class: m_config.css.selected });
+        g_mamboDomJS.append(m_ratingParentTag, m_ratingSelectedTag);
 
-        m_ratingHoverTag = domJS.createTag(m_config.tag.hover, { class: m_config.css.hover });
-        domJS.append(m_ratingParentTag, m_ratingHoverTag);
+        m_ratingHoverTag = g_mamboDomJS.createTag(m_config.tag.hover, { class: m_config.css.hover });
+        g_mamboDomJS.append(m_ratingParentTag, m_ratingHoverTag);
 
         installStars();
     }
 
     function installStars() {
         for (let i = 0; i < m_config.max; i++) {
-            let emptyStarTag = domJS.createTag(m_config.tag.emptyStar, { class: m_config.css.emptyStar });
-            domJS.append(m_ratingEmptyTag, emptyStarTag);
+            let emptyStarTag = g_mamboDomJS.createTag(m_config.tag.emptyStar, { class: m_config.css.emptyStar });
+            g_mamboDomJS.append(m_ratingEmptyTag, emptyStarTag);
 
-            let selectedStarTag = domJS.createTag(m_config.tag.selectedStar, { class: m_config.css.selectedStar });
-            domJS.append(m_ratingSelectedTag, selectedStarTag);
+            let selectedStarTag = g_mamboDomJS.createTag(m_config.tag.selectedStar, { class: m_config.css.selectedStar });
+            g_mamboDomJS.append(m_ratingSelectedTag, selectedStarTag);
 
-            let hoverStarTag = domJS.createTag(m_config.tag.hoverStar, { class: m_config.css.hoverStar });
-            domJS.append(m_ratingHoverTag, hoverStarTag);
+            let hoverStarTag = g_mamboDomJS.createTag(m_config.tag.hoverStar, { class: m_config.css.hoverStar });
+            g_mamboDomJS.append(m_ratingHoverTag, hoverStarTag);
         }
     }
 
@@ -179,11 +179,11 @@ function MamboRating(parentTag, options) {
 
     function setEnable(enable) {
         m_enable = enable;
-        m_enable ? domJS.removeClass(m_ratingParentTag, m_config.css.disabled) : domJS.addClass(m_ratingParentTag, m_config.css.disabled);
+        m_enable ? g_mamboDomJS.removeClass(m_ratingParentTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_ratingParentTag, m_config.css.disabled);
     }
 
     function destroyRating() {
-        domJS.remove(m_ratingParentTag);
+        g_mamboDomJS.remove(m_ratingParentTag);
     }
 
     function finishSetup() {

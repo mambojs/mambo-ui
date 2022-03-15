@@ -112,7 +112,7 @@ function demoGridTile(parentEle) {
     }
 
     function addPhoto(tileEle) {
-        let photoTag = domJS.getTag('.photo', tileEle);
+        let photoTag = g_domJS.getTag('.photo', tileEle);
         let svg = m_demoGraphics.getSVG("user");
         let children = [];
         svg.paths.forEach((path => {
@@ -123,12 +123,12 @@ function demoGridTile(parentEle) {
             attr: svg.attr,
             children
         };
-        let newSVG = domJS.createSVGTag("svg", tagConfig);
-        domJS.append(photoTag, newSVG);
+        let newSVG = g_domJS.createSVGTag("svg", tagConfig);
+        g_domJS.append(photoTag, newSVG);
     }
 
     function addFileChooser(tileEle) {
-        let fileChooserTag = domJS.getTag('.file-chooser', tileEle);
+        let fileChooserTag = g_domJS.getTag('.file-chooser', tileEle);
         const config = {
             buttonOnly: true,
             textButton: "Upload Picture",

@@ -26,8 +26,8 @@ function MamboButton(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_themes = g_mamboObjMgr.get("MamboTheme");
+    const m_utils = g_mamboUtils;
+    const m_theme = g_mamboTheme;
     const m_imageList = [];
 
     let m_parentTag;
@@ -63,10 +63,10 @@ function MamboButton(parentTag, options) {
     }
 
     function installDOM() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Button: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Button: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -92,7 +92,7 @@ function MamboButton(parentTag, options) {
                 }
             }
         };
-        m_buttonTag = domJS.createTag(m_config.tag, tagConfig);
+        m_buttonTag = g_mamboDomJS.createTag(m_config.tag, tagConfig);
 
         //check if an img was provided
         if (m_config.img) {
@@ -104,7 +104,7 @@ function MamboButton(parentTag, options) {
             insertGraphic(m_config.svg, addSVG);
         }
 
-        domJS.append(m_parentTag, m_buttonTag);
+        g_mamboDomJS.append(m_parentTag, m_buttonTag);
         setEnable(m_enable);
     }
 
@@ -126,9 +126,9 @@ function MamboButton(parentTag, options) {
             prop: img.prop,
             attr: img.attr
         };
-        let imgTag = domJS.createTag("img", tagConfig);
+        let imgTag = g_mamboDomJS.createTag("img", tagConfig);
         m_imageList.push(imgTag);
-        domJS.append(m_buttonTag, imgTag);
+        g_mamboDomJS.append(m_buttonTag, imgTag);
     }
 
     function addSVG(svg) {
@@ -145,8 +145,8 @@ function MamboButton(parentTag, options) {
             attr: svg.attr,
             children
         };
-        let svgTag = domJS.createSVGTag("svg", tagConfig);
-        domJS.append(m_buttonTag, svgTag);
+        let svgTag = g_mamboDomJS.createSVGTag("svg", tagConfig);
+        g_mamboDomJS.append(m_buttonTag, svgTag);
     }
 
     function getImageTagById(id) {
@@ -191,7 +191,7 @@ function MamboButton(parentTag, options) {
                 }
             });
         } else if (m_config.img && m_config.img.hover) {
-            domJS.setAttr(m_imageList[0], { "src": m_config.img.hover });
+            g_mamboDomJS.setAttr(m_imageList[0], { "src": m_config.img.hover });
         }
     }
 
@@ -203,22 +203,22 @@ function MamboButton(parentTag, options) {
                 }
             });
         } else if (m_config.img && m_config.img.hover) {
-            domJS.setAttr(m_imageList[0], { "src": m_config.img.attr.src });
+            g_mamboDomJS.setAttr(m_imageList[0], { "src": m_config.img.attr.src });
         }
     }
 
     function mouseEnterOverButton(tag) {
-        if (!domJS.hasClass(tag, m_config.css.selected)) {
-            domJS.addClass(tag, m_config.css.hover);
+        if (!g_mamboDomJS.hasClass(tag, m_config.css.selected)) {
+            g_mamboDomJS.addClass(tag, m_config.css.hover);
         }
     }
 
     function mouseLeaveOverButton(tag) {
-        domJS.removeClass(tag, m_config.css.hover);
+        g_mamboDomJS.removeClass(tag, m_config.css.hover);
     }
 
     function setSrcAttr(tag, src) {
-        domJS.setAttr(tag, { "src": src });
+        g_mamboDomJS.setAttr(tag, { "src": src });
     }
 
     function handleExternalSelect(context) {
@@ -232,15 +232,15 @@ function MamboButton(parentTag, options) {
     }
 
     function selectBtn() {
-        domJS.addClass(m_buttonTag, m_config.css.selected);
+        g_mamboDomJS.addClass(m_buttonTag, m_config.css.selected);
     }
 
     function deselectBtn() {
-        domJS.removeClass(m_buttonTag, m_config.css.selected);
+        g_mamboDomJS.removeClass(m_buttonTag, m_config.css.selected);
     }
 
     function text(context) {
-        if (typeof context.text === 'undefined') {
+        if (!context) {
             return m_text;
         } else {
             m_buttonTag.innerText = context.text;
@@ -258,7 +258,7 @@ function MamboButton(parentTag, options) {
 
     function setEnable(enable) {
         m_enable = enable;
-        m_enable ? domJS.removeClass(m_buttonTag, m_config.css.disabled) : domJS.addClass(m_buttonTag, m_config.css.disabled);
+        m_enable ? g_mamboDomJS.removeClass(m_buttonTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_buttonTag, m_config.css.disabled);
     }
 
     function finishSetup() {
@@ -289,7 +289,7 @@ function MamboButton(parentTag, options) {
             m_config = m_utils.extend(true, m_config, options);
         }
 
-        m_config.css = m_utils.extend(true, m_themes.getTheme({
+        m_config.css = m_utils.extend(true, m_theme.getTheme({
             name: m_config.theme,
             control: "button"
         }), m_config.css);

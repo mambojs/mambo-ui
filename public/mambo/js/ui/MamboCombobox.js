@@ -31,8 +31,8 @@ function MamboCombobox(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_string = g_mamboObjMgr.get("MamboString");
+    const m_utils = g_mamboUtils;
+    const m_string = g_mamboString;
 
     // HTML tag variables
     let m_parentTag;
@@ -60,10 +60,10 @@ function MamboCombobox(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`ComboBox: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`ComboBox: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -71,10 +71,10 @@ function MamboCombobox(parentTag, options) {
     }
 
     function installDOM() {
-        m_comboBoxParentTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_comboBoxParentTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
         m_parentTag.innerHTML = '';
-        domJS.append(m_parentTag, m_comboBoxParentTag);
+        g_mamboDomJS.append(m_parentTag, m_comboBoxParentTag);
 
         installInput();
         installDropdown();
@@ -91,8 +91,8 @@ function MamboCombobox(parentTag, options) {
 
     function installDropdown() {
         //create the wrapper div container for the input
-        m_dropdownWrapperTag = domJS.createTag("div", { class: m_config.css.dropdownWrapper });
-        domJS.append(m_comboBoxParentTag, m_dropdownWrapperTag);
+        m_dropdownWrapperTag = g_mamboDomJS.createTag("div", { class: m_config.css.dropdownWrapper });
+        g_mamboDomJS.append(m_comboBoxParentTag, m_dropdownWrapperTag);
 
         let dropdown = m_utils.extend(true, {}, m_config.dropdown);
         dropdown.css = m_utils.extend(true, m_config.css.dropdown, dropdown.css);
@@ -207,7 +207,7 @@ function MamboCombobox(parentTag, options) {
     }
 
     function destroyComboBox() {
-        domJS.remove(m_comboBoxParentTag);
+        g_mamboDomJS.remove(m_comboBoxParentTag);
     }
 
     function finishSetup() {

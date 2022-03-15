@@ -25,15 +25,15 @@ function MamboPlayer(parentTag, options) {
         return;
     }
 
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_themes = g_mamboObjMgr.get("MamboTheme");
+    const m_utils = g_mamboUtils;
+    const m_theme = g_mamboTheme;
     const m_buttonGroups = [];
 
     let m_config;
     let m_timeInfo;
     let m_progressBar;
 
-    // domJS. Elements
+    // g_mamboDomJS. Elements
     let m_parentTag;
     let m_playerTag;
 
@@ -53,10 +53,10 @@ function MamboPlayer(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`HTML5 Player: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`HTML5 Player: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -73,13 +73,13 @@ function MamboPlayer(parentTag, options) {
             prop: m_config.prop,
             attr: m_config.attr
         };
-        m_playerTag = domJS.createTag(m_config.media, tagConfig);
-        domJS.append(m_parentTag, m_playerTag);
+        m_playerTag = g_mamboDomJS.createTag(m_config.media, tagConfig);
+        g_mamboDomJS.append(m_parentTag, m_playerTag);
     }
 
 
     function setSource(source) {
-        domJS.setAttr(m_playerTag, { src: source });
+        g_mamboDomJS.setAttr(m_playerTag, { src: source });
     }
 
     function installControls() {
@@ -200,7 +200,7 @@ function MamboPlayer(parentTag, options) {
             m_config = m_utils.extend(true, m_config, options);
         }
 
-        m_config.css = m_utils.extend(true, m_themes.getTheme({
+        m_config.css = m_utils.extend(true, m_theme.getTheme({
             name: m_config.theme,
             control: "html5player"
         }), m_config.css);

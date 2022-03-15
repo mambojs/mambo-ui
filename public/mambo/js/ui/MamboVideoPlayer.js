@@ -27,8 +27,8 @@ function MamboVideoPlayer(parentTag, options) {
 
     // Config default values
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_themes = g_mamboObjMgr.get("MamboTheme");
+    const m_utils = g_mamboUtils;
+    const m_theme = g_mamboTheme;
 
     // HTML tag variables
     let m_parentTag;
@@ -52,16 +52,16 @@ function MamboVideoPlayer(parentTag, options) {
     }
 
     function installDOM() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`ScHtml5Video: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`ScHtml5Video: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
         //create the wrapper div container for the input
-        m_wrapperTag = domJS.createTag("video-player", { class: m_config.css.wrapper });
-        domJS.append(m_parentTag, m_wrapperTag);
+        m_wrapperTag = g_mamboDomJS.createTag("video-player", { class: m_config.css.wrapper });
+        g_mamboDomJS.append(m_parentTag, m_wrapperTag);
 
         installPlayer();
     }
@@ -88,7 +88,7 @@ function MamboVideoPlayer(parentTag, options) {
             m_config = m_utils.extend(true, m_config, options);
         }
 
-        m_config.css = m_utils.extend(true, m_themes.getTheme({
+        m_config.css = m_utils.extend(true, m_theme.getTheme({
             name: m_config.theme,
             control: "html5video"
         }), m_config.css);

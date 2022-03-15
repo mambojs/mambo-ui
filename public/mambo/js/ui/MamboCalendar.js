@@ -26,8 +26,8 @@ function MamboCalendar(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
-    const m_dateMgr = g_mamboObjMgr.get("MamboDateManager");
+    const m_utils = g_mamboUtils;
+    const m_dateMgr = g_mamboDateManager;
 
     // HTML tag variables
     let m_parentTag;
@@ -65,10 +65,10 @@ function MamboCalendar(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Calendar: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Calendar: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -89,10 +89,10 @@ function MamboCalendar(parentTag, options) {
     }
 
     function installDOM() {
-        m_calendarParentTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_calendarParentTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
         m_parentTag.innerHTML = '';
-        domJS.append(m_parentTag, m_calendarParentTag);
+        g_mamboDomJS.append(m_parentTag, m_calendarParentTag);
 
         installHeader();
         installBody();
@@ -196,14 +196,14 @@ function MamboCalendar(parentTag, options) {
     //Body
 
     function installBody() {
-        m_bodyTag = domJS.createTag(m_config.tag.body, { class: m_config.css.body });
-        domJS.append(m_calendarParentTag, m_bodyTag);
+        m_bodyTag = g_mamboDomJS.createTag(m_config.tag.body, { class: m_config.css.body });
+        g_mamboDomJS.append(m_calendarParentTag, m_bodyTag);
 
-        m_bodyHeaderTag = domJS.createTag(m_config.tag.bodyHeader, { class: m_config.css.bodyHeader });
-        domJS.append(m_bodyTag, m_bodyHeaderTag);
+        m_bodyHeaderTag = g_mamboDomJS.createTag(m_config.tag.bodyHeader, { class: m_config.css.bodyHeader });
+        g_mamboDomJS.append(m_bodyTag, m_bodyHeaderTag);
 
-        m_bodyContentTag = domJS.createTag(m_config.tag.bodyContent, { class: m_config.css.bodyContent });
-        domJS.append(m_bodyTag, m_bodyContentTag);
+        m_bodyContentTag = g_mamboDomJS.createTag(m_config.tag.bodyContent, { class: m_config.css.bodyContent });
+        g_mamboDomJS.append(m_bodyTag, m_bodyContentTag);
 
         installBodyContent();
     }
@@ -521,7 +521,7 @@ function MamboCalendar(parentTag, options) {
     }
 
     function destroyCalendar() {
-        domJS.remove(m_calendarParentTag);
+        g_mamboDomJS.remove(m_calendarParentTag);
     }
 
     function finishSetup() {

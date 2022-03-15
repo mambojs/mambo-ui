@@ -1,6 +1,6 @@
 function demoDropdown(parentEle) {
 
-    const m_graphics = g_mamboObjMgr.get("MamboGraphics");
+    const m_graphics = g_mamboGraphics;
 
     let config = {
         button: {
@@ -24,6 +24,6 @@ function demoDropdown(parentEle) {
         const contentTag = context.dropdown.getContentTag();
 
         // Insert content
-        domJS.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
+        g_domJS.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
     }
 }

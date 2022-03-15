@@ -26,7 +26,7 @@ function MamboSwitch(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_parentTag;
@@ -53,10 +53,10 @@ function MamboSwitch(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = domJS.getTag(parentTag);
+        m_parentTag = g_mamboDomJS.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Switch: domJS. parent tag ${parentTag} was not found.`);
+            console.error(`Switch: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -76,31 +76,31 @@ function MamboSwitch(parentTag, options) {
     }
 
     function installTags() {
-        m_switchParentTag = domJS.createTag(m_config.tag.switch, { class: m_config.css.parent });
-        domJS.append(m_parentTag, m_switchParentTag);
+        m_switchParentTag = g_mamboDomJS.createTag(m_config.tag.switch, { class: m_config.css.parent });
+        g_mamboDomJS.append(m_parentTag, m_switchParentTag);
 
         const tagConfig = {
             class: m_config.css.input,
             attr: { type: "checkbox" },
             prop: { checked: m_checked }
         };
-        m_inputTag = domJS.createTag('input', tagConfig);
-        m_containerTag = domJS.createTag(m_config.tag.container, { class: m_config.css.container });
+        m_inputTag = g_mamboDomJS.createTag('input', tagConfig);
+        m_containerTag = g_mamboDomJS.createTag(m_config.tag.container, { class: m_config.css.container });
 
-        domJS.append(m_switchParentTag, m_inputTag);
-        domJS.append(m_switchParentTag, m_containerTag);
+        g_mamboDomJS.append(m_switchParentTag, m_inputTag);
+        g_mamboDomJS.append(m_switchParentTag, m_containerTag);
 
         installLabels();
     }
 
     function installLabels() {
-        let onTag = domJS.createTag(m_config.tag.on, { class: m_config.css.on, text: m_config.messages.checked });
-        let offTag = domJS.createTag(m_config.tag.off, { class: m_config.css.off, text: m_config.messages.unchecked });
-        let handleTag = domJS.createTag(m_config.tag.handle, { class: m_config.css.handle });
+        let onTag = g_mamboDomJS.createTag(m_config.tag.on, { class: m_config.css.on, text: m_config.messages.checked });
+        let offTag = g_mamboDomJS.createTag(m_config.tag.off, { class: m_config.css.off, text: m_config.messages.unchecked });
+        let handleTag = g_mamboDomJS.createTag(m_config.tag.handle, { class: m_config.css.handle });
 
-        domJS.append(m_containerTag, onTag);
-        domJS.append(m_containerTag, offTag);
-        domJS.append(m_containerTag, handleTag);
+        g_mamboDomJS.append(m_containerTag, onTag);
+        g_mamboDomJS.append(m_containerTag, offTag);
+        g_mamboDomJS.append(m_containerTag, handleTag);
 
         setEnable(m_enable);
     }
@@ -121,7 +121,7 @@ function MamboSwitch(parentTag, options) {
     }
 
     function setChecked(ev) {
-        domJS.setProps(m_inputTag, { checked: m_checked });
+        g_mamboDomJS.setProps(m_inputTag, { checked: m_checked });
 
         if (m_config.fnChange) {
             m_config.fnChange({ switch: self, ev: ev });
@@ -150,11 +150,11 @@ function MamboSwitch(parentTag, options) {
 
     function setEnable(enable) {
         m_enable = enable;
-        m_enable ? domJS.removeClass(m_switchParentTag, m_config.css.disabled) : domJS.addClass(m_switchParentTag, m_config.css.disabled);
+        m_enable ? g_mamboDomJS.removeClass(m_switchParentTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_switchParentTag, m_config.css.disabled);
     }
 
     function destroySwitch() {
-        domJS.remove(m_switchParentTag);
+        g_mamboDomJS.remove(m_switchParentTag);
     }
 
     function finishSetup() {

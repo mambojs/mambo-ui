@@ -22,7 +22,7 @@ function MamboDialog(parentTag, options, fnReady) {
 
     // Config default values
     const self = this;
-    const m_utils = g_mamboObjMgr.get("MamboUtilities");
+    const m_utils = g_mamboUtils;
 
     // HTML tag variables
     let m_overlayTag;
@@ -45,30 +45,30 @@ function MamboDialog(parentTag, options, fnReady) {
     }
 
     function installDialog() {
-        m_overlayTag = domJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
-        m_overlayBodyTag = domJS.createTag(m_config.tag.dialogBody, { class: m_config.css.dialogBody });
-        let headerContent = m_config.title ? domJS.createTag('h3', { class: m_config.css.hdrTitle, text: m_config.title }) : m_config.hdrHtml;
+        m_overlayTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_overlayBodyTag = g_mamboDomJS.createTag(m_config.tag.dialogBody, { class: m_config.css.dialogBody });
+        let headerContent = m_config.title ? g_mamboDomJS.createTag('h3', { class: m_config.css.hdrTitle, text: m_config.title }) : m_config.hdrHtml;
 
-        const overlayHdrLeft = domJS.createTag('dialog-header-left', { class: m_config.css.dialogHdrLeft });
+        const overlayHdrLeft = g_mamboDomJS.createTag('dialog-header-left', { class: m_config.css.dialogHdrLeft });
 
         if (m_config.closeButton) {
             installCloseButton(overlayHdrLeft);
         }
 
-        const overlayHdrCenter = domJS.createTag('dialog-header-center', { class: m_config.css.dialogHdrCenter });
-        domJS.append(overlayHdrCenter, headerContent);
-        const overlayHdrRight = domJS.createTag('dialog-header-right', { class: m_config.css.dialogHdrRight });
+        const overlayHdrCenter = g_mamboDomJS.createTag('dialog-header-center', { class: m_config.css.dialogHdrCenter });
+        g_mamboDomJS.append(overlayHdrCenter, headerContent);
+        const overlayHdrRight = g_mamboDomJS.createTag('dialog-header-right', { class: m_config.css.dialogHdrRight });
 
-        m_overlayHdrTag = domJS.createTag('dialog-header', { class: m_config.css.dialogHdr });
-        domJS.append(m_overlayHdrTag, overlayHdrLeft);
-        domJS.append(m_overlayHdrTag, overlayHdrCenter);
-        domJS.append(m_overlayHdrTag, overlayHdrRight);
+        m_overlayHdrTag = g_mamboDomJS.createTag('dialog-header', { class: m_config.css.dialogHdr });
+        g_mamboDomJS.append(m_overlayHdrTag, overlayHdrLeft);
+        g_mamboDomJS.append(m_overlayHdrTag, overlayHdrCenter);
+        g_mamboDomJS.append(m_overlayHdrTag, overlayHdrRight);
 
-        domJS.append(m_overlayTag, m_overlayHdrTag);
-        domJS.append(m_overlayTag, m_overlayBodyTag);
+        g_mamboDomJS.append(m_overlayTag, m_overlayHdrTag);
+        g_mamboDomJS.append(m_overlayTag, m_overlayBodyTag);
 
         // Determine where to install dialog
-        domJS.append(parentTag ? parentTag : 'body', m_overlayTag);
+        g_mamboDomJS.append(parentTag ? parentTag : 'body', m_overlayTag);
 
         // Continue to install all event handlers
         installEventHandlers();
@@ -107,7 +107,7 @@ function MamboDialog(parentTag, options, fnReady) {
     }
 
     function close() {
-        domJS.remove(m_overlayTag);
+        g_mamboDomJS.remove(m_overlayTag);
     }
 
     function configure() {
