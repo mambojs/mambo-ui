@@ -138,7 +138,7 @@ function MamboRouterManager() {
             // Only strings & object values
             const allowedKeysList = ['path','name','params','query','hash'];
 
-            return { status, value }
+            return { status: true, value }
         }
 
         alert(`MamboJS:

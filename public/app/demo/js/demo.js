@@ -349,7 +349,6 @@ function demo() {
 
 
     function outputCode(url) {
-        console.log(url);
         g_API.getFile(url).then((file) => {
             const codeEle = g_domJS.createTag("code", { class: "prettyprint lang- basic", text: file });
             g_domJS.append("control", codeEle);
@@ -372,10 +371,10 @@ function demo() {
             name: "Button",
             path: "/ui-components/button/", 
             action: () => { 
-                domJS.empty("control");
-                domJS.append("control", domJS.createTag("h3", { class: "title", text: "Button Component Demo" }));
-                let componentParentTag = domJS.createTag("demo-button");
-                domJS.append("control", componentParentTag);
+                g_domJS.empty("control");
+                g_domJS.append("control", g_domJS.createTag("h3", { class: "title", text: "Button Component Demo" }));
+                let componentParentTag = g_domJS.createTag("demo-button");
+                g_domJS.append("control", componentParentTag);
                 demoButton(componentParentTag);
                 outputCode(`public/app/demo/js/demoMamboButton.js`)
             } 
