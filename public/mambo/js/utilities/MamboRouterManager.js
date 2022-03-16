@@ -65,15 +65,13 @@ function MamboRouterManager() {
                 && 'path' in obj
                 && typeof obj.path === 'string' 
                 && obj.path.trim() !== '' )) {
-                    alert(`MamboJs:
-                    mambo.$router.routes() expected an object with valid path`)
+                    alert(`MamboRouter: .routes() expected an object with valid path`)
                     return
             }
             routesList = args
             historyManager =  new MamboHistoryManager()
         } else {
-            alert(`MamboJs:
-            mambo.$router.routes() expected an Array object`)
+            alert(`MamboRouter: .routes() expected an Array object`)
         }
     }
 
@@ -90,7 +88,7 @@ function MamboRouterManager() {
 
     function routerGo(args) {
         if (!Number.isInteger(args)) {
-            console.log(`%c=> MamboJS: %c route.go() expected a integer number `, 'background: #000; color: #fff;', 'background: #000; color: red;')
+            alert(`MamboRouter: .go() expected a integer number`)
             return;
         }
         historyManager.go(args)
@@ -111,8 +109,7 @@ function MamboRouterManager() {
 
         // Check if rutes() is empty
         if (!routesList.length) {
-            alert(`MamboJS:
-            mambo.$router.routes() is empty. Please, set any route `)
+            alert(`MamboRouter: .routes() is empty. Please, set a route`)
 
             return { status, value };
         }
@@ -125,8 +122,7 @@ function MamboRouterManager() {
                 status = true;
                 value = { path: route.path };
             } else {
-                alert(`MamboJS:
-                mambo.$router.${type}("${args}") route do not exist`)
+                alert(`MamboRouter: .${type}("${args}") route do not exist`)
             }
             return { status, value }
         }
@@ -141,8 +137,7 @@ function MamboRouterManager() {
             return { status: true, value }
         }
 
-        alert(`MamboJS:
-        mambo.$router.${type}() expected a valid String or Object `)
+        alert(`MamboRouter: .${type}() expected a valid String or Object `)
 
         return { status, value }
         
@@ -160,7 +155,7 @@ function MamboRouterManager() {
         const routeMatched = routesList.find( route => route.path === history.state.path || route.path === similarStatePath )
 
         if (!routeMatched) {
-            console.log(`%c=> MamboJS: %c Location ${location.pathname} not found `, 'background: #000; color: #fff;', 'background: #000; color: red;')
+            alert(`MamboRouter: Location ${location.pathname} not found `)
             return;
         }
 
@@ -175,10 +170,10 @@ function MamboRouterManager() {
 
     function runAction(routeMatched) {
         if(routeMatched.hasOwnProperty("action")) {
-            if(typeof routeMatched.action === "function") {
+            if(routeMatched.action.constructor.name === "Function") {
                 routeMatched.action()
             } else {
-                console.log(`%c=> MamboJS: %c router.action should be a function `, 'background: #000; color: #fff;', 'background: #000; color: red;')
+                alert(`MamboRouter: action should be a function `)
             }
         }
     }
