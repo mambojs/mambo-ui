@@ -24,21 +24,21 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const fs = require('fs');
-const port = 5000;
+const port = process.env.PORT || 8000;
 
 // path bars by platform
 const separator = process.platform === "win32" ? "\\" : "/";
 
 //setting middleware
 //Serves resources from public folder
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`${__dirname}/`));
 
 // Fetch a file
 app.get("/getFile", handleGetFileRequest);
 
 // Return Index.html
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public/index.html"));
+  res.sendFile(path.resolve(__dirname, "index.html"));
 });
 
 function handleGetFileRequest(req, res) {

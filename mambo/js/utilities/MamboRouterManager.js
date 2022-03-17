@@ -132,9 +132,36 @@ function MamboRouterManager() {
             // Search route by path
             // Allow path/name/params/query/hash
             // Only strings & object values
-            const allowedKeysList = ['path','name','params','query','hash'];
+            const allowedKeysList = [
+                { name:'path', type:'String' },
+                { name:'name', type:'String' },
+                { name:'params', type:'Object' },
+                { name:'query', type:'String' },
+                { name:'hash', type:'String' }
+            ];
+            let wrongKeysValues = [] 
 
-            return { status: true, value }
+            const isAllKeysValid = Object.entries(args)
+                .every( arr => 
+                    {
+                        let allowed = allowedKeysList.filter( obj => 
+                            obj.name === arr[0] && obj.type === arr[1].constructor.name )
+                        
+                        if (!allowed.length) {
+                            wrongKeysValues.push( arr )
+                        }
+                        
+                        return allowed.length > 0
+                    }
+                )
+
+            if(isAllKeysValid) {
+                return { status: true, value }
+            } else {
+                alert(`MamboRouter: ${wrongKeysValues} is not valid in ${type}(${JSON.stringify(args)})`)
+                return { status, value }
+            }
+
         }
 
         alert(`MamboRouter: .${type}() expected a valid String or Object `)
@@ -155,11 +182,9 @@ function MamboRouterManager() {
         const routeMatched = routesList.find( route => route.path === history.state.path || route.path === similarStatePath )
 
         if (!routeMatched) {
-            alert(`MamboRouter: Location ${location.pathname} not found `)
+            if (mambo.$production) alert(`MamboRouter: Location ${location.pathname} not found `)
             return;
         }
-
-        console.log(routeMatched)
 
        runAction(routeMatched)
     }

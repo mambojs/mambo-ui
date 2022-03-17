@@ -344,7 +344,7 @@ function demo() {
             g_domJS.append("control", componentParentTag);
         }
 
-        outputCode(`public/app/demo/js/${codePath}`);
+        outputCode(`app/demo/js/${codePath}`);
     }
 
 
@@ -376,11 +376,11 @@ function demo() {
                 let componentParentTag = g_domJS.createTag("demo-button");
                 g_domJS.append("control", componentParentTag);
                 demoButton(componentParentTag);
-                outputCode(`public/app/demo/js/demoMamboButton.js`)
+                outputCode(`app/demo/js/demoMamboButton.js`)
             } 
         },
-        { name: "notfound", path: "/404" }
+        { name: "Not Found", path: "*" }
     ]
 
-    mambo.$router.routes(ROUTES);
+    //mambo.$router.routes(ROUTES);
 }

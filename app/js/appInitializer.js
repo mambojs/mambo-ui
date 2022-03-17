@@ -1,4 +1,5 @@
 const mambo = {
+    $production: true,
     $router: new MamboRouterManager()
 }
 
