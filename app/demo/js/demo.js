@@ -382,5 +382,5 @@ function demo() {
         { name: "Not Found", path: "*" }
     ]
 
-    //mambo.$router.routes(ROUTES);
+    mambo.$router.routes(ROUTES);
 }

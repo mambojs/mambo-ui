@@ -65,13 +65,13 @@ function MamboRouterManager() {
                 && 'path' in obj
                 && typeof obj.path === 'string' 
                 && obj.path.trim() !== '' )) {
-                    alert(`MamboRouter: .routes() expected an object with valid path`)
+                    if (mambo.$develop) alert(`MamboRouter: .routes() expected an object with valid path`)
                     return
             }
             routesList = args
             historyManager =  new MamboHistoryManager()
         } else {
-            alert(`MamboRouter: .routes() expected an Array object`)
+            if (mambo.$develop) alert(`MamboRouter: .routes() expected an Array object`)
         }
     }
 
@@ -88,7 +88,7 @@ function MamboRouterManager() {
 
     function routerGo(args) {
         if (!Number.isInteger(args)) {
-            alert(`MamboRouter: .go() expected a integer number`)
+            if (mambo.$develop) alert(`MamboRouter: .go() expected a integer number`)
             return;
         }
         historyManager.go(args)
@@ -109,7 +109,7 @@ function MamboRouterManager() {
 
         // Check if rutes() is empty
         if (!routesList.length) {
-            alert(`MamboRouter: .routes() is empty. Please, set a route`)
+            if (mambo.$develop) alert(`MamboRouter: .routes() is empty. Please, set a route`)
 
             return { status, value };
         }
@@ -122,7 +122,7 @@ function MamboRouterManager() {
                 status = true;
                 value = { path: route.path };
             } else {
-                alert(`MamboRouter: .${type}("${args}") route do not exist`)
+                if (mambo.$develop) alert(`MamboRouter: .${type}("${args}") route do not exist`)
             }
             return { status, value }
         }
@@ -158,13 +158,13 @@ function MamboRouterManager() {
             if(isAllKeysValid) {
                 return { status: true, value }
             } else {
-                alert(`MamboRouter: ${wrongKeysValues} is not valid in ${type}(${JSON.stringify(args)})`)
+                if (mambo.$develop) alert(`MamboRouter: ${wrongKeysValues} is not valid in ${type}(${JSON.stringify(args)})`)
                 return { status, value }
             }
 
         }
 
-        alert(`MamboRouter: .${type}() expected a valid String or Object `)
+        if (mambo.$develop) alert(`MamboRouter: .${type}() expected a valid String or Object `)
 
         return { status, value }
         
@@ -182,7 +182,7 @@ function MamboRouterManager() {
         const routeMatched = routesList.find( route => route.path === history.state.path || route.path === similarStatePath )
 
         if (!routeMatched) {
-            if (mambo.$production) alert(`MamboRouter: Location ${location.pathname} not found `)
+            if (mambo.$develop) alert(`MamboRouter: Location ${location.pathname} not found `)
             return;
         }
 
@@ -198,7 +198,7 @@ function MamboRouterManager() {
             if(routeMatched.action.constructor.name === "Function") {
                 routeMatched.action()
             } else {
-                alert(`MamboRouter: action should be a function `)
+                if (mambo.$develop) alert(`MamboRouter: action should be a function `)
             }
         }
     }
