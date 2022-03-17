@@ -29,19 +29,22 @@ function MamboRouterManager() {
     let historyManager;
     let routesList = [];
 
-    this.current = history.state
-    this.name = "";
-    this.path = "";
-    this.from = {
+    this.current = {
+        state: history.state,
         name: "",
-        path: ""
-    };
-    this.to = {
-        name: "",
-        path: ""
-    };
-    this.params = {};
-    this.query = "";
+        path: "",
+        from: {
+            name: "",
+            path: ""
+        },
+        to: {
+            name: "",
+            path: ""
+        },
+        params: {},
+        query: ""
+    }
+    
     this.hash = "";
     this.push = routerPush;
     this.replace = routerReplace;
@@ -49,8 +52,6 @@ function MamboRouterManager() {
     this.back = routerBack;
     this.next = routerForward;
     this.routes = getSetRoutes;
-
-    //getSetRoutes();
 
     function getSetRoutes(args) {
         // Get
@@ -68,6 +69,15 @@ function MamboRouterManager() {
                     if (mambo.$develop) alert(`MamboRouter: .routes() expected an object with valid path`)
                     return
             }
+            // Check duplicated name or path
+            const uniqueByName = [...new Map(args.map(item => [item['name'], item])).values()]
+            const uniqueByPath = [...new Map(args.map(item => [item['path'], item])).values()]
+            
+            if ( uniqueByName.length < args.length || uniqueByPath.length < args.length ) {
+                if (mambo.$develop) alert(`MamboRouter: .routes() no duplicate name or path parameter in route object`)
+                return
+            }
+
             routesList = args
             historyManager =  new MamboHistoryManager()
         } else {
@@ -190,7 +200,7 @@ function MamboRouterManager() {
     }
 
     function updateCurrent() {
-        self.current = history.state
+        self.current.state = history.state
     }
 
     function runAction(routeMatched) {

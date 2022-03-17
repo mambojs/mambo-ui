@@ -1,5 +1,5 @@
 const mambo = {
-    //$develop: true,
+    $develop: true,
     $router: new MamboRouterManager()
 }
 
