@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboHistoryManager.js
  *******************************************/
-function MamboHistoryManager() {
+function MamboHistoryManager(path) {
     "use strict";
 
     // Public methods
@@ -81,7 +81,7 @@ function MamboHistoryManager() {
 
     function checkHistory() {
         if (history.state === null) {
-            replaceState({ path: location.pathname }, "", location.pathname);
+            replaceState( path, "", path )
         } else {
             window.dispatchEvent(locationchange)
         }

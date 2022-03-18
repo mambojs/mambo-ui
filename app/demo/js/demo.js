@@ -383,4 +383,5 @@ function demo() {
     ]
 
     mambo.$router.routes(ROUTES);
+
 }

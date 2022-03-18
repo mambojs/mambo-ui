@@ -22,8 +22,7 @@ function MamboRouterManager() {
     const self = this;
 
     window.addEventListener("locationchange", (ev) => {
-        updateCurrent();
-        getRoute();
+        setRoute();
     });
 
     let historyManager;
@@ -54,42 +53,103 @@ function MamboRouterManager() {
     this.routes = getSetRoutes;
 
     function getSetRoutes(args) {
+
         // Get
+
         if (!args) {
             return routesList
         }
+
         // Set
+        // Check objects format, Check duplicated name or path, Add routes to list, Init router/history
+
         if (Array.isArray(args) && args.length) {
-            // Check objects
-            if(!args.every( obj => 
-                obj.constructor.name === 'Object'
-                && 'path' in obj
-                && typeof obj.path === 'string' 
-                && obj.path.trim() !== '' )) {
-                    if (mambo.$develop) alert(`MamboRouter: .routes() expected an object with valid path`)
-                    return
+
+            if(!checkRoutesFormat(args)) {
+                return;
             }
-            // Check duplicated name or path
-            const uniqueByName = [...new Map(args.map(item => [item['name'], item])).values()]
-            const uniqueByPath = [...new Map(args.map(item => [item['path'], item])).values()]
-            
-            if ( uniqueByName.length < args.length || uniqueByPath.length < args.length ) {
-                if (mambo.$develop) alert(`MamboRouter: .routes() no duplicate name or path parameter in route object`)
-                return
-            }
+
+            if(!checkRoutesDuplicated(args)) {
+                return;
+            }  
 
             routesList = args
-            historyManager =  new MamboHistoryManager()
-        } else {
-            if (mambo.$develop) alert(`MamboRouter: .routes() expected an Array object`)
+
+            init()
+
+            return;
+            
         }
+        
+        // Developer mode
+
+        if (mambo.$develop) {
+            alert(`MamboRouter: .routes() expected an Array object`)
+        }
+        
     }
 
-    function routerPush(args) {
-        const { status, value } = isValidRoute(args, 'push')
-        if (status) {
-            historyManager.pushState(value, "", value.path)
-        } 
+    function checkRoutesFormat(args) {
+
+        const isValidFormat = args.every( obj => 
+                                            obj.constructor.name === 'Object'
+                                            && 'path' in obj
+                                            && typeof obj.path === 'string' 
+                                            && obj.path.trim() !== '' 
+                                        )
+
+        if(!isValidFormat) {
+
+            if (mambo.$develop) {
+                alert(`MamboRouter: .routes() expected an object with valid path`)
+            }
+
+            return false
+
+        }
+
+        return true
+
+    }
+
+    function checkRoutesDuplicated(args) {
+
+        const uniqueByName = [...new Map(args.map(item => [item['name'], item])).values()]
+        const uniqueByPath = [...new Map(args.map(item => [item['path'], item])).values()]
+        
+        if ( uniqueByName.length < args.length || uniqueByPath.length < args.length ) {
+
+            if (mambo.$develop) alert(`MamboRouter: .routes() no duplicate name or path parameter in route object`)
+
+            return false
+
+        }
+
+        return true
+
+    }
+
+    function init() {
+
+        const { matched, path } = matchedRouteBy({ path: location.pathname })
+
+        if (matched) {
+            historyManager =  new MamboHistoryManager(path)
+        }
+
+    }
+
+    function routerPush(routeObject) {
+
+        if (isValidRouteObject(routeObject, 'push')) {
+
+            const { matched, path } = matchedRouteBy(routeObject)
+
+            if (matched) {
+                historyManager.pushState(path, "", path)
+            }
+        }
+
     }
 
     function routerReplace(args) {
@@ -112,36 +172,23 @@ function MamboRouterManager() {
         historyManager.forward()
     }
 
-    function isValidRoute(args, type) {
+    function isValidRouteObject(args, type) {
 
-        let status = false;
-        let value = args;
+        // Check if .rutes() is empty, Check if args is Object
 
-        // Check if rutes() is empty
         if (!routesList.length) {
-            if (mambo.$develop) alert(`MamboRouter: .routes() is empty. Please, set a route`)
 
-            return { status, value };
-        }
-
-        // Check if args is String
-        if (typeof args === 'string' && args.trim() !== '') {
-            // Search route by name
-            const route = routesList.find(route => route.name === args )
-            if (route) {
-                status = true;
-                value = { path: route.path };
-            } else {
-                if (mambo.$develop) alert(`MamboRouter: .${type}("${args}") route do not exist`)
+            if (mambo.$develop) {
+                alert(`MamboRouter: .routes() is empty. Please, set a route`)
             }
-            return { status, value }
+
+            return false
         }
 
-        // Check if args is Object
         if (args && args.constructor.name === 'Object') {
-            // Search route by path
-            // Allow path/name/params/query/hash
-            // Only strings & object values
+            
+            // Allow path/name/params/query/hash, Only strings & object values
+
             const allowedKeysList = [
                 { name:'path', type:'String' },
                 { name:'name', type:'String' },
@@ -165,52 +212,71 @@ function MamboRouterManager() {
                     }
                 )
 
-            if(isAllKeysValid) {
-                return { status: true, value }
+            if (isAllKeysValid) {
+                return true
             } else {
                 if (mambo.$develop) alert(`MamboRouter: ${wrongKeysValues} is not valid in ${type}(${JSON.stringify(args)})`)
-                return { status, value }
+                return  false
             }
 
         }
 
-        if (mambo.$develop) alert(`MamboRouter: .${type}() expected a valid String or Object `)
+        if (mambo.$develop) alert(`MamboRouter: .${type}() expected a valid Object `)
 
-        return { status, value }
+        return false
         
     }
 
-    function getRoute() {
-        let similarStatePath = "";
+    function matchedRouteBy(routeObject) {
 
-        if (history.state.path.slice(-1)==="/") {
-            similarStatePath = history.state.path.slice(0,-1)
-        } else {
-            similarStatePath = history.state.path+"/"
+        const routeMatched = routesList.find( route => 
+                                                route.path === routeObject.path 
+                                                || route.path === routeObject.path + '/' 
+                                                || route.name === routeObject.name
+                                            )
+
+        if (routeMatched) {
+            return { matched: true, path: routeMatched.path }
         }
 
-        const routeMatched = routesList.find( route => route.path === history.state.path || route.path === similarStatePath )
+        if (mambo.$develop) alert(`MamboRouter: ${JSON.stringify(routeObject)} route do not exist`)
 
-        if (!routeMatched) {
-            if (mambo.$develop) alert(`MamboRouter: Location ${location.pathname} not found `)
-            return;
-        }
+        return { matched: false }
 
-       runAction(routeMatched)
     }
 
-    function updateCurrent() {
-        self.current.state = history.state
+    function setRoute() {
+
+        const currentRouteObject = routesList.find( route => route.path === history.state )
+
+        updateCurrent(currentRouteObject);
+
+        runAction()
+
     }
 
-    function runAction(routeMatched) {
-        if(routeMatched.hasOwnProperty("action")) {
-            if(routeMatched.action.constructor.name === "Function") {
-                routeMatched.action()
+    function updateCurrent(currentRouteObject) {
+
+        self.current = currentRouteObject
+
+    }
+
+    function runAction() {
+
+        if(self.current.hasOwnProperty("action")) {
+
+            if(self.current.action.constructor.name === "Function") {
+                self.current.action()
             } else {
-                if (mambo.$develop) alert(`MamboRouter: action should be a function `)
+
+                if (mambo.$develop) {
+                    alert(`MamboRouter: action should be a function `)
+                }
+
             }
+
         }
+
     }
 
 }
