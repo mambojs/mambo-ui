@@ -169,7 +169,7 @@ function MamboRouterManager() {
         }
 
         historyManager.go(args)
-        
+
     }
 
     function routerBack() {
@@ -251,6 +251,15 @@ function MamboRouterManager() {
             return { matched: true, path: routeMatched.path }
         }
 
+        if (routeObject.path) {
+            const hasAliases = routesList.find ( route => 
+                route.alias === routeObject.path || route.alias === routeObject.path + '/' )
+    
+            if (hasAliases) {
+                return { matched: true, path: hasAliases.alias }
+            }
+        }
+
         const hasNotFound = routesList.find( route => route.notfound )
         
         if(hasNotFound) {
@@ -267,7 +276,7 @@ function MamboRouterManager() {
 
     function setRoute() {
 
-        const currentRouteObject = routesList.find( route => route.path === history.state )
+        const currentRouteObject = routesList.find( route => route.path === history.state || route.alias === history.state  )
 
         updateCurrent(currentRouteObject);
 

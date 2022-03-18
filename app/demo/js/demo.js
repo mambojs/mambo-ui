@@ -361,7 +361,8 @@ function demo() {
     const ROUTES = [
         { 
             name: "Home", 
-            path: "/", 
+            path: "/",
+            alias: "/index.html", 
             action: () => {
                 const control = document.querySelector('control')
                 control.innerHTML = "Home"
