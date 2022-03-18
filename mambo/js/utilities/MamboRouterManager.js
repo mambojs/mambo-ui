@@ -29,7 +29,6 @@ function MamboRouterManager() {
     let routesList = [];
 
     this.current = {
-        state: history.state,
         name: "",
         path: "",
         from: {
@@ -146,7 +145,11 @@ function MamboRouterManager() {
             const { matched, path } = matchedRouteBy(routeObject)
 
             if (matched) {
+
+                updateCurrent(routeObject)
+
                 historyManager.pushState(path, "", path)
+
             }
         }
 
@@ -257,7 +260,7 @@ function MamboRouterManager() {
 
     function updateCurrent(currentRouteObject) {
 
-        self.current = currentRouteObject
+        Object.assign(self.current, currentRouteObject)
 
     }
 
