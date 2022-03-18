@@ -29,10 +29,10 @@ function demoBrowserRouter(parentEle) {
                         m_browserRouter.clearState(null, "Cleared Title");
                         break;
                     case 5:
-                        m_browserRouter.replaceState(buttonConfig.text, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
+                        m_browserRouter.replaceState({ path: `/view${buttonConfig.id}`}, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
                         break;
                     default:
-                        m_browserRouter.pushState(buttonConfig.text, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
+                        m_browserRouter.pushState({ path: `/view${buttonConfig.id}`}, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
                         break;
                 }
             }

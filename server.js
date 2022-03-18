@@ -24,26 +24,29 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const fs = require('fs');
-const port = 5000;
+const port = process.env.PORT || 8000;
+
+// path bars by platform
+const separator = process.platform === "win32" ? "\\" : "/";
 
 //setting middleware
 //Serves resources from public folder
-app.use(express.static(`${__dirname}/public`));
-
-// Return Index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(`${__dirname}/public/index.html`));
-});
+app.use(express.static(`${__dirname}/`));
 
 // Fetch a file
 app.get("/getFile", handleGetFileRequest);
+
+// Return Index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "index.html"));
+});
 
 function handleGetFileRequest(req, res) {
   // Allow any domain on this route
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
-  const myPath = path.join(`${__dirname}\\${req.query.path}`);
+  const myPath = path.join(`${__dirname}${separator}${req.query.path}`);
   fs.readFile(myPath, 'utf8', (err, file) => {
     if (err) {
       res.send(err);

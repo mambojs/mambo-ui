@@ -344,12 +344,11 @@ function demo() {
             g_domJS.append("control", componentParentTag);
         }
 
-        outputCode(`public/app/demo/js/${codePath}`);
+        outputCode(`app/demo/js/${codePath}`);
     }
 
 
     function outputCode(url) {
-        console.log(url);
         g_API.getFile(url).then((file) => {
             const codeEle = g_domJS.createTag("code", { class: "prettyprint lang- basic", text: file });
             g_domJS.append("control", codeEle);
@@ -358,4 +357,40 @@ function demo() {
             console.log(xhr.responseText);
         });
     }
+
+    const ROUTES = [
+        { 
+            name: "Home", 
+            path: "/",
+            alias: "/index.html", 
+            action: () => {
+                const control = document.querySelector('control')
+                control.innerHTML = "Home"
+            } 
+        },
+        { 
+            name: "Button",
+            path: "/ui-components/button/", 
+            action: () => { 
+                g_domJS.empty("control");
+                g_domJS.append("control", g_domJS.createTag("h3", { class: "title", text: "Button Component Demo" }));
+                let componentParentTag = g_domJS.createTag("demo-button");
+                g_domJS.append("control", componentParentTag);
+                demoButton(componentParentTag);
+                outputCode(`app/demo/js/demoMamboButton.js`)
+            } 
+        },
+        { 
+            name: "Not Found", 
+            path: "/not-found",
+            notfound: true,
+            action: () => {
+                const control = document.querySelector('control')
+                control.innerHTML = "404 Not Found"
+            } 
+        }
+    ]
+
+    mambo.$router.routes(ROUTES);
+
 }

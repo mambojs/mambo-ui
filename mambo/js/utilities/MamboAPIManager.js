@@ -32,12 +32,12 @@ function MamboAPIManager(options) {
 
 
     async function getFile(path) {
-        return await fetch(`http://localhost:5000/getFile?path=${path}`).then((response) => response.text());
+        return await fetch(`http://localhost:8000/getFile?path=${path}`).then((response) => response.text());
     }
 
     function fetchFile(filePath) {
-        //const url = `http://localhost:5000/getFile?path=${filePath}`;
-        const url = "http://localhost:5000/getFile?";
+        //const url = `http://localhost:8000/getFile?path=${filePath}`;
+        const url = "http://localhost:8000/getFile?";
         const options = {
             data: {
                 path: filePath

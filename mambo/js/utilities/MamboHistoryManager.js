@@ -17,29 +17,53 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboHistoryManager.js
  *******************************************/
-function MamboHistoryManager() {
+function MamboHistoryManager(path) {
     "use strict";
 
     // Public methods
     this.clearState = clearState;
     this.pushState = pushState;
     this.replaceState = replaceState;
+    this.go = goToState;
+    this.back = backState;
+    this.forward = forwardState;
+
+    const popstate = new Event("popstate");
+    const locationchange = new Event("locationchange");
+
+    let self = this
 
     setupEventHandler();
+    checkHistory(); 
 
     function pushState(state, title, path) {
         setPageTitle(title);
         history.pushState(state, title, path);
+        window.dispatchEvent(popstate)
     }
 
     function clearState(state, title) {
         setPageTitle(title);
-        history.replaceState(state, title, "/");
+        history.replaceState({ path: "/" }, title, "/");
+        window.dispatchEvent(popstate)
     }
 
     function replaceState(state, title, path) {
         setPageTitle(title);
         history.replaceState(state, title, path);
+        window.dispatchEvent(popstate)
+    }
+
+    function goToState(args) {
+        history.go(args);
+    }
+
+    function backState() {
+        history.back();
+    }
+
+    function forwardState() {
+        history.forward();
     }
 
     function setPageTitle(title) {
@@ -51,7 +75,15 @@ function MamboHistoryManager() {
 
     function setupEventHandler() {
         window.addEventListener("popstate", (ev) => {
-            //ev.state
+            window.dispatchEvent(locationchange)
         });
+    }
+
+    function checkHistory() {
+        if (history.state === null) {
+            replaceState( path, "", path )
+        } else {
+            window.dispatchEvent(locationchange)
+        }
     }
 }
