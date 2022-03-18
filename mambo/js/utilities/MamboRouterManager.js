@@ -28,7 +28,7 @@ function MamboRouterManager() {
     let historyManager;
     let routesList = [];
 
-    this.current = {
+    let current = {
         name: "",
         path: "",
         from: {
@@ -43,6 +43,7 @@ function MamboRouterManager() {
         query: ""
     }
     
+    this.current = current;
     this.hash = "";
     this.push = routerPush;
     this.replace = routerReplace;
@@ -146,7 +147,7 @@ function MamboRouterManager() {
 
             if (matched) {
 
-                updateCurrent(routeObject)
+                updateCurrent(routeObject, true)
 
                 historyManager.pushState(path, "", path)
 
@@ -284,9 +285,13 @@ function MamboRouterManager() {
 
     }
 
-    function updateCurrent(currentRouteObject) {
+    function updateCurrent(currentRouteObject, recicle) {
 
-        Object.assign(self.current, currentRouteObject)
+        if (recicle) {
+            self.current = current
+        }
+        
+        self.current = g_mamboUtils.extend(true, self.current, currentRouteObject)
 
     }
 
