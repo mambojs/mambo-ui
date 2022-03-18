@@ -379,7 +379,15 @@ function demo() {
                 outputCode(`app/demo/js/demoMamboButton.js`)
             } 
         },
-        { name: "Not Found", path: "*" }
+        { 
+            name: "Not Found", 
+            path: "/not-found",
+            notfound: true,
+            action: () => {
+                const control = document.querySelector('control')
+                control.innerHTML = "404 Not Found"
+            } 
+        }
     ]
 
     mambo.$router.routes(ROUTES);
