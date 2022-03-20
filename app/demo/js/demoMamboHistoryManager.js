@@ -1,6 +1,6 @@
 function demoBrowserRouter(parentEle) {
 
-    const m_browserRouter = g_mamboObjMgr.get("MamboHistoryManager");
+    const m_historyMgr = g_mamboHistoryMgr;
 
     installBtnGroup();
 
@@ -26,13 +26,13 @@ function demoBrowserRouter(parentEle) {
                 const buttonConfig = context.button.getConfig();
                 switch (context.button.getId()) {
                     case 4:
-                        m_browserRouter.clearState(null, "Cleared Title");
+                        m_historyMgr.clearState(null, "Cleared Title");
                         break;
                     case 5:
-                        m_browserRouter.replaceState({ path: `/view${buttonConfig.id}`}, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
+                        m_historyMgr.replaceState({ path: `/view${buttonConfig.id}` }, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
                         break;
                     default:
-                        m_browserRouter.pushState({ path: `/view${buttonConfig.id}`}, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
+                        m_historyMgr.pushState({ path: `/view${buttonConfig.id}` }, `Title: ${buttonConfig.text}`, `/view${buttonConfig.id}`);
                         break;
                 }
             }

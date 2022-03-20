@@ -21,6 +21,7 @@ function DomJS() {
     this.removeAttrs = removeAttributes;
     this.removeAttrsAll = removeAttributesAll;
     this.removeClass = removeClass;
+    this.removeClassAll = removeClassAll;
     this.setAttr = setAttribute;
     this.setAttrAll = setAttributeAll;
     this.setProps = setProperties;
@@ -282,6 +283,18 @@ function DomJS() {
         let ele = getTag(tag);
         ele.classList.remove(cls);
         return self;
+    }
+
+    function removeClassAll(tags, cls) {
+        if (isArray(tags)) {
+            for (let index = 0; index < tags.length; index++) {
+                removeClass(tags[index], cls);
+            }
+        } else if (isObject(tags)) {
+            for (const key in tags) {
+                removeClass(tags[key], cls);
+            }
+        }
     }
 
     function toggleClass(tag, cls) {

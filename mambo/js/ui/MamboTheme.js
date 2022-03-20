@@ -17,60 +17,27 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTheme.js
  *******************************************/
-function MamboTheme() {
+function MamboTheme(initThemes) {
     "use strict";
 
-    const m_default = {
-        button: {
-            button: "button-button",
-            img: "button-img",
-            selected: "selected",
-            hover: "hover",
-            disabled: "button-disabled"
-        },
-        html5video: {
-            player: {
-                player: "html5video-player"
-            },
-            parent: "html5video-parent",
-            controls: "html5video-controls",
-            play: "html5video-play",
-            pause: "html5video-pause",
-            volume: "html5video-volume",
-            time: "html5video-time",
-            progressBar: "html5video-progress-bar",
-        },
-        html5player: {
-            player: "html5player-player",
-        }
-    };
+    const m_utils = g_mamboUtils;
+    // If default themes provided, initialize Themes with them
+    const m_themes = { default: {} };
+    m_themes.default = m_utils.extend(true, {}, initThemes);
 
-    const m_themes = {
-        default: m_default
-    };
-
-    this.getTheme = getTheme;
     this.addTheme = addTheme;
+    this.getTheme = getTheme;
 
-    function getTheme(context = {}) {
-
-        if (!(context.name in m_themes)) {
-            if (!context.control) {
-                return m_default;
-            } else {
-                return m_default[context.control];
+    function getTheme(context) {
+        if (context && context.name && context.control) {
+            if (context.name in m_themes) {
+                return m_themes[context.name][context.control];
             }
-        }
-
-        if (!context.control) {
-            return m_themes[context.name];
-        } else {
-            return m_themes[context.name][context.control];
         }
     }
 
-    function addTheme(context = {}) {
-        if (!context.name || !context.theme) {
+    function addTheme(context) {
+        if (!context || !context.name || !context.theme) {
             console.error("ScTheme: you invoked addTheme() but failed to define the theme name and/or theme.");
             return;
         }

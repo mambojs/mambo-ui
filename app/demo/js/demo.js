@@ -96,6 +96,7 @@ function demo() {
                     { id: "slider", text: "Slider" },
                     { id: "draggable", text: "Draggable" },
                     { id: "percentage", text: "Percentage" },
+                    { id: "tab", text: "MamboTab" },
                     { id: "rating", text: "Rating" },
                     { id: "images", text: "Images" }
                 ]
@@ -197,6 +198,14 @@ function demo() {
                 codePath = "demoMamboSlideout.js";
                 installDOM();
                 demoSlideout(componentParentTag);
+                break;
+
+            case "tab":
+                hdrText = "MamboTab Component Demo";
+                eleName = "demo-mambo-tab";
+                codePath = "demoMamboTab.js";
+                installDOM();
+                demoTab(componentParentTag);
                 break;
 
             case "tree-view":
@@ -359,38 +368,38 @@ function demo() {
     }
 
     const ROUTES = [
-        { 
-            name: "Home", 
+        {
+            name: "Home",
             path: "/",
-            alias: "/index.html", 
+            alias: "/index.html",
             action: () => {
-                const control = document.querySelector('control')
-                control.innerHTML = "Home"
-            } 
+                const control = document.querySelector('control');
+                control.innerHTML = "Home";
+            }
         },
-        { 
+        {
             name: "Button",
-            path: "/ui-components/button/", 
-            action: () => { 
+            path: "/ui-components/button/",
+            action: () => {
                 g_domJS.empty("control");
                 g_domJS.append("control", g_domJS.createTag("h3", { class: "title", text: "Button Component Demo" }));
                 let componentParentTag = g_domJS.createTag("demo-button");
                 g_domJS.append("control", componentParentTag);
                 demoButton(componentParentTag);
-                outputCode(`app/demo/js/demoMamboButton.js`)
-            } 
+                outputCode(`app/demo/js/demoMamboButton.js`);
+            }
         },
-        { 
-            name: "Not Found", 
+        {
+            name: "Not Found",
             path: "/not-found",
             notfound: true,
             action: () => {
-                const control = document.querySelector('control')
-                control.innerHTML = "404 Not Found"
-            } 
+                const control = document.querySelector('control');
+                control.innerHTML = "404 Not Found";
+            }
         }
-    ]
+    ];
 
-    mambo.$router.routes(ROUTES);
+    mambo.router.routes(ROUTES);
 
 }

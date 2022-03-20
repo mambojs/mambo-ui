@@ -1,7 +1,7 @@
 function demoEventManager() {
 
-    const m_events = g_mamboObjMgr.get("MamboEventManager");
-    const m_eventDirectory = g_mamboObjMgr.get("MamboEventDirectory");
+    const m_events = g_eventManager;
+    const m_eventDirectory = g_eventDir;
     const m_eventNames = m_eventDirectory.events;
 
 

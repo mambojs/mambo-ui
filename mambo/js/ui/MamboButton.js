@@ -291,7 +291,7 @@ function MamboButton(parentTag, options) {
 
         m_config.css = m_utils.extend(true, m_theme.getTheme({
             name: m_config.theme,
-            control: "button"
+            control: "mambo-button"
         }), m_config.css);
     }
 }

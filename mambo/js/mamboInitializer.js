@@ -24,7 +24,11 @@ const g_mamboUtils = new MamboUtilities();
 const g_mamboGraphics = new MamboGraphics();
 const g_mamboDateManager = new MamboDateManager();
 const g_mamboString = new MamboString();
-const g_mamboTheme = new MamboTheme();
+
+// Mambo Default theme from mamboDefaultTheme.js
+const g_mamboTheme = new MamboTheme(g_mamboDefaultTheme);
+
+
 
 // Configure IPFS
 /* Ipfs.create({ repo: 'sc-ipfs-' + Math.random() }).then((ipfsInstance) => {

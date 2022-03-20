@@ -33,15 +33,15 @@ function MamboEventManager() {
         if (event in m_listeners) {
             if (typeof fn === "function") {
                 if (m_listeners[event][listener]) {
-                    console.error(`ScEvents: event listener "${listener}" already exists. Please provide a listener with a unique name.`);
+                    alert(`ScEvents: event listener "${listener}" already exists. Please provide a listener with a unique name.`);
                 } else {
                     m_listeners[event][listener] = fn;
                 }
             } else {
-                console.error(`ScEvents: event listener "${listener}" didn't provide a valid function type as a call back.`);
+                alert(`ScEvents: event listener "${listener}" didn't provide a valid function type as a call back.`);
             }
         } else {
-            console.error(`ScEvents: event "${event}" does not exist. Please check available events in component ScEventsLibrary.`);
+            alert(`ScEvents: event "${event}" does not exist. Please check available events in component ScEventsLibrary.`);
         }
     }
 

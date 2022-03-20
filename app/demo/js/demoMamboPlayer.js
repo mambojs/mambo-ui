@@ -1,7 +1,8 @@
 function demoHtml5player(parentTag) {
     "use strict";
 
-    const ipfs = g_mamboObjMgr.get("ipfs");
+    // Don't get this from Object Manager anymore
+    //const ipfs = g_mamboObjMgr.get("ipfs");
 
     let m_videoPlayer;
     let m_playerTag;
