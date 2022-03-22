@@ -112,6 +112,7 @@ function MamboSlider(parentTag, options) {
     function installButton(config, css, fnClick) {
         let button = m_utils.extend(true, {}, config);
         button.css = m_utils.extend(true, css, button.css);
+        button.parentTag = m_sliderParentTag;
 
         button.fnClick = (context) => {
             fnClick();
@@ -125,7 +126,7 @@ function MamboSlider(parentTag, options) {
             }
         };
 
-        new MamboButton(m_sliderParentTag, button);
+        new MamboButton(button);
     }
 
     function decrease() {

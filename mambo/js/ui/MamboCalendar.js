@@ -406,6 +406,7 @@ function MamboCalendar(parentTag, options) {
             let today = m_dateMgr.getToday();
             button.id = m_dateMgr.format(today, m_idFormat);
             button.text = m_dateMgr.format(today, m_config.footer);
+            button.parentTag = m_calendarParentTag;
 
             if (m_dateMgr.isBefore(today, m_minDate) || m_dateMgr.isAfter(today, m_maxDate)) {
                 button.enable = false;
@@ -419,7 +420,7 @@ function MamboCalendar(parentTag, options) {
                 }
             };
 
-            new MamboButton(m_calendarParentTag, button);
+            new MamboButton(button);
         }
     }
 

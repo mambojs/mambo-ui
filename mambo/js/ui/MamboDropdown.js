@@ -75,6 +75,7 @@ function MamboDropdown(parentTag, options) {
     function installOpenButton() {
         let button = m_utils.extend(true, {}, m_config.button);
         button.css = m_utils.extend(true, m_config.css.button, button.css);
+        button.parentTag = m_dropDownParentTag;
 
         button.fnClick = (context) => {
             if (m_open) {
@@ -87,7 +88,7 @@ function MamboDropdown(parentTag, options) {
             }
         };
 
-        new MamboButton(m_dropDownParentTag, button);
+        new MamboButton(button);
     }
 
     function installContainer() {

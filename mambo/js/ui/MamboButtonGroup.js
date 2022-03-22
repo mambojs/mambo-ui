@@ -82,7 +82,8 @@ function MamboButtonGroup(parentTag, options) {
     function installButton(button) {
         button.css = button.css ? m_utils.extend(true, m_config.css, button.css) : m_config.css;
         button.fnGroupClick = m_config.fnGroupClick;
-        m_buttonsList.push(new MamboButton(m_buttonGroupTag, button));
+        button.parentTag = m_buttonGroupTag;
+        m_buttonsList.push(new MamboButton(button));
     }
 
     function handleGroupBtnClick(context) {

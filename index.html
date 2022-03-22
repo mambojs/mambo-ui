@@ -94,12 +94,18 @@
 <script src="mambo/js/utilities/MamboAPIManager.js"></script>
 <script src="mambo/js/utilities/MamboDateManager.js"></script>
 <script src="mambo/js/utilities/MamboEventManager.js"></script>
+<script src="mambo/js/utilities/MamboGraphics.js"></script>
 <script src="mambo/js/utilities/MamboHistoryManager.js"></script>
 <script src="mambo/js/utilities/MamboIPFS.js"></script>
 <script src="mambo/js/utilities/MamboObjectManager.js"></script>
+<script src="mambo/js/utilities/MamboTheme.js"></script>
 <script src="mambo/js/utilities/MamboRouterManager.js"></script>
 <script src="mambo/js/utilities/MamboString.js"></script>
 <script src="mambo/js/utilities/MamboUtilities.js"></script>
+
+<!-- Need to load all above resources before executing loaders js files -->
+<script src="mambo/js/mamboDefaultTheme.js"></script>
+<script src="mambo/js/mamboInitializer.js"></script>
 
 <!-- Mambo.js UI Components - Order Alphabetically -->
 <script src="mambo/js/ui/MamboAudioPlayer.js"></script>
@@ -116,7 +122,6 @@
 <script src="mambo/js/ui/MamboDropdown.js"></script>
 <script src="mambo/js/ui/MamboFileChooser.js"></script>
 <script src="mambo/js/ui/MamboFileUpload.js"></script>
-<script src="mambo/js/ui/MamboGraphics.js"></script>
 <script src="mambo/js/ui/MamboGrid.js"></script>
 <script src="mambo/js/ui/MamboInput.js"></script>
 <script src="mambo/js/ui/MamboPercentage.js"></script>
@@ -126,14 +131,9 @@
 <script src="mambo/js/ui/MamboSlider.js"></script>
 <script src="mambo/js/ui/MamboSwitch.js"></script>
 <script src="mambo/js/ui/MamboTab.js"></script>
-<script src="mambo/js/ui/MamboTheme.js"></script>
 <script src="mambo/js/ui/MamboTimePicker.js"></script>
 <script src="mambo/js/ui/MamboTreeView.js"></script>
 <script src="mambo/js/ui/MamboVideoPlayer.js"></script>
-
-<!-- Need to load all above resources before executing loaders js files -->
-<script src="mambo/js/mamboDefaultTheme.js"></script>
-<script src="mambo/js/mamboInitializer.js"></script>
 
 <!-- Demo Libraries -->
 <script src="app/demo/lib/run_prettify.js"></script>
@@ -173,7 +173,7 @@
 <script src="app/demo/js/demo.js"></script>
 <script src="app/js/app.js"></script>
 <script>
-    app()
+    app();
 </script>
 
 </html>

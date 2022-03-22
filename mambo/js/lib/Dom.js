@@ -4,6 +4,7 @@ function DomJS() {
     const self = this;
 
     this.append = addChild;
+    this.appendSelfToParentTag = appendSelfToParentTag;
     this.appendSVG = addSVGChild;
     this.addClass = addClass;
     this.computeTagHeight = computeTagHeight;
@@ -145,6 +146,16 @@ function DomJS() {
         }
     }
 
+    function appendSelfToParentTag(parentTag, self, prepend) {
+        const parentEle = getTag(parentTag);
+        if (parentEle) {
+            addChild(parentEle, self, prepend);
+            return parentEle;
+        } else {
+            return `${self.localName}: parentTag element not found. DOM install failed.`;
+        }
+    }
+
     function addSVGChild(selector, content, prepend) {
         if (!content || !selector) {
             console.error("DOM.addSVGChild(): missing parameter 'selector', 'content' or both.");
@@ -182,7 +193,6 @@ function DomJS() {
     }
 
     function append(parent, content, prepend) {
-
         if (content && parent) {
             if (prepend) {
                 if (!parent.firstChild) {

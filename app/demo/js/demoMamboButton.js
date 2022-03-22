@@ -12,6 +12,7 @@ function demoButton(parentEle) {
 
     function textOnly() {
         const config = {
+            parentTag: parentEle,
             id: 1,
             text: "Single button",
             fnClick: (context) => {
@@ -19,7 +20,7 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 
     /**
@@ -27,6 +28,7 @@ function demoButton(parentEle) {
      */
     function textImage() {
         const config = {
+            parentTag: parentEle,
             img: {
                 attr: {
                     src: m_demoGraphics.getImage("home-icon-white"),
@@ -40,7 +42,7 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 
     /**
@@ -48,6 +50,7 @@ function demoButton(parentEle) {
      */
     function anchorButtonText() {
         const config = {
+            parentTag: parentEle,
             id: 3,
             tag: "a",
             text: "Anchor Button",
@@ -59,7 +62,7 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 
     /**
@@ -67,6 +70,7 @@ function demoButton(parentEle) {
      */
     function anchorButtonImg() {
         const config = {
+            parentTag: parentEle,
             id: 4,
             tag: "a",
             text: "Anchor Button",
@@ -84,7 +88,7 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 
     /**
@@ -92,6 +96,7 @@ function demoButton(parentEle) {
      */
     function buttonImgWithHover() {
         const config = {
+            parentTag: parentEle,
             id: 5,
             text: "Hover Button",
             img: {
@@ -106,7 +111,7 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 
     /**
@@ -114,6 +119,7 @@ function demoButton(parentEle) {
      */
     function buttonMultiImgWithHover() {
         const config = {
+            parentTag: parentEle,
             id: 5,
             text: "Multi Hover Button",
             img: [
@@ -138,7 +144,7 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 
     /**
@@ -146,6 +152,7 @@ function demoButton(parentEle) {
      */
     function textSVG() {
         const config = {
+            parentTag: parentEle,
             svg: {
                 element: m_demoGraphics.getSVG("home"),
                 attr: {
@@ -158,6 +165,6 @@ function demoButton(parentEle) {
             }
         };
 
-        new MamboButton(parentEle, config);
+        new MamboButton(config);
     }
 }

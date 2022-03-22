@@ -146,6 +146,7 @@ function MamboInput(parentTag, options) {
         let componentConfig;
         if ("button" in item) {
             componentConfig = item.button;
+            componentConfig.parentTag = m_wrapperTag;
             if (!componentConfig.css) {
                 componentConfig.css = m_config.css;
             }
@@ -154,7 +155,7 @@ function MamboInput(parentTag, options) {
                     m_config.fnClick({ input: self, button: context.button, ev: context.ev });
                 }
             };
-            new MamboButton(m_wrapperTag, componentConfig);
+            new MamboButton(componentConfig);
         } else {
             componentConfig = item.img;
             if (!componentConfig.css) {

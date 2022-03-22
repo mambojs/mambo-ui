@@ -76,6 +76,7 @@ function MamboDialog(parentTag, options, fnReady) {
 
     function installCloseButton(headerLeftTag) {
         const btnConfig = {
+            parentTag: headerLeftTag,
             text: m_config.closeText,
             css: {
                 button: m_config.css.hdrCloseBtn
@@ -92,7 +93,7 @@ function MamboDialog(parentTag, options, fnReady) {
             }
         };
 
-        new MamboButton(headerLeftTag, btnConfig);
+        new MamboButton(btnConfig);
     }
 
     function installEventHandlers() {

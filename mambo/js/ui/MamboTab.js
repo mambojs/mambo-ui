@@ -18,6 +18,7 @@ class MamboTab extends HTMLElement {
         const m_contentTagsMap = {};
 
         // Define public functions
+        this.install = installSelf;
         this.setup = setup;
 
         if (initOptions) setup(initOptions);
@@ -44,9 +45,8 @@ class MamboTab extends HTMLElement {
             // Append all childs
             self.appendChild(m_tabsTag);
             self.appendChild(m_contentParentTag);
-            if (m_parentTag) {
-                m_parentTag.appendChild(self);
-            }
+            // Install component into parent
+            if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
         }
 
         function installContent() {
@@ -97,22 +97,29 @@ class MamboTab extends HTMLElement {
             m_config.fnTabReady(contentTag, tab);
         }
 
+        function installSelf(parentTag, prepend) {
+            m_parentTag = parentTag ? parentTag : m_parentTag;
+            m_parentTag = g_mamboDomJS.appendSelfToParentTag(parentTag, self, prepend);
+        }
+
         function configure(options) {
             m_config = {
+                // Expects a list of native DOM elements
+                contents: [],
+                fnTabReady: () => { },
+                id: undefined,
+                install: true,
+                installPrepend: false,
+                parentTag: undefined,
+                selectedId: undefined,
+                tabs: {
+                    // Expects a ButtonGroup config
+                },
                 tag: {
                     tabs: "mambo-tabs",
                     contentParent: "mambo-tab-contents",
                     content: "mambo-tab-content",
                 },
-                tabs: {
-                    // Expects a ButtonGroup config
-                },
-                // Expects a list of native DOM elements
-                contents: [],
-                parentTag: undefined,
-                selectedId: undefined,
-                fnTabReady: () => { },
-                id: undefined,
                 theme: "default",
             };
 
@@ -136,9 +143,6 @@ class MamboTab extends HTMLElement {
             }), m_config.css);
         }
     }
-
-    setup(options) { this.setup(options); }
-
 }
 // Must ALWAYS define the new element as a Native Web Component
 customElements.define('mambo-tab', MamboTab);

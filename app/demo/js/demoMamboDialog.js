@@ -2,6 +2,7 @@ function demoDialog() {
 
     // Install button to trigger the dialog installation
     const buttonConfig = {
+        parentTag: 'demo-dialog',
         text: 'Click to trigger Dialog instance',
         fnClick: () => {
             let dialogConfig = {
@@ -16,6 +17,6 @@ function demoDialog() {
         }
     };
 
-    new MamboButton('demo-dialog', buttonConfig);
+    new MamboButton(buttonConfig);
 
 }

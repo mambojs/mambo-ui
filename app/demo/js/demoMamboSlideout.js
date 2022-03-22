@@ -7,6 +7,7 @@ function demoSlideout(parentTag) {
 
     function installOpenButton() {
         const buttonConfig = {
+            parentTag: parentTag,
             id: 1,
             text: "Open Slideout",
             fnClick: () => {
@@ -14,7 +15,7 @@ function demoSlideout(parentTag) {
             }
         };
 
-        new MamboButton(parentTag, buttonConfig);
+        new MamboButton(buttonConfig);
     }
 
     function installSlideout() {

@@ -74,6 +74,7 @@ function MamboFileChooser(parentTag, options) {
         installInput(true);
 
         const config = {
+            parentTag: m_wrapperTag,
             text: m_config.textButton,
             fnClick: () => {
                 m_inputTag.getTag().click();
@@ -83,7 +84,7 @@ function MamboFileChooser(parentTag, options) {
             }
         };
 
-        new MamboButton(m_wrapperTag, config);
+        new MamboButton(config);
     }
 
     function installInput(hidden) {

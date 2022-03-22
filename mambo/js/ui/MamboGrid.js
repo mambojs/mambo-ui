@@ -298,6 +298,7 @@ function MamboGrid(parentTag, options) {
 
         // Extend with header configuration
         buttonConfig = m_utils.extend(true, buttonConfig, context.column);
+        buttonConfig.parentTag = context.parentTag;
         buttonConfig.fnClick = (contextClick) => {
             if (context.column.fnClick) {
                 context.column.fnClick({
@@ -317,7 +318,7 @@ function MamboGrid(parentTag, options) {
             });
         };
 
-        const buttonTag = new MamboButton(context.parentTag, buttonConfig);
+        const buttonTag = new MamboButton(buttonConfig);
         addComponentToMap({ column: context.column, colIndex: context.colIndex, component: buttonTag });
     }
 
@@ -430,6 +431,7 @@ function MamboGrid(parentTag, options) {
         };
 
         const buttonConfig = m_utils.extend(true, {}, dialogConfig);
+        buttonConfig.parentTag = context.parentTag;
         buttonConfig.fnComplete = (contextComplete) => {
             saveCellTagWidth({
                 colIndex: context.colIndex,
@@ -438,7 +440,7 @@ function MamboGrid(parentTag, options) {
             });
         };
 
-        const buttonTag = new MamboButton(context.parentTag, buttonConfig);
+        const buttonTag = new MamboButton(buttonConfig);
         addComponentToMap({ column: context.column, colIndex: context.colIndex, component: buttonTag });
     }
 
@@ -463,10 +465,11 @@ function MamboGrid(parentTag, options) {
         };
 
         const config = m_utils.extend(true, defaultConfig, context.column);
+        config.parentTag = context.parentTag;
         config.fnClick = () => {
             slideoutTag.open();
         };
-        const buttonTag = new MamboButton(context.parentTag, config);
+        const buttonTag = new MamboButton(config);
 
         const slideoutConfig = m_utils.extend(true, {}, config);
         slideoutConfig.fnComplete = config.fnInstallContent;

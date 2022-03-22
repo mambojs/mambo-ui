@@ -104,11 +104,12 @@ function MamboSlideout(parentTag, options) {
         }
 
         const config = m_config.closeButton;
+        config.parentTag = m_slideoutHeaderTag;
         config.fnClick = () => {
             closeAnimation();
         };
 
-        new MamboButton(m_slideoutHeaderTag, config);
+        new MamboButton(config);
     }
 
     function installEventHandler() {

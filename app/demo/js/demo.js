@@ -55,6 +55,7 @@ function demo() {
         const parent = g_domJS.getTag("home-button");
         g_domJS.empty(parent);
         const config = {
+            parentTag: parent,
             text: 'Home',
             fnClick: (context) => {
                 demo();
@@ -62,7 +63,7 @@ function demo() {
             }
         };
 
-        new MamboButton(parent, config);
+        new MamboButton(config);
     }
 
     /**
