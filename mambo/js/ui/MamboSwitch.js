@@ -17,185 +17,389 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSwitch.js
  *******************************************/
-function MamboSwitch(parentTag, options) {
-    "use strict";
+ class MamboSwitch extends HTMLElement {
+	constructor(parentTag, options) {
+		super();
+		const self = this;
+		const m_utils = g_mamboUtils;
+		// HTML tag variables
+		let m_parentTag;
+		let m_switchParentTag;
+		let m_inputTag;
+		let m_containerTag;
 
-    if (!parentTag) {
-        console.error(`Switch: parentEle parameter not passed in.`);
-        return;
-    }
+		let m_config;
+		let m_enable = true;
+		let m_checked = false;
 
-    const self = this;
-    const m_utils = g_mamboUtils;
+		// Configure public methods
+		this.check = check;
+		this.checked = () => m_checked;
+		this.destroy = destroySwitch;
+		this.enable = enable;
+		this.getParentTag = () => m_switchParentTag;
+		this.toggle = toggle;
 
-    // HTML tag variables
-    let m_parentTag;
-    let m_switchParentTag;
-    let m_inputTag;
-    let m_containerTag;
+		// Config default values
+		configure();
+		setup();
 
-    let m_config;
-    let m_enable = true;
-    let m_checked = false;
+		function setup() {
+			m_parentTag = g_mamboDomJS.getTag(parentTag);
 
-    // Configure public methods
-    this.check = check;
-    this.checked = () => m_checked;
-    this.destroy = destroySwitch;
-    this.enable = enable;
-    this.getParentTag = () => m_switchParentTag;
-    this.toggle = toggle;
+			if (!m_parentTag) {
+				console.error(
+					`Switch: g_mamboDomJS. parent tag ${parentTag} was not found.`
+				);
+				return;
+			}
 
-    // Config default values
-    configure();
+			setOptionValues();
+			installDOM();
+		}
 
-    // Begin setup
-    setup();
+		function setOptionValues() {
+			m_enable = m_config.enable;
+			m_checked = m_config.checked;
+		}
 
-    function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+		function installDOM() {
+			installTags();
+			setupEventHandler();
+			finishSetup();
+		}
 
-        if (!m_parentTag) {
-            console.error(`Switch: g_mamboDomJS. parent tag ${parentTag} was not found.`);
-            return;
-        }
+		// Begin setup
 
-        setOptionValues();
-        installDOM();
-    }
+		function installTags() {
+			m_switchParentTag = g_mamboDomJS.createTag(m_config.tag.switch, {
+				class: m_config.css.parent,
+			});
+			g_mamboDomJS.append(m_parentTag, m_switchParentTag);
 
-    function setOptionValues() {
-        m_enable = m_config.enable;
-        m_checked = m_config.checked;
-    }
+			const tagConfig = {
+				class: m_config.css.input,
+				attr: { type: 'checkbox' },
+				prop: { checked: m_checked },
+			};
+			m_inputTag = g_mamboDomJS.createTag('input', tagConfig);
+			m_containerTag = g_mamboDomJS.createTag(m_config.tag.container, {
+				class: m_config.css.container,
+			});
 
-    function installDOM() {
-        installTags();
-        setupEventHandler();
-        finishSetup();
-    }
+			g_mamboDomJS.append(m_switchParentTag, m_inputTag);
+			g_mamboDomJS.append(m_switchParentTag, m_containerTag);
 
-    function installTags() {
-        m_switchParentTag = g_mamboDomJS.createTag(m_config.tag.switch, { class: m_config.css.parent });
-        g_mamboDomJS.append(m_parentTag, m_switchParentTag);
+			installLabels();
+		}
 
-        const tagConfig = {
-            class: m_config.css.input,
-            attr: { type: "checkbox" },
-            prop: { checked: m_checked }
-        };
-        m_inputTag = g_mamboDomJS.createTag('input', tagConfig);
-        m_containerTag = g_mamboDomJS.createTag(m_config.tag.container, { class: m_config.css.container });
+		function installLabels() {
+			let onTag = g_mamboDomJS.createTag(m_config.tag.on, {
+				class: m_config.css.on,
+				text: m_config.messages.checked,
+			});
+			let offTag = g_mamboDomJS.createTag(m_config.tag.off, {
+				class: m_config.css.off,
+				text: m_config.messages.unchecked,
+			});
+			let handleTag = g_mamboDomJS.createTag(m_config.tag.handl, {
+				class: m_config.css.handle,
+			});
 
-        g_mamboDomJS.append(m_switchParentTag, m_inputTag);
-        g_mamboDomJS.append(m_switchParentTag, m_containerTag);
+			g_mamboDomJS.append(m_containerTag, onTag);
+			g_mamboDomJS.append(m_containerTag, offTag);
+			g_mamboDomJS.append(m_containerTag, handleTag);
 
-        installLabels();
-    }
+			setEnable(m_enable);
+		}
 
-    function installLabels() {
-        let onTag = g_mamboDomJS.createTag(m_config.tag.on, { class: m_config.css.on, text: m_config.messages.checked });
-        let offTag = g_mamboDomJS.createTag(m_config.tag.off, { class: m_config.css.off, text: m_config.messages.unchecked });
-        let handleTag = g_mamboDomJS.createTag(m_config.tag.handle, { class: m_config.css.handle });
+		function setupEventHandler() {
+			m_switchParentTag.addEventListener('click', handleClick);
+		}
 
-        g_mamboDomJS.append(m_containerTag, onTag);
-        g_mamboDomJS.append(m_containerTag, offTag);
-        g_mamboDomJS.append(m_containerTag, handleTag);
+		function handleClick(ev) {
+			if (m_enable) {
+				toggleSwitch(ev);
+			}
+		}
 
-        setEnable(m_enable);
-    }
+		function toggleSwitch(ev) {
+			m_checked = !m_checked;
+			setChecked(ev);
+		}
 
-    function setupEventHandler() {
-        m_switchParentTag.addEventListener("click", handleClick);
-    }
+		function setChecked(ev) {
+			g_mamboDomJS.setProps(m_inputTag, { checked: m_checked });
 
-    function handleClick(ev) {
-        if (m_enable) {
-            toggleSwitch(ev);
-        }
-    }
+			if (m_config.fnChange) {
+				m_config.fnChange({ switch: self, ev: ev });
+			}
+		}
 
-    function toggleSwitch(ev) {
-        m_checked = !m_checked;
-        setChecked(ev);
-    }
+		function enable(context = {}) {
+			if (typeof context.enable === 'undefined') {
+				return m_enable;
+			} else {
+				setEnable(context.enable);
+			}
+		}
 
-    function setChecked(ev) {
-        g_mamboDomJS.setProps(m_inputTag, { checked: m_checked });
+		function toggle() {
+			toggleSwitch();
+		}
 
-        if (m_config.fnChange) {
-            m_config.fnChange({ switch: self, ev: ev });
-        }
+		function check(context = {}) {
+			if (typeof context.checked === 'boolean') {
+				m_checked = context.checked;
+				setChecked();
+			}
+		}
 
-    }
+		function setEnable(enable) {
+			m_enable = enable;
+			m_enable
+				? g_mamboDomJS.removeClass(m_switchParentTag, m_config.css.disabled)
+				: g_mamboDomJS.addClass(m_switchParentTag, m_config.css.disabled);
+		}
 
-    function enable(context = {}) {
-        if (typeof context.enable === 'undefined') {
-            return m_enable;
-        } else {
-            setEnable(context.enable);
-        }
-    }
+		function destroySwitch() {
+			g_mamboDomJS.remove(m_switchParentTag);
+		}
 
-    function toggle() {
-        toggleSwitch();
-    }
+		function finishSetup() {
+			// Execute complete callback function
+			if (m_config.fnComplete) {
+				m_config.fnComplete({ switch: self });
+			}
+		}
 
-    function check(context = {}) {
-        if (typeof context.checked === 'boolean') {
-            m_checked = context.checked;
-            setChecked();
-        }
-    }
+		function configure() {
+			m_config = {
+				css: {
+					parent: 'switch-parent',
+					input: 'switch-input',
+					container: 'switch-container',
+					on: 'switch-label-on',
+					off: 'switch-label-off',
+					handle: 'switch-handle',
+					disabled: 'switch-disabled',
+				},
+				tag: {
+					switch: 'sc-switch',
+					container: 'switch-container',
+					on: 'switch-label-on',
+					off: 'switch-label-off',
+					handle: 'switch-handle',
+				},
+				enable: true,
+				checked: false,
+				messages: {
+					checked: 'ON',
+					unchecked: 'OFF',
+				},
+				fnChange: context => {
+					// Nothing executes by default
+				},
+			};
 
-    function setEnable(enable) {
-        m_enable = enable;
-        m_enable ? g_mamboDomJS.removeClass(m_switchParentTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_switchParentTag, m_config.css.disabled);
-    }
+			// If options provided, override default config
+			if (options) {
+				m_config = m_utils.extend(true, m_config, options);
+			}
+		}
+	}
+	// m_parentTag()
+	// m_switchParentTag()
+	// m_inputTag()
+	// m_containerTag()
 
-    function destroySwitch() {
-        g_mamboDomJS.remove(m_switchParentTag);
-    }
-
-    function finishSetup() {
-        // Execute complete callback function
-        if (m_config.fnComplete) {
-            m_config.fnComplete({ switch: self });
-        }
-    }
-
-    function configure() {
-        m_config = {
-            css: {
-                parent: "switch-parent",
-                input: "switch-input",
-                container: "switch-container",
-                on: "switch-label-on",
-                off: "switch-label-off",
-                handle: "switch-handle",
-                disabled: "switch-disabled"
-            },
-            tag: {
-                switch: "sc-switch",
-                container: "switch-container",
-                on: "switch-label-on",
-                off: "switch-label-off",
-                handle: "switch-handle"
-            },
-            enable: true,
-            checked: false,
-            messages: {
-                checked: "ON",
-                unchecked: "OFF"
-            },
-            fnChange: (context) => {
-                // Nothing executes by default
-            },
-        };
-
-        // If options provided, override default config
-        if (options) {
-            m_config = m_utils.extend(true, m_config, options);
-        }
-    }
+	// m_config()
+	// m_enable()
+	// m_checked()
+	mOptions(options){
+		this.configure(options)
+	}
 }
+customElements.define("mambo-switch", MamboSwitch)
+// function MamboSwitch(parentTag, options) {
+//     "use strict";
+
+//     if (!parentTag) {
+//         console.error(`Switch: parentEle parameter not passed in.`);
+//         return;
+//     }
+
+//     const self = this;
+//     const m_utils = g_mamboUtils;
+
+//     // HTML tag variables
+//     let m_parentTag;
+//     let m_switchParentTag;
+//     let m_inputTag;
+//     let m_containerTag;
+
+//     let m_config;
+//     let m_enable = true;
+//     let m_checked = false;
+
+//     // Configure public methods
+//     this.check = check;
+//     this.checked = () => m_checked;
+//     this.destroy = destroySwitch;
+//     this.enable = enable;
+//     this.getParentTag = () => m_switchParentTag;
+//     this.toggle = toggle;
+
+//     // Config default values
+//     configure();
+
+//     // Begin setup
+//     setup();
+
+//     function setup() {
+//         m_parentTag = g_mamboDomJS.getTag(parentTag);
+
+//         if (!m_parentTag) {
+//             console.error(`Switch: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+//             return;
+//         }
+
+//         setOptionValues();
+//         installDOM();
+//     }
+
+//     function setOptionValues() {
+//         m_enable = m_config.enable;
+//         m_checked = m_config.checked;
+//     }
+
+//     function installDOM() {
+//         installTags();
+//         setupEventHandler();
+//         finishSetup();
+//     }
+
+//     function installTags() {
+//         m_switchParentTag = g_mamboDomJS.createTag(m_config.tag.switch, { class: m_config.css.parent });
+//         g_mamboDomJS.append(m_parentTag, m_switchParentTag);
+
+//         const tagConfig = {
+//             class: m_config.css.input,
+//             attr: { type: "checkbox" },
+//             prop: { checked: m_checked }
+//         };
+//         m_inputTag = g_mamboDomJS.createTag('input', tagConfig);
+//         m_containerTag = g_mamboDomJS.createTag(m_config.tag.container, { class: m_config.css.container });
+
+//         g_mamboDomJS.append(m_switchParentTag, m_inputTag);
+//         g_mamboDomJS.append(m_switchParentTag, m_containerTag);
+
+//         installLabels();
+//     }
+
+//     function installLabels() {
+//         let onTag = g_mamboDomJS.createTag(m_config.tag.on, { class: m_config.css.on, text: m_config.messages.checked });
+//         let offTag = g_mamboDomJS.createTag(m_config.tag.off, { class: m_config.css.off, text: m_config.messages.unchecked });
+//         let handleTag = g_mamboDomJS.createTag(m_config.tag.handle, { class: m_config.css.handle });
+
+//         g_mamboDomJS.append(m_containerTag, onTag);
+//         g_mamboDomJS.append(m_containerTag, offTag);
+//         g_mamboDomJS.append(m_containerTag, handleTag);
+
+//         setEnable(m_enable);
+//     }
+
+//     function setupEventHandler() {
+//         m_switchParentTag.addEventListener("click", handleClick);
+//     }
+
+//     function handleClick(ev) {
+//         if (m_enable) {
+//             toggleSwitch(ev);
+//         }
+//     }
+
+//     function toggleSwitch(ev) {
+//         m_checked = !m_checked;
+//         setChecked(ev);
+//     }
+
+//     function setChecked(ev) {
+//         g_mamboDomJS.setProps(m_inputTag, { checked: m_checked });
+
+//         if (m_config.fnChange) {
+//             m_config.fnChange({ switch: self, ev: ev });
+//         }
+
+//     }
+
+//     function enable(context = {}) {
+//         if (typeof context.enable === 'undefined') {
+//             return m_enable;
+//         } else {
+//             setEnable(context.enable);
+//         }
+//     }
+
+//     function toggle() {
+//         toggleSwitch();
+//     }
+
+//     function check(context = {}) {
+//         if (typeof context.checked === 'boolean') {
+//             m_checked = context.checked;
+//             setChecked();
+//         }
+//     }
+
+//     function setEnable(enable) {
+//         m_enable = enable;
+//         m_enable ? g_mamboDomJS.removeClass(m_switchParentTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_switchParentTag, m_config.css.disabled);
+//     }
+
+//     function destroySwitch() {
+//         g_mamboDomJS.remove(m_switchParentTag);
+//     }
+
+//     function finishSetup() {
+//         // Execute complete callback function
+//         if (m_config.fnComplete) {
+//             m_config.fnComplete({ switch: self });
+//         }
+//     }
+
+//     function configure() {
+//         m_config = {
+//             css: {
+//                 parent: "switch-parent",
+//                 input: "switch-input",
+//                 container: "switch-container",
+//                 on: "switch-label-on",
+//                 off: "switch-label-off",
+//                 handle: "switch-handle",
+//                 disabled: "switch-disabled"
+//             },
+//             tag: {
+//                 switch: "sc-switch",
+//                 container: "switch-container",
+//                 on: "switch-label-on",
+//                 off: "switch-label-off",
+//                 handle: "switch-handle"
+//             },
+//             enable: true,
+//             checked: false,
+//             messages: {
+//                 checked: "ON",
+//                 unchecked: "OFF"
+//             },
+//             fnChange: (context) => {
+//                 // Nothing executes by default
+//             },
+//         };
+
+//         // If options provided, override default config
+//         if (options) {
+//             m_config = m_utils.extend(true, m_config, options);
+//         }
+//     }
+// }
