@@ -81,6 +81,7 @@ function demo() {
                     { id: "dialog", text: "Dialog" },
                     { id: "slideout", text: "Slideout" },
                     { id: "file-chooser", text: "File Chooser" },
+                    { id: "form-builder", text: "Form Builder" },
                     { id: "drag-drop", text: "Drag & Drop" },
                     { id: "html5-player", text: "HTML5 Player" },
                     { id: "grid", text: "Grid" },
@@ -159,6 +160,14 @@ function demo() {
                 codePath = "demoMamboDragDrop.js";
                 installDOM();
                 demoDragDrop(componentParentTag);
+                break;
+
+            case "form-builder":
+                hdrText = "Form Builder Component Demo";
+                eleName = "demo-form-builder";
+                codePath = "demoMamboFormBuilder.js";
+                installDOM();
+                demoFormBuilder(componentParentTag);
                 break;
 
             case "grid":
