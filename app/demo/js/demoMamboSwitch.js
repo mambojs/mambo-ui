@@ -41,7 +41,7 @@ function demoSwitch(parentEle) {
         new MamboSwitch(parentEle, config);
     }
 
-    function disabledSwitch() {
+   /* function disabledSwitch() {
         const config = {
             enable: false,
             fnChange: (context) => {
@@ -50,5 +50,5 @@ function demoSwitch(parentEle) {
         };
 
         new MamboSwitch(parentEle, config);
-    }
+    }*/
 }
