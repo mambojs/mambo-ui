@@ -17,95 +17,79 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDateManager.js
  *******************************************/
-function MamboDateManager() {
-    'use strict';
 
-    const self = this;
-    const m_formatTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
-    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+class MamboDateManager {
 
-    this.add = add;
-    this.cloneDate = cloneDate;
-    this.createDate = createDate;
-    this.createInterval = createInterval;
-    this.endOf = endOf;
-    this.format = format;
-    this.getDate = getDate;
-    this.getDayName = getDayName;
-    this.getToday = getToday;
-    this.isAfter = isAfter;
-    this.isSameOrAfter = isSameOrAfter;
-    this.isBefore = isBefore;
-    this.isSame = isSame;
-    this.isSameOrBefore = isSameOrBefore;
-    this.isDate = isDate;
-    this.startOf = startOf;
+    constructor() {
+        this.m_formatTokens = /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
+        this.weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        this.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    }
 
-    function getToday() {
+    getToday() {
         let today = new Date();
         today.setHours(0, 0, 0, 0);
         return today;
     }
 
-    function format(date, formatText) {
-        if (!isDate(date) || !isString(formatText)) {
+    format(date, formatText) {
+        if (!this.isDate(date) || !this.isString(formatText)) {
             return "";
         }
 
-        let tokens = formatText.match(m_formatTokens);
+        let tokens = formatText.match(this.m_formatTokens);
         let returnValue = "";
 
         tokens.forEach(token => {
             let text = "";
             switch (token) {
                 case "H":
-                    text = getHours(date, false);
+                    text = this.getHours(date, false);
                     break;
                 case "HH":
-                    text = addZero(getHours(date, false), 2);
+                    text = this.addZero(this.getHours(date, false), 2);
                     break;
                 case "h":
-                    text = getHours(date, true);
+                    text = this.getHours(date, true);
                     break;
                 case "hh":
-                    text = addZero(getHours(date, true), 2);
+                    text = this.addZero(this.getHours(date, true), 2);
                     break;
                 case "m":
                     text = date.getMinutes();
                     break;
                 case "mm":
-                    text = addZero(date.getMinutes(), 2);
+                    text = this.addZero(date.getMinutes(), 2);
                     break;
                 case "a":
-                    text = getAMPM(date);
+                    text = this.getAMPM(date);
                     break;
                 case "A":
-                    text = getAMPM(date).toUpperCase();
+                    text = this.getAMPM(date).toUpperCase();
                     break;
                 case "D":
                     text = date.getDate();
                     break;
                 case "DD":
-                    text = addZero(date.getDate(), 2);
+                    text = this.addZero(date.getDate(), 2);
                     break;
                 case "ddd":
-                    text = getDayName(date.getDay()).substring(0, 3);
+                    text = this.getDayName(date.getDay()).substring(0, 3);
                     break;
                 case "dddd":
-                    text = getDayName(date.getDay());
+                    text = this.getDayName(date.getDay());
                     break;
                 case "M":
                     text = date.getMonth() + 1;
                     break;
                 case "MM":
-                    text = addZero(date.getMonth() + 1, 2);
+                    text = this.addZero(date.getMonth() + 1, 2);
                     break;
                 case "MMM":
-                    text = getMonthName(date.getMonth()).substring(0, 3);
+                    text = this.getMonthName(date.getMonth()).substring(0, 3);
                     break;
                 case "MMMM":
-                    text = getMonthName(date.getMonth());
+                    text = this.getMonthName(date.getMonth());
                     break;
                 case "YY":
                     text = date.getFullYear().toString().slice(-2);
@@ -122,14 +106,22 @@ function MamboDateManager() {
         return returnValue;
     }
 
-    function createDate(text, formatText) {
-        if (!isString(text) || !isString(formatText)) {
+    createDate(text, formatText) {
+        if (!this.isString(text) || !this.isString(formatText)) {
             return null;
         }
 
         let index = 0;
-        let values = { 'y': 0, 'M': 0, 'd': 1, 'h': 0, 'm': 0, 's': 0, 'ms': 0 };
-        let tokens = formatText.match(m_formatTokens);
+        let values = {
+            'y': 0,
+            'M': 0,
+            'd': 1,
+            'h': 0,
+            'm': 0,
+            's': 0,
+            'ms': 0
+        };
+        let tokens = formatText.match(this.m_formatTokens);
         let toSlice = 0;
         let value = text;
 
@@ -240,7 +232,7 @@ function MamboDateManager() {
                     values['M'] = parseInt(value.substring(0, toSlice)) - 1;
                     break;
                 case "MMM":
-                    index = monthNames.findIndex(name => name.toUpperCase() === value.substring(0, 3).toUpperCase());
+                    index = this.monthNames.findIndex(name => name.toUpperCase() === value.substring(0, 3).toUpperCase());
                     if (index < 0) {
                         return null;
                     }
@@ -248,11 +240,11 @@ function MamboDateManager() {
                     values['M'] = index;
                     break;
                 case "MMMM":
-                    index = monthNames.findIndex(name => name.toUpperCase() === value.substring(0, name.length).toUpperCase());
+                    index = this.monthNames.findIndex(name => name.toUpperCase() === value.substring(0, name.length).toUpperCase());
                     if (index < 0) {
                         return null;
                     }
-                    toSlice = monthNames[index].length;
+                    toSlice = this.monthNames[index].length;
                     values['M'] = index;
                     break;
                 case "YY":
@@ -281,7 +273,7 @@ function MamboDateManager() {
         return new Date(values['y'], values['M'], values['d'], values['h'], values['m'], values['s'], values['ms']);
     }
 
-    function getHours(date, is12Format) {
+    getHours(date, is12Format) {
         let hours = date.getHours();
         if (is12Format) {
             hours = hours % 12;
@@ -290,20 +282,20 @@ function MamboDateManager() {
         return hours;
     }
 
-    function getAMPM(date) {
+    getAMPM(date) {
         return date.getHours() >= 12 ? 'pm' : 'am';
     }
 
-    function getDayName(day) {
-        return weekdays[day];
+    getDayName(day) {
+        return this.weekdays[day];
     }
 
-    function getMonthName(month) {
-        return monthNames[month];
+    getMonthName(month) {
+        return this.monthNames[month];
     }
 
-    function add(date, number, token) {
-        if (!isDate(date) || !isNumber(number) || !isString(token)) {
+    add(date, number, token) {
+        if (!this.isDate(date) || !this.isNumber(number) || !this.isString(token)) {
             return date;
         }
 
@@ -330,16 +322,16 @@ function MamboDateManager() {
                 break;
         }
 
-        return self;
+        return this;
     }
 
-    function createInterval(interval, token, min, max, formatText) {
-        if (!isNumber(interval) || !isString(token) || !isDate(min) || !isDate(max)) {
+    createInterval(interval, token, min, max, formatText) {
+        if (!this.isNumber(interval) || !this.isString(token) || !this.isDate(min) || !this.isDate(max)) {
             return [];
         }
 
         const formatFunc = formatText ? (value) => {
-            return format(value, formatText);
+            return this.format(value, formatText);
         } : (value) => {
             return value;
         };
@@ -347,113 +339,114 @@ function MamboDateManager() {
         let array = [];
         let currentDate = min;
 
-        while (isBefore(currentDate, max)) {
+        while (this.isBefore(currentDate, max)) {
             array.push(formatFunc(currentDate));
-            add(currentDate, interval, token);
+            this.add(currentDate, interval, token);
         }
 
         return array;
     }
 
-    function getDate(value, formatText) {
-        let text = isDate(value) ? format(value, formatText) : value;
-        return createDate(text, formatText);
+    getDate(value, formatText) {
+        let text = this.isDate(value) ? this.format(value, formatText) : value;
+        return this.createDate(text, formatText);
     }
 
-    function isBefore(date1, date2) {
+    isBefore(date1, date2) {
         return date1 < date2;
     }
 
-    function isSameOrBefore(date1, date2) {
+    isSameOrBefore(date1, date2) {
         return date1 <= date2;
     }
 
-    function isAfter(date1, date2) {
+    isAfter(date1, date2) {
         return date1 > date2;
     }
 
-    function isSameOrAfter(date1, date2) {
+    isSameOrAfter(date1, date2) {
         return date1 >= date2;
     }
 
-    function isSame(date1, date2) {
+    isSame(date1, date2) {
         return date1.getTime() === date2.getTime();
     }
 
-    function startOf(date, token) {
-        if (!isDate(date) || !isString(token)) {
+    startOf(date, token) {
+        if (!this.isDate(date) || !this.isString(token)) {
             return date;
         }
 
         switch (token) {
             case "week":
             case "w":
-                add(date, -date.getDay(), "d");
+                this.add(date, -date.getDay(), "d");
                 break;
             case "month":
             case "M":
-                add(date, -date.getDate() + 1, "d");
+                this.add(date, -date.getDate() + 1, "d");
                 break;
             case "year":
             case "Y":
-                startOf(date, 'M').add(date, -date.getMonth(), "M");
+                this.startOf(date, 'M').add(date, -date.getMonth(), "M");
                 break;
             case "decade":
-                startOf(date, 'Y').add(date, -(date.getFullYear() % 10), "Y");
+                this.startOf(date, 'Y').add(date, -(date.getFullYear() % 10), "Y");
                 break;
             case "century":
-                startOf(date, 'decade').add(date, -(date.getFullYear() % 100), "Y");
+                this.startOf(date, 'decade').add(date, -(date.getFullYear() % 100), "Y");
                 break;
         }
 
-        return self;
+        return this;
     }
 
-    function endOf(date, token) {
-        if (!isDate(date) || !isString(token)) {
+    endOf(date, token) {
+        if (!this.isDate(date) || !this.isString(token)) {
             return date;
         }
 
         switch (token) {
             case "month":
             case "M":
-                startOf(date, "M").add(date, 1, "M").add(date, -1, "d");
+                this.startOf(date, "M").add(date, 1, "M").add(date, -1, "d");
                 break;
             case "year":
             case "Y":
-                startOf(date, 'Y').add(date, 1, "Y").add(date, -1, "d");
+                this.startOf(date, 'Y').add(date, 1, "Y").add(date, -1, "d");
                 break;
             case "decade":
-                startOf(date, 'decade').add(date, 10, "Y").add(date, -1, "d");
+                this.startOf(date, 'decade').add(date, 10, "Y").add(date, -1, "d");
                 break;
             case "century":
-                startOf(date, 'century').add(date, 100, "Y").add(date, -1, "d");
+                this.startOf(date, 'century').add(date, 100, "Y").add(date, -1, "d");
                 break;
         }
 
-        return self;
+        return this;
     }
 
-    function cloneDate(date) {
-        if (!isDate(date)) {
+    cloneDate(date) {
+        if (!this.isDate(date)) {
             return null;
         }
         return new Date(date.getTime());
     }
 
-    function addZero(value, n) {
+    addZero(value, n) {
         return ('0' + value).slice(-n);
     }
 
-    function isDate(value) {
+    isDate(value) {
         return value instanceof Date || Object.prototype.toString.call(value) === '[object Date]';
     }
 
-    function isString(value) {
+    isString(value) {
         return typeof value === 'string' || value instanceof String || Object.prototype.toString.call(value) === '[object String]';
     }
 
-    function isNumber(value) {
+    isNumber(value) {
         return typeof value === 'number' || Object.prototype.toString.call(value) === '[object Number]';
     }
+
 }
