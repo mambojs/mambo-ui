@@ -1,5 +1,6 @@
 {
     "html.format.wrapLineLength": 0,
     "workbench.editor.wrapTabs": true,
-    "editor.wordWrap": "on"
+    "editor.wordWrap": "on",
+    "liveServer.settings.port": 5501
 }

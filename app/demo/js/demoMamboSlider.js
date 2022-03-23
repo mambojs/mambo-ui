@@ -5,23 +5,29 @@ function demoSlider(parentEle) {
 
     function defaultSlider() {
         const config = {
+            parentTag: parentEle,
+            orientation: "horizontal",
+            showButtons: true,
             fnSelect: (context) => {
                 console.log(context.slider.value());
             }
         };
 
-        new MamboSlider(parentEle, config);
+         new MamboSlider(config);
     }
 
     function verticalSlider() {
         const config = {
+            parentTag: parentEle,
             orientation: "vertical",
-            showButtons: false,
+            showButtons: true,
             fnSelect: (context) => {
                 console.log(context.slider.value());
             }
         };
 
-        new MamboSlider(parentEle, config);
+        new MamboSlider(config);
     }
 }
+
+    
