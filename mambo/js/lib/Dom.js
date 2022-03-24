@@ -72,7 +72,6 @@ function DomJS() {
     }
 
     function createSVGTag(name, config) {
-        console.log(config)
         const newEl = createTagNS(name, "SVG");
 
         if (!config || !isObject(config)) return;
