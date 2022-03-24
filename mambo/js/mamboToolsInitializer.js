@@ -15,25 +15,8 @@
 
  *  Author : Alejandro Scotti
  *  Created On : Sat Feb 26 2022
- *  File : MamboInitializer.js
+ *  File : mamboToolsInitializer.js
  *******************************************/
 // Do not change load order
-const g_mamboDomJS = new DomJS();
 const g_mamboObjMgr = new MamboObjectManager();
 const g_mamboUtils = new MamboUtilities();
-const g_mamboGraphics = new MamboGraphics();
-const g_mamboDateManager = new MamboDateManager();
-const g_mamboString = new MamboString();
-
-// Mambo Default theme from mamboDefaultTheme.js
-const g_mamboTheme = new MamboTheme(g_mamboDefaultTheme);
-
-// Mambo Default tagnames from mamboDefaultTagNames.js
-const g_mamboTagNames = new MamboTagNames(g_mamboDefaultTagNames);
-
-
-
-// Configure IPFS
-/* Ipfs.create({ repo: 'sc-ipfs-' + Math.random() }).then((ipfsInstance) => {
-    mamboObjManager.save(ipfsInstance, "ipfs");
-}); */

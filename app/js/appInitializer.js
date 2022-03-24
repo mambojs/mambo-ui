@@ -31,3 +31,8 @@ const g_API = new MamboAPIManager();
 const g_eventManager = new MamboEventManager();
 const g_eventDir = new MamboEventDirectory();
 const g_mamboHistoryMgr = new MamboHistoryManager();
+
+// Configure IPFS
+/* Ipfs.create({ repo: 'sc-ipfs-' + Math.random() }).then((ipfsInstance) => {
+    mamboObjManager.save(ipfsInstance, "ipfs");
+}); */
