@@ -1,6 +1,6 @@
 function demoDatePicker(parentEle) {
 
-    let config = {};
+    let config = {parentTag:parentEle};
 
-    new MamboDatePicker(parentEle, config);
+    new MamboDatePicker(config);
 }

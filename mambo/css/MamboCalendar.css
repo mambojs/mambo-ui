@@ -69,6 +69,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width:205px;
+    height:2rem;
 }
 
 .fast-button.hover {
