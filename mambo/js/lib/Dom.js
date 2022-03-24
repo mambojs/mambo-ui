@@ -72,6 +72,7 @@ function DomJS() {
     }
 
     function createSVGTag(name, config) {
+        console.log(config)
         const newEl = createTagNS(name, "SVG");
 
         if (!config || !isObject(config)) return;
@@ -82,7 +83,12 @@ function DomJS() {
 
         if (config.children && Array.isArray(config.children)) {
             config.children.forEach(child => {
-                let newChild = createSVGTag(child.name, child.props, child.attrs, child.children);
+                let newChild = createSVGTag(child.name, 
+                    {
+                        prop:child.props,
+                        attr:child.attrs,
+                        children:child.children
+                    });
                 append(newEl, newChild);
             });
         }

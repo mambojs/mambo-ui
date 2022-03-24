@@ -174,7 +174,6 @@ class MamboDatePicker extends HTMLElement {
         function installSelf(parentTag, prepend) {
             m_parentTag = parentTag ? parentTag : m_parentTag;
             m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
-            
         }
 
         function configure() {
