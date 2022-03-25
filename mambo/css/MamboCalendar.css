@@ -58,6 +58,7 @@
 }
 
 .fast-button {
+    width: 100%;
     flex-grow: 1;
     color: white;
     font-size: 1rem;
