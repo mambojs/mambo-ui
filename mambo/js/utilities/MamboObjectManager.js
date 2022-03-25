@@ -17,20 +17,32 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboObjectManager.js
  *******************************************/
-function MamboObjectManager() {
-    'use strict';
 
-    // Object library
-    const store = {};
-
-    this.get = (name) => store[name];
-    this.save = saveObject;
-    this.remove = (name) => delete store[name];
-    this.getLibrary = () => store;
-    this.clearLibrary = () => store = {};
-
-    function saveObject(object, name) {
-        const objName = name ? name : object.constructor.name;
-        store[objName] = object;
+class MamboObjectManager {
+    constructor(){
+       // Object library
+        this.store = {};
+          
     }
-}
+       get(name){
+       return this.store[name];
+       } 
+   
+       save(){
+           this.saveObject();
+       } 
+       remove(name){
+            delete this.store[name];
+       }
+       getLibrary(){
+           return this.store;
+       } 
+       clearLibrary(){
+           this.store = {};
+       }  
+   
+       saveObject(object, name) {
+           const objName = name ? name : object.constructor.name;
+           store[objName] = object;
+       }
+   }
