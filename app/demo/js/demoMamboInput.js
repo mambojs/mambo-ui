@@ -5,6 +5,7 @@ function demoInput(parentEle) {
     let inputField;
 
     let inputConfig = {
+        parentTag: parentEle,
         value: "My Input Element Value",
         labelText: "Input Element Label",
         attr: {
@@ -38,12 +39,13 @@ function demoInput(parentEle) {
     inputConfig.maxLenWidth = 30;// Width of the element
     inputConfig.maxLenWidthAdj = 2;// Adjust the width - helpful when the element width is set dynamically
 
-    inputField = new MamboInput(parentEle, inputConfig);
+    inputField = new MamboInput(inputConfig);
 
 
 
     //adding an input field with images inside of it.
     inputConfig = {
+        parentTag: parentEle,
         value: "My Input Element Value",
         labelText: "Input Element With Images",
         attr: {
@@ -142,5 +144,5 @@ function demoInput(parentEle) {
     inputConfig.maxLenWidth = 30;// Width of the element
     inputConfig.maxLenWidthAdj = 2;// Adjust the width - helpful when the element width is set dynamically
 
-    inputField = new MamboInput(parentEle, inputConfig);
+    inputField = new MamboInput(inputConfig);
 }

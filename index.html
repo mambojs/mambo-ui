@@ -43,6 +43,7 @@
     <link href="mambo/css/MamboDragDrop.css" rel="stylesheet" type="text/css" />
     <link href="mambo/css/MamboDropdown.css" rel="stylesheet" type="text/css" />
     <link href="mambo/css/MamboFileChooser.css" rel="stylesheet" type="text/css" />
+    <link href="mambo/css/MamboFormBuilder.css" rel="stylesheet" type="text/css" />
     <link href="mambo/css/MamboGrid.css" rel="stylesheet" type="text/css" />
     <link href="mambo/css/MamboInput.css" rel="stylesheet" type="text/css" />
     <link href="mambo/css/MamboSlideout.css" rel="stylesheet" type="text/css" />
@@ -98,16 +99,17 @@
 <script src="mambo/js/utilities/MamboHistoryManager.js"></script>
 <script src="mambo/js/utilities/MamboIPFS.js"></script>
 <script src="mambo/js/utilities/MamboObjectManager.js"></script>
-<script src="mambo/js/utilities/MamboTheme.js"></script>
 <script src="mambo/js/utilities/MamboRouterManager.js"></script>
 <script src="mambo/js/utilities/MamboString.js"></script>
 <script src="mambo/js/utilities/MamboUtilities.js"></script>
 
 <!-- Need to load all above resources before executing loaders js files -->
-<script src="mambo/js/mamboDefaultTheme.js"></script>
-<script src="mambo/js/mamboInitializer.js"></script>
+<script src="mambo/js/mamboToolsInitializer.js"></script>
+
 
 <!-- Mambo.js UI Components - Order Alphabetically -->
+<script src="mambo/js/mamboDefaultTheme.js"></script>
+<script src="mambo/js/mamboDefaultTagNames.js"></script>
 <script src="mambo/js/ui/MamboAudioPlayer.js"></script>
 <script src="mambo/js/ui/MamboButton.js"></script>
 <script src="mambo/js/ui/MamboButtonGroup.js"></script>
@@ -122,6 +124,7 @@
 <script src="mambo/js/ui/MamboDropdown.js"></script>
 <script src="mambo/js/ui/MamboFileChooser.js"></script>
 <script src="mambo/js/ui/MamboFileUpload.js"></script>
+<script src="mambo/js/ui/MamboFormBuilder.js"></script>
 <script src="mambo/js/ui/MamboGrid.js"></script>
 <script src="mambo/js/ui/MamboInput.js"></script>
 <script src="mambo/js/ui/MamboPercentage.js"></script>
@@ -131,9 +134,13 @@
 <script src="mambo/js/ui/MamboSlider.js"></script>
 <script src="mambo/js/ui/MamboSwitch.js"></script>
 <script src="mambo/js/ui/MamboTab.js"></script>
+<script src="mambo/js/ui/MamboTagNames.js"></script>
+<script src="mambo/js/ui/MamboTheme.js"></script>
 <script src="mambo/js/ui/MamboTimePicker.js"></script>
 <script src="mambo/js/ui/MamboTreeView.js"></script>
 <script src="mambo/js/ui/MamboVideoPlayer.js"></script>
+
+<script src="mambo/js/mamboUIInitializer.js"></script>
 
 <!-- Demo Libraries -->
 <script src="app/demo/lib/run_prettify.js"></script>
@@ -152,6 +159,7 @@
 <script src="app/demo/js/demoMamboDropdown.js"></script>
 <script src="app/demo/js/demoMamboEventManager.js"></script>
 <script src="app/demo/js/demoMamboFileChooser.js"></script>
+<script src="app/demo/js/demoMamboFormBuilder.js"></script>
 <script src="app/demo/js/demoMamboGraphics.js"></script>
 <script src="app/demo/js/demoMamboGrid.js"></script>
 <script src="app/demo/js/demoMamboGridTile.js"></script>

@@ -1,3 +1,22 @@
+/******************************************
+ *  Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+
+ *  Author : Alejandro Scotti
+ *  Created On : Sat Feb 26 2022
+ *  File : MamboTab.js
+ *******************************************/
 class MamboTab extends HTMLElement {
     constructor(initOptions) {
         super();
@@ -5,6 +24,7 @@ class MamboTab extends HTMLElement {
         const self = this;
         const m_utils = g_mamboUtils;
         const m_theme = g_mamboTheme;
+        const m_tags = g_mamboTagNames;
 
         // Define member variables
         let m_config;
@@ -35,9 +55,9 @@ class MamboTab extends HTMLElement {
             const eleConfig = {
                 class: m_config.css.contentParent
             };
-            m_contentParentTag = g_mamboDomJS.createTag(m_config.tag.contentParent, eleConfig);
+            m_contentParentTag = g_mamboDomJS.createTag(m_config.tagNames.contentParent, eleConfig);
 
-            m_tabsTag = g_mamboDomJS.createTag(m_config.tag.tabs, { class: m_config.css.tabs });
+            m_tabsTag = g_mamboDomJS.createTag(m_config.tagNames.tabs, { class: m_config.css.tabs });
 
             installTabs(m_config.tabs);
             installContent();
@@ -51,7 +71,7 @@ class MamboTab extends HTMLElement {
 
         function installContent() {
             m_config.tabs.buttons.forEach((button, index) => {
-                const contentTag = g_mamboDomJS.createTag(m_config.tag.content, { class: m_config.css.content });
+                const contentTag = g_mamboDomJS.createTag(m_config.tagNames.content, { class: m_config.css.content });
 
                 if (m_selectedId === button.id) {
                     // Set to show default selected Tab
@@ -106,6 +126,7 @@ class MamboTab extends HTMLElement {
             m_config = {
                 // Expects a list of native DOM elements
                 contents: [],
+                css: undefined,
                 fnTabReady: () => { },
                 id: undefined,
                 install: true,
@@ -115,11 +136,8 @@ class MamboTab extends HTMLElement {
                 tabs: {
                     // Expects a ButtonGroup config
                 },
-                tag: {
-                    tabs: "mambo-tabs",
-                    contentParent: "mambo-tab-contents",
-                    content: "mambo-tab-content",
-                },
+                tagNames: undefined,
+                tags: "default",
                 theme: "default",
             };
 
@@ -136,6 +154,11 @@ class MamboTab extends HTMLElement {
             m_config.tabs.buttons.forEach((button) => {
                 if (!button.id) button.id = (Math.round(Math.random() * 1000));
             });
+
+            m_config.tagNames = m_utils.extend(true, m_tags.getTags({
+                name: m_config.tags,
+                control: "mambo-tab"
+            }), m_config.tagNames);
 
             m_config.css = m_utils.extend(true, m_theme.getTheme({
                 name: m_config.theme,
