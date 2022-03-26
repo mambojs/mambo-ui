@@ -134,6 +134,7 @@ function demo() {
             console.log(xhr.responseText);
         }
     }
+    getImageFromServer("app/images/cat1.png");
 
 
     function loadComponent(context) {
