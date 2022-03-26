@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "type": "chrome",
             "request": "launch",
-            "name": "Mambo Go Live",
-            "url": "http://localhost:5500/public/",
+            "name": "Launch Chrome",
+            "url": "http://localhost:8000",
             "webRoot": "${workspaceFolder}"
         }
     ]

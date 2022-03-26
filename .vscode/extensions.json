@@ -6,6 +6,6 @@
         "eamodio.gitlens",
         "xabikos.javascriptsnippets",
         "mrmlnc.vscode-json5",
-        "ritwickdey.LiveServer"
+        "msjsdiag.debugger-for-chrome"
     ]
 }
