@@ -27,6 +27,9 @@ function demo() {
      */
     function setup() {
         loadHomeView();
+
+        getImageFromServer("app/images/cat1.png");
+
     }
 
     function loadHomeView() {
@@ -120,6 +123,18 @@ function demo() {
 
         new MamboTreeView("ui-component-treeview", treeViewConfig);
     }
+
+
+    async function getImageFromServer(url) {
+        try {
+            let file = await g_API.getFile(url);
+            console.log(file);
+        }
+        catch (xhr) {
+            console.log(xhr.responseText);
+        }
+    }
+
 
     function loadComponent(context) {
         if (!context.itemData.id) {
