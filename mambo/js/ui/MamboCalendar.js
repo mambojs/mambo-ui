@@ -91,7 +91,7 @@ class MamboCalendar extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_calendarParentTag = g_mamboDomJS.createTag(m_config.tags.parent, {
+			m_calendarParentTag = g_mamboDomJS.createTag(m_config.tagNames.parent, {
 				class: m_config.css.parent,
 			});
 
@@ -213,17 +213,17 @@ class MamboCalendar extends HTMLElement {
 		//Body
 
 		function installBody() {
-			m_bodyTag = g_mamboDomJS.createTag(m_config.tags.body, {
+			m_bodyTag = g_mamboDomJS.createTag(m_config.tagNames.body, {
 				class: m_config.css.body,
 			});
 			g_mamboDomJS.append(m_calendarParentTag, m_bodyTag);
 
-			m_bodyHeaderTag = g_mamboDomJS.createTag(m_config.tags.bodyHeader, {
+			m_bodyHeaderTag = g_mamboDomJS.createTag(m_config.tagNames.bodyHeader, {
 				class: m_config.css.bodyHeader,
 			});
 			g_mamboDomJS.append(m_bodyTag, m_bodyHeaderTag);
 
-			m_bodyContentTag = g_mamboDomJS.createTag(m_config.tags.bodyContent, {
+			m_bodyContentTag = g_mamboDomJS.createTag(m_config.tagNames.bodyContent, {
 				class: m_config.css.bodyContent,
 			});
 			g_mamboDomJS.append(m_bodyTag, m_bodyContentTag);
@@ -450,7 +450,7 @@ class MamboCalendar extends HTMLElement {
 
 		function installFooter() {
 
-			m_footerTag = g_mamboDomJS.createTag(m_config.tags.footer, {
+			m_footerTag = g_mamboDomJS.createTag(m_config.tagNames.footer, {
 				class: m_config.css.footer,
 			});
 
@@ -700,7 +700,7 @@ class MamboCalendar extends HTMLElement {
             }), m_config.css);
 
 			m_config.tagNames = m_utils.extend(true, m_tags.getTags({
-                name: m_config.tags,
+                name: m_config.tagNames,
                 control: "mambo-calendar"
             }), m_config.tagNames);
 		}
