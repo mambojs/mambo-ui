@@ -1,8 +1,7 @@
 function demoCalendar(parentEle) {
-
     let config = {
-			parentTag: parentEle,
-		};
+		parentTag: parentEle,
+	};
 
-		new MamboCalendar(config);
+	new MamboCalendar(config);
 }
