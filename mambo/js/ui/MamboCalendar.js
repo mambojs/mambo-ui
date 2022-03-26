@@ -700,7 +700,7 @@ class MamboCalendar extends HTMLElement {
             }), m_config.css);
 
 			m_config.tagNames = m_utils.extend(true, m_tags.getTags({
-                name: m_config.tagNames,
+                name: m_config.tags,
                 control: "mambo-calendar"
             }), m_config.tagNames);
 		}
