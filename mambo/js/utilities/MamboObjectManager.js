@@ -43,6 +43,6 @@ class MamboObjectManager {
    
        saveObject(object, name) {
            const objName = name ? name : object.constructor.name;
-           store[objName] = object;
+           this.store[objName] = object;
        }
    }
