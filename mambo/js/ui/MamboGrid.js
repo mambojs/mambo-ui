@@ -143,7 +143,6 @@ class MamboGrid extends HTMLElement {
 		}
 
 		function installHdr() {
-			console.log("m_config Header: ", m_config);
 			m_config.columns.forEach((column) => {
 				let parentTag = g_mamboDomJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
 				applyColCellElStyles(column, parentTag);
@@ -646,7 +645,6 @@ class MamboGrid extends HTMLElement {
 		}
 
 		function setColsWidth() {
-			console.log(m_parentTag);
 			// Declare style tag
 			m_colStylesId = m_utils.getUniqueId();
 			let styleEl = g_mamboDomJS.createTag('style', { attr: { id: m_colStylesId } });
