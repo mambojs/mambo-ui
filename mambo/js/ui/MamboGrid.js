@@ -18,7 +18,8 @@
  *  File : MamboGrid.js
  *******************************************/
 class MamboGrid extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(options) {
+
 		super();
 
 		const self = this;
@@ -26,6 +27,7 @@ class MamboGrid extends HTMLElement {
 		const m_colsMaxPxWidth = [];
 		const m_componentsMapById = {};
 		const m_componentsMapByColNbr = [];
+		const m_theme = g_mamboTheme;
 
 		// HTML tag variables
 		let m_gridParentTag;
@@ -57,10 +59,17 @@ class MamboGrid extends HTMLElement {
 		this.removeColsStyles = removeColsStyles;
 		this.setup = setup;
 
-		if (initOptions) setup(initOptions);
+		this.install = installSelf;
+		this.setup = setup;
+
+		if (options) setup(options);
 
 		function setup(options) {
 			configure(options);
+			installDOM();
+		}
+
+		function installDOM() {
 
 			// Validate grid layout
 			switch (m_config.layout) {
@@ -78,9 +87,8 @@ class MamboGrid extends HTMLElement {
 			m_tileParentTag = g_mamboDomJS.createTag(m_config.tag.tilesParent, { class: m_config.css.tilesParent });
 			m_tileIndexAttrName = 'data-grid-tile-index';
 
-			// Set basic tile structure into parent tag
-			m_parentTag.innerHTML = '';
-			g_mamboDomJS.append(m_parentTag, m_tileParentTag);
+			// Set basic tile structure into self
+			self.appendChild(m_tileParentTag);
 
 			if (!validateGridData()) {
 				return;
@@ -127,15 +135,15 @@ class MamboGrid extends HTMLElement {
 			// Install grid parent tag
 			g_mamboDomJS.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
 
-			// Set basic grid structure into parent tag
-			m_parentTag.innerHTML = '';
-			g_mamboDomJS.append(m_parentTag, m_gridParentTag);
+			// Set basic grid structure into self
+			self.appendChild(m_gridParentTag);
 
 			// Install the header tags
 			installHdr();
 		}
 
 		function installHdr() {
+			console.log("m_config Header: ", m_config);
 			m_config.columns.forEach((column) => {
 				let parentTag = g_mamboDomJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
 				applyColCellElStyles(column, parentTag);
@@ -165,7 +173,7 @@ class MamboGrid extends HTMLElement {
 				processRow(rowData, rowIndex);
 			});
 
-			if (m_config.maxColWidth) {
+			if (m_config.maxColWidth && m_parentTag) {
 				setTimeout(() => {
 					setColsWidth();
 				}, 1);
@@ -621,6 +629,7 @@ class MamboGrid extends HTMLElement {
 		}
 
 		function setColsWidth() {
+			console.log(m_parentTag);
 			// Declare style tag
 			m_colStylesId = m_utils.getUniqueId();
 			let styleEl = g_mamboDomJS.createTag('style', { attr: { id: m_colStylesId } });
@@ -785,6 +794,10 @@ class MamboGrid extends HTMLElement {
 				tilesFillUp: true,
 				tilesDense: false,
 				tilesConfig: [],
+				parentTag: undefined,
+				install: true,
+				installPrepend: false,
+				theme: 'default'
 			};
 
 			// If options provided, override default config

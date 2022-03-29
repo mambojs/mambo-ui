@@ -2,8 +2,7 @@ function demoGridTile(parentEle) {
 
     const m_demoGraphics = new DemoGraphics();
 
-    const data = [
-        {
+    const data = [{
             employee: {
                 name: "Ryder Short",
                 position: "Application Development Director",
@@ -101,10 +100,11 @@ function demoGridTile(parentEle) {
         fnPostTile: handleGridPostTile,
         fnComplete: (context) => {
             // Execute when grid installation is complete
-        }
+        },
+        parentTag: parentEle
     };
 
-    new MamboGrid(parentEle, config);
+    new MamboGrid(config);
 
     function handleGridPostTile(context) {
         addPhoto(context.tileTag);
@@ -116,7 +116,12 @@ function demoGridTile(parentEle) {
         let svg = m_demoGraphics.getSVG("user");
         let children = [];
         svg.paths.forEach((path => {
-            children.push({ name: "path", attrs: { d: path } });
+            children.push({
+                name: "path",
+                attrs: {
+                    d: path
+                }
+            });
         }));
         const tagConfig = {
             prop: svg.prop,
@@ -134,8 +139,9 @@ function demoGridTile(parentEle) {
             textButton: "Upload Picture",
             attr: {
                 accept: "image/*"
-            }
+            },
+            parentTag: fileChooserTag
         };
-        new MamboFileChooser(fileChooserTag, config);
+        new MamboFileChooser(config);
     }
 }
