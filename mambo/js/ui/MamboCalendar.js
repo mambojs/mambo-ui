@@ -95,15 +95,16 @@ class MamboCalendar extends HTMLElement {
                 class: m_config.css.parent,
             });
 
-            m_parentTag.innerHTML = "";
-            g_mamboDomJS.append(m_parentTag, m_calendarParentTag);
+            // m_parentTag.innerHTML = "";
+            // g_mamboDomJS.append(m_parentTag, m_calendarParentTag);
+            self.appendChild(m_calendarParentTag)
 
             installHeader();
             installBody();
             installFooter();
 
             // Append all childs
-            m_parentTag.appendChild(self);
+            // m_parentTag.appendChild(self);
             finishSetup();
         }
 
@@ -269,8 +270,8 @@ class MamboCalendar extends HTMLElement {
                     ShortName: dayName.substring(0, 2).toUpperCase(),
                 });
             }
-
-            m_datesHeaderGrid = new MamboGrid(m_bodyHeaderTag, grid);
+            grid.parentTag = m_bodyHeaderTag;
+            m_datesHeaderGrid = new MamboGrid(grid);
         }
 
         function installDates() {

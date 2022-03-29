@@ -317,9 +317,14 @@ class MamboGrid extends HTMLElement {
 					parentTag: context.parentTag,
 				});
 			};
+			buttonConfig.parentTag = context.parentTag;
 
-			const buttonTag = new MamboButton(context.parentTag, buttonConfig);
-			addComponentToMap({ column: context.column, colIndex: context.colIndex, component: buttonTag });
+			const buttonTag = new MamboButton(buttonConfig);
+			addComponentToMap({
+				column: context.column,
+				colIndex: context.colIndex,
+				component: buttonTag
+			});
 		}
 
 		function installInputCell(context) {
@@ -370,9 +375,14 @@ class MamboGrid extends HTMLElement {
 					context.column.fnClick(contextClick);
 				}
 			};
+			inputConfig.parentTag = context.parentTag;
 
-			const inputTag = new MamboInput(context.parentTag, inputConfig);
-			addComponentToMap({ column: context.column, colIndex: context.colIndex, component: inputTag });
+			const inputTag = new MamboInput(inputConfig);
+			addComponentToMap({
+				column: context.column,
+				colIndex: context.colIndex,
+				component: inputTag
+			});
 		}
 
 		function installFileChooserCell(context) {
@@ -441,9 +451,14 @@ class MamboGrid extends HTMLElement {
 					parentTag: context.parentTag,
 				});
 			};
+			buttonConfig.parentTag = context.parentTag;
 
-			const buttonTag = new MamboButton(context.parentTag, buttonConfig);
-			addComponentToMap({ column: context.column, colIndex: context.colIndex, component: buttonTag });
+			const buttonTag = new MamboButton(buttonConfig);
+			addComponentToMap({
+				column: context.column,
+				colIndex: context.colIndex,
+				component: buttonTag
+			});
 		}
 
 		function installButtonGroupCell(context) {
@@ -470,7 +485,8 @@ class MamboGrid extends HTMLElement {
 			config.fnClick = () => {
 				slideoutTag.open();
 			};
-			const buttonTag = new MamboButton(context.parentTag, config);
+			config.parentTag = context.parentTag;
+			const buttonTag = new MamboButton(config);
 
 			const slideoutConfig = m_utils.extend(true, {}, config);
 			slideoutConfig.fnComplete = config.fnInstallContent;
@@ -580,7 +596,8 @@ class MamboGrid extends HTMLElement {
 			};
 
 			const config = m_utils.extend(true, defaultConfig, context.column);
-			const calendarTag = new MamboCalendar(context.parentTag, config);
+			config.parentTag = context.parentTag;
+			const calendarTag = new MamboCalendar(config);
 
 			addComponentToMap({ column: context.column, colIndex: context.colIndex, component: calendarTag });
 		}

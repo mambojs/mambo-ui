@@ -53,7 +53,9 @@ class MamboInput extends HTMLElement {
 
         function installDOM() {
             //create the wrapper div container for the input
-            m_wrapperTag = g_mamboDomJS.createTag("div", { class: m_config.css.inputWrapper });
+            m_wrapperTag = g_mamboDomJS.createTag("div", {
+                class: m_config.css.inputWrapper
+            });
             const tagConfig = {
                 class: m_config.css.input,
                 prop: m_config.prop,
@@ -68,15 +70,19 @@ class MamboInput extends HTMLElement {
                 const labelTagConfig = {
                     class: m_config.css.label,
                     prop: m_config.prop,
-                    attr: { for: m_config.attr.name },
+                    attr: {
+                        for: m_config.attr.name
+                    },
                     text: m_config.labelText
                 };
                 m_labelTag = g_mamboDomJS.createTag('label', labelTagConfig);
-                g_mamboDomJS.append(m_parentTag, m_labelTag);
+                // g_mamboDomJS.append(m_parentTag, m_labelTag);
+                self.appendChild(m_labelTag)
             }
 
             // Append wrapper
-            g_mamboDomJS.append(m_parentTag, m_wrapperTag);
+            // g_mamboDomJS.append(m_parentTag, m_wrapperTag);
+            self.appendChild(m_wrapperTag)
 
             //if leftSide and rigthSide are false we create a common input
             if (!m_config.leftSide && !m_config.rightSide) {
@@ -140,7 +146,11 @@ class MamboInput extends HTMLElement {
                 }
                 componentConfig.fnClick = (context) => {
                     if (m_config.fnClick) {
-                        m_config.fnClick({ input: self, button: context.button, ev: context.ev });
+                        m_config.fnClick({
+                            input: self,
+                            button: context.button,
+                            ev: context.ev
+                        });
                     }
                 };
                 new MamboButton(componentConfig);
@@ -163,7 +173,10 @@ class MamboInput extends HTMLElement {
             if (m_config.events && Array.isArray(m_config.events)) {
                 m_config.events.forEach(event => {
                     m_inputTag.addEventListener(event.name, (ev) => {
-                        event.fn({ input: self, ev: ev });
+                        event.fn({
+                            input: self,
+                            ev: ev
+                        });
                     });
                 });
             }
@@ -204,7 +217,10 @@ class MamboInput extends HTMLElement {
                     m_inputTag.value = config.dir === 'right' ? m_inputTag.value + padding : padding + m_inputTag.value;
 
                     if (m_config.fnDataValidationChange) {
-                        m_config.fnDataValidationChange({ input: self, ev: ev });
+                        m_config.fnDataValidationChange({
+                            input: self,
+                            ev: ev
+                        });
                     }
                 }
             } else {
@@ -230,7 +246,9 @@ class MamboInput extends HTMLElement {
 
             // Execute complete callback function
             if (m_config.fnComplete) {
-                m_config.fnComplete({ input: self });
+                m_config.fnComplete({
+                    input: self
+                });
             }
         }
 
@@ -263,8 +281,7 @@ class MamboInput extends HTMLElement {
                 prop: {},
                 events: [{
                     name: "input",
-                    fn: (context) => {
-                    }
+                    fn: (context) => {}
                 }],
                 maxLenWidthAdj: 1,
                 maxLenWidthUnit: 'ch',
