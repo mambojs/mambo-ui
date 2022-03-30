@@ -4,7 +4,11 @@
         {
             "type": "chrome",
             "request": "launch",
+<<<<<<< Updated upstream
             "name": "Launch Chrome",
+=======
+            "name": "Mambo Go Live",
+>>>>>>> Stashed changes
             "url": "http://localhost:8000",
             "webRoot": "${workspaceFolder}"
         }
