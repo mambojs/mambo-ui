@@ -12,24 +12,21 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
-
+​
  *  Author : Alejandro Scotti
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlideout.js
  *******************************************/
-function MamboSlideout(parentTag, options) {
-    "use strict";
+class MamboSlideout extends HTMLElement {
+    constructor(initOptions) {
+		super();
+        
+        // Config default values
+        const self = this;
+        const m_utils = g_mamboUtils;
+        const m_graphics = g_mamboGraphics;
 
-    if (!parentTag) {
-        console.error(`Button: parentEle parameter not passed in.`);
-        return;
-    }
-
-    const self = this;
-    const m_utils = g_mamboUtils;
-    const m_graphics = g_mamboGraphics;
-
-    // HTML tag variables
+        // HTML tag variables
     let m_parentTag;
     let m_slideoutContentTag;
     let m_slideoutHeaderTag;
@@ -38,29 +35,33 @@ function MamboSlideout(parentTag, options) {
 
     let m_config;
 
+
     this.close = close;
     this.getContentTag = () => m_slideoutContentTag;
     this.getHeaderTag = () => m_slideoutHeaderTag;
     this.getBodyTag = () => m_slideoutBodyTag;
     this.destroy = destroySlideout;
     this.open = openAnimation;
+    this.setup = setup;
+    
 
-    configure();
+    if (initOptions) setup(initOptions);
 
-    setup();
-
-    function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+		function setup(options) {
+			// Config default values
+			configure(options);
+			//setOptionValues();
+			installDOM();
+            installCloseButton();
+            installEventHandler();
+		}
 
         if (!m_parentTag) {
             console.error(`Slideout: g_mamboDomJS. parent tag ${parentTag} was not found.`);
             return;
         }
-
-        installDOM();
-        installCloseButton();
-        installEventHandler();
-    }
+        
+    
 
     function installDOM() {
         m_slideoutHeaderTag = g_mamboDomJS.createTag(m_config.tag.header, { class: m_config.css.header });
@@ -71,6 +72,7 @@ function MamboSlideout(parentTag, options) {
         m_slideoutOverlayTag = g_mamboDomJS.createTag(m_config.tag.overlay, { class: m_config.css.overlay });
         g_mamboDomJS.append(m_parentTag, m_slideoutContentTag).append(m_parentTag, m_slideoutOverlayTag);
 
+        //m_parentTag.appendChild(self);
         finishSetup();
     }
 
@@ -125,7 +127,7 @@ function MamboSlideout(parentTag, options) {
         }
     }
 
-    function configure() {
+    function configure(options) {
         m_config = {
             css: {
                 overlay: "slideout-overlay",
@@ -165,4 +167,8 @@ function MamboSlideout(parentTag, options) {
             m_config = m_utils.extend(true, m_config, options);
         }
     }
+    
 }
+}
+
+customElements.define('mambo-slide-out', MamboSlideout);
