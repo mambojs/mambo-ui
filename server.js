@@ -36,6 +36,8 @@ app.use(express.static(`${__dirname}/`));
 // Fetch a file
 app.get("/getFile", handleGetFileRequest);
 
+// Fetch an image
+app.get("/getImage", handleGetImageRequest);
 // Return Index.html
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "index.html"));
@@ -55,6 +57,18 @@ function handleGetFileRequest(req, res) {
   });
 }
 
+function handleGetImageRequest(req,res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  const imagePath = path.join(`${__dirname}${separator}${req.query.path}`);
+  fs.readFile(imagePath, (err,image) => {
+    if(err){
+      res.send(err);
+    }
+    res.send(image)
+  })
+
+}
 // Start up Application
 app.listen(port);
 console.log(`Listening on http://localhost:${port}`);
