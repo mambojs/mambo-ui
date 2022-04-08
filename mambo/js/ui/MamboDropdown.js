@@ -37,13 +37,13 @@ class MamboDropdown extends HTMLElement {
         this.destroy = destroyDropdown;
         this.getContentTag = () => m_dropdownContainerTag;
         this.getParentTag = () => m_dropDownParentTag;
+        this.install = installSelf;
         this.open = open;
+        this.setup = setup;
 
-        //If init options are passed in, setup will be executed
-        initOptions && setup(initOptions);
+        initOptions && setup(initOptions); //if component has config options then begin the setup...
 
         function setup(options) {
-            // m_parentTag = g_mamboDomJS.getTag(parentTag);
 
             configure(options)
             installDOM();
@@ -55,16 +55,16 @@ class MamboDropdown extends HTMLElement {
             // m_parentTag = parentTag ? parentTag : m_parentTag;  
 
             // m_parentTag = 'demo-dropdown'; 
+            // installContainer();
+            installEventHandler();
+            installOpenButton();
             g_mamboDomJS.addClass(self, m_config.css.parent);
-            
-            m_config.install && installSelf(m_parentTag, m_config.installPrepend);
+
+            m_config.install && installSelf(m_parentTag, m_config.installPrepend); //install = true then install
+
+            finishSetup();  
         }
 
-        function installSelf(parentTag, prepend){
-            m_parentTag = parentTag ? parentTag : m_parentTag;
-
-            m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
-        }
 
         function installOpenButton() {
             let button = m_utils.extend(true, {}, m_config.button);
@@ -131,22 +131,30 @@ class MamboDropdown extends HTMLElement {
         }
 
         function finishSetup() {
+            // Install component into parent
+            if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
             // Execute complete callback function
             if (m_config.fnComplete) {
                 m_config.fnComplete({ dropdown: self });
             }
         }
 
+        function installSelf(parentTag, prepend) {
+            m_parentTag = parentTag ? parentTag : m_parentTag;
+
+            m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
+        }
+
+
         function configure(options) {
             m_config = {
                 install: "true",
                 installPrepend: "true",
-
-                parentTag: 'demo-dropdown',
+                // parentTag: "undefined",
                 css: {
                     parent: "dropdown-parent",
                     container: "dropdown-container",
-                    
+
                     open: "open",
                     button: {
                         button: "dropdown-button",
@@ -175,7 +183,7 @@ class MamboDropdown extends HTMLElement {
                 m_config = m_utils.extend(true, m_config, options);
             }
 
-            if(m_config.parentTag){
+            if (m_config.parentTag) {
                 m_parentTag = g_mamboDomJS.getTag(m_config.parentTag)
             }
         }
