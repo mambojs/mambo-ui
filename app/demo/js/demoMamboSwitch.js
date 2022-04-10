@@ -1,54 +1,57 @@
 function demoSwitch(parentEle) {
+	defaultSwitch();
+	checkedSwitch();
+	customTextSwitch();
+	disabledSwitch();
 
-    defaultSwitch();
-    checkedSwitch();
-    customTextSwitch();
-    disabledSwitch();
+	function defaultSwitch() {
+		const config = {
+			parentTag: parentEle,
+			fnChange: context => {
+				console.log(context.switch.checked());
+			},
+		};
 
-    function defaultSwitch() {
-        const config = {
-            fnChange: (context) => {
-                console.log(context.switch.checked());
-            }
-        };
+		new MamboSwitch(config);
+	}
 
-        new MamboSwitch(parentEle, config);
-    }
+	function checkedSwitch() {
+		const config = {
+            parentTag: parentEle,
+			checked: true,
+			fnChange: context => {
+				console.log(context.switch.checked());
+			},
+		};
 
-    function checkedSwitch() {
-        const config = {
-            checked: true,
-            fnChange: (context) => {
-                console.log(context.switch.checked());
-            }
-        };
+		new MamboSwitch(config);
+	}
 
-        new MamboSwitch(parentEle, config);
-    }
+	function customTextSwitch() {
+		const config = {
+            parentTag: parentEle,
+			checked: true,
+			messages: {
+				checked: 'YES',
+				unchecked: 'NO',
+			},
+			fnChange: context => {
+				console.log(context.switch.checked());
+			},
+		};
 
-    function customTextSwitch() {
-        const config = {
-            checked: true,
-            messages: {
-                checked: "YES",
-                unchecked: "NO"
-            },
-            fnChange: (context) => {
-                console.log(context.switch.checked());
-            }
-        };
+		new MamboSwitch(config);
+	}
 
-        new MamboSwitch(parentEle, config);
-    }
+	function disabledSwitch() {
+		const config = {
+            parentTag: parentEle,
+			enable: false,
+			fnChange: context => {
+				console.log(context.switch.checked());
+			},
+		};
 
-    function disabledSwitch() {
-        const config = {
-            enable: false,
-            fnChange: (context) => {
-                console.log(context.switch.checked());
-            }
-        };
-
-        new MamboSwitch(parentEle, config);
-    }
+		new MamboSwitch(config);
+	}
 }
