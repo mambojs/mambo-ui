@@ -1,8 +1,9 @@
-function demoDropdown(parentEle) {
+function demoDropdown() {
 
     const m_graphics = g_mamboGraphics;
 
     let config = {
+        parentTag: "parentEle",
         button: {
             img: {
                 attr: {
@@ -14,7 +15,7 @@ function demoDropdown(parentEle) {
     }
         ;
 
-    new MamboDropdown(parentEle, config);
+    new MamboDropdown(config);
 
     function installDropdownContent(context) {
         // Get the dropDown content
