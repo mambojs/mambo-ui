@@ -2,24 +2,26 @@ function demoGrid(parentEle) {
 
     const m_demoGraphics = new DemoGraphics();
 
-    let firstGrid = g_domJS.createTag(`${parentEle.tagName.toLowerCase()}-first`, { class: "first-grid" });
-    let secondGrid = g_domJS.createTag(`${parentEle.tagName.toLowerCase()}-second`, { class: "second-grid" });
+    let firstGrid = g_domJS.createTag(`${parentEle.tagName.toLowerCase()}-first`, {
+        class: "first-grid"
+    });
+    let secondGrid = g_domJS.createTag(`${parentEle.tagName.toLowerCase()}-second`, {
+        class: "second-grid"
+    });
 
     g_domJS.append(parentEle, firstGrid);
     g_domJS.append(parentEle, secondGrid);
 
     //First Grid
-    const data = [
-        {
-            input: "Red",
-            text: "Green",
-            hidden: "hidden"
-        }, {
-            input: "Purple",
-            text: "Brown",
-            hidden: "hidden"
-        }
-    ];
+    const data = [{
+        input: "Red",
+        text: "Green",
+        hidden: "hidden"
+    }, {
+        input: "Purple",
+        text: "Brown",
+        hidden: "hidden"
+    }];
 
     const columnsConfig = [{
         id: "button",
@@ -62,11 +64,9 @@ function demoGrid(parentEle) {
         dataKey: "input",
         attr: {},
         rightSide: {
-            button:
-            {
+            button: {
                 id: "input-clear",
-                img:
-                {
+                img: {
                     attr: {
                         src: m_demoGraphics.getImage("x-black"),
                     }
@@ -162,10 +162,11 @@ function demoGrid(parentEle) {
             // Execute when grid installation is complete
             console.log(context.grid.getCellComponentsById());
             console.log(context.grid.getCellComponentsByColNbr());
-        }
+        },
+        parentTag: firstGrid
     };
 
-    new MamboGrid(firstGrid, config);
+    new MamboGrid(config);
 
     function handleGridPostRow(context) {
         // Callback executed every time a new row has completed installing
@@ -177,9 +178,7 @@ function demoGrid(parentEle) {
     }
 
     //Second Grid
-    const data2 = [
-        {}
-    ];
+    const data2 = [{}];
 
     const columnsConfig2 = [{
         id: "treeView",
@@ -190,26 +189,34 @@ function demoGrid(parentEle) {
             'width': '150px',
             'max-width': '150px'
         },
-        data: [
-            {
+        data: [{
                 text: "Item 1",
-                items: [
-                    { text: "Item 1-1" },
-                    { text: "Item 1-2" },
+                items: [{
+                        text: "Item 1-1"
+                    },
+                    {
+                        text: "Item 1-2"
+                    },
                     {
                         text: "Item 1-3",
-                        items: [
-                            { text: "Item 1-3-1" },
-                            { text: "Item 1-3-2" }
+                        items: [{
+                                text: "Item 1-3-1"
+                            },
+                            {
+                                text: "Item 1-3-2"
+                            }
                         ]
                     }
                 ]
             },
             {
                 text: "Item 2",
-                items: [
-                    { text: "Item 2-1" },
-                    { text: "Item 2-2" }
+                items: [{
+                        text: "Item 2-1"
+                    },
+                    {
+                        text: "Item 2-2"
+                    }
                 ]
             }
         ],
@@ -238,11 +245,22 @@ function demoGrid(parentEle) {
             'width': '130px',
             'max-width': '130px'
         },
-        data: [
-            { text: "Item 1", id: "1" },
-            { text: "Item 2", id: "2" },
-            { text: "Item 3", id: "3" },
-            { text: "Item 4", id: "4" }
+        data: [{
+                text: "Item 1",
+                id: "1"
+            },
+            {
+                text: "Item 2",
+                id: "2"
+            },
+            {
+                text: "Item 3",
+                id: "3"
+            },
+            {
+                text: "Item 4",
+                id: "4"
+            }
         ],
         fnSelect: (context) => {
             console.log(context.combobox.value());
@@ -281,8 +299,9 @@ function demoGrid(parentEle) {
             // Execute when grid installation is complete
             console.log(context.grid.getCellComponentsById());
             console.log(context.grid.getCellComponentsByColNbr());
-        }
+        },
+        parentTag: secondGrid
     };
 
-    new MamboGrid(secondGrid, config2);
+    new MamboGrid(config2);
 }
