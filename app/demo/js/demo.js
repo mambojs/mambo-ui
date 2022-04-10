@@ -75,6 +75,7 @@ function demo() {
             {
                 text: "UI Components",
                 items: [
+                    { id: "accordion", text: "Accordion" },
                     { id: "button", text: "Button" },
                     { id: "button-group", text: "Button Group" },
                     { id: "input", text: "Input Field" },
@@ -130,6 +131,14 @@ function demo() {
         let hdrText, eleName, codePath, componentParentTag;
 
         switch (context.itemData.id) {
+            case "accordion":
+                hdrText = "Accordion Component Demo";
+                eleName = "accordion-button";
+                codePath = "demoMamboAccordion.js";
+                installDOM();
+                demoAccordion(componentParentTag);
+                break;
+
             case "button":
                 hdrText = "Button Component Demo";
                 eleName = "demo-button";
