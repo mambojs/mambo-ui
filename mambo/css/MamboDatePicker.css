@@ -50,6 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 3px;
 }
 
 .date-picker-button.hover {
@@ -86,6 +87,7 @@
 .date-picker-calendar-header {
     display: flex;
     flex-direction: row;
+    width:270px;
 }
 
 .date-picker-calendar-body {
