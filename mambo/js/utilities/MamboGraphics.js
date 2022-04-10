@@ -129,13 +129,4 @@ function MamboGraphics() {
         return list[name];
     }
 
-    //getImageFromServer("app/images/linkedinPage.png")
-
-    function getImageFromServer(url) {
-        g_API.getFile(url).then((file) => {
-            console.log(file);
-        }).catch(xhr => {
-            console.log(xhr.responseText);
-        });
-    }
 }

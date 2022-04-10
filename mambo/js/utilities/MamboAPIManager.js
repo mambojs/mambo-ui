@@ -25,6 +25,7 @@ function MamboAPIManager(options) {
     this.get = get;
     this.post = post;
     this.getFile = getFile;
+    this.getImage = getImage;
     this.getJSON = fetchJSON;
     this.getText = fetchText;
 
@@ -34,7 +35,9 @@ function MamboAPIManager(options) {
     async function getFile(path) {
         return await fetch(`http://localhost:8000/getFile?path=${path}`).then((response) => response.text());
     }
-
+    async function getImage(path){
+        return await fetch(`http://localhost:8000/getImage?path=${path}`).then((response) => response.blob());
+    }
     function fetchFile(filePath) {
         //const url = `http://localhost:8000/getFile?path=${filePath}`;
         const url = "http://localhost:8000/getFile?";
