@@ -27,9 +27,6 @@ function demo() {
      */
     function setup() {
         loadHomeView();
-
-        getImageFromServer("app/images/cat1.png");
-
     }
 
     function loadHomeView() {
@@ -123,25 +120,6 @@ function demo() {
 
         new MamboTreeView("ui-component-treeview", treeViewConfig);
     }
-
-    /**
-     * Load an Image from server to DOM
-     */
-    const imgtag = document.createElement("img");
-    async function getImageFromServer(url) {
-        try {
-            let file = await g_API.getImage(url);
-            console.log(file);
-            imgtag.src = URL.createObjectURL(file);
-        }
-        catch (xhr) {
-            console.log(xhr.responseText);
-        }
-    }
-    
-    //instead of smushing a picture into the title tag, could we create a new dom element and place it there?
-    const title = document.querySelector('.title');
-    title.appendChild(imgtag);
 
     function loadComponent(context) {
         if (!context.itemData.id) {
