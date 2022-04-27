@@ -17,11 +17,11 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboButton.js
  *******************************************/
-class MamboButton extends HTMLElement {
+window.ui.button = class MamboButton extends HTMLElement {
     constructor(initOptions) {
         super();
         const self = this;
-        const m_utils = g_mamboUtils;
+        const m_utils = tools.utils;
         const m_theme = g_mamboTheme;
         const m_imageList = [];
 
@@ -79,7 +79,7 @@ class MamboButton extends HTMLElement {
                     }
                 }
             };
-            m_buttonTag = g_mamboDomJS.createTag(m_config.tag, tagConfig);
+            m_buttonTag = dom.createTag(m_config.tag, tagConfig);
 
             //check if an img was provided
             if (m_config.img) {
@@ -112,9 +112,9 @@ class MamboButton extends HTMLElement {
                 prop: img.prop,
                 attr: img.attr
             };
-            let imgTag = g_mamboDomJS.createTag("img", tagConfig);
+            let imgTag = dom.createTag("img", tagConfig);
             m_imageList.push(imgTag);
-            g_mamboDomJS.append(m_buttonTag, imgTag);
+            dom.append(m_buttonTag, imgTag);
         }
 
         function addSVG(svg) {
@@ -131,8 +131,8 @@ class MamboButton extends HTMLElement {
                 attr: svg.attr,
                 children
             };
-            let svgTag = g_mamboDomJS.createSVGTag("svg", tagConfig);
-            g_mamboDomJS.append(m_buttonTag, svgTag);
+            let svgTag = dom.createSVGTag("svg", tagConfig);
+            dom.append(m_buttonTag, svgTag);
         }
 
         function getImageTagById(id) {
@@ -177,7 +177,7 @@ class MamboButton extends HTMLElement {
                     }
                 });
             } else if (m_config.img && m_config.img.hover) {
-                g_mamboDomJS.setAttr(m_imageList[0], { "src": m_config.img.hover });
+                dom.setAttr(m_imageList[0], { "src": m_config.img.hover });
             }
         }
 
@@ -189,22 +189,22 @@ class MamboButton extends HTMLElement {
                     }
                 });
             } else if (m_config.img && m_config.img.hover) {
-                g_mamboDomJS.setAttr(m_imageList[0], { "src": m_config.img.attr.src });
+                dom.setAttr(m_imageList[0], { "src": m_config.img.attr.src });
             }
         }
 
         function mouseEnterOverButton(tag) {
-            if (!g_mamboDomJS.hasClass(tag, m_config.css.selected)) {
-                g_mamboDomJS.addClass(tag, m_config.css.hover);
+            if (!dom.hasClass(tag, m_config.css.selected)) {
+                dom.addClass(tag, m_config.css.hover);
             }
         }
 
         function mouseLeaveOverButton(tag) {
-            g_mamboDomJS.removeClass(tag, m_config.css.hover);
+            dom.removeClass(tag, m_config.css.hover);
         }
 
         function setSrcAttr(tag, src) {
-            g_mamboDomJS.setAttr(tag, { "src": src });
+            dom.setAttr(tag, { "src": src });
         }
 
         function handleExternalSelect(context) {
@@ -218,11 +218,11 @@ class MamboButton extends HTMLElement {
         }
 
         function selectBtn() {
-            g_mamboDomJS.addClass(m_buttonTag, m_config.css.selected);
+            dom.addClass(m_buttonTag, m_config.css.selected);
         }
 
         function deselectBtn() {
-            g_mamboDomJS.removeClass(m_buttonTag, m_config.css.selected);
+            dom.removeClass(m_buttonTag, m_config.css.selected);
         }
 
         function text(context) {
@@ -244,7 +244,7 @@ class MamboButton extends HTMLElement {
 
         function setEnable(enable) {
             m_enable = enable;
-            m_enable ? g_mamboDomJS.removeClass(m_buttonTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_buttonTag, m_config.css.disabled);
+            m_enable ? dom.removeClass(m_buttonTag, m_config.css.disabled) : dom.addClass(m_buttonTag, m_config.css.disabled);
         }
 
         function finishSetup() {
@@ -259,7 +259,7 @@ class MamboButton extends HTMLElement {
 
         function installSelf(parentTag, prepend) {
             m_parentTag = parentTag ? parentTag : m_parentTag;
-            m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
+            m_parentTag = dom.appendSelfToParentTag(m_parentTag, self, prepend);
         }
 
         function configure(options) {
@@ -287,7 +287,7 @@ class MamboButton extends HTMLElement {
             }
 
             if (m_config.parentTag) {
-                m_parentTag = g_mamboDomJS.getTag(m_config.parentTag);
+                m_parentTag = dom.getTag(m_config.parentTag);
             }
 
             m_config.css = m_utils.extend(true, m_theme.getTheme({
@@ -298,4 +298,4 @@ class MamboButton extends HTMLElement {
     }
 }
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define('mambo-button', MamboButton);
+customElements.define('mambo-button', window.ui.button);

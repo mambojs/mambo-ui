@@ -18,9 +18,9 @@
  *  File : MamboInitializer.js
  *******************************************/
 // Do not change load order
-const g_mamboDomJS = new DomJS();
+const g_mamboDomJS = new DomJS(); //Se inicializa como window.dom en src/deps/Dom.js
 const g_mamboObjMgr = new MamboObjectManager();
-const g_mamboUtils = new MamboUtilities();
+const g_mamboUtils = new MamboUtilities(); //Se inicializa como window.tools.utils en src/deps/mambo-tools-last-min.js
 const g_mamboGraphics = new MamboGraphics();
 const g_mamboDateManager = new MamboDateManager();
 const g_mamboString = new MamboString();

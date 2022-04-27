@@ -6,8 +6,12 @@ if (!window.mambo) {
     develop: false
   };
 }
+if (!window.tools) {
+  import("../deps/mambo-tools-last-min.js");
+}
 if (!window.ui) {
   window.ui = {};
+  import("./mamboDefaultTheme.js");
   import("../ui/MamboAudioPlayer/MamboAudioPlayer.js");
   import("../ui/MamboButton/MamboButton.js");
   import("../ui/MamboButtonGroup/MamboButtonGroup.js");
