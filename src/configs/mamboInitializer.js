@@ -1,5 +1,5 @@
 if (!window.dom) {
-  import("../deps/Dom.js");
+  import("../deps/domjs-last-min.js");
 }
 if (!window.mambo) {
   window.mambo = {

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTimePicker.js
  *******************************************/
-function MamboTimePicker(parentTag, options) {
+window.ui.timePicker = function MamboTimePicker(parentTag, options) {
     "use strict";
 
     if (!parentTag) {

@@ -17,10 +17,10 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTheme.js
  *******************************************/
-function MamboTheme(initThemes) {
+window.ui.theme = function MamboTheme(initThemes) {
     "use strict";
 
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils //g_mamboUtils;
     // If default themes provided, initialize Themes with them
     const m_themes = { default: {} };
     m_themes.default = m_utils.extend(true, {}, initThemes);

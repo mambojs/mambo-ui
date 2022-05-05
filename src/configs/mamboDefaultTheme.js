@@ -1,4 +1,4 @@
-const g_mamboDefaultTheme = {
+window.ui.g_mamboDefaultTheme = {
     "html5video": {
         player: {
             player: "html5video-player"

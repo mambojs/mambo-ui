@@ -26,7 +26,7 @@ const g_mamboDateManager = new MamboDateManager();
 const g_mamboString = new MamboString();
 
 // Mambo Default theme from mamboDefaultTheme.js
-const g_mamboTheme = new MamboTheme(g_mamboDefaultTheme);
+const g_mamboTheme = new MamboTheme(g_mamboDefaultTheme); //Se inicializa en cada elemento como window.theme en src/ui/MamboTheme/MamboTheme.js
 
 // Mambo Default tagnames from mamboDefaultTagNames.js
 const g_mamboTagNames = new MamboTagNames(g_mamboDefaultTagNames);
