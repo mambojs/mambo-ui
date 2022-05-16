@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Mambo UI Library",
   "main": "server.cjs",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "build": "node ./setup/esbuild.config.cjs buildLib",
     "build-deps": "node ./setup/esbuild.config.cjs buildLibDeps",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "esbuild": "^0.14.32",
+    "esbuild-css-modules-plugin": "^2.2.16",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",

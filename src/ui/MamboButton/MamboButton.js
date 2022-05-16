@@ -17,6 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboButton.js
  *******************************************/
+import styles from './MamboButton.css';
 window.ui.button = class MamboButton extends HTMLElement {
     constructor(initOptions) {
         super();

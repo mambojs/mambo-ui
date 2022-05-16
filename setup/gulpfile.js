@@ -2,6 +2,7 @@
 import pkg from 'gulp';
 const { series, src, dest, parallel, watch } = pkg;
 import processhtml from 'gulp-processhtml';
+import cleanCSS from 'gulp-clean-css';
 import htmlmin from 'gulp-htmlmin';
 import concat from 'gulp-concat';
 import sourcemaps from 'gulp-sourcemaps';
@@ -81,13 +82,13 @@ function demos() {
     
     /* create file with gulp */
     fs.writeFile('demos_compiler.js', write_demo, function() { console.log('demos_compiler.js File created'); });
-    
+
     return src(['demos_compiler.js','reload.js','demos_base.js'])
         .pipe(sourcemaps.init())
         .pipe(concat(`index.js`))
         .pipe(terser())
         .pipe(sourcemaps.write('./'))
-        .pipe(dest(`../${config.OUTPUT_DIR}/js/demos`))
+        .pipe(dest(`../${config.OUTPUT_DIR}/demos`))
 }
 
 
@@ -96,6 +97,12 @@ function html() {
         .pipe(processhtml())
         .pipe(htmlmin({ collapseWhitespace: true, minifyJS: true, minifyCSS: true }))
         .pipe(dest(`../${config.OUTPUT_DIR}`))
+}
+
+function cssBase() {
+    return src(['demos_styles.css'])
+        .pipe(cleanCSS())
+        .pipe(dest(`../${config.OUTPUT_DIR}/demos`))
 }
 
 const clients = [];
@@ -165,4 +172,4 @@ function getScript(file) {
     return object;
 }
 
-export { demos, html, watchChanges };
+export { demos, html, cssBase, watchChanges };

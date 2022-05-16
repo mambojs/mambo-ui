@@ -16,7 +16,7 @@ window.demoui.manager = {
     },
     createHTMLbase: function() {
         const html = `
-        <div id="app">
+        <div id="docs">
             <div id="sidebar">
                 Lista de componentes
             </div>
