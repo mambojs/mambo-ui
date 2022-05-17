@@ -15,25 +15,7 @@ window.demoui.manager = {
         }
     },
     createHTMLbase: function() {
-        const html = `
-        <div id="docs">
-            <div id="sidebar">
-                Lista de componentes
-            </div>
-            <div id="main">
-                <section>
-                    <h3>Descripcion</h3>
-                    <div id="${AREAS[1]}"></div>
-                </section>
-                <section>
-                    <h3>Demo</h3>
-                    <div id="${AREAS[0]}"></div>
-                    <h3>Codigo</h3>
-                    <div id="${AREAS[2]}"></div>
-                </section>
-            </div>
-        </div>
-        `;
+        const html = eval('`' + demoui.html + '`');
         let parser = new DOMParser().parseFromString(html, 'text/html');
         document.body.prepend(parser.body.firstChild);
     },

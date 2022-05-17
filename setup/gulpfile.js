@@ -75,15 +75,19 @@ function demos() {
 
     })
 
+    /* Add html to demoui from setup/demos/demos_html.html */
+    const html = getScript('./demos/demos_html.html').fullcontent;
+
     write_demo = `
         window.demoui = {};
+        window.demoui.html = ${JSON.stringify(html)};
         window.demoui.components = ${JSON.stringify(components)};
        `;
     
     /* create file with gulp */
-    fs.writeFile('demos_compiler.js', write_demo, function() { console.log('demos_compiler.js File created'); });
+    fs.writeFile('./demos/demos_compiler.js', write_demo, function() { console.log('./demos/demos_compiler.js File created'); });
 
-    return src(['demos_compiler.js','reload.js','demos_base.js'])
+    return src(['./demos/demos_compiler.js','reload.js','./demos/demos_base.js'])
         .pipe(sourcemaps.init())
         .pipe(concat(`index.js`))
         .pipe(terser())
@@ -100,7 +104,7 @@ function html() {
 }
 
 function cssBase() {
-    return src(['demos_styles.css'])
+    return src(['./demos/demos_styles.css'])
         .pipe(cleanCSS())
         .pipe(dest(`../${config.OUTPUT_DIR}/demos`))
 }
@@ -109,8 +113,12 @@ const clients = [];
 
 function watchChanges() {
     
+    const base = watch(['./demos/**/*', '!./demos/demos_compiler.js'], parallel(cssBase, demos));
+    base.on('all', (path, stats) => {
+        console.log(`Gulp: ${path} - ${stats}`);
+    })
 
-    const watcher = watch(`../src/**/*`, parallel(html, demos));
+    const watcher = watch(['../src/**/*'], parallel(html, demos));
     watcher.on('all', (path, stats) => {
         console.log(`Gulp: ${path} - ${stats}`);
     })
