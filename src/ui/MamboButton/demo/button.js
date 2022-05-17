@@ -24,7 +24,12 @@ function textImage(eleName) {
         parentTag: eleName,
         img: {
             attr: {
-                src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath d='M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5 450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8 511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352 472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1 206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120 512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02 287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0 288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8 255.5L575.8 255.5z'/%3E%3C/svg%3E",
+                src: `data:image/svg+xml;base64,
+                PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
+                JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
+                +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
+                zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
+                gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
                 alt: "home"
             }
         },
@@ -52,6 +57,168 @@ function anchorButtonText(eleName) {
         attr: {
             href: location.pathname
         },
+        fnClick: (context) => {
+            alert(`${context.button.text()} clicked.`);
+        }
+    };
+
+    new ui.button(config);
+}
+//!
+
+//: Creating a button with an <a> and an <img> element inside
+//@
+anchorButtonImg('#demo-button');
+
+function anchorButtonImg(eleName) {
+    const config = {
+        parentTag: eleName,
+        id: 4,
+        tag: "a",
+        text: "Anchor Button Image",
+        attr: {
+            href: location.pathname
+        },
+        img: {
+            attr: {
+                src: `data:image/svg+xml;base64,
+                PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
+                JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
+                +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
+                zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
+                gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
+                alt: "home"
+            }
+        },
+        fnClick: (context) => {
+            alert(`${context.button.text()} clicked.`);
+        }
+    };
+
+    new ui.button(config);
+}
+//!
+
+//: Creating a button that replace the inner image in a hover event.
+//@
+buttonImgWithHover('#demo-button');
+
+function buttonImgWithHover(eleName) {
+    const config = {
+        parentTag: eleName,
+        id: 5,
+        text: "Hover Button",
+        img: {
+            attr: {
+                src: `data:image/svg+xml;base64,
+                PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
+                JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
+                +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
+                zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
+                gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
+                alt: "home"
+            },
+            hover: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
+            +hVVRTGv1+ZL3Jg9kAqKKU0CHrQwwaWSlEgggi9KBLRQVKzIIheVtAkaBAoBilFTSpqFBFhD5pkFFQWUUEvKAhpYCBZ/
+            qsvluwb19u5d+9z7jn/7l2Te+Cuvdb37fXYLzTlQpf4bZ8gaR5wpCs/
+            XRNYL2k58NS0EvhU0unA0qkjkNLnT0kR5YVdpVFnKWR7naS30sxvB3Z3EYUuCeyXdGUC/RNw1tQQsB0T81dKnx7u
+            +cAfbZPoJAK2V0l6fwDsFuDZaSHwjqQ1A2C/B86deAIpfaL7xCI2KHOBmTZJtJ5Cti
+            +S9MkQkDcDL006gdckxQpcJV8DKyadQKTPiSNAzgGiQ7UiraaQ7ZjdLzPINgARpVakbQKR3zdmkB0Aok5akbYJHJV0UgaZ
+            JUUa/d0Gg9YI2D5H0neFoNYBsVaMLdi+RNL8vsILUr0i7P8OZ9HbBwu0N+PbJG0oRBTb7IeS7uC6EJHpL/L4jqiF9H
+            +H3kwQCFAxG1cXOp8UtWgWF/
+            +bQrbvkPTcpKDL4LgfeDx0jqsB20skfSUpfidR4mx9IfBtD1xlEduOXePmCWOwT9L1g91raBeyvVrSu0M2ZbPJLQr4VuDF
+            Kqcj26jteZIOSDp/NhH3+TooaQVwaJj/onXA9g5JD88yib3A1pzPIgJhxPZKSdG/5+aMjvl/
+            9Pe1wHsldooJJBJzJH0g6dIS4w10fpB0QZ0rmFoEeoBs3yfpWB9uUXYD2
+            +vaa0QgRSO6VFGYC0BtBfYW6P1HZRwCD0h6rInTijEvAzc1sTUOgV9aXLFngEbNoREB2wsk/
+            dZkxkaMORv4sa7NpgSi2HbVdZbRfxq4s67NpgRips6s6yyjfwRYWNdmbQK2I1dbv+NMwE8DoraKpQmB2yU9X
+            +hhT2q1peeMJ4B7C20fU2tC4BtJyzJOIkKXA5+lNePUdM44JTPuMLCoMwK2YyuRu9uM4+m1VbcOtl+QdFsG4OJRu8/
+            BsbUiYHuTpFeGAIh9+y25u0/b10h6e8Q5YwfwSGkU6hL4IjZbFcZ/lrQS+LXEse24BYlzxnkV
+            +oeAxSV2atVAur2outPcBdxV6rBfz/aDkh6tGLsIOFxiszgCtq
+            +T9Gaf0bjEvQr4qMTRMB3b8ejxebxk9uncAzxZYrcOgQ8lXZaMfizpCiBIjC3pUeR1STckYweBM0oMFxEYeLS7G9hZYryu
+            ju2Nkl5N7X0B8HvORimBeLR7IxVqFGxnYvtkSdEsohtlzwilBDYDpatpK+RsbwOeyRkrIpAz8n/+/
+            w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`
+        },
+        fnClick: (context) => {
+            alert(`${context.button.text()} clicked.`);
+        }
+    };
+
+    new ui.button(config);
+}
+//!
+
+//: Creating a button that replace the inner image in a hover event.
+//@
+buttonMultiImgWithHover('#demo-button');
+
+function buttonMultiImgWithHover(eleName) {
+    const config = {
+        parentTag: eleName,
+        id: 5,
+        text: "Multi Hover Button",
+        img: [
+            {
+                css: { img: "demo-img" },
+                attr: {
+                    src: `data:image/svg+xml;base64,
+                    PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
+                    JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
+                    +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
+                    zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
+                    gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
+                    alt: "home"
+                },
+                hover: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
+                +hVVRTGv1+ZL3Jg9kAqKKU0CHrQwwaWSlEgggi9KBLRQVKzIIheVtAkaBAoBilFTSpqFBFhD5pkFFQWUUEvKAhpYCBZ/
+                qsvluwb19u5d+9z7jn/7l2Te+Cuvdb37fXYLzTlQpf4bZ8gaR5wpCs/
+                XRNYL2k58NS0EvhU0unA0qkjkNLnT0kR5YVdpVFnKWR7naS30sxvB3Z3EYUuCeyXdGUC/RNw1tQQsB0T81dKnx7u
+                +cAfbZPoJAK2V0l6fwDsFuDZaSHwjqQ1A2C/B86deAIpfaL7xCI2KHOBmTZJtJ5Cti
+                +S9MkQkDcDL006gdckxQpcJV8DKyadQKTPiSNAzgGiQ7UiraaQ7ZjdLzPINgARpVakbQKR3zdmkB0Aok5akbYJHJV0UgaZ
+                JUUa/d0Gg9YI2D5H0neFoNYBsVaMLdi+RNL8vsILUr0i7P8OZ9HbBwu0N+PbJG0oRBTb7IeS7uC6EJHpL/L4jqiF9H
+                +H3kwQCFAxG1cXOp8UtWgWF/
+                +bQrbvkPTcpKDL4LgfeDx0jqsB20skfSUpfidR4mx9IfBtD1xlEduOXePmCWOwT9L1g91raBeyvVrSu0M2ZbPJLQr4VuDF
+                Kqcj26jteZIOSDp/NhH3+TooaQVwaJj/onXA9g5JD88yib3A1pzPIgJhxPZKSdG/5+aMjvl/
+                9Pe1wHsldooJJBJzJH0g6dIS4w10fpB0QZ0rmFoEeoBs3yfpWB9uUXYD2
+                +vaa0QgRSO6VFGYC0BtBfYW6P1HZRwCD0h6rInTijEvAzc1sTUOgV9aXLFngEbNoREB2wsk/
+                dZkxkaMORv4sa7NpgSi2HbVdZbRfxq4s67NpgRips6s6yyjfwRYWNdmbQK2I1dbv+NMwE8DoraKpQmB2yU9X
+                +hhT2q1peeMJ4B7C20fU2tC4BtJyzJOIkKXA5+lNePUdM44JTPuMLCoMwK2YyuRu9uM4+m1VbcOtl+QdFsG4OJRu8/
+                BsbUiYHuTpFeGAIh9+y25u0/b10h6e8Q5YwfwSGkU6hL4IjZbFcZ/lrQS+LXEse24BYlzxnkV
+                +oeAxSV2atVAur2outPcBdxV6rBfz/aDkh6tGLsIOFxiszgCtq
+                +T9Gaf0bjEvQr4qMTRMB3b8ejxebxk9uncAzxZYrcOgQ8lXZaMfizpCiBIjC3pUeR1STckYweBM0oMFxEYeLS7G9hZYryu
+                ju2Nkl5N7X0B8HvORimBeLR7IxVqFGxnYvtkSdEsohtlzwilBDYDpatpK+RsbwOeyRkrIpAz8n/+/
+                w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`
+            },
+            {
+                attr: {
+                    src: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
+                    +hVVRTGv1+ZL3Jg9kAqKKU0CHrQwwaWSlEgggi9KBLRQVKzIIheVtAkaBAoBilFTSpqFBFhD5pkFFQWUUEvKAhpYCBZ/
+                    qsvluwb19u5d+9z7jn/7l2Te+Cuvdb37fXYLzTlQpf4bZ8gaR5wpCs/
+                    XRNYL2k58NS0EvhU0unA0qkjkNLnT0kR5YVdpVFnKWR7naS30sxvB3Z3EYUuCeyXdGUC/RNw1tQQsB0T81dKnx7u
+                    +cAfbZPoJAK2V0l6fwDsFuDZaSHwjqQ1A2C/B86deAIpfaL7xCI2KHOBmTZJtJ5Cti
+                    +S9MkQkDcDL006gdckxQpcJV8DKyadQKTPiSNAzgGiQ7UiraaQ7ZjdLzPINgARpVakbQKR3zdmkB0Aok5akbYJHJV0UgaZ
+                    JUUa/d0Gg9YI2D5H0neFoNYBsVaMLdi+RNL8vsILUr0i7P8OZ9HbBwu0N+PbJG0oRBTb7IeS7uC6EJHpL/L4jqiF9H
+                    +H3kwQCFAxG1cXOp8UtWgWF/
+                    +bQrbvkPTcpKDL4LgfeDx0jqsB20skfSUpfidR4mx9IfBtD1xlEduOXePmCWOwT9L1g91raBeyvVrSu0M2ZbPJLQr4VuDF
+                    Kqcj26jteZIOSDp/NhH3+TooaQVwaJj/onXA9g5JD88yib3A1pzPIgJhxPZKSdG/5+aMjvl/
+                    9Pe1wHsldooJJBJzJH0g6dIS4w10fpB0QZ0rmFoEeoBs3yfpWB9uUXYD2
+                    +vaa0QgRSO6VFGYC0BtBfYW6P1HZRwCD0h6rInTijEvAzc1sTUOgV9aXLFngEbNoREB2wsk/
+                    dZkxkaMORv4sa7NpgSi2HbVdZbRfxq4s67NpgRips6s6yyjfwRYWNdmbQK2I1dbv+NMwE8DoraKpQmB2yU9X
+                    +hhT2q1peeMJ4B7C20fU2tC4BtJyzJOIkKXA5+lNePUdM44JTPuMLCoMwK2YyuRu9uM4+m1VbcOtl+QdFsG4OJRu8/
+                    BsbUiYHuTpFeGAIh9+y25u0/b10h6e8Q5YwfwSGkU6hL4IjZbFcZ/lrQS+LXEse24BYlzxnkV
+                    +oeAxSV2atVAur2outPcBdxV6rBfz/aDkh6tGLsIOFxiszgCtq
+                    +T9Gaf0bjEvQr4qMTRMB3b8ejxebxk9uncAzxZYrcOgQ8lXZaMfizpCiBIjC3pUeR1STckYweBM0oMFxEYeLS7G9hZYryu
+                    ju2Nkl5N7X0B8HvORimBeLR7IxVqFGxnYvtkSdEsohtlzwilBDYDpatpK+RsbwOeyRkrIpAz8n/+/
+                    w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`,
+                    alt: "Star"
+                },
+                hover: `data:image/svg+xml;base64,
+                PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
+                JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
+                +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
+                zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
+                gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`
+            }
+        ],
         fnClick: (context) => {
             alert(`${context.button.text()} clicked.`);
         }

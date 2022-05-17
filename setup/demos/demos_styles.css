@@ -32,4 +32,10 @@
     font-family: monospace;
     font-size: .9em;
     white-space: pre-wrap;
+}
+div[id^="demo-"] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
 } 
