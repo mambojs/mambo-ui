@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlideout.js
  *******************************************/
-function MamboSlideout(parentTag, options) {
+ import styles from './MamboSlideout.css';
+
+window.ui.slideout = function MamboSlideout(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,8 +28,8 @@ function MamboSlideout(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
-    const m_graphics = g_mamboGraphics;
+    const m_utils = tools.utils;
+    // const m_graphics = g_mamboGraphics;
 
     // HTML tag variables
     let m_parentTag;
@@ -50,10 +52,10 @@ function MamboSlideout(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Slideout: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`Slideout: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -63,20 +65,20 @@ function MamboSlideout(parentTag, options) {
     }
 
     function installDOM() {
-        m_slideoutHeaderTag = g_mamboDomJS.createTag(m_config.tag.header, { class: m_config.css.header });
-        m_slideoutBodyTag = g_mamboDomJS.createTag(m_config.tag.body, { class: m_config.css.body });
-        m_slideoutContentTag = g_mamboDomJS.createTag(m_config.tag.content, { class: m_config.css.content });
-        g_mamboDomJS.append(m_slideoutContentTag, m_slideoutHeaderTag).append(m_slideoutContentTag, m_slideoutBodyTag);
+        m_slideoutHeaderTag = dom.createTag(m_config.tag.header, { class: m_config.css.header });
+        m_slideoutBodyTag = dom.createTag(m_config.tag.body, { class: m_config.css.body });
+        m_slideoutContentTag = dom.createTag(m_config.tag.content, { class: m_config.css.content });
+        dom.append(m_slideoutContentTag, m_slideoutHeaderTag).append(m_slideoutContentTag, m_slideoutBodyTag);
 
-        m_slideoutOverlayTag = g_mamboDomJS.createTag(m_config.tag.overlay, { class: m_config.css.overlay });
-        g_mamboDomJS.append(m_parentTag, m_slideoutContentTag).append(m_parentTag, m_slideoutOverlayTag);
+        m_slideoutOverlayTag = dom.createTag(m_config.tag.overlay, { class: m_config.css.overlay });
+        dom.append(m_parentTag, m_slideoutContentTag).append(m_parentTag, m_slideoutOverlayTag);
 
         finishSetup();
     }
 
     function openAnimation() {
-        g_mamboDomJS.addClass(m_slideoutContentTag, "open");
-        g_mamboDomJS.addClass(m_slideoutOverlayTag, "fade-in");
+        dom.addClass(m_slideoutContentTag, "open");
+        dom.addClass(m_slideoutOverlayTag, "fade-in");
         if (m_config.fnOpen) {
             m_config.fnOpen({ slideout: self });
         }
@@ -87,15 +89,15 @@ function MamboSlideout(parentTag, options) {
     }
 
     function closeAnimation() {
-        g_mamboDomJS.removeClass(m_slideoutContentTag, "open");
-        g_mamboDomJS.removeClass(m_slideoutOverlayTag, "fade-in");
+        dom.removeClass(m_slideoutContentTag, "open");
+        dom.removeClass(m_slideoutOverlayTag, "fade-in");
         if (m_config.fnClose) {
             m_config.fnClose({ slideout: self });
         }
     }
 
     function destroySlideout() {
-        g_mamboDomJS.remove(m_slideoutContentTag).remove(m_slideoutOverlayTag);
+        dom.remove(m_slideoutContentTag).remove(m_slideoutOverlayTag);
     }
 
     function installCloseButton() {
@@ -109,7 +111,7 @@ function MamboSlideout(parentTag, options) {
             closeAnimation();
         };
 
-        new MamboButton(config);
+        new ui.button(config);
     }
 
     function installEventHandler() {
@@ -145,7 +147,7 @@ function MamboSlideout(parentTag, options) {
                 },
                 img: {
                     attr: {
-                        src: m_graphics.getImage({ name: "x-black" })
+                        src: ""//m_graphics.getImage({ name: "x-black" })
                     }
                 },
                 css: {

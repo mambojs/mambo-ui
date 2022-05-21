@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboPercentage.js
  *******************************************/
-function MamboPercentage(parentTag, options) {
+ import styles from './MamboPercentage.css';
+
+window.ui.percentage = function MamboPercentage(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +28,7 @@ function MamboPercentage(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_parentTag;
@@ -49,10 +51,10 @@ function MamboPercentage(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Percentage: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`Percentage: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -70,14 +72,14 @@ function MamboPercentage(parentTag, options) {
     }
 
     function installTags() {
-        m_percentageParentTag = g_mamboDomJS.createTag(m_config.tag.percentage, { class: m_config.css.parent });
-        g_mamboDomJS.append(m_parentTag, m_percentageParentTag);
+        m_percentageParentTag = dom.createTag(m_config.tag.percentage, { class: m_config.css.parent });
+        dom.append(m_parentTag, m_percentageParentTag);
 
-        m_percentageBarTag = g_mamboDomJS.createTag(m_config.tag.bar, { class: m_config.css.bar });
-        g_mamboDomJS.append(m_percentageParentTag, m_percentageBarTag);
+        m_percentageBarTag = dom.createTag(m_config.tag.bar, { class: m_config.css.bar });
+        dom.append(m_percentageParentTag, m_percentageBarTag);
 
-        m_percentageTextTag = g_mamboDomJS.createTag(m_config.tag.text, { class: m_config.css.text });
-        g_mamboDomJS.append(m_percentageBarTag, m_percentageTextTag);
+        m_percentageTextTag = dom.createTag(m_config.tag.text, { class: m_config.css.text });
+        dom.append(m_percentageBarTag, m_percentageTextTag);
 
         setValue(m_value);
     }
@@ -113,19 +115,19 @@ function MamboPercentage(parentTag, options) {
             });
             if (range && range.css) {
                 clearRangeClasses();
-                g_mamboDomJS.addClass(m_percentageBarTag, range.css);
+                dom.addClass(m_percentageBarTag, range.css);
             }
         }
     }
 
     function clearRangeClasses() {
         m_config.ranges.forEach(range => {
-            g_mamboDomJS.removeClass(m_percentageBarTag, range.css);
+            dom.removeClass(m_percentageBarTag, range.css);
         });
     }
 
     function destroyPercentage() {
-        g_mamboDomJS.remove(m_percentageParentTag);
+        dom.remove(m_percentageParentTag);
     }
 
     function finishSetup() {

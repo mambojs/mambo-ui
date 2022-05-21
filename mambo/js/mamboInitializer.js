@@ -21,15 +21,15 @@
 const g_mamboDomJS = new DomJS(); //Se inicializa como window.dom en src/deps/Dom.js
 const g_mamboObjMgr = new MamboObjectManager();
 const g_mamboUtils = new MamboUtilities(); //Se inicializa como window.tools.utils en src/deps/mambo-tools-last-min.js
-const g_mamboGraphics = new MamboGraphics();
-const g_mamboDateManager = new MamboDateManager();
-const g_mamboString = new MamboString();
+const g_mamboGraphics = new MamboGraphics(); // No se usa mas
+const g_mamboDateManager = new MamboDateManager(); //Se inicializa como window.tools.utils en src/deps/mambo-tools-last-min.js
+const g_mamboString = new MamboString(); //Se inicializa como window.tools.string en src/deps/mambo-tools-last-min.js
 
 // Mambo Default theme from mamboDefaultTheme.js
-const g_mamboTheme = new MamboTheme(g_mamboDefaultTheme); //Se inicializa en cada elemento como window.theme en src/ui/MamboTheme/MamboTheme.js
+const g_mamboTheme = new MamboTheme(g_mamboDefaultTheme); //Se inicializa en cada elemento como window.ui.theme en src/ui/MamboTheme/MamboTheme.js
 
 // Mambo Default tagnames from mamboDefaultTagNames.js
-const g_mamboTagNames = new MamboTagNames(g_mamboDefaultTagNames);
+const g_mamboTagNames = new MamboTagNames(g_mamboDefaultTagNames); //Se inicializa en cada elemento como window.ui.tagNames en src/ui/MamboTheme/MamboTheme.js
 
 
 

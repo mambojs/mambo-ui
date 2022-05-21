@@ -17,13 +17,14 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboInput.js
  *******************************************/
-class MamboInput extends HTMLElement {
+ import styles from './MamboInput.css';
+window.ui.input = class MamboInput extends HTMLElement {
     constructor(initOptions) {
         super();
         // Config default values
         const self = this;
-        const m_utils = g_mamboUtils;
-        const m_theme = g_mamboTheme;
+        const m_utils = tools.utils;
+        const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
 
         // HTML tag variables
         let m_parentTag;
@@ -53,7 +54,7 @@ class MamboInput extends HTMLElement {
 
         function installDOM() {
             //create the wrapper div container for the input
-            m_wrapperTag = g_mamboDomJS.createTag("div", {
+            m_wrapperTag = dom.createTag("div", {
                 class: m_config.css.inputWrapper
             });
             const tagConfig = {
@@ -62,7 +63,7 @@ class MamboInput extends HTMLElement {
                 attr: m_config.attr,
                 text: m_config.value
             };
-            m_inputTag = g_mamboDomJS.createTag(m_config.tag, tagConfig);
+            m_inputTag = dom.createTag(m_config.tag, tagConfig);
 
             if (m_config.hidden) {
                 m_wrapperTag.style.display = "none";
@@ -75,13 +76,13 @@ class MamboInput extends HTMLElement {
                     },
                     text: m_config.labelText
                 };
-                m_labelTag = g_mamboDomJS.createTag('label', labelTagConfig);
-                // g_mamboDomJS.append(m_parentTag, m_labelTag);
+                m_labelTag = dom.createTag('label', labelTagConfig);
+                // dom.append(m_parentTag, m_labelTag);
                 self.appendChild(m_labelTag)
             }
 
             // Append wrapper
-            // g_mamboDomJS.append(m_parentTag, m_wrapperTag);
+            // dom.append(m_parentTag, m_wrapperTag);
             self.appendChild(m_wrapperTag)
 
             //if leftSide and rigthSide are false we create a common input
@@ -121,7 +122,7 @@ class MamboInput extends HTMLElement {
         }
 
         function appendInputElement(parent) {
-            g_mamboDomJS.append(parent, m_inputTag);
+            dom.append(parent, m_inputTag);
 
             if (m_config.maxLenWidth && (!m_config.leftSide && !m_config.rightSide)) {
                 const width = `${m_config.attr.maxLength + m_config.maxLenWidthAdj}${m_config.maxLenWidthUnit}`;
@@ -153,7 +154,7 @@ class MamboInput extends HTMLElement {
                         });
                     }
                 };
-                new MamboButton(componentConfig);
+                new ui.button(componentConfig);
             } else {
                 componentConfig = item.img;
                 if (!componentConfig.css) {
@@ -164,8 +165,8 @@ class MamboInput extends HTMLElement {
                     prop: componentConfig.prop,
                     attr: componentConfig.attr
                 };
-                let component = g_mamboDomJS.createTag("img", tagConfig);
-                g_mamboDomJS.append(m_wrapperTag, component);
+                let component = dom.createTag("img", tagConfig);
+                dom.append(m_wrapperTag, component);
             }
         }
 
@@ -254,7 +255,7 @@ class MamboInput extends HTMLElement {
 
         function installSelf(parentTag, prepend) {
             m_parentTag = parentTag ? parentTag : m_parentTag;
-            m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
+            m_parentTag = dom.appendSelfToParentTag(m_parentTag, self, prepend);
         }
 
         function configure(options) {
@@ -294,7 +295,7 @@ class MamboInput extends HTMLElement {
             }
 
             if (m_config.parentTag) {
-                m_parentTag = g_mamboDomJS.getTag(m_config.parentTag);
+                m_parentTag = dom.getTag(m_config.parentTag);
             }
 
             m_config.css = m_utils.extend(true, m_theme.getTheme({
@@ -305,4 +306,4 @@ class MamboInput extends HTMLElement {
     }
 }
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define('mambo-input', MamboInput);
+customElements.define('mambo-input', window.ui.input);

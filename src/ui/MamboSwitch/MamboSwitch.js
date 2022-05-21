@@ -17,11 +17,12 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSwitch.js
  *******************************************/
- class MamboSwitch extends HTMLElement {
+ import styles from './MamboSwitch.css';
+ window.ui.switch = class MamboSwitch extends HTMLElement {
 	constructor(initOptions) {
 		super();
 		const self = this;
-		const m_utils = g_mamboUtils;
+		const m_utils = tools.utils;
 
 		// HTML tag variables
 		let m_parentTag;
@@ -65,43 +66,43 @@
 		// Begin setup
 
 		function installTags() {
-			m_switchParentTag = g_mamboDomJS.createTag(m_config.tag.switch, {
+			m_switchParentTag = dom.createTag(m_config.tag.switch, {
 				class: m_config.css.parent,
 			});
-			g_mamboDomJS.append(m_parentTag, m_switchParentTag);
+			dom.append(m_parentTag, m_switchParentTag);
 
 			const tagConfig = {
 				class: m_config.css.input,
 				attr: { type: 'checkbox' },
 				prop: { checked: m_checked },
 			};
-			m_inputTag = g_mamboDomJS.createTag('input', tagConfig);
-			m_containerTag = g_mamboDomJS.createTag(m_config.tag.container, {
+			m_inputTag = dom.createTag('input', tagConfig);
+			m_containerTag = dom.createTag(m_config.tag.container, {
 				class: m_config.css.container,
 			});
 
-			g_mamboDomJS.append(m_switchParentTag, m_inputTag);
-			g_mamboDomJS.append(m_switchParentTag, m_containerTag);
+			dom.append(m_switchParentTag, m_inputTag);
+			dom.append(m_switchParentTag, m_containerTag);
 
 			installLabels();
 		}
 
 		function installLabels() {
-			let onTag = g_mamboDomJS.createTag(m_config.tag.on, {
+			let onTag = dom.createTag(m_config.tag.on, {
 				class: m_config.css.on,
 				text: m_config.messages.checked,
 			});
-			let offTag = g_mamboDomJS.createTag(m_config.tag.off, {
+			let offTag = dom.createTag(m_config.tag.off, {
 				class: m_config.css.off,
 				text: m_config.messages.unchecked,
 			});
-			let handleTag = g_mamboDomJS.createTag(m_config.tag.handl, {
+			let handleTag = dom.createTag(m_config.tag.handl, {
 				class: m_config.css.handle,
 			});
 
-			g_mamboDomJS.append(m_containerTag, onTag);
-			g_mamboDomJS.append(m_containerTag, offTag);
-			g_mamboDomJS.append(m_containerTag, handleTag);
+			dom.append(m_containerTag, onTag);
+			dom.append(m_containerTag, offTag);
+			dom.append(m_containerTag, handleTag);
 
 			setEnable(m_enable);
 		}
@@ -122,7 +123,7 @@
 		}
 
 		function setChecked(ev) {
-			g_mamboDomJS.setProps(m_inputTag, { checked: m_checked });
+			dom.setProps(m_inputTag, { checked: m_checked });
 
 			if (m_config.fnChange) {
 				m_config.fnChange({ switch: self, ev: ev });
@@ -151,12 +152,12 @@
 		function setEnable(enable) {
 			m_enable = enable;
 			m_enable
-				? g_mamboDomJS.removeClass(m_switchParentTag, m_config.css.disabled)
-				: g_mamboDomJS.addClass(m_switchParentTag, m_config.css.disabled);
+				? dom.removeClass(m_switchParentTag, m_config.css.disabled)
+				: dom.addClass(m_switchParentTag, m_config.css.disabled);
 		}
 
 		function destroySwitch() {
-			g_mamboDomJS.remove(m_switchParentTag);
+			dom.remove(m_switchParentTag);
 		}
 
 		function finishSetup() {
@@ -169,7 +170,7 @@
 		}
 		function installSelf(parentTag, prepend) {
 			m_parentTag = parentTag ? parentTag : m_parentTag;
-			m_parentTag = g_mamboDomJS.appendSelfToParentTag(
+			m_parentTag = dom.appendSelfToParentTag(
 				m_parentTag,
 				self,
 				prepend
@@ -213,10 +214,10 @@
 				m_config = m_utils.extend(true, m_config, options);
 			}
 			if (m_config.parentTag) {
-				m_parentTag = g_mamboDomJS.getTag(m_config.parentTag);
+				m_parentTag = dom.getTag(m_config.parentTag);
 			}
 		
 		}
 	}
 }
-customElements.define('mambo-switch', MamboSwitch);
+customElements.define('mambo-switch', window.ui.switch);

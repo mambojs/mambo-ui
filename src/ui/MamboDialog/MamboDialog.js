@@ -17,12 +17,14 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDialog.js
  *******************************************/
-function MamboDialog(parentTag, options, fnReady) {
+ import styles from './MamboDialog.css';
+
+window.ui.dialog = function MamboDialog(parentTag, options, fnReady) {
     "use strict";
 
     // Config default values
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_overlayTag;
@@ -45,30 +47,30 @@ function MamboDialog(parentTag, options, fnReady) {
     }
 
     function installDialog() {
-        m_overlayTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
-        m_overlayBodyTag = g_mamboDomJS.createTag(m_config.tag.dialogBody, { class: m_config.css.dialogBody });
-        let headerContent = m_config.title ? g_mamboDomJS.createTag('h3', { class: m_config.css.hdrTitle, text: m_config.title }) : m_config.hdrHtml;
+        m_overlayTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_overlayBodyTag = dom.createTag(m_config.tag.dialogBody, { class: m_config.css.dialogBody });
+        let headerContent = m_config.title ? dom.createTag('h3', { class: m_config.css.hdrTitle, text: m_config.title }) : m_config.hdrHtml;
 
-        const overlayHdrLeft = g_mamboDomJS.createTag('dialog-header-left', { class: m_config.css.dialogHdrLeft });
+        const overlayHdrLeft = dom.createTag('dialog-header-left', { class: m_config.css.dialogHdrLeft });
 
         if (m_config.closeButton) {
             installCloseButton(overlayHdrLeft);
         }
 
-        const overlayHdrCenter = g_mamboDomJS.createTag('dialog-header-center', { class: m_config.css.dialogHdrCenter });
-        g_mamboDomJS.append(overlayHdrCenter, headerContent);
-        const overlayHdrRight = g_mamboDomJS.createTag('dialog-header-right', { class: m_config.css.dialogHdrRight });
+        const overlayHdrCenter = dom.createTag('dialog-header-center', { class: m_config.css.dialogHdrCenter });
+        dom.append(overlayHdrCenter, headerContent);
+        const overlayHdrRight = dom.createTag('dialog-header-right', { class: m_config.css.dialogHdrRight });
 
-        m_overlayHdrTag = g_mamboDomJS.createTag('dialog-header', { class: m_config.css.dialogHdr });
-        g_mamboDomJS.append(m_overlayHdrTag, overlayHdrLeft);
-        g_mamboDomJS.append(m_overlayHdrTag, overlayHdrCenter);
-        g_mamboDomJS.append(m_overlayHdrTag, overlayHdrRight);
+        m_overlayHdrTag = dom.createTag('dialog-header', { class: m_config.css.dialogHdr });
+        dom.append(m_overlayHdrTag, overlayHdrLeft);
+        dom.append(m_overlayHdrTag, overlayHdrCenter);
+        dom.append(m_overlayHdrTag, overlayHdrRight);
 
-        g_mamboDomJS.append(m_overlayTag, m_overlayHdrTag);
-        g_mamboDomJS.append(m_overlayTag, m_overlayBodyTag);
+        dom.append(m_overlayTag, m_overlayHdrTag);
+        dom.append(m_overlayTag, m_overlayBodyTag);
 
         // Determine where to install dialog
-        g_mamboDomJS.append(parentTag ? parentTag : 'body', m_overlayTag);
+        dom.append(parentTag ? parentTag : 'body', m_overlayTag);
 
         // Continue to install all event handlers
         installEventHandlers();
@@ -93,7 +95,7 @@ function MamboDialog(parentTag, options, fnReady) {
             }
         };
 
-        new MamboButton(btnConfig);
+        new ui.button(btnConfig);
     }
 
     function installEventHandlers() {
@@ -108,7 +110,7 @@ function MamboDialog(parentTag, options, fnReady) {
     }
 
     function close() {
-        g_mamboDomJS.remove(m_overlayTag);
+        dom.remove(m_overlayTag);
     }
 
     function configure() {

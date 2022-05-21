@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboVideoPlayer.js
  *******************************************/
-function MamboVideoPlayer(parentTag, options) {
+ import styles from './MamboVideoPlayer.css';
+
+window.ui.videoPlayer = function MamboVideoPlayer(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -27,8 +29,8 @@ function MamboVideoPlayer(parentTag, options) {
 
     // Config default values
     const self = this;
-    const m_utils = g_mamboUtils;
-    const m_theme = g_mamboTheme;
+    const m_utils = tools.utils;
+    const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
 
     // HTML tag variables
     let m_parentTag;
@@ -52,23 +54,23 @@ function MamboVideoPlayer(parentTag, options) {
     }
 
     function installDOM() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`ScHtml5Video: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`ScHtml5Video: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
         //create the wrapper div container for the input
-        m_wrapperTag = g_mamboDomJS.createTag("video-player", { class: m_config.css.wrapper });
-        g_mamboDomJS.append(m_parentTag, m_wrapperTag);
+        m_wrapperTag = dom.createTag("video-player", { class: m_config.css.wrapper });
+        dom.append(m_parentTag, m_wrapperTag);
 
         installPlayer();
     }
 
     function installPlayer() {
 
-        m_player = new MamboPlayer(m_wrapperTag, m_config.player);
+        m_player = new ui.player(m_wrapperTag, m_config.player);
     }
 
 

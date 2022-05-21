@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboButtonGroup.js
  *******************************************/
-function MamboButtonGroup(parentTag, options) {
+import styles from './MamboButtonGroup.css';
+
+window.ui.buttonGroup = function MamboButtonGroup(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +28,7 @@ function MamboButtonGroup(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     const m_buttonsList = [];
@@ -52,15 +54,15 @@ function MamboButtonGroup(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
         if (!m_parentTag) {
-            console.error(`Button Group: g_mamboDomJS. tag ${parentTag} not found.`);
+            console.error(`Button Group: dom. tag ${parentTag} not found.`);
             return;
         }
 
-        m_buttonGroupTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_buttonGroupTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-        g_mamboDomJS.append(m_parentTag, m_buttonGroupTag);
+        dom.append(m_parentTag, m_buttonGroupTag);
 
         // Loop through all the buttons
         if (m_config.buttons) {
@@ -83,7 +85,7 @@ function MamboButtonGroup(parentTag, options) {
         button.css = button.css ? m_utils.extend(true, m_config.css, button.css) : m_config.css;
         button.fnGroupClick = m_config.fnGroupClick;
         button.parentTag = m_buttonGroupTag;
-        m_buttonsList.push(new MamboButton(button));
+        m_buttonsList.push(new ui.button(button));
     }
 
     function handleGroupBtnClick(context) {
@@ -125,7 +127,7 @@ function MamboButtonGroup(parentTag, options) {
     }
 
     function destroyButtonGroup() {
-        g_mamboDomJS.remove(m_buttonGroupTag);
+        dom.remove(m_buttonGroupTag);
     }
 
     function configure() {

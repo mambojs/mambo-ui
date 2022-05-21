@@ -17,6 +17,8 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTimePicker.js
  *******************************************/
+ import styles from './MamboTimePicker.css';
+
 window.ui.timePicker = function MamboTimePicker(parentTag, options) {
     "use strict";
 
@@ -26,9 +28,9 @@ window.ui.timePicker = function MamboTimePicker(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
-    const m_graphics = g_mamboGraphics;
-    const m_dateMgr = g_mamboDateManager;
+    const m_utils = tools.utils;
+    // const m_graphics = g_mamboGraphics;
+    const m_dateMgr = tools.date;
 
     // HTML tag variables
     let m_parentTag;
@@ -49,10 +51,10 @@ window.ui.timePicker = function MamboTimePicker(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`TimePicker: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`TimePicker: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -91,7 +93,7 @@ window.ui.timePicker = function MamboTimePicker(parentTag, options) {
         };
 
         m_parentTag.innerHTML = '';
-        m_comboBox = new MamboCombobox(m_parentTag, combobox);
+        m_comboBox = new ui.combobox(m_parentTag, combobox);
     }
 
     function createComboBoxData() {
@@ -160,7 +162,7 @@ window.ui.timePicker = function MamboTimePicker(parentTag, options) {
                     button: {
                         text: "",
                         svg: {
-                            element: m_graphics.getSVG({ name: "watch" })
+                            element: "" //m_graphics.getSVG({ name: "watch" })
                         }
                     }
                 },

@@ -50,11 +50,13 @@ window.demoui.manager = {
     hidrateArea: (object) => {
 
         let area = document.getElementById(object.area);
-        let div = document.createElement('div');
-        div.id = object.id;
+        // let div = document.createElement('div');
+        // div.id = object.id;
+        let customTag = document.createElement(object.id);
 
         demoui.manager.clearArea(object.area);
-        area.appendChild(div);
+        // area.appendChild(div);
+        area.appendChild(customTag);
 
         switch (object.type) {
             case TYPES[0]:
@@ -79,12 +81,14 @@ window.demoui.manager = {
         eval(script);
     },
     applyDesc: (desc, custom) => {
-        let area = document.getElementById(custom);
+        // let area = document.getElementById(custom);
+        let area = document.getElementsByTagName(custom)[0];
         area.innerHTML = desc;
     },
     applyCode: (code, custom) => {
         if (null !== code) {
-            let area = document.getElementById(custom);
+            // let area = document.getElementById(custom);
+            let area = document.getElementsByTagName(custom)[0];
             
             let printCodes = code.map(code => {
                 return `<h4>${code.comment}</h4><pre>${code.script}</pre>`;

@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboCheckboxRadio.js
  *******************************************/
-function MamboCheckboxRadio(parentTag, options) {
+import styles from './MamboCheckboxRadio.css';
+
+window.ui.checkboxRadio = function MamboCheckboxRadio(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +28,7 @@ function MamboCheckboxRadio(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_parentTag;
@@ -56,10 +58,10 @@ function MamboCheckboxRadio(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Checkbox: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`Checkbox: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -79,11 +81,11 @@ function MamboCheckboxRadio(parentTag, options) {
 
     function installTags() {
         // Install checkbox / radio parent tag
-        m_checkboxRadioParentTag = g_mamboDomJS.createTag('label', { class: m_config.css.checkboxRadioParent });
-        g_mamboDomJS.append(m_parentTag, m_checkboxRadioParentTag);
+        m_checkboxRadioParentTag = dom.createTag('label', { class: m_config.css.checkboxRadioParent });
+        dom.append(m_parentTag, m_checkboxRadioParentTag);
 
-        let textTag = g_mamboDomJS.createTag('span', { class: m_config.css.checkboxRadioText, text: m_config.text });
-        g_mamboDomJS.append(m_checkboxRadioParentTag, textTag);
+        let textTag = dom.createTag('span', { class: m_config.css.checkboxRadioText, text: m_config.text });
+        dom.append(m_checkboxRadioParentTag, textTag);
 
         m_type = m_config.attr["type"] === "checkbox" ? 1 : 2;
         let css = m_type === 1 ? m_config.css.checkbox : m_config.css.radio;
@@ -94,11 +96,11 @@ function MamboCheckboxRadio(parentTag, options) {
             attr: m_config.attr,
             text: m_config.value
         };
-        m_checkboxRadioTag = g_mamboDomJS.createTag('input', tagConfig);
-        m_checkboxRadioSpanTag = g_mamboDomJS.createTag('span', { class: css.span });
+        m_checkboxRadioTag = dom.createTag('input', tagConfig);
+        m_checkboxRadioSpanTag = dom.createTag('span', { class: css.span });
 
-        g_mamboDomJS.append(m_checkboxRadioParentTag, m_checkboxRadioTag);
-        g_mamboDomJS.append(m_checkboxRadioParentTag, m_checkboxRadioSpanTag);
+        dom.append(m_checkboxRadioParentTag, m_checkboxRadioTag);
+        dom.append(m_checkboxRadioParentTag, m_checkboxRadioSpanTag);
 
         m_checked = m_config.prop["checked"];
         setEnable(m_enable);
@@ -144,7 +146,7 @@ function MamboCheckboxRadio(parentTag, options) {
         if (m_enable) {
             if (notTrigger || m_type === 2) {
                 m_checked = value;
-                g_mamboDomJS.setProps(m_checkboxRadioTag, { checked: m_checked });
+                dom.setProps(m_checkboxRadioTag, { checked: m_checked });
             } else {
                 m_checkboxRadioTag.click();
             }
@@ -161,7 +163,7 @@ function MamboCheckboxRadio(parentTag, options) {
 
     function setEnable(enable) {
         m_enable = enable;
-        m_enable ? g_mamboDomJS.removeClass(m_checkboxRadioParentTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_checkboxRadioParentTag, m_config.css.disabled);
+        m_enable ? dom.removeClass(m_checkboxRadioParentTag, m_config.css.disabled) : dom.addClass(m_checkboxRadioParentTag, m_config.css.disabled);
     }
 
     function value(context = {}) {
@@ -181,7 +183,7 @@ function MamboCheckboxRadio(parentTag, options) {
     }
 
     function destroyCheckboxRadio() {
-        g_mamboDomJS.remove(m_checkboxRadioParentTag);
+        dom.remove(m_checkboxRadioParentTag);
     }
 
     function finishSetup() {

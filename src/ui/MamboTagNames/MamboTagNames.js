@@ -17,9 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTagNames.js
  *******************************************/
-class MamboTagNames {
+window.ui.tagNames = class MamboTagNames {
     constructor(initTags) {
-        const m_utils = g_mamboUtils;
+        const m_utils = tools.utils;
         // If default themes provided, initialize Themes with them
         this.m_tagNames = {
             default: m_utils.extend(true, {}, initTags)

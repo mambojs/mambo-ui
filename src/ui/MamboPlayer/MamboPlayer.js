@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboPlayer.js
  *******************************************/
-function MamboPlayer(parentTag, options) {
+ import styles from './MamboPlayer.css';
+
+window.ui.player = function MamboPlayer(parentTag, options) {
     'use strict';
 
     if (!parentTag) {
@@ -25,15 +27,15 @@ function MamboPlayer(parentTag, options) {
         return;
     }
 
-    const m_utils = g_mamboUtils;
-    const m_theme = g_mamboTheme;
+    const m_utils = tools.utils;
+    const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
     const m_buttonGroups = [];
 
     let m_config;
     let m_timeInfo;
     let m_progressBar;
 
-    // g_mamboDomJS. Elements
+    // dom. Elements
     let m_parentTag;
     let m_playerTag;
 
@@ -53,10 +55,10 @@ function MamboPlayer(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`HTML5 Player: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`HTML5 Player: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -73,13 +75,13 @@ function MamboPlayer(parentTag, options) {
             prop: m_config.prop,
             attr: m_config.attr
         };
-        m_playerTag = g_mamboDomJS.createTag(m_config.media, tagConfig);
-        g_mamboDomJS.append(m_parentTag, m_playerTag);
+        m_playerTag = dom.createTag(m_config.media, tagConfig);
+        dom.append(m_parentTag, m_playerTag);
     }
 
 
     function setSource(source) {
-        g_mamboDomJS.setAttr(m_playerTag, { src: source });
+        dom.setAttr(m_playerTag, { src: source });
     }
 
     function installControls() {

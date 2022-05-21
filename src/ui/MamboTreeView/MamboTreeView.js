@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTreeView.js
  *******************************************/
-function MamboTreeView(parentTag, options) {
+ import styles from './MamboTreeView.css';
+
+window.ui.treeView = function MamboTreeView(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -31,7 +33,7 @@ function MamboTreeView(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_parentTag;
@@ -53,10 +55,10 @@ function MamboTreeView(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`TreeView: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`TreeView: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -65,10 +67,10 @@ function MamboTreeView(parentTag, options) {
 
     function installDOM() {
         // Install TreeView parent tag
-        m_treeViewParentTag = g_mamboDomJS.createTag(m_config.tag.treeView, { class: m_config.css.treeViewParent });
+        m_treeViewParentTag = dom.createTag(m_config.tag.treeView, { class: m_config.css.treeViewParent });
 
         m_parentTag.innerHTML = '';
-        g_mamboDomJS.append(m_parentTag, m_treeViewParentTag);
+        dom.append(m_parentTag, m_treeViewParentTag);
 
         installGroup();
     }
@@ -92,8 +94,8 @@ function MamboTreeView(parentTag, options) {
 
     function processItem(itemData, parentTag) {
         // Create item tag
-        let itemTag = g_mamboDomJS.createTag(m_config.tag.treeViewItem, { class: m_config.css.item });
-        g_mamboDomJS.append(parentTag, itemTag);
+        let itemTag = dom.createTag(m_config.tag.treeViewItem, { class: m_config.css.item });
+        dom.append(parentTag, itemTag);
 
         let itemId = m_config.idField in itemData ? itemData[m_config.idField] : m_utils.getUniqueId();
         let idAtt = {};
@@ -101,9 +103,9 @@ function MamboTreeView(parentTag, options) {
         m_dataMapById[itemId] = m_utils.clone(itemData);
         delete m_dataMapById[itemId][m_config.itemsField];
 
-        const topTag = g_mamboDomJS.createTag(m_config.tag.treeViewItemTop, { class: m_config.css.top });
-        const inTag = g_mamboDomJS.createTag(m_config.tag.treeViewItemIn, { class: m_config.css.in, attr: idAtt, text: itemData[m_config.textField] });
-        g_mamboDomJS.append(topTag, inTag).append(itemTag, topTag);
+        const topTag = dom.createTag(m_config.tag.treeViewItemTop, { class: m_config.css.top });
+        const inTag = dom.createTag(m_config.tag.treeViewItemIn, { class: m_config.css.in, attr: idAtt, text: itemData[m_config.textField] });
+        dom.append(topTag, inTag).append(itemTag, topTag);
 
         setupItemEventListeners(inTag, itemData);
 
@@ -116,8 +118,8 @@ function MamboTreeView(parentTag, options) {
 
     function processGroup(groupData, parentTag) {
         // Create group tag
-        let groupTag = g_mamboDomJS.createTag(m_config.tag.treeViewGroup, { class: m_config.css.group });
-        g_mamboDomJS.append(parentTag, groupTag);
+        let groupTag = dom.createTag(m_config.tag.treeViewGroup, { class: m_config.css.group });
+        dom.append(parentTag, groupTag);
 
         installItems(groupData, groupTag);
 
@@ -126,9 +128,9 @@ function MamboTreeView(parentTag, options) {
 
     function installIcon(parentTag, groupTag, itemData) {
         const expanded = "expanded" in itemData ? itemData.expanded : m_config.expanded;
-        const iconTag = g_mamboDomJS.createTag('icon', { class: m_config.css.icon });
-        g_mamboDomJS.addClass(iconTag, m_config.css.iconExpand);
-        g_mamboDomJS.prepend(parentTag, iconTag);
+        const iconTag = dom.createTag('icon', { class: m_config.css.icon });
+        dom.addClass(iconTag, m_config.css.iconExpand);
+        dom.prepend(parentTag, iconTag);
 
         setupIconEventListeners(groupTag, iconTag);
 
@@ -138,10 +140,10 @@ function MamboTreeView(parentTag, options) {
     }
 
     function clearSelected() {
-        let selected = g_mamboDomJS.getTags(`.${m_config.css.selected}`, m_treeViewParentTag);
+        let selected = dom.getTags(`.${m_config.css.selected}`, m_treeViewParentTag);
         if (selected && selected.length > 0) {
             for (let index = 0; index < selected.length; index++) {
-                g_mamboDomJS.removeClass(selected[index], m_config.css.selected);
+                dom.removeClass(selected[index], m_config.css.selected);
             }
         }
     }
@@ -154,18 +156,18 @@ function MamboTreeView(parentTag, options) {
 
             if (!ev.defaultPrevented) {
                 clearSelected();
-                g_mamboDomJS.addClass(inTag, m_config.css.selected);
+                dom.addClass(inTag, m_config.css.selected);
             }
         });
 
         inTag.addEventListener('mouseenter', () => {
-            if (!g_mamboDomJS.hasClass(inTag, m_config.css.selected)) {
-                g_mamboDomJS.addClass(inTag, m_config.css.hover);
+            if (!dom.hasClass(inTag, m_config.css.selected)) {
+                dom.addClass(inTag, m_config.css.hover);
             }
         });
 
         inTag.addEventListener('mouseleave', () => {
-            g_mamboDomJS.removeClass(inTag, m_config.css.hover);
+            dom.removeClass(inTag, m_config.css.hover);
         });
     }
 
@@ -177,8 +179,8 @@ function MamboTreeView(parentTag, options) {
     }
 
     function toggleExpand(groupTag, iconTag) {
-        g_mamboDomJS.toggleClass(groupTag, m_config.css.expanded);
-        g_mamboDomJS.toggleClass(iconTag, m_config.css.iconCollapse).toggleClass(iconTag, m_config.css.iconExpand);
+        dom.toggleClass(groupTag, m_config.css.expanded);
+        dom.toggleClass(iconTag, m_config.css.iconCollapse).toggleClass(iconTag, m_config.css.iconExpand);
     }
 
     function getItemData(tag) {
@@ -187,7 +189,7 @@ function MamboTreeView(parentTag, options) {
     }
 
     function destroyTreeView() {
-        g_mamboDomJS.remove(m_treeViewParentTag);
+        dom.remove(m_treeViewParentTag);
     }
 
     function finishSetup() {

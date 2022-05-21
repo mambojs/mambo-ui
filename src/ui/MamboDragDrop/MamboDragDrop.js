@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDragDrop.js
  *******************************************/
-function MamboDragDrop(parentTag, options) {
+ import styles from './MamboDragDrop.css';
+
+window.ui.dragDrop = function MamboDragDrop(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,8 +28,8 @@ function MamboDragDrop(parentTag, options) {
     }
 
     // Config default values
-    const m_utils = g_mamboUtils;
-    const m_graphics = g_mamboGraphics;
+    const m_utils = tools.utils;
+    // const m_graphics = g_mamboGraphics;
 
     // HTML tag variables
     let m_parentTag;
@@ -46,7 +48,7 @@ function MamboDragDrop(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (m_config.hidden) {
             // Install event handlers only
@@ -59,16 +61,16 @@ function MamboDragDrop(parentTag, options) {
     }
 
     function installDOMTags() {
-        m_dragDropTag = g_mamboDomJS.createTag('div', { class: m_config.css.parent });
+        m_dragDropTag = dom.createTag('div', { class: m_config.css.parent });
         const tagConfig = {
             class: m_config.css.imgDropIcon,
             attr: { src: m_config.baseUrl + m_config.imgDropIcon }
         };
-        let imgEle = g_mamboDomJS.createTag('img', tagConfig);
-        let textEle = g_mamboDomJS.createTag('text', { class: m_config.css.dropText, text: m_config.dropText });
+        let imgEle = dom.createTag('img', tagConfig);
+        let textEle = dom.createTag('text', { class: m_config.css.dropText, text: m_config.dropText });
 
-        g_mamboDomJS.append(m_dragDropTag, imgEle).append(m_dragDropTag, textEle);
-        g_mamboDomJS.append(m_parentTag, m_dragDropTag);
+        dom.append(m_dragDropTag, imgEle).append(m_dragDropTag, textEle);
+        dom.append(m_parentTag, m_dragDropTag);
     }
 
     function setupEventHandlers() {
@@ -153,7 +155,7 @@ function MamboDragDrop(parentTag, options) {
 
     function configure() {
         m_config = {
-            imgDropIcon: m_graphics.getImage({ name: "arrow-down-box-black" }),
+            imgDropIcon: "", // m_graphics.getImage({ name: "arrow-down-box-black" }),
             dropText: "Drop Here",
             hidden: false,
             baseUrl: '',

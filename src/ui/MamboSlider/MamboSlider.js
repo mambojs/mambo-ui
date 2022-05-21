@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlider.js
  *******************************************/
-function MamboSlider(parentTag, options) {
+ import styles from './MamboSlider.css';
+
+window.ui.slider = function MamboSlider(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +28,7 @@ function MamboSlider(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_parentTag;
@@ -57,10 +59,10 @@ function MamboSlider(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Slider: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`Slider: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
@@ -81,9 +83,9 @@ function MamboSlider(parentTag, options) {
     }
 
     function installTags() {
-        m_sliderParentTag = g_mamboDomJS.createTag(m_config.tag.slider, { class: m_css.parent });
-        g_mamboDomJS.append(m_parentTag, m_sliderParentTag);
-        m_sliderWrapperTag = g_mamboDomJS.createTag(m_config.tag.wrapper, { class: m_css.wrapper });
+        m_sliderParentTag = dom.createTag(m_config.tag.slider, { class: m_css.parent });
+        dom.append(m_parentTag, m_sliderParentTag);
+        m_sliderWrapperTag = dom.createTag(m_config.tag.wrapper, { class: m_css.wrapper });
 
         if (m_config.showButtons) {
             if (m_horizontal) {
@@ -93,7 +95,7 @@ function MamboSlider(parentTag, options) {
             }
         }
 
-        g_mamboDomJS.append(m_sliderParentTag, m_sliderWrapperTag);
+        dom.append(m_sliderParentTag, m_sliderWrapperTag);
 
         if (m_config.showButtons) {
             if (m_horizontal) {
@@ -126,7 +128,7 @@ function MamboSlider(parentTag, options) {
             }
         };
 
-        new MamboButton(button);
+        new ui.button(button);
     }
 
     function decrease() {
@@ -138,18 +140,18 @@ function MamboSlider(parentTag, options) {
     }
 
     function installTrack() {
-        m_trackTag = g_mamboDomJS.createTag(m_config.tag.track, { class: m_css.track });
-        g_mamboDomJS.append(m_sliderWrapperTag, m_trackTag);
+        m_trackTag = dom.createTag(m_config.tag.track, { class: m_css.track });
+        dom.append(m_sliderWrapperTag, m_trackTag);
 
-        m_selectionTag = g_mamboDomJS.createTag(m_config.tag.selection, { class: m_css.selection });
-        g_mamboDomJS.append(m_sliderWrapperTag, m_selectionTag);
+        m_selectionTag = dom.createTag(m_config.tag.selection, { class: m_css.selection });
+        dom.append(m_sliderWrapperTag, m_selectionTag);
 
         installSteps();
     }
 
     function installSteps() {
-        let stepsTag = g_mamboDomJS.createTag(m_config.tag.stepsContainer, { class: m_css.stepsContainer });
-        g_mamboDomJS.prepend(m_sliderWrapperTag, stepsTag);
+        let stepsTag = dom.createTag(m_config.tag.stepsContainer, { class: m_css.stepsContainer });
+        dom.prepend(m_sliderWrapperTag, stepsTag);
 
         const trackLength = m_horizontal ? m_trackTag.clientWidth : m_trackTag.clientHeight;
         const steps = Math.floor((m_config.max - m_config.min) / m_config.step);
@@ -171,15 +173,15 @@ function MamboSlider(parentTag, options) {
     }
 
     function installLargeStep(stepsTag, value) {
-        let stepTag = g_mamboDomJS.createTag(m_config.tag.stepLarge, { class: m_css.stepLarge });
-        let textTag = g_mamboDomJS.createTag("span", { class: m_css.stepLargeSpan, text: value.toString() });
-        g_mamboDomJS.append(stepTag, textTag);
+        let stepTag = dom.createTag(m_config.tag.stepLarge, { class: m_css.stepLarge });
+        let textTag = dom.createTag("span", { class: m_css.stepLargeSpan, text: value.toString() });
+        dom.append(stepTag, textTag);
 
         if (m_horizontal) {
-            g_mamboDomJS.append(stepsTag, stepTag);
+            dom.append(stepsTag, stepTag);
             stepTag.style.width = m_stepLength + "px";
         } else {
-            g_mamboDomJS.prepend(stepsTag, stepTag);
+            dom.prepend(stepsTag, stepTag);
             stepTag.style.height = m_stepLength + "px";
         }
 
@@ -187,13 +189,13 @@ function MamboSlider(parentTag, options) {
     }
 
     function installSmallStep(stepsTag) {
-        let stepTag = g_mamboDomJS.createTag(m_config.tag.step, { class: m_css.step });
+        let stepTag = dom.createTag(m_config.tag.step, { class: m_css.step });
 
         if (m_horizontal) {
-            g_mamboDomJS.append(stepsTag, stepTag);
+            dom.append(stepsTag, stepTag);
             stepTag.style.width = m_stepLength + "px";
         } else {
-            g_mamboDomJS.prepend(stepsTag, stepTag);
+            dom.prepend(stepsTag, stepTag);
             stepTag.style.height = m_stepLength + "px";
         }
 
@@ -222,7 +224,7 @@ function MamboSlider(parentTag, options) {
             fnDrag: updateSelection
         };
 
-        m_handleTag = new MamboDraggable(m_sliderWrapperTag, m_sliderWrapperTag, config);
+        m_handleTag = new ui.draggable(m_sliderWrapperTag, m_sliderWrapperTag, config);
     }
 
     function updateValue(context) {
@@ -268,7 +270,7 @@ function MamboSlider(parentTag, options) {
 
     function setEnable(enable) {
         m_enable = enable;
-        m_enable ? g_mamboDomJS.removeClass(m_sliderParentTag, m_config.css.disabled) : g_mamboDomJS.addClass(m_sliderParentTag, m_config.css.disabled);
+        m_enable ? dom.removeClass(m_sliderParentTag, m_config.css.disabled) : dom.addClass(m_sliderParentTag, m_config.css.disabled);
         m_handleTag.enable({ enable: enable });
     }
 
@@ -324,7 +326,7 @@ function MamboSlider(parentTag, options) {
     }
 
     function destroySlider() {
-        g_mamboDomJS.remove(m_sliderParentTag);
+        dom.remove(m_sliderParentTag);
     }
 
     function finishSetup() {

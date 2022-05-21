@@ -17,16 +17,17 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboGrid.js
  *******************************************/
-class MamboGrid extends HTMLElement {
+ import styles from './MamboGrid.css';
+window.ui.grid = class MamboGrid extends HTMLElement {
     constructor(options) {
         super();
 
         const self = this;
-        const m_utils = g_mamboUtils;
+        const m_utils = tools.utils;
         const m_colsMaxPxWidth = [];
         const m_componentsMapById = {};
         const m_componentsMapByColNbr = [];
-        const m_theme = g_mamboTheme;
+        const m_theme = new ui.theme(ui.g_mamboDefaultTheme); //g_mamboTheme;
 
         // HTML tag variables
         let m_gridParentTag;
@@ -80,7 +81,7 @@ class MamboGrid extends HTMLElement {
         }
 
         function installTiles() {
-            m_tileParentTag = g_mamboDomJS.createTag(m_config.tag.tilesParent, { class: m_config.css.tilesParent });
+            m_tileParentTag = dom.createTag(m_config.tag.tilesParent, { class: m_config.css.tilesParent });
             m_tileIndexAttrName = 'data-grid-tile-index';
 
             // Set basic tile structure into self
@@ -99,11 +100,11 @@ class MamboGrid extends HTMLElement {
 
         function installTile(tileData, tileIndex) {
             // Create tile parent tag
-            let tileTag = g_mamboDomJS.createTag(m_config.tag.tileItem, {
+            let tileTag = dom.createTag(m_config.tag.tileItem, {
                 class: m_config.css.tileItem,
                 attr: { m_tileIndexAttrName: tileIndex },
             });
-            g_mamboDomJS.append(m_tileParentTag, tileTag);
+            dom.append(m_tileParentTag, tileTag);
             m_tileParentTags[tileIndex] = tileTag;
 
             processTile(tileData, tileIndex, tileTag);
@@ -111,8 +112,8 @@ class MamboGrid extends HTMLElement {
 
         function processTile(tileData, tileIndex, tileTag) {
             if (m_config.tileHTML) {
-                let content = g_mamboDomJS.supplantHTML(m_config.tileHTML, tileData);
-                g_mamboDomJS.append(tileTag, content);
+                let content = dom.supplantHTML(m_config.tileHTML, tileData);
+                dom.append(tileTag, content);
             }
 
             // Invoke callback for each completed tile
@@ -122,14 +123,14 @@ class MamboGrid extends HTMLElement {
         }
 
         function installGrid() {
-            m_gridParentTag = g_mamboDomJS.createTag(m_config.tag.gridParent, { class: m_config.css.gridParent });
-            m_gridHdrTag = g_mamboDomJS.createTag(m_config.tag.gridHdr, { class: m_config.css.gridHdr });
-            m_gridBodyTag = g_mamboDomJS.createTag(m_config.tag.gridBody, { class: m_config.css.gridBody });
+            m_gridParentTag = dom.createTag(m_config.tag.gridParent, { class: m_config.css.gridParent });
+            m_gridHdrTag = dom.createTag(m_config.tag.gridHdr, { class: m_config.css.gridHdr });
+            m_gridBodyTag = dom.createTag(m_config.tag.gridBody, { class: m_config.css.gridBody });
             m_gridBodyRowTagName = 'data-grid-row';
             m_rowIndexAttrName = 'data-grid-row-index';
 
             // Install grid parent tag
-            g_mamboDomJS.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
+            dom.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
 
             // Set basic grid structure into self
             self.appendChild(m_gridParentTag);
@@ -140,20 +141,20 @@ class MamboGrid extends HTMLElement {
 
         function installHdr() {
             m_config.columns.forEach((column) => {
-                let parentTag = g_mamboDomJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
+                let parentTag = dom.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
                 applyColCellElStyles(column, parentTag);
 
-                const txtEl = g_mamboDomJS.createTag('text', { text: column.title ? column.title : column.name });
-                g_mamboDomJS.append(parentTag, txtEl);
-                g_mamboDomJS.append(m_gridHdrTag, parentTag);
+                const txtEl = dom.createTag('text', { text: column.title ? column.title : column.name });
+                dom.append(parentTag, txtEl);
+                dom.append(m_gridHdrTag, parentTag);
 
-                //Give it a millisecond for the g_mamboDomJS. to calculate .clientWidth
+                //Give it a millisecond for the dom. to calculate .clientWidth
                 setTimeout(() => {
-                    m_colsMaxPxWidth.push(g_mamboDomJS.computeTagWidth(txtEl));
+                    m_colsMaxPxWidth.push(dom.computeTagWidth(txtEl));
                 }, 1);
             });
 
-            //Give it a millisecond for the g_mamboDomJS. to calculate tags
+            //Give it a millisecond for the dom. to calculate tags
             setTimeout(() => {
                 installRows();
             }, 1);
@@ -178,18 +179,18 @@ class MamboGrid extends HTMLElement {
 
             function processRow(rowData, rowIndex) {
                 // Create row parent tag
-                let rowTag = g_mamboDomJS.createTag(m_config.tag.row, {
+                let rowTag = dom.createTag(m_config.tag.row, {
                     class: m_config.css.row,
                     attr: { m_rowIndexAttrName: rowIndex },
                 });
-                g_mamboDomJS.append(m_gridBodyTag, rowTag);
+                dom.append(m_gridBodyTag, rowTag);
 
                 // Loop through the header configuration
                 m_config.columns.forEach((column, colIndex) => {
                     // Create cell parent
-                    const parentTag = g_mamboDomJS.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
+                    const parentTag = dom.createTag(m_config.tag.colCell, { class: m_config.css.colCell });
                     applyColCellElStyles(column, parentTag);
-                    g_mamboDomJS.append(rowTag, parentTag);
+                    dom.append(rowTag, parentTag);
 
                     const context = {
                         column: column,
@@ -275,8 +276,8 @@ class MamboGrid extends HTMLElement {
                 attr: context.column.attr,
                 text,
             };
-            const textTag = g_mamboDomJS.createTag('text', tagConfig);
-            g_mamboDomJS.append(context.parentTag, textTag);
+            const textTag = dom.createTag('text', tagConfig);
+            dom.append(context.parentTag, textTag);
 
             addComponentToMap({ column: context.column, colIndex: context.colIndex, component: textTag });
 
@@ -635,7 +636,7 @@ class MamboGrid extends HTMLElement {
                 return;
             }
             // Save largest width value
-            const tagWidth = g_mamboDomJS.computeTagWidth(context.tag, context.parentTag);
+            const tagWidth = dom.computeTagWidth(context.tag, context.parentTag);
             m_colsMaxPxWidth[context.colIndex] =
                 tagWidth > m_colsMaxPxWidth[context.colIndex] ? tagWidth : m_colsMaxPxWidth[context.colIndex];
         }
@@ -643,7 +644,7 @@ class MamboGrid extends HTMLElement {
         function setColsWidth() {
             // Declare style tag
             m_colStylesId = m_utils.getUniqueId();
-            let styleEl = g_mamboDomJS.createTag('style', { attr: { id: m_colStylesId } });
+            let styleEl = dom.createTag('style', { attr: { id: m_colStylesId } });
 
             m_colsMaxPxWidth.forEach((width, index) => {
                 // Create width adjustment style
@@ -669,11 +670,11 @@ class MamboGrid extends HTMLElement {
                     width:${adjWidth}px;
                     max-width:${adjWidth}px;
                 }`;
-                g_mamboDomJS.append(styleEl, document.createTextNode(`${hdrSelector},${bodySelector}${style}`));
+                dom.append(styleEl, document.createTextNode(`${hdrSelector},${bodySelector}${style}`));
             });
 
             // Append to HTML HEAD tag
-            g_mamboDomJS.append('head', styleEl);
+            dom.append('head', styleEl);
 
             finishSetup();
         }
@@ -752,7 +753,7 @@ class MamboGrid extends HTMLElement {
 
         function installSelf(parentTag, prepend) {
             m_parentTag = parentTag ? parentTag : m_parentTag;
-            m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
+            m_parentTag = dom.appendSelfToParentTag(m_parentTag, self, prepend);
         }
 
         function configure() {
@@ -794,7 +795,7 @@ class MamboGrid extends HTMLElement {
                 events: {
                     inputChange: (context) => {
                         // example on how global event listener configuration works
-                        // 'input' is the g_mamboDomJS. tag name. 'Change' is the addEventListener name
+                        // 'input' is the dom. tag name. 'Change' is the addEventListener name
                     },
                 },
                 maxColWidth: false,
@@ -817,7 +818,7 @@ class MamboGrid extends HTMLElement {
             }
 
             if (m_config.parentTag) {
-                m_parentTag = g_mamboDomJS.getTag(m_config.parentTag);
+                m_parentTag = dom.getTag(m_config.parentTag);
             }
 
             m_config.css = m_utils.extend(true, m_theme.getTheme({
@@ -827,4 +828,4 @@ class MamboGrid extends HTMLElement {
         }
     }
 }
-customElements.define('mambo-grid', MamboGrid);
+customElements.define('mambo-grid', window.ui.grid);

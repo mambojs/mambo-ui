@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboFileChooser.js
  *******************************************/
-function MamboFileChooser(parentTag, options) {
+ import styles from './MamboFileChooser.css';
+
+window.ui.fileChooser = function MamboFileChooser(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +28,7 @@ function MamboFileChooser(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_wrapperTag;
@@ -49,15 +51,15 @@ function MamboFileChooser(parentTag, options) {
     }
 
     function installDOMTags() {
-        const parent = g_mamboDomJS.getTag(parentTag);
+        const parent = dom.getTag(parentTag);
         if (!parent) {
-            console.error(`File Chooser: g_mamboDomJS. parent tag ${parent} was not found.`);
+            console.error(`File Chooser: dom. parent tag ${parent} was not found.`);
             return;
         }
 
-        m_wrapperTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_wrapperTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-        g_mamboDomJS.append(parent, m_wrapperTag);
+        dom.append(parent, m_wrapperTag);
 
         switch (m_config.buttonOnly) {
             case true:
@@ -84,7 +86,7 @@ function MamboFileChooser(parentTag, options) {
             }
         };
 
-        new MamboButton(config);
+        new ui.button(config);
     }
 
     function installInput(hidden) {
@@ -111,11 +113,11 @@ function MamboFileChooser(parentTag, options) {
             inputConfig.hidden = true;
         }
 
-        m_inputTag = new MamboInput(m_wrapperTag, inputConfig);
+        m_inputTag = new ui.input(m_wrapperTag, inputConfig);
     }
 
     function destroyFileChooser() {
-        g_mamboDomJS.remove(m_wrapperTag);
+        dom.remove(m_wrapperTag);
     }
 
     function configure() {

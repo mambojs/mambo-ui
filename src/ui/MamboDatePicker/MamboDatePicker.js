@@ -17,14 +17,15 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDatePicker.js
  *******************************************/
-class MamboDatePicker extends HTMLElement {
+import styles from './MamboDatePicker.css';
+window.ui.datePicker = class MamboDatePicker extends HTMLElement {
     constructor(initOptions){
         super();
         const self = this;
-        const m_utils = g_mamboUtils;
-        const m_theme = g_mamboTheme;
-        const m_graphics = g_mamboGraphics;
-        const m_dateMgr = g_mamboDateManager;
+        const m_utils = tools.utils;
+        const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
+        // const m_graphics = g_mamboGraphics;
+        const m_dateMgr = tools.date;
 
         // HTML tag variables
         let m_parentTag;
@@ -49,17 +50,17 @@ class MamboDatePicker extends HTMLElement {
 
         function setup() {
             
-            m_parentTag = g_mamboDomJS.getTag(initOptions.parentTag);
+            m_parentTag = dom.getTag(initOptions.parentTag);
             configure();
             installDOM();
         }
 
         function installDOM() {
 
-            m_datePickerParentTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+            m_datePickerParentTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
             
 
-            g_mamboDomJS.append(m_parentTag,m_datePickerParentTag);
+            dom.append(m_parentTag,m_datePickerParentTag);
 
             installInput();
             installDropdown();
@@ -69,13 +70,13 @@ class MamboDatePicker extends HTMLElement {
         function installInput() {
             let input = m_utils.extend(true, {}, m_config.input);
             input.css = m_utils.extend(true, m_config.css.input, input.css);
-            m_input = new MamboInput(m_datePickerParentTag, input);
+            m_input = new ui.input(m_datePickerParentTag, input);
         }
 
         function installDropdown() {
             //create the wrapper div container for the input
-            m_dropdownWrapperTag = g_mamboDomJS.createTag("div", { class: m_config.css.dropdownWrapper });
-            g_mamboDomJS.append(m_datePickerParentTag, m_dropdownWrapperTag);
+            m_dropdownWrapperTag = dom.createTag("div", { class: m_config.css.dropdownWrapper });
+            dom.append(m_datePickerParentTag, m_dropdownWrapperTag);
 
             let dropdown = m_utils.extend(true, {}, m_config.dropdown);
             dropdown.css = m_utils.extend(true, m_config.css.dropdown, dropdown.css);
@@ -92,7 +93,7 @@ class MamboDatePicker extends HTMLElement {
                 }
             };
 
-            m_dropdown = new MamboDropdown(m_dropdownWrapperTag, dropdown);
+            m_dropdown = new ui.dropdown(m_dropdownWrapperTag, dropdown);
         }
 
         function installCalendar(dropdown) {
@@ -161,7 +162,7 @@ class MamboDatePicker extends HTMLElement {
         }
 
         function destroyDatePicker() {
-            g_mamboDomJS.remove(m_datePickerParentTag);
+            dom.remove(m_datePickerParentTag);
         }
 
         function finishSetup() {
@@ -173,7 +174,7 @@ class MamboDatePicker extends HTMLElement {
         }
         function installSelf(parentTag, prepend) {
             m_parentTag = parentTag ? parentTag : m_parentTag;
-            m_parentTag = g_mamboDomJS.appendSelfToParentTag(m_parentTag, self, prepend);
+            m_parentTag = dom.appendSelfToParentTag(m_parentTag, self, prepend);
         }
 
         function configure() {
@@ -196,7 +197,7 @@ class MamboDatePicker extends HTMLElement {
                     button: {
                         text: "",
                         svg: {
-                            element: m_graphics.getSVG({ name: "calendar" })
+                            element: "" //m_graphics.getSVG({ name: "calendar" })
                         }
                     }
                 },
@@ -227,4 +228,4 @@ class MamboDatePicker extends HTMLElement {
     }
     
 }
-customElements.define('mambo-date-picker', MamboDatePicker);
+customElements.define('mambo-date-picker', window.ui.datePicker);

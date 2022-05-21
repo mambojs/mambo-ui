@@ -17,7 +17,9 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboCheckboxRadioGroup.js
  *******************************************/
-function MamboCheckboxRadioGroup(parentTag, options) {
+import styles from './MamboCheckboxRadioGroup.css';
+
+window.ui.checkboxRadioGroup = function MamboCheckboxRadioGroup(parentTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +28,7 @@ function MamboCheckboxRadioGroup(parentTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     const m_checkboxRadiosList = [];
@@ -49,15 +51,15 @@ function MamboCheckboxRadioGroup(parentTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
         if (!m_parentTag) {
-            console.error(`Checkbox Group: g_mamboDomJS. tag ${parentTag} not found.`);
+            console.error(`Checkbox Group: dom. tag ${parentTag} not found.`);
             return;
         }
 
-        m_checkboxRadioGroupTag = g_mamboDomJS.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        m_checkboxRadioGroupTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-        g_mamboDomJS.append(m_parentTag, m_checkboxRadioGroupTag);
+        dom.append(m_parentTag, m_checkboxRadioGroupTag);
 
         // Loop through all the checkbox
         if (m_config.checkboxes) {
@@ -87,7 +89,7 @@ function MamboCheckboxRadioGroup(parentTag, options) {
         tag.attr = m_utils.extend(true, attr, tag.attr);
         tag.fnGroupClick = handleGroupClick;
 
-        m_checkboxRadiosList.push(new MamboCheckboxRadio(m_checkboxRadioGroupTag, tag));
+        m_checkboxRadiosList.push(new ui.checkboxRadio(m_checkboxRadioGroupTag, tag));
     }
 
     function handleGroupClick(context) {
@@ -158,7 +160,7 @@ function MamboCheckboxRadioGroup(parentTag, options) {
     }
 
     function destroyCheckboxRadioGroup() {
-        g_mamboDomJS.remove(m_checkboxRadioGroupTag);
+        dom.remove(m_checkboxRadioGroupTag);
     }
 
     function configure() {

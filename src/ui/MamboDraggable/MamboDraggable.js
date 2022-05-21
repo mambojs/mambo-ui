@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDraggable.js
  *******************************************/
-function MamboDraggable(parentTag, containerTag, options) {
+window.ui.draggable = function MamboDraggable(parentTag, containerTag, options) {
     "use strict";
 
     if (!parentTag) {
@@ -26,7 +26,7 @@ function MamboDraggable(parentTag, containerTag, options) {
     }
 
     const self = this;
-    const m_utils = g_mamboUtils;
+    const m_utils = tools.utils;
 
     // HTML tag variables
     let m_parentTag;
@@ -55,14 +55,14 @@ function MamboDraggable(parentTag, containerTag, options) {
     setup();
 
     function setup() {
-        m_parentTag = g_mamboDomJS.getTag(parentTag);
+        m_parentTag = dom.getTag(parentTag);
 
         if (!m_parentTag) {
-            console.error(`Draggable: g_mamboDomJS. parent tag ${parentTag} was not found.`);
+            console.error(`Draggable: dom. parent tag ${parentTag} was not found.`);
             return;
         }
 
-        m_containerTag = g_mamboDomJS.getTag(containerTag);
+        m_containerTag = dom.getTag(containerTag);
         setOptionValues();
         installDOM();
     }
@@ -78,8 +78,8 @@ function MamboDraggable(parentTag, containerTag, options) {
             prop: m_config.prop,
             attr: m_config.attr
         };
-        m_draggableTag = g_mamboDomJS.createTag(m_config.tag.draggable, tagConfig);
-        g_mamboDomJS.append(m_parentTag, m_draggableTag);
+        m_draggableTag = dom.createTag(m_config.tag.draggable, tagConfig);
+        dom.append(m_parentTag, m_draggableTag);
         setupEventHandler();
         setEnable(m_enable);
         finishSetup();
@@ -201,7 +201,7 @@ function MamboDraggable(parentTag, containerTag, options) {
     }
 
     function destroyDraggable() {
-        g_mamboDomJS.remove(m_draggableTag);
+        dom.remove(m_draggableTag);
     }
 
     function finishSetup() {
