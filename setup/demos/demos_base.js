@@ -18,6 +18,42 @@ window.demoui.manager = {
         const html = eval('`' + demoui.html + '`');
         let parser = new DOMParser().parseFromString(html, 'text/html');
         document.body.prepend(parser.body.firstChild);
+
+        demoui.manager.createTabs('#main')
+    },
+    createTabs: function(id) {
+        let tabConfig = {
+            parentTag: id,
+            tabs: {
+                buttons: [
+                    {
+                        text: "Que es Mambo UI?",
+                        area: AREAS[1],
+                        fnClick: (context) => {
+                            // You can declare individual event handlers for tab clicks
+                        }
+                    }, {
+                        text: "Como lo uso?",
+                        area: AREAS[2]
+                    }, {
+                        text: "Demos",
+                        area: AREAS[0]
+                    }
+                ],
+                fnClick: (buttonContext) => {
+                    // You can declare a single event handler for all tab clicks
+                }
+            },
+            fnTabReady: (contentTag, tab) => {
+                const content = dom.createTag("div", {
+                    text: `This is content for Tab id: ${tab.id} name: ${tab.text}`,
+                    attr: { id: tab.area }
+                });
+                contentTag.appendChild(content);
+            }
+        };
+
+        new ui.tab(tabConfig);
     },
     showComponentsList: (components) => {
         let sidebar = document.getElementById('sidebar');
