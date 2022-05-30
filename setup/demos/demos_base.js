@@ -1,27 +1,78 @@
-mambo.develop = true
+mambo.develop = true;
 
-const OUTPUT_PATH = '/demo';
-const AREAS = ['area', 'area-desc', 'area-code'];
-const TYPES = ['script', 'description', 'code'];
+demoui.manager = new function demoManager () {
 
-window.demoui.manager = {
-    route: {
+    const OUTPUT_PATH = '/demo';
+    const AREAS = ['area', 'area-desc', 'area-code'];
+    const TYPES = ['script', 'description', 'code'];
+
+    const ROUTE = {
         name: 'UIHomeDemo',
         path: OUTPUT_PATH,
         action: () => {
             AREAS.forEach(area => {
-                demoui.manager.clearArea(area)
+                clearArea(area);
             });
         }
-    },
-    createHTMLbase: function() {
+    }
+
+    setup();
+
+    function setup () {
+        createHTMLbase();
+        showComponentsList(demoui.components);
+        addRoutes(demoui.components);
+    }
+
+    function addRoutes (components) {
+        let routes = components.map(component => {
+            return {
+                name: component.name,
+                path: `${OUTPUT_PATH}/${component.name.toLowerCase()}`,
+                action: () => { runComponent(component); }
+            }
+        })
+
+        routes.push(ROUTE);
+    
+        tools.router.routes(routes);
+    }
+
+    function applyCode (code, custom) {
+        if (null !== code) {
+            let area = document.getElementsByTagName(custom)[0];
+            
+            let printCodes = code.map(code => {
+                return `<h4>${code.comment}</h4><pre>${code.script}</pre>`;
+            })
+
+            area.innerHTML = printCodes.join('');
+        }
+    }
+
+    function applyDescription (desc, custom) {
+        let area = document.getElementsByTagName(custom)[0];
+        area.innerHTML = desc;
+    }
+
+    function applyScript (script, custom) {
+        eval(script);
+    }
+
+    function clearArea (area) {
+        let element = document.getElementById(area);
+        element.innerHTML = '';
+    }
+
+    function createHTMLbase () {
         const html = eval('`' + demoui.html + '`');
         let parser = new DOMParser().parseFromString(html, 'text/html');
         document.body.prepend(parser.body.firstChild);
 
-        demoui.manager.createTabs('#main')
-    },
-    createTabs: function(id) {
+        createTabs('#main');
+    }
+
+    function createTabs (id) {
         let tabConfig = {
             parentTag: id,
             tabs: {
@@ -54,8 +105,48 @@ window.demoui.manager = {
         };
 
         new ui.tab(tabConfig);
-    },
-    showComponentsList: (components) => {
+    }
+
+    function hidrateArea (object) {
+
+        let area = document.getElementById(object.area);
+        let customTag = document.createElement(object.id);
+
+        clearArea(object.area);
+        
+        area.appendChild(customTag);
+
+        switch (object.type) {
+            case TYPES[0]:
+                applyScript(object.component[object.type], object.id);
+                break;
+        
+            case TYPES[1]:
+                applyDescription(object.component[object.type], object.id);
+                break;
+            
+            case TYPES[2]:
+                applyCode(object.component[object.type], object.id);
+                break;
+        }
+        
+    }
+
+    function runComponent (component){
+
+        const options = [
+            { area: AREAS[0], component, id: component.custom, type: TYPES[0] },
+            { area: AREAS[1], component, id: `${component.custom}-desc`, type: TYPES[1] },
+            { area: AREAS[2], component, id: `${component.custom}-code`, type: TYPES[2] }
+        ]
+
+        options.forEach(option => {
+            hidrateArea(option);
+        })
+        
+    }
+
+    function showComponentsList (components) {
         let sidebar = document.getElementById('sidebar');
         let list = document.createElement('ul');
 
@@ -69,87 +160,5 @@ window.demoui.manager = {
         })
 
         sidebar.appendChild(list);
-    },
-    runComponent: (component) => {
-
-        const options = [
-            { area: AREAS[0], component, id: component.custom, type: TYPES[0] },
-            { area: AREAS[1], component, id: `${component.custom}-desc`, type: TYPES[1] },
-            { area: AREAS[2], component, id: `${component.custom}-code`, type: TYPES[2] }
-        ]
-
-        options.forEach(option => {
-            demoui.manager.hidrateArea(option);
-        })
-        
-    },
-    hidrateArea: (object) => {
-
-        let area = document.getElementById(object.area);
-        // let div = document.createElement('div');
-        // div.id = object.id;
-        let customTag = document.createElement(object.id);
-
-        demoui.manager.clearArea(object.area);
-        // area.appendChild(div);
-        area.appendChild(customTag);
-
-        switch (object.type) {
-            case TYPES[0]:
-                demoui.manager.applyScript(object.component[object.type], object.id);
-                break;
-        
-            case TYPES[1]:
-                demoui.manager.applyDesc(object.component[object.type], object.id);
-                break;
-            
-            case TYPES[2]:
-                demoui.manager.applyCode(object.component[object.type], object.id);
-                break;
-        }
-        
-    },
-    clearArea: (zone) => {
-        let area = document.getElementById(zone);
-        area.innerHTML = '';
-    },
-    applyScript: (script, custom) => {
-        eval(script);
-    },
-    applyDesc: (desc, custom) => {
-        // let area = document.getElementById(custom);
-        let area = document.getElementsByTagName(custom)[0];
-        area.innerHTML = desc;
-    },
-    applyCode: (code, custom) => {
-        if (null !== code) {
-            // let area = document.getElementById(custom);
-            let area = document.getElementsByTagName(custom)[0];
-            
-            let printCodes = code.map(code => {
-                return `<h4>${code.comment}</h4><pre>${code.script}</pre>`;
-            })
-
-            area.innerHTML = printCodes.join('');
-        }
-    },
-    addRoutes: (components) => {
-        let routes = components.map(component => {
-            return {
-                name: component.name,
-                path: `${OUTPUT_PATH}/${component.name.toLowerCase()}`,
-                action: () => { demoui.manager.runComponent(component); }
-            }
-        })
-
-        routes.push(demoui.manager.route);
-    
-        tools.router.routes(routes);
     }
 }
-
-demoui.manager.createHTMLbase();
-
-demoui.manager.showComponentsList(demoui.components);
-
-demoui.manager.addRoutes(demoui.components);
