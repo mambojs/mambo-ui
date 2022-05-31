@@ -122,7 +122,6 @@ demoui.manager = new function demoManager () {
                 break;
         
             case TYPES[1]:
-                console.log(object.component.name)
                 applyDescription(object.component[object.type], object.id, object.component.name);
                 break;
             

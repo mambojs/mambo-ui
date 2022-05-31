@@ -140,6 +140,7 @@ function intializerFile(intializerFile) {
   const libraryImportPaths = [
     '\timport("./mamboDefaultTheme.js");',
     '\timport("./mamboDefaultTagNames.js");',
+    '\timport("./MamboGraphics.js");',
   ];
   const uiFiles = fs.readdirSync(`${config.SRC_DIR}/ui`); 
 

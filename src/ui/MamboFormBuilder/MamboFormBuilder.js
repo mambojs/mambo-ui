@@ -16,6 +16,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboFormBuilder.js
  *******************************************/
+ import styles from './MamboFormBuilder.css';
  class MamboFormBuilder extends HTMLElement {
 	constructor(initOptions) {
 

@@ -4,6 +4,8 @@ demoGrid("demo-grid")
 
 function demoGrid(parentEle) {
 
+    parentEle = dom.createTag(parentEle);
+
     let firstGrid = dom.createTag(`${parentEle.tagName.toLowerCase()}-first`, {
         class: "first-grid"
     });

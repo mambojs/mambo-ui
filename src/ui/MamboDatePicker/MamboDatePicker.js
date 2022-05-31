@@ -125,7 +125,7 @@ window.ui.datePicker = class MamboDatePicker extends HTMLElement {
                 }
             };
 
-            m_calendar = new MamboCalendar(contentTag, calendar);
+            m_calendar = new ui.calendar(contentTag, calendar);
 
             if (m_config.value) {
                 setValue(m_config.value);
@@ -197,7 +197,7 @@ window.ui.datePicker = class MamboDatePicker extends HTMLElement {
                     button: {
                         text: "",
                         svg: {
-                            element: "" //m_graphics.getSVG({ name: "calendar" })
+                            element: ui.graphics.getSVG({ name: "calendar" })
                         }
                     }
                 },

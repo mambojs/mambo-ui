@@ -147,7 +147,7 @@ window.ui.slideout = function MamboSlideout(parentTag, options) {
                 },
                 img: {
                     attr: {
-                        src: ""//m_graphics.getImage({ name: "x-black" })
+                        src: ui.graphics.getImage({ name: "x-black" })
                     }
                 },
                 css: {

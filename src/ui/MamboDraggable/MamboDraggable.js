@@ -17,6 +17,8 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDraggable.js
  *******************************************/
+ import styles from './MamboDraggable.css';
+
 window.ui.draggable = function MamboDraggable(parentTag, containerTag, options) {
     "use strict";
 

@@ -155,7 +155,7 @@ window.ui.dragDrop = function MamboDragDrop(parentTag, options) {
 
     function configure() {
         m_config = {
-            imgDropIcon: "", // m_graphics.getImage({ name: "arrow-down-box-black" }),
+            imgDropIcon: ui.graphics.getImage({ name: "arrow-down-box-black" }),
             dropText: "Drop Here",
             hidden: false,
             baseUrl: '',

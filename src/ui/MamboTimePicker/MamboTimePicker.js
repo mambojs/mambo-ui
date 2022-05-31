@@ -162,7 +162,7 @@ window.ui.timePicker = function MamboTimePicker(parentTag, options) {
                     button: {
                         text: "",
                         svg: {
-                            element: "" //m_graphics.getSVG({ name: "watch" })
+                            element: ui.graphics.getSVG({ name: "watch" })
                         }
                     }
                 },
