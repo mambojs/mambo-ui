@@ -50,7 +50,7 @@ demoui.manager = new function demoManager () {
         }
     }
 
-    function applyDescription (desc, custom) {
+    function applyDescription (desc, custom, name) {
         let area = document.getElementsByTagName(custom)[0];
         area.innerHTML = desc;
     }
@@ -67,7 +67,7 @@ demoui.manager = new function demoManager () {
     function createHTMLbase () {
         const html = eval('`' + demoui.html + '`');
         let parser = new DOMParser().parseFromString(html, 'text/html');
-        document.body.prepend(parser.body.firstChild);
+        document.querySelector('.web-content').prepend(parser.body.firstChild);
 
         createTabs('#main');
     }
@@ -122,7 +122,8 @@ demoui.manager = new function demoManager () {
                 break;
         
             case TYPES[1]:
-                applyDescription(object.component[object.type], object.id);
+                console.log(object.component.name)
+                applyDescription(object.component[object.type], object.id, object.component.name);
                 break;
             
             case TYPES[2]:

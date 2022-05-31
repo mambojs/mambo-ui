@@ -1,22 +1,8 @@
-* {
-    --background-color: #120b1b;
-    --section-color: #296484;
-    --font-size: 14px;
-}
-body {
-    background-color: var(--background-color);
-    margin: auto;
-    font-size: var(--font-size);
-}
-.web-content {
-    height: 100vh;
-    display: grid;
-    align-items: center;
-}
-
-
 .mambo-docs-container {
-    background-color: var(--background-color);
+    /* --background-color: #120b1b; */
+    --section-color: #296484;
+    /* --font-size: 14px; */
+    /* background-color: var(--background-color); */
     position: relative;
     aspect-ratio: 4/3;
     border: solid 6px var(--section-color);

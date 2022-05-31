@@ -89,7 +89,7 @@ function demos() {
 
     return src(['./demos/demos_compiler.js','reload.js','./demos/demos_base.js'])
         .pipe(sourcemaps.init())
-        .pipe(concat(`index.js`))
+        .pipe(concat(`demoui.js`))
         .pipe(terser())
         .pipe(sourcemaps.write('./'))
         .pipe(dest(`../${config.OUTPUT_DIR}/demos`))
