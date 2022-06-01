@@ -17,61 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : server.js
  *******************************************/
-// 'use strict';
-
-// // Scope variables
-// const express = require("express");
-// const app = express();
-// const path = require("path");
-// const fs = require('fs');
-// const port = process.env.PORT || 8000;
-
-// // path bars by platform
-// const separator = process.platform === "win32" ? "\\" : "/";
-
-// //setting middleware
-// //Serves resources from public folder
-// app.use(express.static(`${__dirname}/`));
-
-// // Fetch a file
-// app.get("/getFile", handleGetFileRequest);
-
-// // Fetch an image
-// app.get("/getImage", handleGetImageRequest);
-// // Return Index.html
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "index.html"));
-// });
-
-// function handleGetFileRequest(req, res) {
-//   // Allow any domain on this route
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-//   const myPath = path.join(`${__dirname}${separator}${req.query.path}`);
-//   fs.readFile(myPath, 'utf8', (err, file) => {
-//     if (err) {
-//       res.send(err);
-//     }
-//     res.send(file);
-//   });
-// }
-
-// function handleGetImageRequest(req,res) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   const imagePath = path.join(`${__dirname}${separator}${req.query.path}`);
-//   fs.readFile(imagePath, (err,image) => {
-//     if(err){
-//       res.send(err);
-//     }
-//     res.send(image)
-//   })
-
-// }
-// // Start up Application
-// app.listen(port);
-// console.log(`Listening on http://localhost:${port}`);
 
 'use strict';
 
@@ -97,5 +42,29 @@ app.get("*", (req, res) => {
 });
 
 // Start up Application
-app.listen(config.PORT);
-console.log(`Listening on http://localhost:${config.PORT}`);
+function appListen(port) {
+  app.listen(port);
+  console.log(`Listening on http://localhost:${port}`);
+}
+
+for (var i=0; i<process.argv.length;i++) {
+  switch (process.argv[i]) {
+    case 'runStart':
+      runStart();
+      break;
+    case 'runDev':
+      runDev();
+      break;
+  }
+}
+
+function runStart() {
+  appListen(9002);
+}
+
+function runDev() {
+  appListen(config.PORT);
+}
+
+module.exports.runStart = runStart;
+module.exports.runDev = runDev;
