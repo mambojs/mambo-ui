@@ -1,33 +1,32 @@
 //: Slider
 //@
-demoSlider("demo-slider")
+demoSlider("demo-slider");
 
 function demoSlider(parentEle) {
+  defaultSlider();
+  verticalSlider();
 
-    defaultSlider();
-    verticalSlider();
+  function defaultSlider() {
+    const config = {
+      parentTag: parentEle,
+      fnSelect: (context) => {
+        console.log(context.slider.value());
+      },
+    };
 
-    function defaultSlider() {
-        const config = {
-            parentTag: parentEle,
-            fnSelect: (context) => {
-                console.log(context.slider.value());
-            }
-        };
+    new ui.slider(config);
+  }
 
-        new ui.slider(config);
-    }
+  function verticalSlider() {
+    const config = {
+      parentTag: parentEle,
+      orientation: "vertical",
+      fnSelect: (context) => {
+        console.log(context.slider.value());
+      },
+    };
 
-    function verticalSlider() {
-        const config = {
-            parentTag: parentEle,
-            orientation: "vertical",
-            fnSelect: (context) => {
-                console.log(context.slider.value());
-            }
-        };
-
-        new ui.slider(config);
-    }
+    new ui.slider(config);
+  }
 }
 //!

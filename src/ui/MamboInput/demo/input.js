@@ -41,7 +41,7 @@ function demoInput(parentEle) {
     inputConfig.maxLenWidth = 30;// Width of the element
     inputConfig.maxLenWidthAdj = 2;// Adjust the width - helpful when the element width is set dynamically
 
-    inputField = new ui.input(inputConfig);
+    inputField = ui.input(inputConfig);
 
 
 
@@ -146,6 +146,6 @@ function demoInput(parentEle) {
     inputConfig.maxLenWidth = 30;// Width of the element
     inputConfig.maxLenWidthAdj = 2;// Adjust the width - helpful when the element width is set dynamically
 
-    inputField = new ui.input(inputConfig);
+    inputField = ui.input(inputConfig);
 }
 //!

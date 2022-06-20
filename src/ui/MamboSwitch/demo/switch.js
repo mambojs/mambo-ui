@@ -16,7 +16,7 @@ function demoSwitch(parentEle) {
 			},
 		};
 
-		new ui.switch(config);
+		ui.switch(config);
 	}
 
 	function checkedSwitch() {
@@ -28,7 +28,7 @@ function demoSwitch(parentEle) {
 			},
 		};
 
-		new ui.switch(config);
+		ui.switch(config);
 	}
 
 	function customTextSwitch() {
@@ -44,7 +44,7 @@ function demoSwitch(parentEle) {
 			},
 		};
 
-		new ui.switch(config);
+		ui.switch(config);
 	}
 
 	function disabledSwitch() {
@@ -56,7 +56,7 @@ function demoSwitch(parentEle) {
 			},
 		};
 
-		new ui.switch(config);
+		ui.switch(config);
 	}
 }
 //!

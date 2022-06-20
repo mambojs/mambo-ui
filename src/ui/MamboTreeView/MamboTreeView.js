@@ -18,225 +18,254 @@
  *  File : MamboTreeView.js
  *******************************************/
 ui.treeView = class MamboTreeView extends HTMLElement {
-    constructor(parentTag, options) {
-        super();
+  constructor(parentTag, options) {
+    super();
 
-        if (!parentTag) {
-            console.error(`TreeView: parentTag parameter was not passed in.`);
-            return;
-        }
-
-        if (!options.data) {
-            console.error(`TreeView: Data option was not passed in.`);
-            return;
-        }
-
-        const self = this;
-        const m_utils = tools.utils;
-
-        // HTML tag variables
-        let m_parentTag;
-        let m_treeViewParentTag;
-
-        let m_config;
-        let m_treeViewData = options.data;
-        const m_dataMapById = {};
-
-        // Configure public methods
-        this.destroy = destroyTreeView;
-        this.getItemData = getItemData;
-        this.getParentTag = () => m_treeViewParentTag;
-
-        // Config default values
-        configure();
-
-        // Begin setup
-        setup();
-
-        function setup() {
-            m_parentTag = dom.getTag(parentTag);
-
-            if (!m_parentTag) {
-                console.error(`TreeView: dom. parent tag ${parentTag} was not found.`);
-                return;
-            }
-
-            installDOM();
-        }
-
-        function installDOM() {
-            // Install TreeView parent tag
-            m_treeViewParentTag = dom.createTag(m_config.tag.treeView, { class: m_config.css.treeViewParent });
-
-            m_parentTag.innerHTML = '';
-            dom.append(m_parentTag, m_treeViewParentTag);
-
-            installGroup();
-        }
-
-        function installGroup() {
-            if (!m_treeViewData || !Array.isArray(m_treeViewData)) {
-                console.error('Data TreeView alert: tree view data not found or is not data type Array -->', parentTag);
-                finishSetup();
-                return;
-            }
-
-            installItems(m_treeViewData, m_treeViewParentTag);
-            finishSetup();
-        }
-
-        function installItems(groupData, groupTag) {
-            groupData.forEach((itemData) => {
-                processItem(itemData, groupTag);
-            });
-        }
-
-        function processItem(itemData, parentTag) {
-            // Create item tag
-            let itemTag = dom.createTag(m_config.tag.treeViewItem, { class: m_config.css.item });
-            dom.append(parentTag, itemTag);
-
-            let itemId = m_config.idField in itemData ? itemData[m_config.idField] : m_utils.getUniqueId();
-            let idAtt = {};
-            idAtt[m_config.itemIdAttrName] = itemId;
-            m_dataMapById[itemId] = m_utils.clone(itemData);
-            delete m_dataMapById[itemId][m_config.itemsField];
-
-            const topTag = dom.createTag(m_config.tag.treeViewItemTop, { class: m_config.css.top });
-            const inTag = dom.createTag(m_config.tag.treeViewItemIn, { class: m_config.css.in, attr: idAtt, text: itemData[m_config.textField] });
-            dom.append(topTag, inTag).append(itemTag, topTag);
-
-            setupItemEventListeners(inTag, itemData);
-
-            const items = itemData[m_config.itemsField];
-            if (items && Array.isArray(items) && items.length > 0) {
-                let groupTag = processGroup(items, itemTag);
-                installIcon(topTag, groupTag, itemData);
-            }
-        }
-
-        function processGroup(groupData, parentTag) {
-            // Create group tag
-            let groupTag = dom.createTag(m_config.tag.treeViewGroup, { class: m_config.css.group });
-            dom.append(parentTag, groupTag);
-
-            installItems(groupData, groupTag);
-
-            return groupTag;
-        }
-
-        function installIcon(parentTag, groupTag, itemData) {
-            const expanded = "expanded" in itemData ? itemData.expanded : m_config.expanded;
-            const iconTag = dom.createTag('icon', { class: m_config.css.icon });
-            dom.addClass(iconTag, m_config.css.iconExpand);
-            dom.prepend(parentTag, iconTag);
-
-            setupIconEventListeners(groupTag, iconTag);
-
-            if (expanded) {
-                toggleExpand(groupTag, iconTag);
-            }
-        }
-
-        function clearSelected() {
-            let selected = dom.getTags(`.${m_config.css.selected}`, m_treeViewParentTag);
-            if (selected && selected.length > 0) {
-                for (let index = 0; index < selected.length; index++) {
-                    dom.removeClass(selected[index], m_config.css.selected);
-                }
-            }
-        }
-
-        function setupItemEventListeners(inTag, itemData) {
-            inTag.addEventListener('click', (ev) => {
-                if (m_config.fnSelect) {
-                    m_config.fnSelect({ treeView: self, tag: inTag, itemData: itemData, ev: ev });
-                }
-
-                if (!ev.defaultPrevented) {
-                    clearSelected();
-                    dom.addClass(inTag, m_config.css.selected);
-                }
-            });
-
-            inTag.addEventListener('mouseenter', () => {
-                if (!dom.hasClass(inTag, m_config.css.selected)) {
-                    dom.addClass(inTag, m_config.css.hover);
-                }
-            });
-
-            inTag.addEventListener('mouseleave', () => {
-                dom.removeClass(inTag, m_config.css.hover);
-            });
-        }
-
-        function setupIconEventListeners(groupTag, iconTag) {
-            iconTag.addEventListener('click', (ev) => {
-                let iconTag = ev.target;
-                toggleExpand(groupTag, iconTag);
-            });
-        }
-
-        function toggleExpand(groupTag, iconTag) {
-            dom.toggleClass(groupTag, m_config.css.expanded);
-            dom.toggleClass(iconTag, m_config.css.iconCollapse).toggleClass(iconTag, m_config.css.iconExpand);
-        }
-
-        function getItemData(tag) {
-            let itemId = tag.getAttribute(m_config.itemIdAttrName);
-            return m_dataMapById[itemId];
-        }
-
-        function destroyTreeView() {
-            dom.remove(m_treeViewParentTag);
-        }
-
-        function finishSetup() {
-            // Execute complete callback function
-            if (m_config.fnComplete) {
-                m_config.fnComplete({ treeView: self });
-            }
-        }
-
-        function configure() {
-            m_config = {
-                idField: "id",
-                textField: "text",
-                itemsField: "items",
-                expanded: false,
-                itemIdAttrName: 'data-tree-view-item-id',
-                css: {
-                    treeViewParent: "tree-view-parent",
-                    group: "tree-view-group",
-                    item: "tree-view-item",
-                    top: "tree-view-item-top",
-                    in: "tree-view-item-in",
-                    icon: "tree-view-item-icon",
-                    iconExpand: "tree-view-icon-expand",
-                    iconCollapse: "tree-view-icon-collapse",
-                    hover: "hover",
-                    selected: "selected",
-                    expanded: "expanded"
-                },
-                tag: {
-                    treeView: "sc-tree-view",
-                    treeViewGroup: "tree-view-group",
-                    treeViewItem: "tree-view-item",
-                    treeViewItemTop: "tree-view-item-top",
-                    treeViewItemIn: "tree-view-item-in"
-                },
-                fnSelect: (context) => {
-                    // Nothing executes by default
-                },
-                events: {}
-            };
-
-            // If options provided, override default config
-            if (options) {
-                m_config = m_utils.extend(true, m_config, options);
-            }
-        }
+    if (!parentTag) {
+      console.error(`TreeView: parentTag parameter was not passed in.`);
+      return;
     }
-}
 
-customElements.define('mambo-tree-view', ui.treeView);
+    if (!options.data) {
+      console.error(`TreeView: Data option was not passed in.`);
+      return;
+    }
+
+    const self = this;
+    const m_utils = tools.utils;
+
+    // HTML tag variables
+    let m_parentTag;
+    let m_treeViewParentTag;
+
+    let m_config;
+    let m_treeViewData = options.data;
+    const m_dataMapById = {};
+
+    // Configure public methods
+    this.destroy = destroyTreeView;
+    this.getItemData = getItemData;
+    this.getParentTag = () => m_treeViewParentTag;
+
+    // Config default values
+    configure();
+
+    // Begin setup
+    setup();
+
+    function setup() {
+      m_parentTag = dom.getTag(parentTag);
+
+      if (!m_parentTag) {
+        console.error(`TreeView: dom. parent tag ${parentTag} was not found.`);
+        return;
+      }
+
+      installDOM();
+    }
+
+    function installDOM() {
+      // Install TreeView parent tag
+      m_treeViewParentTag = dom.createTag(m_config.tag.treeView, {
+        class: m_config.css.treeViewParent,
+      });
+
+      m_parentTag.innerHTML = "";
+      dom.append(m_parentTag, m_treeViewParentTag);
+
+      installGroup();
+    }
+
+    function installGroup() {
+      if (!m_treeViewData || !Array.isArray(m_treeViewData)) {
+        console.error(
+          "Data TreeView alert: tree view data not found or is not data type Array -->",
+          parentTag
+        );
+        finishSetup();
+        return;
+      }
+
+      installItems(m_treeViewData, m_treeViewParentTag);
+      finishSetup();
+    }
+
+    function installItems(groupData, groupTag) {
+      groupData.forEach((itemData) => {
+        processItem(itemData, groupTag);
+      });
+    }
+
+    function processItem(itemData, parentTag) {
+      // Create item tag
+      let itemTag = dom.createTag(m_config.tag.treeViewItem, {
+        class: m_config.css.item,
+      });
+      dom.append(parentTag, itemTag);
+
+      let itemId =
+        m_config.idField in itemData
+          ? itemData[m_config.idField]
+          : m_utils.getUniqueId();
+      let idAtt = {};
+      idAtt[m_config.itemIdAttrName] = itemId;
+      m_dataMapById[itemId] = m_utils.clone(itemData);
+      delete m_dataMapById[itemId][m_config.itemsField];
+
+      const topTag = dom.createTag(m_config.tag.treeViewItemTop, {
+        class: m_config.css.top,
+      });
+      const inTag = dom.createTag(m_config.tag.treeViewItemIn, {
+        class: m_config.css.in,
+        attr: idAtt,
+        text: itemData[m_config.textField],
+      });
+      dom.append(topTag, inTag).append(itemTag, topTag);
+
+      setupItemEventListeners(inTag, itemData);
+
+      const items = itemData[m_config.itemsField];
+      if (items && Array.isArray(items) && items.length > 0) {
+        let groupTag = processGroup(items, itemTag);
+        installIcon(topTag, groupTag, itemData);
+      }
+    }
+
+    function processGroup(groupData, parentTag) {
+      // Create group tag
+      let groupTag = dom.createTag(m_config.tag.treeViewGroup, {
+        class: m_config.css.group,
+      });
+      dom.append(parentTag, groupTag);
+
+      installItems(groupData, groupTag);
+
+      return groupTag;
+    }
+
+    function installIcon(parentTag, groupTag, itemData) {
+      const expanded =
+        "expanded" in itemData ? itemData.expanded : m_config.expanded;
+      const iconTag = dom.createTag("icon", { class: m_config.css.icon });
+      dom.addClass(iconTag, m_config.css.iconExpand);
+      dom.prepend(parentTag, iconTag);
+
+      setupIconEventListeners(groupTag, iconTag);
+
+      if (expanded) {
+        toggleExpand(groupTag, iconTag);
+      }
+    }
+
+    function clearSelected() {
+      let selected = dom.getTags(
+        `.${m_config.css.selected}`,
+        m_treeViewParentTag
+      );
+      if (selected && selected.length > 0) {
+        for (let index = 0; index < selected.length; index++) {
+          dom.removeClass(selected[index], m_config.css.selected);
+        }
+      }
+    }
+
+    function setupItemEventListeners(inTag, itemData) {
+      inTag.addEventListener("click", (ev) => {
+        if (m_config.fnSelect) {
+          m_config.fnSelect({
+            treeView: self,
+            tag: inTag,
+            itemData: itemData,
+            ev: ev,
+          });
+        }
+
+        if (!ev.defaultPrevented) {
+          clearSelected();
+          dom.addClass(inTag, m_config.css.selected);
+        }
+      });
+
+      inTag.addEventListener("mouseenter", () => {
+        if (!dom.hasClass(inTag, m_config.css.selected)) {
+          dom.addClass(inTag, m_config.css.hover);
+        }
+      });
+
+      inTag.addEventListener("mouseleave", () => {
+        dom.removeClass(inTag, m_config.css.hover);
+      });
+    }
+
+    function setupIconEventListeners(groupTag, iconTag) {
+      iconTag.addEventListener("click", (ev) => {
+        let iconTag = ev.target;
+        toggleExpand(groupTag, iconTag);
+      });
+    }
+
+    function toggleExpand(groupTag, iconTag) {
+      dom.toggleClass(groupTag, m_config.css.expanded);
+      dom
+        .toggleClass(iconTag, m_config.css.iconCollapse)
+        .toggleClass(iconTag, m_config.css.iconExpand);
+    }
+
+    function getItemData(tag) {
+      let itemId = tag.getAttribute(m_config.itemIdAttrName);
+      return m_dataMapById[itemId];
+    }
+
+    function destroyTreeView() {
+      dom.remove(m_treeViewParentTag);
+    }
+
+    function finishSetup() {
+      // Execute complete callback function
+      if (m_config.fnComplete) {
+        m_config.fnComplete({ treeView: self });
+      }
+    }
+
+    function configure() {
+      m_config = {
+        idField: "id",
+        textField: "text",
+        itemsField: "items",
+        expanded: false,
+        itemIdAttrName: "data-tree-view-item-id",
+        css: {
+          treeViewParent: "tree-view-parent",
+          group: "tree-view-group",
+          item: "tree-view-item",
+          top: "tree-view-item-top",
+          in: "tree-view-item-in",
+          icon: "tree-view-item-icon",
+          iconExpand: "tree-view-icon-expand",
+          iconCollapse: "tree-view-icon-collapse",
+          hover: "hover",
+          selected: "selected",
+          expanded: "expanded",
+        },
+        tag: {
+          treeView: "sc-tree-view",
+          treeViewGroup: "tree-view-group",
+          treeViewItem: "tree-view-item",
+          treeViewItemTop: "tree-view-item-top",
+          treeViewItemIn: "tree-view-item-in",
+        },
+        fnSelect: (context) => {
+          // Nothing executes by default
+        },
+        events: {},
+      };
+
+      // If options provided, override default config
+      if (options) {
+        m_config = m_utils.extend(true, m_config, options);
+      }
+    }
+  }
+};
+
+customElements.define("mambo-tree-view", ui.treeView);

@@ -29,6 +29,6 @@ function demoButtonGroup(eleName) {
         }
     };
 
-    new ui.buttonGroup(eleName, btnGroupProps);
+    ui.buttonGroup(eleName, btnGroupProps);
 }
 //!

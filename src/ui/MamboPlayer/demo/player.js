@@ -87,7 +87,7 @@ function demoHtml5player(parentTag) {
             }
         };
 
-        m_videoPlayer = new ui.videoPlayer("#demo-video", config);
+        m_videoPlayer = ui.videoPlayer("#demo-video", config);
         m_playerTag = m_videoPlayer.getPlayer().getTag();
     }
 
@@ -129,7 +129,7 @@ function demoHtml5player(parentTag) {
             }
         };
 
-        new ui.buttonGroup(parentTag, btnGroupProps);
+        ui.buttonGroup(parentTag, btnGroupProps);
     }
 }
 

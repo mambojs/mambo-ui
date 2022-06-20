@@ -168,7 +168,7 @@ function demoGrid(parentEle) {
         parentTag: firstGrid
     };
 
-    new ui.grid(config);
+    ui.grid(config);
 
     function handleGridPostRow(context) {
         // Callback executed every time a new row has completed installing
@@ -305,6 +305,6 @@ function demoGrid(parentEle) {
         parentTag: secondGrid
     };
 
-    new ui.grid(config2);
+    ui.grid(config2);
 }
 //!

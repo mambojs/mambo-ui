@@ -38,6 +38,6 @@ function demoTreeView(parentEle) {
         }
     };
 
-    new ui.treeView(parentEle, config);
+    ui.treeView(parentEle, config);
 }
 //!

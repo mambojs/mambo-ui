@@ -10,7 +10,7 @@ function demoDragDrop(parentEle) {
         fnDrop: handleDropEvent
     };
 
-    new ui.dragDrop(parentEle, config);
+    ui.dragDrop(parentEle, config);
 
     // Handle the drop event and process the data files
     // @param {object} dataTransfer Event from the drop event
