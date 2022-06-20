@@ -7,6 +7,8 @@ if (!window.ui) {
     window.ui = {};
 //@
 	import("./mamboDefaultTheme.js");
+	import("./mamboDefaultTagNames.js");
+	import("./MamboGraphics.js");
 	import("../ui/MamboAudioPlayer/MamboAudioPlayer.js");
 	import("../ui/MamboButton/MamboButton.js");
 	import("../ui/MamboButtonGroup/MamboButtonGroup.js");
