@@ -19,12 +19,12 @@
  *******************************************/
  import styles from './MamboDropdown.css';
 
-window.ui.dropdown = class MamboDropdown extends HTMLElement {
-    constructor(parentTag, options) {
+ui.dropdown = class MamboDropdown extends HTMLElement {
+    constructor(initOptions) {
         super();
-
-        if (!parentTag) {
-            console.error(`Dropdown: parentTag parameter was not passed in.`);
+        
+        if (!initOptions.parentTag) {
+            console.error(`Dropdown: initOptions.parentTag parameter was not passed in.`);
             return;
         }
 
@@ -53,10 +53,10 @@ window.ui.dropdown = class MamboDropdown extends HTMLElement {
         setup();
 
         function setup() {
-            m_parentTag = dom.getTag(parentTag);
+            m_parentTag = dom.getTag(initOptions.parentTag);
 
             if (!m_parentTag) {
-                console.error(`Dropdown: dom. parent tag ${parentTag} was not found.`);
+                console.error(`Dropdown: dom. parent tag ${initOptions.parentTag} was not found.`);
                 return;
             }
 
@@ -175,11 +175,11 @@ window.ui.dropdown = class MamboDropdown extends HTMLElement {
             };
 
             // If options provided, override default config
-            if (options) {
-                m_config = m_utils.extend(true, m_config, options);
+            if (initOptions) {
+                m_config = m_utils.extend(true, m_config, initOptions);
             }
         }
     }
 }
 
-customElements.define('mambo-dropdown', window.ui.dropdown);
+customElements.define('mambo-dropdown', ui.dropdown);

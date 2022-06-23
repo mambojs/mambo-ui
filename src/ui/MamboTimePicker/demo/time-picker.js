@@ -4,8 +4,10 @@ demoTimePicker("demo-time-picker")
 
 function demoTimePicker(parentEle) {
 
-    let config = {};
+    let config = {
+        parentTag: parentEle
+    };
 
-    new ui.timePicker(parentEle, config);
+    new ui.timePicker(config);
 }
 //!

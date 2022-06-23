@@ -18,14 +18,14 @@
  *  File : MamboTab.js
  *******************************************/
  import styles from './MamboTab.css';
-window.ui.tab = class MamboTab extends HTMLElement {
+ui.tab = class MamboTab extends HTMLElement {
     constructor(initOptions) {
         super();
         // Define constants
         const self = this;
         const m_utils = tools.utils;
         const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
-        const m_tags = new ui.tagNames(ui.g_mamboTagNames);
+        // const m_tags = new ui.tagNames(ui.g_mamboTagNames);
 
         // Define member variables
         let m_config;
@@ -39,7 +39,7 @@ window.ui.tab = class MamboTab extends HTMLElement {
         const m_contentTagsMap = {};
 
         // Define public functions
-        this.install = installSelf;
+        // this.install = installSelf;
         this.setup = setup;
 
         if (initOptions) setup(initOptions);
@@ -56,9 +56,9 @@ window.ui.tab = class MamboTab extends HTMLElement {
             const eleConfig = {
                 class: m_config.css.contentParent
             };
-            m_contentParentTag = dom.createTag(m_config.tagNames.contentParent, eleConfig);
+            m_contentParentTag = dom.createTag(m_config.tag.contentParent, eleConfig);
 
-            m_tabsTag = dom.createTag(m_config.tagNames.tabs, { class: m_config.css.tabs });
+            m_tabsTag = dom.createTag(m_config.tag.tabs, { class: m_config.css.tabs });
 
             installTabs(m_config.tabs);
             installContent();
@@ -67,12 +67,15 @@ window.ui.tab = class MamboTab extends HTMLElement {
             self.appendChild(m_tabsTag);
             self.appendChild(m_contentParentTag);
             // Install component into parent
-            if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
+            // if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
+            if (m_parentTag) {
+                m_parentTag.appendChild(self);
+            }
         }
 
         function installContent() {
             m_config.tabs.buttons.forEach((button, index) => {
-                const contentTag = dom.createTag(m_config.tagNames.content, { class: m_config.css.content });
+                const contentTag = dom.createTag(m_config.tag.content, { class: m_config.css.content });
 
                 if (m_selectedId === button.id) {
                     // Set to show default selected Tab
@@ -123,22 +126,66 @@ window.ui.tab = class MamboTab extends HTMLElement {
             m_parentTag = dom.appendSelfToParentTag(parentTag, self, prepend);
         }
 
+        // function configure(options) {
+        //     m_config = {
+        //         // Expects a list of native DOM elements
+        //         contents: [],
+        //         css: undefined,
+        //         fnTabReady: () => { },
+        //         id: undefined,
+        //         install: true,
+        //         installPrepend: false,
+        //         parentTag: undefined,
+        //         selectedId: undefined,
+        //         tabs: {
+        //             // Expects a ButtonGroup config
+        //         },
+        //         tagNames: undefined,
+        //         tags: "default",
+        //         theme: "default",
+        //     };
+
+        //     // If options provided, override default config
+        //     if (options) m_config = m_utils.extend(true, m_config, options);
+        //     // Set defaults
+        //     m_selectedId = m_config.selectedId;
+        //     if (m_config.parentTag) {
+        //         m_parentTag = dom.getTag(m_config.parentTag);
+        //     }
+
+        //     // Must check that ButtonGroup config have IDs
+        //     // If not, create them
+        //     m_config.tabs.buttons.forEach((button) => {
+        //         if (!button.id) button.id = (Math.round(Math.random() * 1000));
+        //     });
+
+        //     m_config.tagNames = m_utils.extend(true, m_tags.getTags({
+        //         name: m_config.tags,
+        //         control: "mambo-tab"
+        //     }), m_config.tagNames);
+
+        //     m_config.css = m_utils.extend(true, m_theme.getTheme({
+        //         name: m_config.theme,
+        //         control: "mambo-tab"
+        //     }), m_config.css);
+        // }
+
         function configure(options) {
             m_config = {
-                // Expects a list of native DOM elements
-                contents: [],
-                css: undefined,
-                fnTabReady: () => { },
-                id: undefined,
-                install: true,
-                installPrepend: false,
-                parentTag: undefined,
-                selectedId: undefined,
+                tag: {
+                    tabs: "mambo-tabs",
+                    contentParent: "mambo-tab-contents",
+                    content: "mambo-tab-content",
+                },
                 tabs: {
                     // Expects a ButtonGroup config
                 },
-                tagNames: undefined,
-                tags: "default",
+                // Expects a list of native DOM elements
+                contents: [],
+                parentTag: undefined,
+                selectedId: undefined,
+                fnTabReady: () => { },
+                id: undefined,
                 theme: "default",
             };
 
@@ -156,17 +203,14 @@ window.ui.tab = class MamboTab extends HTMLElement {
                 if (!button.id) button.id = (Math.round(Math.random() * 1000));
             });
 
-            m_config.tagNames = m_utils.extend(true, m_tags.getTags({
-                name: m_config.tags,
-                control: "mambo-tab"
-            }), m_config.tagNames);
-
             m_config.css = m_utils.extend(true, m_theme.getTheme({
                 name: m_config.theme,
                 control: "mambo-tab"
             }), m_config.css);
         }
     }
+
+    setup(options) { this.setup(options); }
 }
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define('mambo-tab', window.ui.tab);
+customElements.define('mambo-tab', ui.tab);

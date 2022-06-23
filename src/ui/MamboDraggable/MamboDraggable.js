@@ -19,7 +19,7 @@
  *******************************************/
  import styles from './MamboDraggable.css';
 
-window.ui.draggable = class MamboDraggable extends HTMLElement {
+ui.draggable = class MamboDraggable extends HTMLElement {
     constructor(parentTag, containerTag, options) {
         super();
 
@@ -246,4 +246,4 @@ window.ui.draggable = class MamboDraggable extends HTMLElement {
     }
 }
 
-customElements.define('mambo-draggable', window.ui.draggable);
+customElements.define('mambo-draggable', ui.draggable);

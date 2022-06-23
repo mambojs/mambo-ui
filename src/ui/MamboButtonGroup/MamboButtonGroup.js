@@ -18,10 +18,10 @@
  *  File : MamboButtonGroup.js
  *******************************************/
 import styles from './MamboButtonGroup.css';
-window.ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
+ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
     constructor(parentTag, options) {
         super();
-    
+        
         if (!parentTag) {
             console.error("Button Group: parentEle parameter not passed in.");
             return;
@@ -151,4 +151,4 @@ window.ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
     }
 }
 
-customElements.define('mambo-button-group', window.ui.buttonGroup);
+customElements.define('mambo-button-group', ui.buttonGroup);

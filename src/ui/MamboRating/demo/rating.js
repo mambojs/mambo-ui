@@ -9,16 +9,18 @@ function demoRating(parentEle) {
 
     function defaultRating() {
         const config = {
+            parentTag: parentEle,
             fnSelect: (context) => {
                 console.log(context.rating.value());
             }
         };
 
-        new ui.rating(parentEle, config);
+        new ui.rating(config);
     }
 
     function tenStars() {
         const config = {
+            parentTag: parentEle,
             css: {
                 parent: "rating-parent rating-parent-ten",
             },
@@ -29,16 +31,17 @@ function demoRating(parentEle) {
             }
         };
 
-        new ui.rating(parentEle, config);
+        new ui.rating(config);
     }
 
     function disabled() {
         const config = {
+            parentTag: parentEle,
             value: 3,
             enable: false
         };
 
-        new ui.rating(parentEle, config);
+        new ui.rating(config);
     }
 }
 //!

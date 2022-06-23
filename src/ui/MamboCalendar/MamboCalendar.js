@@ -18,22 +18,21 @@
  *  File : MamboCalendar.js
  *******************************************/
 import styles from './MamboCalendar.css';
-window.ui.calendar = class MamboCalendar extends HTMLElement {
+ui.calendar = class MamboCalendar extends HTMLElement {
     constructor(initOptions) {
         super();
 
-        //Define constants
+        if (!initOptions.parentTag) {
+            console.log(initOptions)
+            console.error(`Calendar: parentTag parameter was not passed in.`);
+            return;
+        }
+
         const self = this;
-        const m_utils = tools.utils;
-        const m_dateMgr = tools.date; //g_mamboDateManager;
-        const m_theme = new ui.theme(ui.g_mamboDefaultTheme); //g_mamboTheme;
-        const m_tags = new ui.tagNames(ui.g_mamboTagNames); //g_mamboTagNames;
+        const m_utils = tools.utils
+        const m_dateMgr = tools.date
 
-        //Define member variables
-        let m_config;
-        let m_selectedId;
-
-        //Define tag member variables
+        // HTML tag variables
         let m_parentTag;
         let m_calendarParentTag;
         let m_headerButtonGroup;
@@ -43,8 +42,8 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         let m_bodyContentTag;
         let m_datesHeaderGrid;
         let m_datesButtonGroup;
-        let m_footerTag;
 
+        let m_config;
         let m_idFormat = "YYYY/M/D";
         let m_value;
         let m_viewDate;
@@ -56,32 +55,33 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
 
         // Configure public methods
         this.destroy = destroyCalendar;
-        this.getParentTag = () => m_calendarParentTag;
-        this.install = installSelf;
         this.navigateToFuture = navigateToFuture;
         this.navigateToPast = navigateToPast;
         this.navigateUp = navigateUp;
-        this.setup = setup;
+        this.getParentTag = () => m_calendarParentTag;
         this.value = value;
 
-        if (initOptions) setup(initOptions);
+        // Config default values
+        configure();
 
-        function setup(options) {
-            // Config default values
-            configure(options);
+        // Begin setup
+        setup();
+
+        function setup() {
+            m_parentTag = dom.getTag(initOptions.parentTag);
+
+            if (!m_parentTag) {
+                console.error(`Calendar: dom. parent tag ${initOptions.parentTag} was not found.`);
+                return;
+            }
+
             setOptionValues();
             installDOM();
         }
 
         function setOptionValues() {
-            m_depth =
-                typeof m_depths[m_config.start] !== "undefined"
-                    ? m_depths[m_config.start]
-                    : 0;
-            m_minDepth =
-                typeof m_depths[m_config.depth] !== "undefined"
-                    ? m_depths[m_config.depth]
-                    : 0;
+            m_depth = typeof m_depths[m_config.start] !== "undefined" ? m_depths[m_config.start] : 0;
+            m_minDepth = typeof m_depths[m_config.depth] !== "undefined" ? m_depths[m_config.depth] : 0;
             m_minDepth = m_minDepth > m_depth ? m_depth : m_minDepth;
 
             m_minDate = m_dateMgr.getDate(m_config.min, m_config.format);
@@ -92,20 +92,15 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         }
 
         function installDOM() {
-            m_calendarParentTag = dom.createTag(m_config.tagNames.parent, {
-                class: m_config.css.parent,
-            });
+            m_calendarParentTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
 
-            // m_parentTag.innerHTML = "";
-            // dom.append(m_parentTag, m_calendarParentTag);
-            self.appendChild(m_calendarParentTag)
+            m_parentTag.innerHTML = '';
+            dom.append(m_parentTag, m_calendarParentTag);
 
             installHeader();
             installBody();
             installFooter();
 
-            // Append all childs
-            // m_parentTag.appendChild(self);
             finishSetup();
         }
 
@@ -113,11 +108,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
 
         function installHeader() {
             let buttonGroup = m_utils.extend(true, {}, m_config.headerButtonGroup);
-            buttonGroup.css = m_utils.extend(
-                true,
-                m_config.css.headerButtonGroup,
-                buttonGroup.css
-            );
+            buttonGroup.css = m_utils.extend(true, m_config.css.headerButtonGroup, buttonGroup.css);
 
             buttonGroup.buttons.forEach((button, index) => {
                 button.fnComplete = (context) => {
@@ -128,25 +119,22 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                 };
             });
 
-            m_headerButtonGroup = new ui.buttonGroup(
-                m_calendarParentTag,
-                buttonGroup
-            );
+            m_headerButtonGroup = new ui.buttonGroup(m_calendarParentTag, buttonGroup);
         }
 
         function navigate(number) {
             switch (m_depth) {
                 case 0: //month
-                    m_dateMgr.add(m_viewDate, number, "months");
+                    m_dateMgr.add(m_viewDate, number, 'months');
                     break;
                 case 1: //year
-                    m_dateMgr.add(m_viewDate, number, "years");
+                    m_dateMgr.add(m_viewDate, number, 'years');
                     break;
                 case 2: //decade
-                    m_dateMgr.add(m_viewDate, number * 10, "years");
+                    m_dateMgr.add(m_viewDate, number * 10, 'years');
                     break;
                 case 3: //century
-                    m_dateMgr.add(m_viewDate, number * 100, "years");
+                    m_dateMgr.add(m_viewDate, number * 100, 'years');
                     break;
             }
             installBodyContent();
@@ -155,9 +143,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         function setHeaderButtonsEnabled() {
             m_headerButtonsList.forEach((button, index) => {
                 if (m_config.headerButtonGroup.buttons[index].fnEnabled) {
-                    button.enable({
-                        enable: m_config.headerButtonGroup.buttons[index].fnEnabled(),
-                    });
+                    button.enable({ enable: m_config.headerButtonGroup.buttons[index].fnEnabled() });
                 }
             });
         }
@@ -174,16 +160,16 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
             let lastViewDate = m_dateMgr.cloneDate(m_viewDate);
             switch (m_depth) {
                 case 0: //month
-                    m_dateMgr.endOf(lastViewDate, "month");
+                    m_dateMgr.endOf(lastViewDate, 'month');
                     break;
                 case 1: //year
-                    m_dateMgr.endOf(lastViewDate, "year");
+                    m_dateMgr.endOf(lastViewDate, 'year');
                     break;
                 case 2: //decade
-                    m_dateMgr.endOf(lastViewDate, "decade");
+                    m_dateMgr.endOf(lastViewDate, 'decade');
                     break;
                 case 3: //century
-                    m_dateMgr.endOf(lastViewDate, "century");
+                    m_dateMgr.endOf(lastViewDate, 'century');
                     break;
             }
             return !m_dateMgr.isSameOrAfter(lastViewDate, m_maxDate);
@@ -192,9 +178,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         function setHeaderButtonsText() {
             m_headerButtonsList.forEach((button, index) => {
                 if (m_config.headerButtonGroup.buttons[index].fnText) {
-                    button.text({
-                        text: m_config.headerButtonGroup.buttons[index].fnText(),
-                    });
+                    button.text({ text: m_config.headerButtonGroup.buttons[index].fnText() });
                 }
             });
         }
@@ -215,27 +199,21 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         //Body
 
         function installBody() {
-            m_bodyTag = dom.createTag(m_config.tagNames.body, {
-                class: m_config.css.body,
-            });
+            m_bodyTag = dom.createTag(m_config.tag.body, { class: m_config.css.body });
             dom.append(m_calendarParentTag, m_bodyTag);
 
-            m_bodyHeaderTag = dom.createTag(m_config.tagNames.bodyHeader, {
-                class: m_config.css.bodyHeader,
-            });
+            m_bodyHeaderTag = dom.createTag(m_config.tag.bodyHeader, { class: m_config.css.bodyHeader });
             dom.append(m_bodyTag, m_bodyHeaderTag);
 
-            m_bodyContentTag = dom.createTag(m_config.tagNames.bodyContent, {
-                class: m_config.css.bodyContent,
-            });
+            m_bodyContentTag = dom.createTag(m_config.tag.bodyContent, { class: m_config.css.bodyContent });
             dom.append(m_bodyTag, m_bodyContentTag);
 
             installBodyContent();
         }
 
         function installBodyContent() {
-            m_bodyHeaderTag.innerHTML = "";
-            m_bodyContentTag.innerHTML = "";
+            m_bodyHeaderTag.innerHTML = '';
+            m_bodyContentTag.innerHTML = '';
 
             switch (m_depth) {
                 case 0: //month
@@ -268,7 +246,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                 let dayName = m_dateMgr.getDayName(i);
                 grid.data.push({
                     Name: dayName,
-                    ShortName: dayName.substring(0, 2).toUpperCase(),
+                    ShortName: dayName.substring(0, 2).toUpperCase()
                 });
             }
             grid.parentTag = m_bodyHeaderTag;
@@ -277,25 +255,18 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
 
         function installDates() {
             let buttonGroup = m_utils.extend(true, {}, m_config.datesButtonGroup);
-            buttonGroup.css = m_utils.extend(
-                true,
-                m_config.css.datesButtonGroup,
-                buttonGroup.css
-            );
+            buttonGroup.css = m_utils.extend(true, m_config.css.datesButtonGroup, buttonGroup.css);
             generateDates(buttonGroup);
 
             m_datesButtonGroup = new ui.buttonGroup(m_bodyContentTag, buttonGroup);
-            m_datesButtonGroup.select({
-                id: m_dateMgr.format(m_value, m_idFormat),
-                notTrigger: true,
-            });
+            m_datesButtonGroup.select({ id: m_dateMgr.format(m_value, m_idFormat), notTrigger: true });
         }
 
         function generateDates(buttonGroup) {
             buttonGroup.buttons = [];
             let today = m_dateMgr.getToday();
             let value = m_dateMgr.cloneDate(m_viewDate);
-            m_dateMgr.startOf(value, "week");
+            m_dateMgr.startOf(value, 'week');
 
             for (let i = 0; i < 42; i++) {
                 let button = {
@@ -304,7 +275,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     attr: { title: m_dateMgr.format(value, "dddd, MMMM DD, YYYY") },
                     fnClick: (context) => {
                         buttonClick(context, m_config.datesButtonGroup);
-                    },
+                    }
                 };
                 if (!isValidButton(value)) {
                     button.enable = false;
@@ -314,7 +285,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     button.css = { button: m_config.css.otherMonth };
                 }
                 buttonGroup.buttons.push(button);
-                m_dateMgr.add(value, 1, "days");
+                m_dateMgr.add(value, 1, 'days');
             }
         }
 
@@ -322,21 +293,14 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
 
         function installMonths() {
             let buttonGroup = m_utils.extend(true, {}, m_config.monthsButtonGroup);
-            buttonGroup.css = m_utils.extend(
-                true,
-                m_config.css.monthsButtonGroup,
-                buttonGroup.css
-            );
+            buttonGroup.css = m_utils.extend(true, m_config.css.monthsButtonGroup, buttonGroup.css);
             generateMonths(buttonGroup);
 
             m_datesButtonGroup = new ui.buttonGroup(m_bodyContentTag, buttonGroup);
 
             let selectedMonth = m_dateMgr.cloneDate(m_value);
-            m_dateMgr.startOf(selectedMonth, "month");
-            m_datesButtonGroup.select({
-                id: m_dateMgr.format(selectedMonth, m_idFormat),
-                notTrigger: true,
-            });
+            m_dateMgr.startOf(selectedMonth, 'month');
+            m_datesButtonGroup.select({ id: m_dateMgr.format(selectedMonth, m_idFormat), notTrigger: true });
         }
 
         function generateMonths(buttonGroup) {
@@ -350,41 +314,35 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     attr: { title: m_dateMgr.format(value, "MMMM") },
                     fnClick: (context) => {
                         buttonClick(context, m_config.monthsButtonGroup);
-                    },
+                    }
                 };
                 if (!isValidButton(value)) {
                     button.enable = false;
                 }
                 buttonGroup.buttons.push(button);
-                m_dateMgr.add(value, 1, "months");
+                m_dateMgr.add(value, 1, 'months');
             }
         }
+
 
         //Body Years
 
         function installYears() {
             let buttonGroup = m_utils.extend(true, {}, m_config.yearsButtonGroup);
-            buttonGroup.css = m_utils.extend(
-                true,
-                m_config.css.yearsButtonGroup,
-                buttonGroup.css
-            );
+            buttonGroup.css = m_utils.extend(true, m_config.css.yearsButtonGroup, buttonGroup.css);
             generateYears(buttonGroup);
 
             m_datesButtonGroup = new ui.buttonGroup(m_bodyContentTag, buttonGroup);
 
             let selectedYear = m_dateMgr.cloneDate(m_value);
-            m_dateMgr.startOf(selectedYear, "year");
-            m_datesButtonGroup.select({
-                id: m_dateMgr.format(selectedYear, m_idFormat),
-                notTrigger: true,
-            });
+            m_dateMgr.startOf(selectedYear, 'year');
+            m_datesButtonGroup.select({ id: m_dateMgr.format(selectedYear, m_idFormat), notTrigger: true });
         }
 
         function generateYears(buttonGroup) {
             buttonGroup.buttons = [];
             let value = m_dateMgr.cloneDate(m_viewDate);
-            m_dateMgr.add(value, -1, "years");
+            m_dateMgr.add(value, -1, 'years');
 
             for (let i = 0; i < 12; i++) {
                 let button = {
@@ -392,7 +350,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     text: m_dateMgr.format(value, "YYYY"),
                     fnClick: (context) => {
                         buttonClick(context, m_config.yearsButtonGroup);
-                    },
+                    }
                 };
                 if (!isValidButton(value)) {
                     button.enable = false;
@@ -400,7 +358,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     button.css = { button: m_config.css.otherDecade };
                 }
                 buttonGroup.buttons.push(button);
-                m_dateMgr.add(value, 1, "years");
+                m_dateMgr.add(value, 1, 'years');
             }
         }
 
@@ -408,27 +366,20 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
 
         function installDecades() {
             let buttonGroup = m_utils.extend(true, {}, m_config.decadesButtonGroup);
-            buttonGroup.css = m_utils.extend(
-                true,
-                m_config.css.decadesButtonGroup,
-                buttonGroup.css
-            );
+            buttonGroup.css = m_utils.extend(true, m_config.css.decadesButtonGroup, buttonGroup.css);
             generateDecades(buttonGroup);
 
             m_datesButtonGroup = new ui.buttonGroup(m_bodyContentTag, buttonGroup);
 
             let selectedDecade = m_dateMgr.cloneDate(m_value);
-            m_dateMgr.startOf(selectedDecade, "decade");
-            m_datesButtonGroup.select({
-                id: m_dateMgr.format(selectedDecade, m_idFormat),
-                notTrigger: true,
-            });
+            m_dateMgr.startOf(selectedDecade, 'decade');
+            m_datesButtonGroup.select({ id: m_dateMgr.format(selectedDecade, m_idFormat), notTrigger: true });
         }
 
         function generateDecades(buttonGroup) {
             buttonGroup.buttons = [];
             let value = m_dateMgr.cloneDate(m_viewDate);
-            m_dateMgr.add(value, -10, "years");
+            m_dateMgr.add(value, -10, 'years');
 
             for (let i = 0; i < 12; i++) {
                 let button = {
@@ -436,7 +387,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     text: `${value.getFullYear()}-${value.getFullYear() + 9}`,
                     fnClick: (context) => {
                         buttonClick(context, m_config.decadesButtonGroup);
-                    },
+                    }
                 };
                 if (!isValidButton(value)) {
                     button.enable = false;
@@ -444,43 +395,22 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     button.css = { button: m_config.css.otherCentury };
                 }
                 buttonGroup.buttons.push(button);
-                m_dateMgr.add(value, 10, "years");
+                m_dateMgr.add(value, 10, 'years');
             }
         }
 
         //Footer
 
         function installFooter() {
-
-            m_footerTag = dom.createTag(m_config.tagNames.footer, {
-                class: m_config.css.footer,
-            });
-
-            dom.append(m_calendarParentTag, m_footerTag);
-
-            installFooterContent();
-        }
-
-        function installFooterContent() {
-
-            m_footerTag.innerHTML = "";
-
             if (m_config.footer) {
                 let button = m_utils.extend(true, {}, m_config.footerButton);
-                button.css = m_utils.extend(
-                    true,
-                    m_config.css.footerButton,
-                    button.css
-                );
+                button.css = m_utils.extend(true, m_config.css.footerButton, button.css);
 
                 let today = m_dateMgr.getToday();
-                button.id = m_dateMgr.format(m_value, m_idFormat);
-                button.text = m_dateMgr.format(m_value, m_config.footer);
+                button.id = m_dateMgr.format(today, m_idFormat);
+                button.text = m_dateMgr.format(today, m_config.footer);
 
-                if (
-                    m_dateMgr.isBefore(today, m_minDate) ||
-                    m_dateMgr.isAfter(today, m_maxDate)
-                ) {
+                if (m_dateMgr.isBefore(today, m_minDate) || m_dateMgr.isAfter(today, m_maxDate)) {
                     button.enable = false;
                 }
 
@@ -492,7 +422,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     }
                 };
 
-                button.parentTag = m_footerTag;
+                button.parentTag = m_calendarParentTag;
                 new ui.button(button);
             }
         }
@@ -500,10 +430,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         //Private methods
 
         function isValidButton(value) {
-            return (
-                !m_dateMgr.isBefore(value, m_minDate) &&
-                !m_dateMgr.isAfter(value, m_maxDate)
-            );
+            return !m_dateMgr.isBefore(value, m_minDate) && !m_dateMgr.isAfter(value, m_maxDate);
         }
 
         function buttonClick(context, buttonGroup) {
@@ -529,9 +456,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         }
 
         function getDefaultValue() {
-            let optionValue = m_config.value
-                ? m_dateMgr.getDate(m_config.value, m_config.format)
-                : null;
+            let optionValue = m_config.value ? m_dateMgr.getDate(m_config.value, m_config.format) : null;
             optionValue = optionValue ? optionValue : m_dateMgr.getToday();
             return getInRangeDate(optionValue);
         }
@@ -553,14 +478,11 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
             m_value = getInRangeDate(value);
             m_depth = m_minDepth;
             setViewDate(m_value);
-
             installBodyContent();
-            installFooterContent();
         }
 
         function setViewDate(value) {
-            m_viewDate =
-                value === null ? m_dateMgr.getToday() : m_dateMgr.cloneDate(value);
+            m_viewDate = value === null ? m_dateMgr.getToday() : m_dateMgr.cloneDate(value);
             switch (m_depth) {
                 case 0: //month
                     m_dateMgr.startOf(m_viewDate, "month");
@@ -569,10 +491,10 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
                     m_dateMgr.startOf(m_viewDate, "year");
                     break;
                 case 2: //decade
-                    m_dateMgr.startOf(m_viewDate, "decade");
+                    m_dateMgr.startOf(m_viewDate, 'decade');
                     break;
                 case 3: //century
-                    m_dateMgr.startOf(m_viewDate, "century");
+                    m_dateMgr.startOf(m_viewDate, 'century');
                     break;
             }
         }
@@ -580,7 +502,7 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         //Public methods
 
         function value(context = {}) {
-            if (typeof context.value === "undefined") {
+            if (typeof context.value === 'undefined') {
                 return m_value;
             } else {
                 setValue(m_dateMgr.getDate(context.value, m_config.format));
@@ -607,72 +529,103 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
         }
 
         function finishSetup() {
-            // Install component into parent
-            if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
-
             // Execute complete callback function
             if (m_config.fnComplete) {
                 m_config.fnComplete({ calendar: self });
             }
         }
 
-        function installSelf(parentTag, prepend) {
-            m_parentTag = parentTag ? parentTag : m_parentTag;
-            m_parentTag = dom.appendSelfToParentTag(m_parentTag, self, prepend);
-        }
-
-        function configure(options) {
+        function configure() {
             m_config = {
-                css: undefined,
-                install: true,
-                installPrepend: false,
-                tagNames: undefined,
-                tags: "default",
-                theme: "default",
-                parentTag: undefined,
-                selectedId: undefined,
+                css: {
+                    parent: "calendar-parent",
+                    body: "calendar-body",
+                    bodyHeader: "calendar-body-header",
+                    bodyContent: "calendar-body-content",
+                    currentDate: "current-date",
+                    otherMonth: "other-month",
+                    otherDecade: "other-decade",
+                    otherCentury: "other-century",
+                    headerButtonGroup: {
+                        parent: "calendar-header"
+                    },
+                    datesHeader: {
+                        tilesParent: "dates-header-parent",
+                        tileItem: "dates-header-day",
+                    },
+                    datesButtonGroup: {
+                        parent: "dates-button-group",
+                        button: "dates-button-group-button",
+                        disabled: "dates-button-group-button-disabled"
+                    },
+                    monthsButtonGroup: {
+                        parent: "months-button-group",
+                        button: "months-button-group-button",
+                        disabled: "months-button-group-button-disabled"
+                    },
+                    yearsButtonGroup: {
+                        parent: "years-button-group",
+                        button: "years-button-group-button",
+                        disabled: "years-button-group-button-disabled"
+                    },
+                    decadesButtonGroup: {
+                        parent: "decades-button-group",
+                        button: "decades-button-group-button",
+                        disabled: "decades-button-group-button-disabled"
+                    },
+                    footerButton: {
+                        button: "calendar-footer-button",
+                        disabled: "calendar-footer-button-disabled"
+                    }
+                },
+                tag: {
+                    parent: "sc-calendar",
+                    body: "calendar-body",
+                    bodyHeader: "calendar-body-header",
+                    bodyContent: "calendar-body-content",
+                },
                 headerButtonGroup: {
                     buttons: [
                         {
                             text: "",
                             css: {
                                 button: "prev-button",
-                                disabled: "calendar-header-button-disabled",
+                                disabled: "calendar-header-button-disabled"
                             },
                             fnClick: navigateToPast,
-                            fnEnabled: canNavigatePast,
+                            fnEnabled: canNavigatePast
                         },
                         {
                             text: "",
                             css: {
                                 button: "fast-button",
-                                disabled: "calendar-header-button-disabled",
+                                disabled: "calendar-header-button-disabled"
                             },
                             fnClick: navigateUp,
                             fnEnabled: canNavigateUp,
-                            fnText: getDepthButtonText,
+                            fnText: getDepthButtonText
                         },
                         {
                             text: "",
                             css: {
                                 button: "next-button",
-                                disabled: "calendar-header-button-disabled",
+                                disabled: "calendar-header-button-disabled"
                             },
                             fnClick: navigateToFuture,
-                            fnEnabled: canNavigateFuture,
-                        },
-                    ],
+                            fnEnabled: canNavigateFuture
+                        }
+                    ]
                 },
                 datesHeader: {
                     layout: "tile",
-                    tileHTML: `<span class="dates-header-day-name" title="{Name}">{ShortName}</span>`,
+                    tileHTML: `<span class="dates-header-day-name" title="{Name}">{ShortName}</span>`
                 },
                 datesButtonGroup: {},
                 monthsButtonGroup: {},
                 yearsButtonGroup: {},
                 decadesButtonGroup: {},
                 footerButton: {
-                    tag: "a",
+                    tag: "a"
                 },
                 format: "M/D/YYYY",
                 value: null,
@@ -687,27 +640,12 @@ window.ui.calendar = class MamboCalendar extends HTMLElement {
             };
 
             // If options provided, override default config
-            if (options) {
-                m_config = m_utils.extend(true, m_config, options);
+            if (initOptions) {
+                m_config = m_utils.extend(true, m_config, initOptions);
             }
-            // Set defaults
-            m_selectedId = m_config.selectedId;
-            if (m_config.parentTag) {
-                m_parentTag = dom.getTag(m_config.parentTag);
-            }
-
-            m_config.css = m_utils.extend(true, m_theme.getTheme({
-                name: m_config.theme,
-                control: "mambo-calendar"
-            }), m_config.css);
-
-            m_config.tagNames = m_utils.extend(true, m_tags.getTags({
-                name: m_config.tags,
-                control: "mambo-calendar"
-            }), m_config.tagNames);
         }
     }
 }
 
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define("mambo-calendar", window.ui.calendar);
+customElements.define("mambo-calendar", ui.calendar);

@@ -19,11 +19,11 @@
  *******************************************/
  import styles from './MamboRating.css';
 
-window.ui.rating = class MamboRating extends HTMLElement {
-    constructor(parentTag, options) {
+ui.rating = class MamboRating extends HTMLElement {
+    constructor(initOptions) {
         super();
 
-        if (!parentTag) {
+        if (!initOptions.parentTag) {
             console.error(`Rating: parentEle parameter not passed in.`);
             return;
         }
@@ -55,10 +55,10 @@ window.ui.rating = class MamboRating extends HTMLElement {
         setup();
 
         function setup() {
-            m_parentTag = dom.getTag(parentTag);
+            m_parentTag = dom.getTag(initOptions.parentTag);
 
             if (!m_parentTag) {
-                console.error(`Rating: dom. parent tag ${parentTag} was not found.`);
+                console.error(`Rating: dom. parent tag ${initOptions.parentTag} was not found.`);
                 return;
             }
 
@@ -223,11 +223,11 @@ window.ui.rating = class MamboRating extends HTMLElement {
             };
 
             // If options provided, override default config
-            if (options) {
-                m_config = m_utils.extend(true, m_config, options);
+            if (initOptions) {
+                m_config = m_utils.extend(true, m_config, initOptions);
             }
         }
     }
 }
 
-customElements.define('mambo-rating', window.ui.rating);
+customElements.define('mambo-rating', ui.rating);

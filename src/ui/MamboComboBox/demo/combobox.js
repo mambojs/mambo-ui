@@ -5,6 +5,7 @@ demoComboBox("demo-combobox")
 function demoComboBox(parentEle) {
 
     let config = {
+        parentTag: parentEle,
         data: [
             { text: "Item 1", id: "1" },
             { text: "Item 2", id: "2" },
@@ -13,6 +14,6 @@ function demoComboBox(parentEle) {
         ]
     };
 
-    new ui.combobox(parentEle, config);
+    new ui.combobox(config);
 }
 //!

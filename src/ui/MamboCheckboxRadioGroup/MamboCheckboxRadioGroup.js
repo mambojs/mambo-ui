@@ -19,7 +19,7 @@
  *******************************************/
 import styles from './MamboCheckboxRadioGroup.css';
 
-window.ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
+ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
     constructor(parentTag, options) {
         super();
 
@@ -196,4 +196,4 @@ window.ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement
     }
 }
 
-customElements.define('mambo-checkbox-radio-group', window.ui.checkboxRadioGroup);
+customElements.define('mambo-checkbox-radio-group', ui.checkboxRadioGroup);

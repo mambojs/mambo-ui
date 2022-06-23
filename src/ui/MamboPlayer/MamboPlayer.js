@@ -19,7 +19,7 @@
  *******************************************/
  import styles from './MamboPlayer.css';
 
-window.ui.player = class MamboPlayer extends HTMLElement {
+ui.player = class MamboPlayer extends HTMLElement {
     constructor(parentTag, options) {
         super();
 
@@ -212,4 +212,4 @@ window.ui.player = class MamboPlayer extends HTMLElement {
     }
 }
 
-customElements.define('mambo-player', window.ui.player);
+customElements.define('mambo-player', ui.player);

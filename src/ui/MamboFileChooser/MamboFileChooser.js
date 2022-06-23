@@ -19,12 +19,12 @@
  *******************************************/
  import styles from './MamboFileChooser.css';
 
-window.ui.fileChooser = class MamboFileChooser extends HTMLElement {
-    constructor(parentTag, options) {
+ui.fileChooser = class MamboFileChooser extends HTMLElement {
+    constructor(initOptions) {
         super();
 
-        if (!parentTag) {
-            console.error(`ScFileChooser: requied parentTag parameter were not passed in.`);
+        if (!initOptions.parentTag) {
+            console.error(`ScFileChooser: requied initOptions.parentTag parameter were not passed in.`);
             return;
         }
 
@@ -52,7 +52,7 @@ window.ui.fileChooser = class MamboFileChooser extends HTMLElement {
         }
 
         function installDOMTags() {
-            const parent = dom.getTag(parentTag);
+            const parent = dom.getTag(initOptions.parentTag);
             if (!parent) {
                 console.error(`File Chooser: dom. parent tag ${parent} was not found.`);
                 return;
@@ -92,6 +92,7 @@ window.ui.fileChooser = class MamboFileChooser extends HTMLElement {
 
         function installInput(hidden) {
             let inputConfig = {
+                parentTag: m_wrapperTag,
                 labelText: m_config.textLabel,
                 attr: m_config.attr,
                 css: {
@@ -114,7 +115,7 @@ window.ui.fileChooser = class MamboFileChooser extends HTMLElement {
                 inputConfig.hidden = true;
             }
 
-            m_inputTag = new ui.input(m_wrapperTag, inputConfig);
+            m_inputTag = new ui.input(inputConfig);
         }
 
         function destroyFileChooser() {
@@ -147,12 +148,12 @@ window.ui.fileChooser = class MamboFileChooser extends HTMLElement {
             };
 
             // If options provided, override default config
-            if (options) {
-                m_config = m_utils.extend(true, m_config, options);
+            if (initOptions) {
+                m_config = m_utils.extend(true, m_config, initOptions);
             }
 
         }
     }
 }
 
-customElements.define('mambo-file-chooser', window.ui.fileChooser);
+customElements.define('mambo-file-chooser', ui.fileChooser);

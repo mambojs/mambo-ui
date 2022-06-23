@@ -18,7 +18,7 @@
  *  File : MamboButton.js
  *******************************************/
 import styles from './MamboButton.css';
-window.ui.button = class MamboButton extends HTMLElement {
+ui.button = class MamboButton extends HTMLElement {
     constructor(initOptions) {
         super();
         const self = this;
@@ -299,4 +299,4 @@ window.ui.button = class MamboButton extends HTMLElement {
     }
 }
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define('mambo-button', window.ui.button);
+customElements.define('mambo-button', ui.button);

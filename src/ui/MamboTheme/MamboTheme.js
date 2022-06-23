@@ -17,36 +17,38 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTheme.js
  *******************************************/
-window.ui.theme = function MamboTheme(initThemes) {
-    "use strict";
+ui.theme = class MamboTheme { 
+    constructor(initThemes) {
+        "use strict";
 
-    const m_utils = tools.utils //g_mamboUtils;
-    // If default themes provided, initialize Themes with them
-    const m_themes = { default: {} };
-    m_themes.default = m_utils.extend(true, {}, initThemes);
+        const m_utils = tools.utils //g_mamboUtils;
+        // If default themes provided, initialize Themes with them
+        const m_themes = { default: {} };
+        m_themes.default = m_utils.extend(true, {}, initThemes);
 
-    this.addTheme = addTheme;
-    this.getTheme = getTheme;
+        this.addTheme = addTheme;
+        this.getTheme = getTheme;
 
-    function getTheme(context) {
-        if (context && context.name && context.control) {
-            if (context.name in m_themes) {
-                return m_themes[context.name][context.control];
+        function getTheme(context) {
+            if (context && context.name && context.control) {
+                if (context.name in m_themes) {
+                    return m_themes[context.name][context.control];
+                }
             }
         }
-    }
 
-    function addTheme(context) {
-        if (!context || !context.name || !context.theme) {
-            console.error("ScTheme: you invoked addTheme() but failed to define the theme name and/or theme.");
-            return;
+        function addTheme(context) {
+            if (!context || !context.name || !context.theme) {
+                console.error("ScTheme: you invoked addTheme() but failed to define the theme name and/or theme.");
+                return;
+            }
+
+            if (m_themes[context.name] && !m_themes[context.override]) {
+                console.error(`ScTheme: you have attempted to override the theme name ${context.name}. Please add the property 'override:true' to succesfully override the theme.`);
+                return;
+            }
+
+            m_themes[context.name] = context.theme;
         }
-
-        if (m_themes[context.name] && !m_themes[context.override]) {
-            console.error(`ScTheme: you have attempted to override the theme name ${context.name}. Please add the property 'override:true' to succesfully override the theme.`);
-            return;
-        }
-
-        m_themes[context.name] = context.theme;
     }
 }

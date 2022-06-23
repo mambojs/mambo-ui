@@ -19,7 +19,7 @@
  *******************************************/
  import styles from './MamboDialog.css';
 
-window.ui.dialog = class MamboDialog extends HTMLElement {
+ui.dialog = class MamboDialog extends HTMLElement {
     constructor(parentTag, options, fnReady) {
         super();
 
@@ -143,4 +143,4 @@ window.ui.dialog = class MamboDialog extends HTMLElement {
     }
 }
 
-customElements.define('mambo-dialog', window.ui.dialog);
+customElements.define('mambo-dialog', ui.dialog);

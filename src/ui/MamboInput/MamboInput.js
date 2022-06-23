@@ -18,7 +18,7 @@
  *  File : MamboInput.js
  *******************************************/
  import styles from './MamboInput.css';
-window.ui.input = class MamboInput extends HTMLElement {
+ui.input = class MamboInput extends HTMLElement {
     constructor(initOptions) {
         super();
         // Config default values
@@ -306,4 +306,4 @@ window.ui.input = class MamboInput extends HTMLElement {
     }
 }
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define('mambo-input', window.ui.input);
+customElements.define('mambo-input', ui.input);

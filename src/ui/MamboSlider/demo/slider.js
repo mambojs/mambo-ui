@@ -9,16 +9,18 @@ function demoSlider(parentEle) {
 
     function defaultSlider() {
         const config = {
+            parentTag: parentEle,
             fnSelect: (context) => {
                 console.log(context.slider.value());
             }
         };
 
-        new ui.slider(parentEle, config);
+        new ui.slider(config);
     }
 
     function verticalSlider() {
         const config = {
+            parentTag: parentEle,
             orientation: "vertical",
             showButtons: false,
             fnSelect: (context) => {
@@ -26,7 +28,7 @@ function demoSlider(parentEle) {
             }
         };
 
-        new ui.slider(parentEle, config);
+        new ui.slider(config);
     }
 }
 //!

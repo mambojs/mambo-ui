@@ -19,7 +19,7 @@
  *******************************************/
 import styles from './MamboCheckboxRadio.css';
 
-window.ui.checkboxRadio = class MamboCheckboxRadio extends HTMLElement {
+ui.checkboxRadio = class MamboCheckboxRadio extends HTMLElement {
     constructor(parentTag, options) {
         super();
 
@@ -230,4 +230,4 @@ window.ui.checkboxRadio = class MamboCheckboxRadio extends HTMLElement {
     }
 }
 
-customElements.define('mambo-checkbox-radio', window.ui.checkboxRadio);
+customElements.define('mambo-checkbox-radio', ui.checkboxRadio);

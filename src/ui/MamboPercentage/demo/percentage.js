@@ -10,26 +10,29 @@ function demoPercentage(parentEle) {
 
     function lowPercentage() {
         const config = {
+            parentTag: parentEle,
             value: .3
         };
 
-        new ui.percentage(parentEle, config);
+        new ui.percentage(config);
     }
 
     function highPercentage() {
         const config = {
+            parentTag: parentEle,
             value: .8
         };
 
-        new ui.percentage(parentEle, config);
+        new ui.percentage(config);
     }
 
     function fullPercentage() {
         const config = {
+            parentTag: parentEle,
             value: 1
         };
 
-        new ui.percentage(parentEle, config);
+        new ui.percentage(config);
     }
 }
 //!
