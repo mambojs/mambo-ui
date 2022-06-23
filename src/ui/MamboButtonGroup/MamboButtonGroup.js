@@ -18,134 +18,137 @@
  *  File : MamboButtonGroup.js
  *******************************************/
 import styles from './MamboButtonGroup.css';
-
-window.ui.buttonGroup = function MamboButtonGroup(parentTag, options) {
-    "use strict";
-
-    if (!parentTag) {
-        console.error("Button Group: parentEle parameter not passed in.");
-        return;
-    }
-
-    const self = this;
-    const m_utils = tools.utils;
-
-    // HTML tag variables
-    const m_buttonsList = [];
-    let m_buttonGroupTag;
-    let m_parentTag;
-
-    let m_config;
-    let m_selectedButtonTag;
-
-    // Public methods
-    this.deselect = deselect;
-    this.destroy = destroyButtonGroup;
-    this.getConfigById = getConfigById;
-    this.getParentTag = () => m_buttonGroupTag;
-    this.getSelected = getSelected;
-    this.getTag = getButtonTagById;
-    this.select = selectBtn;
-
-    // Config default values
-    configure();
-
-    // Begin setup
-    setup();
-
-    function setup() {
-        m_parentTag = dom.getTag(parentTag);
-        if (!m_parentTag) {
-            console.error(`Button Group: dom. tag ${parentTag} not found.`);
+ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
+    constructor(parentTag, options) {
+        super();
+        
+        if (!parentTag) {
+            console.error("Button Group: parentEle parameter not passed in.");
             return;
         }
 
-        m_buttonGroupTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
+        const self = this;
+        const m_utils = tools.utils;
 
-        dom.append(m_parentTag, m_buttonGroupTag);
+        // HTML tag variables
+        const m_buttonsList = [];
+        let m_buttonGroupTag;
+        let m_parentTag;
 
-        // Loop through all the buttons
-        if (m_config.buttons) {
-            m_config.buttons.forEach(installButton);
+        let m_config;
+        let m_selectedButtonTag;
+
+        // Public methods
+        this.deselect = deselect;
+        this.destroy = destroyButtonGroup;
+        this.getConfigById = getConfigById;
+        this.getParentTag = () => m_buttonGroupTag;
+        this.getSelected = getSelected;
+        this.getTag = getButtonTagById;
+        this.select = selectBtn;
+
+        // Config default values
+        configure();
+
+        // Begin setup
+        setup();
+
+        function setup() {
+            m_parentTag = dom.getTag(parentTag);
+            if (!m_parentTag) {
+                console.error(`Button Group: dom. tag ${parentTag} not found.`);
+                return;
+            }
+
+            m_buttonGroupTag = dom.createTag(m_config.tag.parent, { class: m_config.css.parent });
+
+            dom.append(m_parentTag, m_buttonGroupTag);
+
+            // Loop through all the buttons
+            if (m_config.buttons) {
+                m_config.buttons.forEach(installButton);
+            }
         }
-    }
 
-    function deselect() {
-        deselectBtns();
-    }
-
-    function deselectBtns() {
-        m_buttonsList.forEach(button => {
-            button.deselect();
-        });
-        m_selectedButtonTag = null;
-    }
-
-    function installButton(button) {
-        button.css = button.css ? m_utils.extend(true, m_config.css, button.css) : m_config.css;
-        button.fnGroupClick = m_config.fnGroupClick;
-        button.parentTag = m_buttonGroupTag;
-        m_buttonsList.push(new ui.button(button));
-    }
-
-    function handleGroupBtnClick(context) {
-        // Deselect all buttons
-        deselectBtns();
-
-        // If same callback for all buttons
-        if (m_config.fnClick) {
-            m_config.fnClick(context);
+        function deselect() {
+            deselectBtns();
         }
 
-        // Select clicked button
-        context.button.select({ notTrigger: true });
-        m_selectedButtonTag = context.button;
-    }
-
-    function selectBtn(context = {}) {
-        let buttonTag = getTag(context.id);
-        if (buttonTag) {
-            buttonTag.select(context);
-            m_selectedButtonTag = buttonTag;
+        function deselectBtns() {
+            m_buttonsList.forEach(button => {
+                button.deselect();
+            });
+            m_selectedButtonTag = null;
         }
-    }
 
-    function getButtonTagById(context = {}) {
-        return getTag(context.id);
-    }
+        function installButton(button) {
+            button.css = button.css ? m_utils.extend(true, m_config.css, button.css) : m_config.css;
+            button.fnGroupClick = m_config.fnGroupClick;
+            button.parentTag = m_buttonGroupTag;
+            m_buttonsList.push(new ui.button(button));
+        }
 
-    function getTag(id) {
-        return m_buttonsList.find(btn => btn.getId() === id);
-    }
+        function handleGroupBtnClick(context) {
+            // Deselect all buttons
+            deselectBtns();
 
-    function getConfigById(context = {}) {
-        return m_buttonsList.find(btn => btn.getConfig().id === context.id);
-    }
+            // If same callback for all buttons
+            if (m_config.fnClick) {
+                m_config.fnClick(context);
+            }
 
-    function getSelected() {
-        return m_selectedButtonTag;
-    }
+            // Select clicked button
+            context.button.select({ notTrigger: true });
+            m_selectedButtonTag = context.button;
+        }
 
-    function destroyButtonGroup() {
-        dom.remove(m_buttonGroupTag);
-    }
+        function selectBtn(context = {}) {
+            let buttonTag = getTag(context.id);
+            if (buttonTag) {
+                buttonTag.select(context);
+                m_selectedButtonTag = buttonTag;
+            }
+        }
 
-    function configure() {
-        m_config = {
-            css: {
-                parent: "button-group",
-                button: "button-group-button",
-                img: "button-group-img",
-            },
-            tag: {
-                parent: "button-group",
-            },
-            fnGroupClick: handleGroupBtnClick
-        };
+        function getButtonTagById(context = {}) {
+            return getTag(context.id);
+        }
 
-        // If options provided, override default config
-        if (options) {
-            m_config = m_utils.extend(true, m_config, options);
+        function getTag(id) {
+            return m_buttonsList.find(btn => btn.getId() === id);
+        }
+
+        function getConfigById(context = {}) {
+            return m_buttonsList.find(btn => btn.getConfig().id === context.id);
+        }
+
+        function getSelected() {
+            return m_selectedButtonTag;
+        }
+
+        function destroyButtonGroup() {
+            dom.remove(m_buttonGroupTag);
+        }
+
+        function configure() {
+            m_config = {
+                css: {
+                    parent: "button-group",
+                    button: "button-group-button",
+                    img: "button-group-img",
+                },
+                tag: {
+                    parent: "button-group",
+                },
+                fnGroupClick: handleGroupBtnClick
+            };
+
+            // If options provided, override default config
+            if (options) {
+                m_config = m_utils.extend(true, m_config, options);
+            }
         }
     }
 }
+
+customElements.define('mambo-button-group', ui.buttonGroup);

@@ -20,6 +20,7 @@
 .percentage-parent {
     display: flex;
     height: 1.5rem;
+    width: 100%;
 }
 
 .percentage-bar {

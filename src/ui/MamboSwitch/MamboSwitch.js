@@ -18,7 +18,7 @@
  *  File : MamboSwitch.js
  *******************************************/
  import styles from './MamboSwitch.css';
- window.ui.switch = class MamboSwitch extends HTMLElement {
+ ui.switch = class MamboSwitch extends HTMLElement {
 	constructor(initOptions) {
 		super();
 		const self = this;
@@ -220,4 +220,4 @@
 		}
 	}
 }
-customElements.define('mambo-switch', window.ui.switch);
+customElements.define('mambo-switch', ui.switch);

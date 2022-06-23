@@ -48,6 +48,7 @@
     box-shadow: .1rem .2rem .5rem 0 rgba(0, 0, 0, 0.15);
     overflow: auto;
     z-index: 999;
+    color: black;
 }
 
 .dropdown-container.open {

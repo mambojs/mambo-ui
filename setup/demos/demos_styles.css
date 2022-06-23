@@ -151,6 +151,9 @@
     height: 90%;
     overflow: auto;
 }
+#area {
+    width: 100%;
+}
 #area > * {
     display: flex;
     flex-direction: column;

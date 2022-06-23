@@ -19,227 +19,231 @@
  *******************************************/
  import styles from './MamboDraggable.css';
 
-window.ui.draggable = function MamboDraggable(parentTag, containerTag, options) {
-    "use strict";
+ui.draggable = class MamboDraggable extends HTMLElement {
+    constructor(parentTag, containerTag, options) {
+        super();
 
-    if (!parentTag) {
-        console.error(`Draggable: parentEle parameter not passed in.`);
-        return;
-    }
-
-    const self = this;
-    const m_utils = tools.utils;
-
-    // HTML tag variables
-    let m_parentTag;
-    let m_containerTag;
-    let m_draggableTag;
-
-    let m_config;
-    let m_enable = true;
-    let m_active = false;
-    let m_axis; //null: no axis, 0: x, 1: y
-    let m_initialX;
-    let m_initialY;
-    let m_xOffset;
-    let m_yOffset;
-    let m_bounding = null;
-
-    // Configure public methods
-    this.destroy = destroyDraggable;
-    this.enable = enable;
-    this.getParentTag = () => m_draggableTag;
-
-    // Config default values
-    configure();
-
-    // Begin setup
-    setup();
-
-    function setup() {
-        m_parentTag = dom.getTag(parentTag);
-
-        if (!m_parentTag) {
-            console.error(`Draggable: dom. parent tag ${parentTag} was not found.`);
+        if (!parentTag) {
+            console.error(`Draggable: parentEle parameter not passed in.`);
             return;
         }
 
-        m_containerTag = dom.getTag(containerTag);
-        setOptionValues();
-        installDOM();
-    }
+        const self = this;
+        const m_utils = tools.utils;
 
-    function setOptionValues() {
-        m_enable = m_config.enable;
-        m_axis = m_config.axis === "x" ? 0 : (m_config.axis === "y" ? 1 : null);
-    }
+        // HTML tag variables
+        let m_parentTag;
+        let m_containerTag;
+        let m_draggableTag;
 
-    function installDOM() {
-        const tagConfig = {
-            class: m_config.css.draggable,
-            prop: m_config.prop,
-            attr: m_config.attr
-        };
-        m_draggableTag = dom.createTag(m_config.tag.draggable, tagConfig);
-        dom.append(m_parentTag, m_draggableTag);
-        setupEventHandler();
-        setEnable(m_enable);
-        finishSetup();
-    }
+        let m_config;
+        let m_enable = true;
+        let m_active = false;
+        let m_axis; //null: no axis, 0: x, 1: y
+        let m_initialX;
+        let m_initialY;
+        let m_xOffset;
+        let m_yOffset;
+        let m_bounding = null;
 
-    function setupEventHandler() {
-        document.addEventListener("touchstart", dragStart, false);
-        document.addEventListener("touchend", dragEnd, false);
-        document.addEventListener("touchmove", drag, false);
+        // Configure public methods
+        this.destroy = destroyDraggable;
+        this.enable = enable;
+        this.getParentTag = () => m_draggableTag;
 
-        document.addEventListener("mousedown", dragStart, false);
-        document.addEventListener("mouseup", dragEnd, false);
-        document.addEventListener("mousemove", drag, false);
-    }
+        // Config default values
+        configure();
 
-    function dragStart(ev) {
-        if (m_enable) {
-            m_bounding = m_containerTag ? m_containerTag.getBoundingClientRect() : null;
-            m_xOffset = m_draggableTag.offsetLeft;
-            m_yOffset = m_draggableTag.offsetTop;
+        // Begin setup
+        setup();
 
-            let m_initialCenter = [];
+        function setup() {
+            m_parentTag = dom.getTag(parentTag);
 
-            if (ev.type === "touchstart") {
-                m_initialX = ev.touches[0].clientX;
-                m_initialY = ev.touches[0].clientY;
-            } else {
-                m_initialX = ev.clientX;
-                m_initialY = ev.clientY;
+            if (!m_parentTag) {
+                console.error(`Draggable: dom. parent tag ${parentTag} was not found.`);
+                return;
             }
 
-            if (ev.target === m_draggableTag) { //|| ev.target.closest(m_config.tag.draggable)) {
-                m_active = true;
-            }
-
-            if (m_active && m_config.fnDragStart) {
-                m_config.fnDragStart({ draggable: self, ev: ev });
-            }
+            m_containerTag = dom.getTag(containerTag);
+            setOptionValues();
+            installDOM();
         }
-    }
 
-    function dragEnd(ev) {
-        if (m_enable) {
-            if (m_active && m_config.fnDragEnd) {
-                m_config.fnDragEnd({ draggable: self, ev: ev });
-            }
-
-            m_active = false;
+        function setOptionValues() {
+            m_enable = m_config.enable;
+            m_axis = m_config.axis === "x" ? 0 : (m_config.axis === "y" ? 1 : null);
         }
-    }
 
-    function drag(ev) {
-        if (m_enable && m_active) {
-            ev.preventDefault();
+        function installDOM() {
+            const tagConfig = {
+                class: m_config.css.draggable,
+                prop: m_config.prop,
+                attr: m_config.attr
+            };
+            m_draggableTag = dom.createTag(m_config.tag.draggable, tagConfig);
+            dom.append(m_parentTag, m_draggableTag);
+            setupEventHandler();
+            setEnable(m_enable);
+            finishSetup();
+        }
 
-            let mouseEvent = ev.type === "touchmove" ? ev.touches[0] : ev;
+        function setupEventHandler() {
+            document.addEventListener("touchstart", dragStart, false);
+            document.addEventListener("touchend", dragEnd, false);
+            document.addEventListener("touchmove", drag, false);
 
-            let clientX = mouseEvent.clientX;
-            let clientY = mouseEvent.clientY;
+            document.addEventListener("mousedown", dragStart, false);
+            document.addEventListener("mouseup", dragEnd, false);
+            document.addEventListener("mousemove", drag, false);
+        }
 
-            if (m_bounding) {
-                clientX = Math.max(m_bounding.left, Math.min(clientX, m_bounding.right));
-                clientY = Math.max(m_bounding.top, Math.min(clientY, m_bounding.bottom));
-            }
+        function dragStart(ev) {
+            if (m_enable) {
+                m_bounding = m_containerTag ? m_containerTag.getBoundingClientRect() : null;
+                m_xOffset = m_draggableTag.offsetLeft;
+                m_yOffset = m_draggableTag.offsetTop;
 
-            let currentX = m_axis !== 1 ? clientX - m_initialX : 0;
-            let currentY = m_axis !== 0 ? clientY - m_initialY : 0;
+                let m_initialCenter = [];
 
-            if (Array.isArray(m_config.grid) && m_config.grid.length === 2) {
-                if (m_bounding) {
-                    currentX = getAxisStep(currentX, m_config.grid[0], m_bounding.left - m_initialX, m_bounding.right - m_initialX);
-                    currentY = getAxisStep(currentY, m_config.grid[1], m_bounding.top - m_initialY, m_bounding.bottom - m_initialY);
+                if (ev.type === "touchstart") {
+                    m_initialX = ev.touches[0].clientX;
+                    m_initialY = ev.touches[0].clientY;
                 } else {
-                    currentX = getAxisStep(currentX, m_config.grid[0]);
-                    currentY = getAxisStep(currentY, m_config.grid[1]);
+                    m_initialX = ev.clientX;
+                    m_initialY = ev.clientY;
+                }
+
+                if (ev.target === m_draggableTag) { //|| ev.target.closest(m_config.tag.draggable)) {
+                    m_active = true;
+                }
+
+                if (m_active && m_config.fnDragStart) {
+                    m_config.fnDragStart({ draggable: self, ev: ev });
                 }
             }
+        }
 
-            setPosition(currentX, currentY);
+        function dragEnd(ev) {
+            if (m_enable) {
+                if (m_active && m_config.fnDragEnd) {
+                    m_config.fnDragEnd({ draggable: self, ev: ev });
+                }
 
-            if (m_config.fnDrag && (currentX !== 0 || currentY !== 0)) {
-                m_config.fnDrag({ draggable: self, ev: ev });
+                m_active = false;
             }
         }
-    }
 
-    function getAxisStep(current, step, min = null, max = null) {
-        if (current !== 0) {
-            if (step === 0) {
-                return 0;
+        function drag(ev) {
+            if (m_enable && m_active) {
+                ev.preventDefault();
+
+                let mouseEvent = ev.type === "touchmove" ? ev.touches[0] : ev;
+
+                let clientX = mouseEvent.clientX;
+                let clientY = mouseEvent.clientY;
+
+                if (m_bounding) {
+                    clientX = Math.max(m_bounding.left, Math.min(clientX, m_bounding.right));
+                    clientY = Math.max(m_bounding.top, Math.min(clientY, m_bounding.bottom));
+                }
+
+                let currentX = m_axis !== 1 ? clientX - m_initialX : 0;
+                let currentY = m_axis !== 0 ? clientY - m_initialY : 0;
+
+                if (Array.isArray(m_config.grid) && m_config.grid.length === 2) {
+                    if (m_bounding) {
+                        currentX = getAxisStep(currentX, m_config.grid[0], m_bounding.left - m_initialX, m_bounding.right - m_initialX);
+                        currentY = getAxisStep(currentY, m_config.grid[1], m_bounding.top - m_initialY, m_bounding.bottom - m_initialY);
+                    } else {
+                        currentX = getAxisStep(currentX, m_config.grid[0]);
+                        currentY = getAxisStep(currentY, m_config.grid[1]);
+                    }
+                }
+
+                setPosition(currentX, currentY);
+
+                if (m_config.fnDrag && (currentX !== 0 || currentY !== 0)) {
+                    m_config.fnDrag({ draggable: self, ev: ev });
+                }
+            }
+        }
+
+        function getAxisStep(current, step, min = null, max = null) {
+            if (current !== 0) {
+                if (step === 0) {
+                    return 0;
+                } else {
+                    let value = Math.round(current / step);
+                    if (max !== null && value * step > max) {
+                        return (value - 1) * step;
+                    }
+                    if (min !== null && value * step < min) {
+                        return (value + 1) * step;
+                    }
+                    return value * step;
+                }
+            }
+        }
+
+        function setPosition(xPos, yPos) {
+            m_draggableTag.style.left = m_xOffset + xPos + "px";
+            m_draggableTag.style.top = m_yOffset + yPos + "px";
+        }
+
+        function enable(context = {}) {
+            if (typeof context.enable === 'undefined') {
+                return m_enable;
             } else {
-                let value = Math.round(current / step);
-                if (max !== null && value * step > max) {
-                    return (value - 1) * step;
-                }
-                if (min !== null && value * step < min) {
-                    return (value + 1) * step;
-                }
-                return value * step;
+                setEnable(context.enable);
             }
         }
-    }
 
-    function setPosition(xPos, yPos) {
-        m_draggableTag.style.left = m_xOffset + xPos + "px";
-        m_draggableTag.style.top = m_yOffset + yPos + "px";
-    }
-
-    function enable(context = {}) {
-        if (typeof context.enable === 'undefined') {
-            return m_enable;
-        } else {
-            setEnable(context.enable);
+        function setEnable(enable) {
+            m_enable = enable;
         }
-    }
 
-    function setEnable(enable) {
-        m_enable = enable;
-    }
-
-    function destroyDraggable() {
-        dom.remove(m_draggableTag);
-    }
-
-    function finishSetup() {
-        // Execute complete callback function
-        if (m_config.fnComplete) {
-            m_config.fnComplete({ draggable: self });
+        function destroyDraggable() {
+            dom.remove(m_draggableTag);
         }
-    }
 
-    function configure() {
-        m_config = {
-            css: {
-                draggable: "draggable",
-            },
-            tag: {
-                draggable: "draggable",
-            },
-            enable: true,
-            axis: null,
-            grid: null, //[x, y]
-            attr: {},
-            prop: {},
-            fnDragStart: (context) => {
-                // Nothing executes by default
-            },
-            fnDragEnd: (context) => {
-                // Nothing executes by default
-            },
-            fnDrag: (context) => {
-                // Nothing executes by default
+        function finishSetup() {
+            // Execute complete callback function
+            if (m_config.fnComplete) {
+                m_config.fnComplete({ draggable: self });
             }
-        };
+        }
 
-        // If options provided, override default config
-        if (options) {
-            m_config = m_utils.extend(true, m_config, options);
+        function configure() {
+            m_config = {
+                css: {
+                    draggable: "draggable",
+                },
+                tag: {
+                    draggable: "draggable",
+                },
+                enable: true,
+                axis: null,
+                grid: null, //[x, y]
+                attr: {},
+                prop: {},
+                fnDragStart: (context) => {
+                    // Nothing executes by default
+                },
+                fnDragEnd: (context) => {
+                    // Nothing executes by default
+                },
+                fnDrag: (context) => {
+                    // Nothing executes by default
+                }
+            };
+
+            // If options provided, override default config
+            if (options) {
+                m_config = m_utils.extend(true, m_config, options);
+            }
         }
     }
 }
+
+customElements.define('mambo-draggable', ui.draggable);

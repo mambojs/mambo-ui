@@ -18,7 +18,7 @@
  *  File : MamboDatePicker.js
  *******************************************/
 import styles from './MamboDatePicker.css';
-window.ui.datePicker = class MamboDatePicker extends HTMLElement {
+ui.datePicker = class MamboDatePicker extends HTMLElement {
     constructor(initOptions){
         super();
         const self = this;
@@ -70,7 +70,8 @@ window.ui.datePicker = class MamboDatePicker extends HTMLElement {
         function installInput() {
             let input = m_utils.extend(true, {}, m_config.input);
             input.css = m_utils.extend(true, m_config.css.input, input.css);
-            m_input = new ui.input(m_datePickerParentTag, input);
+            input.parentTag = m_datePickerParentTag
+            m_input = new ui.input(input);
         }
 
         function installDropdown() {
@@ -92,8 +93,9 @@ window.ui.datePicker = class MamboDatePicker extends HTMLElement {
                     m_config.dropdown.fnComplete(context);
                 }
             };
-
-            m_dropdown = new ui.dropdown(m_dropdownWrapperTag, dropdown);
+            dropdown.parentTag = m_dropdownWrapperTag;
+            
+            m_dropdown = new ui.dropdown(dropdown);
         }
 
         function installCalendar(dropdown) {
@@ -124,8 +126,9 @@ window.ui.datePicker = class MamboDatePicker extends HTMLElement {
                     m_config.fnSelect({ datePicker: self, ev: context.ev });
                 }
             };
+            calendar.parentTag = contentTag;
 
-            m_calendar = new ui.calendar(contentTag, calendar);
+            m_calendar = new ui.calendar(calendar);
 
             if (m_config.value) {
                 setValue(m_config.value);
@@ -228,4 +231,4 @@ window.ui.datePicker = class MamboDatePicker extends HTMLElement {
     }
     
 }
-customElements.define('mambo-date-picker', window.ui.datePicker);
+customElements.define('mambo-date-picker', ui.datePicker);

@@ -182,131 +182,131 @@ function demoGrid(parentEle) {
     }
 
     //Second Grid
-    const data2 = [{}];
+    // const data2 = [{}];
 
-    const columnsConfig2 = [{
-        id: "treeView",
-        name: "Tree View",
-        type: "tree-view",
-        style: {
-            'min-width': '150px',
-            'width': '150px',
-            'max-width': '150px'
-        },
-        data: [{
-                text: "Item 1",
-                items: [{
-                        text: "Item 1-1"
-                    },
-                    {
-                        text: "Item 1-2"
-                    },
-                    {
-                        text: "Item 1-3",
-                        items: [{
-                                text: "Item 1-3-1"
-                            },
-                            {
-                                text: "Item 1-3-2"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                text: "Item 2",
-                items: [{
-                        text: "Item 2-1"
-                    },
-                    {
-                        text: "Item 2-2"
-                    }
-                ]
-            }
-        ],
-        fnSelect: (context) => {
-            console.log(context.itemData);
-        }
-    }, {
-        id: "dropdown",
-        name: "Dropdown",
-        type: "dropdown",
-        style: {
-            'min-width': '130px',
-            'width': '130px',
-            'max-width': '130px'
-        },
-        fnComplete: (context) => {
-            const contentTag = context.dropdown.getContentTag();
-            dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
-        }
-    }, {
-        id: "combobox",
-        name: "Combobox",
-        type: "combobox",
-        style: {
-            'min-width': '130px',
-            'width': '130px',
-            'max-width': '130px'
-        },
-        data: [{
-                text: "Item 1",
-                id: "1"
-            },
-            {
-                text: "Item 2",
-                id: "2"
-            },
-            {
-                text: "Item 3",
-                id: "3"
-            },
-            {
-                text: "Item 4",
-                id: "4"
-            }
-        ],
-        fnSelect: (context) => {
-            console.log(context.combobox.value());
-        }
-    }, {
-        id: "timePicker",
-        name: "Time Picker",
-        type: "time-picker",
-        style: {
-            'min-width': '130px',
-            'width': '130px',
-            'max-width': '130px'
-        },
-        fnSelect: (context) => {
-            console.log(context.timePicker.value());
-        }
-    }, {
-        id: "datePicker",
-        name: "Date Picker",
-        type: "date-picker",
-        style: {
-            'min-width': '130px',
-            'width': '130px',
-            'max-width': '130px'
-        },
-        fnSelect: (context) => {
-            console.log(context.datePicker.value());
-        }
-    }];
+    // const columnsConfig2 = [{
+    //     id: "treeView",
+    //     name: "Tree View",
+    //     type: "tree-view",
+    //     style: {
+    //         'min-width': '150px',
+    //         'width': '150px',
+    //         'max-width': '150px'
+    //     },
+    //     data: [{
+    //             text: "Item 1",
+    //             items: [{
+    //                     text: "Item 1-1"
+    //                 },
+    //                 {
+    //                     text: "Item 1-2"
+    //                 },
+    //                 {
+    //                     text: "Item 1-3",
+    //                     items: [{
+    //                             text: "Item 1-3-1"
+    //                         },
+    //                         {
+    //                             text: "Item 1-3-2"
+    //                         }
+    //                     ]
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             text: "Item 2",
+    //             items: [{
+    //                     text: "Item 2-1"
+    //                 },
+    //                 {
+    //                     text: "Item 2-2"
+    //                 }
+    //             ]
+    //         }
+    //     ],
+    //     fnSelect: (context) => {
+    //         console.log(context.itemData);
+    //     }
+    // }, {
+    //     id: "dropdown",
+    //     name: "Dropdown",
+    //     type: "dropdown",
+    //     style: {
+    //         'min-width': '130px',
+    //         'width': '130px',
+    //         'max-width': '130px'
+    //     },
+    //     fnComplete: (context) => {
+    //         const contentTag = context.dropdown.getContentTag();
+    //         dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
+    //     }
+    // }, {
+    //     id: "combobox",
+    //     name: "Combobox",
+    //     type: "combobox",
+    //     style: {
+    //         'min-width': '130px',
+    //         'width': '130px',
+    //         'max-width': '130px'
+    //     },
+    //     data: [{
+    //             text: "Item 1",
+    //             id: "1"
+    //         },
+    //         {
+    //             text: "Item 2",
+    //             id: "2"
+    //         },
+    //         {
+    //             text: "Item 3",
+    //             id: "3"
+    //         },
+    //         {
+    //             text: "Item 4",
+    //             id: "4"
+    //         }
+    //     ],
+    //     fnSelect: (context) => {
+    //         console.log(context.combobox.value());
+    //     }
+    // }, {
+    //     id: "timePicker",
+    //     name: "Time Picker",
+    //     type: "time-picker",
+    //     style: {
+    //         'min-width': '130px',
+    //         'width': '130px',
+    //         'max-width': '130px'
+    //     },
+    //     fnSelect: (context) => {
+    //         console.log(context.timePicker.value());
+    //     }
+    // }, {
+    //     id: "datePicker",
+    //     name: "Date Picker",
+    //     type: "date-picker",
+    //     style: {
+    //         'min-width': '130px',
+    //         'width': '130px',
+    //         'max-width': '130px'
+    //     },
+    //     fnSelect: (context) => {
+    //         console.log(context.datePicker.value());
+    //     }
+    // }];
 
-    let config2 = {
-        data: data2,
-        columns: columnsConfig2,
-        maxColWidth: true,
-        fnComplete: (context) => {
-            // Execute when grid installation is complete
-            console.log(context.grid.getCellComponentsById());
-            console.log(context.grid.getCellComponentsByColNbr());
-        },
-        parentTag: secondGrid
-    };
+    // let config2 = {
+    //     data: data2,
+    //     columns: columnsConfig2,
+    //     maxColWidth: true,
+    //     fnComplete: (context) => {
+    //         // Execute when grid installation is complete
+    //         console.log(context.grid.getCellComponentsById());
+    //         console.log(context.grid.getCellComponentsByColNbr());
+    //     },
+    //     parentTag: secondGrid
+    // };
 
-    new ui.grid(config2);
+    // new ui.grid(config2);
 }
 //!
