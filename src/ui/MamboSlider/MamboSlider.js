@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlider.js
  *******************************************/
- import styles from './MamboSlider.css';
-
 ui.slider = class MamboSlider extends HTMLElement {
     constructor(initOptions) {
         super();

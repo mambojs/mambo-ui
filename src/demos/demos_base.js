@@ -73,7 +73,6 @@ demoui.manager = new function demoManager () {
     }
 
     function createTabs (id) {
-        debugger;
         let tabConfig = {
             parentTag: id,
             tabs: {

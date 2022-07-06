@@ -28,18 +28,22 @@ const config = require("./setup/config.cjs");
 
 //setting middleware
 
-// Redirect to demo page
-app.get("/", (req, res) => {
-  res.redirect(301, "/demo");
-});
+function appPath(folder) {
+  // Redirect to demo page
+  app.get("/", (req, res) => {
+    res.redirect(301, `/${folder}`);
+  });
 
-// Serves resources from public folder
-app.use(express.static(`${__dirname}/${config.OUTPUT_DIR}`));
+  // Serves resources from public folder
+  // app.use(express.static(`${__dirname}/${config.OUTPUT_DIR}`));
+  app.use(express.static(`${__dirname}/${folder}`));
 
-// Return Index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, config.OUTPUT_HTML));
-});
+  // Return Index.html
+  app.get("*", (req, res) => {
+    // res.sendFile(path.resolve(__dirname, config.OUTPUT_HTML));
+    res.sendFile(path.resolve(__dirname, `${folder}/index.html`));
+  });
+}
 
 // Start up Application
 function appListen(port) {
@@ -59,10 +63,12 @@ for (var i=0; i<process.argv.length;i++) {
 }
 
 function runStart() {
+  appPath('demo');
   appListen(9002);
 }
 
 function runDev() {
+  appPath('src');
   appListen(config.PORT);
 }
 

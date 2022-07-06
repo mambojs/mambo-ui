@@ -17,7 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTab.js
  *******************************************/
- import styles from './MamboTab.css';
 ui.tab = class MamboTab extends HTMLElement {
     constructor(initOptions) {
         super();

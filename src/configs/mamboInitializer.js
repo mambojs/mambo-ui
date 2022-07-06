@@ -22,8 +22,6 @@ if (!window.ui) {
 	import("../ui/MamboDraggable/MamboDraggable.js");
 	import("../ui/MamboDropDown/MamboDropdown.js");
 	import("../ui/MamboFileChooser/MamboFileChooser.js");
-	import("../ui/MamboFileUpload/MamboFileUpload.js");
-	import("../ui/MamboFormBuilder/MamboFormBuilder.js");
 	import("../ui/MamboGrid/MamboGrid.js");
 	import("../ui/MamboInput/MamboInput.js");
 	import("../ui/MamboPercentage/MamboPercentage.js");

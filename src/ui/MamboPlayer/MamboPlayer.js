@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboPlayer.js
  *******************************************/
- import styles from './MamboPlayer.css';
-
 ui.player = class MamboPlayer extends HTMLElement {
     constructor(parentTag, options) {
         super();

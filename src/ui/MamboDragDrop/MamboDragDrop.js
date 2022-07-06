@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDragDrop.js
  *******************************************/
- import styles from './MamboDragDrop.css';
-
 ui.dragDrop = class MamboDragDrop extends HTMLElement {
     constructor(parentTag, options) {
         super();
