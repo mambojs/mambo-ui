@@ -318,8 +318,9 @@ ui.grid = class MamboGrid extends HTMLElement {
                     parentTag: context.parentTag
                 });
             };
-    
-            const buttonTag = new ui.button(context.parentTag, buttonConfig);
+            
+            buttonConfig.parentTag = context.parentTag;
+            const buttonTag = new ui.button( buttonConfig);
             addComponentToMap({ column: context.column, colIndex: context.colIndex, component: buttonTag });
         }
     
@@ -368,8 +369,9 @@ ui.grid = class MamboGrid extends HTMLElement {
                     context.column.fnClick(contextClick);
                 }
             };
-    
-            const inputTag = new ui.input(context.parentTag, inputConfig);
+
+            inputConfig.parentTag = context.parentTag;
+            const inputTag = new ui.input( inputConfig);
             addComponentToMap({ column: context.column, colIndex: context.colIndex, component: inputTag });
         }
     
@@ -440,8 +442,9 @@ ui.grid = class MamboGrid extends HTMLElement {
                     parentTag: context.parentTag
                 });
             };
-    
-            const buttonTag = new ui.button(context.parentTag, buttonConfig);
+            
+            buttonConfig.parentTag = context.parentTag;
+            const buttonTag = new ui.button(buttonConfig);
             addComponentToMap({ column: context.column, colIndex: context.colIndex, component: buttonTag });
         }
     
@@ -469,7 +472,9 @@ ui.grid = class MamboGrid extends HTMLElement {
             config.fnClick = () => {
                 slideoutTag.open();
             };
-            const buttonTag = new ui.button(context.parentTag, config);
+
+            config.parentTag = context.parentTag;
+            const buttonTag = new ui.button(config);
     
             const slideoutConfig = m_utils.extend(true, {}, config);
             slideoutConfig.fnComplete = config.fnInstallContent;
