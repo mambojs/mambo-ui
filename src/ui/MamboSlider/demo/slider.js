@@ -22,7 +22,6 @@ function demoSlider(parentEle) {
         const config = {
             parentTag: parentEle,
             orientation: "vertical",
-            // showButtons: false,
             fnSelect: (context) => {
                 console.log(context.slider.value());
             }

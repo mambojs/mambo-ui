@@ -4,12 +4,10 @@ demoGrid("demo-grid")
 
 function demoGrid(parentEle) {
 
-    parentElem = dom.createTag(parentEle);
-
-    let firstGrid = dom.createTag(`${parentElem.tagName.toLowerCase()}-first`, {
+    let firstGrid = dom.createTag(`${parentEle}-first`, {
         class: "first-grid"
     });
-    let secondGrid = dom.createTag(`${parentElem.tagName.toLowerCase()}-second`, {
+    let secondGrid = dom.createTag(`${parentEle}-second`, {
         class: "second-grid"
     });
 
