@@ -30,18 +30,20 @@ const config = require("./setup/config.cjs");
 
 function appPath(folder) {
   // Redirect to demo page
-  app.get("/", (req, res) => {
-    res.redirect(301, `/${folder}`);
-  });
+  // app.get("/", (req, res) => {
+  //   res.redirect(301, `/${folder}`);
+  // });
 
   // Serves resources from public folder
   // app.use(express.static(`${__dirname}/${config.OUTPUT_DIR}`));
-  app.use(express.static(`${__dirname}/${folder}`));
+  // app.use(express.static(`${__dirname}/${folder}`));
+  app.use(`/src`, express.static('src'));
 
   // Return Index.html
   app.get("*", (req, res) => {
     // res.sendFile(path.resolve(__dirname, config.OUTPUT_HTML));
-    res.sendFile(path.resolve(__dirname, `${folder}/index.html`));
+    // res.sendFile(path.resolve(__dirname, `${folder}/index.html`));
+    res.sendFile(path.resolve(__dirname, `index.html`));
   });
 }
 

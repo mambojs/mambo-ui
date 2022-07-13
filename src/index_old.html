@@ -21,9 +21,8 @@
         }
     </style>
     <title>Mambo UI docs</title>
+    
     <!-- build:css lib/mambo-ui-last-min.css -->
-    <!--/build-->
-    <!-- css -->
     <link rel="stylesheet" href="ui/MamboButton/MamboButton.css">
     <link rel="stylesheet" href="ui/MamboButtonGroup/MamboButtonGroup.css">
     <link rel="stylesheet" href="ui/MamboCalendar/MamboCalendar.css">
@@ -48,22 +47,24 @@
     <link rel="stylesheet" href="ui/MamboTimePicker/MamboTimePicker.css">
     <link rel="stylesheet" href="ui/MamboTreeView/MamboTreeView.css">
     <link rel="stylesheet" href="ui/MamboVideoPlayer/MamboVideoPlayer.css">
-
+    <!--/build-->
     
     <!-- build:css themes/dark.css -->
-    <!--/build-->
     <link rel="stylesheet" href="themes/dark.css">
+    <!--/build-->
 
     <!-- build:css demos/demos_styles.css -->
-    <!--/build-->
     <link rel="stylesheet" href="demos/demos_styles.css">
-
-    <!-- mamboui js -->
-    <!-- build:js lib/mambo-ui-last-min.js -->
     <!--/build-->
-    <script src="deps/domjs-last-min.js"></script>
-    <script src="deps/mambo-tools-last-min.js"></script>
 
+    <!-- build:remove -->
+    <!-- <script src="deps/domjs-last-min.js"></script>
+    <script src="deps/mambo-tools-last-min.js"></script> -->
+    <!--/build-->
+    <script src="https://www.scotti.tech/lib/domjs-min-v06-30-22-1-00.js"></script>
+    <script src="https://www.scotti.tech/lib/mambo-tools-min-v06-30-22-1-00.js"></script>
+    
+    <!-- build:js lib/mambo-ui-last-min.js -->
     <script>
         window.ui = {};
     </script>
@@ -98,14 +99,49 @@
 	<script src="ui/MamboTreeView/MamboTreeView.js"></script>
 	<script src="ui/MamboUITemplate/MamboUITemplate.js"></script>
 	<script src="ui/MamboVideoPlayer/MamboVideoPlayer.js"></script>
+    <!--/build-->
 
-    <script src="demos/demos_compiler.js"></script>
+    <!-- build:remove -->
+    <script src="demos/demos_dev_compiler.js"></script>
+    <!--/build-->
 
 </head>
 <body>
-    <div class="web-content"></div>
+    <div class="web-content">
+        <!-- build:remove -->
+        <div class="mambo-docs-container">
+            <div class="angle angle-top-left"></div>
+            <div class="angle angle-top-right"></div>
+            <div class="angle angle-bottom-left"></div>
+            <div class="angle angle-bottom-right"></div>
+            <div class="bottom-tab"></div>
+            <div class="right-tab"></div>
+            <div class="close"></div>
+        
+            <div class="mambo-docs-content">
+                <div id="sup"></div>
+                <div id="docs">
+                    <div id="sidebar">
+                        <button class="mambo-btn transparent">Que es Mambo UI?</button>
+                        <button class="mambo-btn transparent">Como lo uso?</button>
+                        <button class="mambo-btn transparent">DESCARGAR</button>
+                    </div>
+                    <div id="main"></div>
+                </div>
+            </div>
+        </div>
+        <!--/build-->
+    </div>
+
     <!-- build:js demos/demoui.js -->
-    <script src="demos/demos_base.js" defer></script>
+    <script>
+        window.addEventListener('compiler-ready', () => {
+            // Load demos base script
+            const script = document.createElement('script');
+            script.src = 'demos/demos_base.js';
+            document.body.appendChild(script);
+        })
+    </script>
     <!--/build-->
 </body>
 </html>

@@ -2,7 +2,7 @@ mambo.develop = true;
 
 demoui.manager = new function demoManager () {
 
-    const OUTPUT_PATH = '/src';
+    const OUTPUT_PATH = '/';
     const AREAS = ['area', 'area-desc', 'area-code'];
     const TYPES = ['script', 'description', 'code'];
 
@@ -28,7 +28,7 @@ demoui.manager = new function demoManager () {
         let routes = components.map(component => {
             return {
                 name: component.name,
-                path: `${OUTPUT_PATH}/${component.name.toLowerCase()}`,
+                path: `${OUTPUT_PATH}${component.name.toLowerCase()}`,
                 action: () => { runComponent(component); }
             }
         })
@@ -154,7 +154,8 @@ demoui.manager = new function demoManager () {
             let item = document.createElement('li');
             item.innerText = component.name;
             item.onclick = () => { 
-                tools.router.push({ path: `${OUTPUT_PATH}/${component.name.toLowerCase()}` });
+                // tools.router.push({ path: `${OUTPUT_PATH}/${component.name.toLowerCase()}` });
+                tools.router.push({ path: `${OUTPUT_PATH}${component.name.toLowerCase()}` });
             }
             list.appendChild(item);
         })

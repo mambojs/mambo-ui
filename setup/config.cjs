@@ -7,7 +7,9 @@ const LIB_NAME = "mambo-ui-min";
 const LIB_VERSION = `v${dateFormat()}`;
 const LIB_FILE_NAME = `${LIB_NAME}-${LIB_VERSION}`;
 const LIB_FILE_JS = `${LIB_FILE_NAME}.js`;
+const LIB_FILE_CSS = `${LIB_FILE_NAME}.css`;
 const LIB_PATH = `${LIB_DIR}/${LIB_FILE_JS}`;
+const LIB_CSS_PATH = `${LIB_DIR}/${LIB_FILE_CSS}`;
 
 const OUTPUT_DIR = "demo";
 const OUTPUT_JS = `${OUTPUT_DIR}/lib/${LIB_FILE_JS}`;
@@ -29,7 +31,9 @@ module.exports = {
     LIB_VERSION,
     LIB_FILE_NAME,
     LIB_FILE_JS,
+    LIB_FILE_CSS,
     LIB_PATH,
+    LIB_CSS_PATH,
 
     OUTPUT_DIR,
     OUTPUT_JS,

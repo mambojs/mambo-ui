@@ -9,7 +9,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import terser from 'gulp-terser';
 import fs from 'fs';
 import config from './config.cjs';
-import { createServer } from 'http';
+// import { createServer } from 'http';
 
 function demos() {
     const components = [];
@@ -75,8 +75,8 @@ function demos() {
 
     })
 
-    /* Add html to demoui from setup/demos/demos_html.html */
-    const html = getScript('./demos/demos_html.html').fullcontent;
+    /* Add html to demoui from src/demos/demos_html.html */
+    const html = getScript('../src/demos/demos_html.html').fullcontent;
 
     write_demo = `
         window.demoui = {};
@@ -85,9 +85,9 @@ function demos() {
        `;
     
     /* create file with gulp */
-    fs.writeFile('./demos/demos_compiler.js', write_demo, function() { console.log('./demos/demos_compiler.js File created'); });
+    fs.writeFile('../src/demos/demos_compiler.js', write_demo, function() { console.log('../src/demos/demos_compiler.js File created'); });
 
-    return src(['./demos/demos_compiler.js','reload.js','./demos/demos_base.js'])
+    return src(['../src/demos/demos_compiler.js','reload.js','../src/demos/demos_base.js'])
         .pipe(sourcemaps.init())
         .pipe(concat(`demoui.js`))
         .pipe(terser())
@@ -104,48 +104,55 @@ function html() {
 }
 
 function cssBase() {
-    return src(['./demos/demos_styles.css'])
+    return src(['../src/demos/demos_styles.css'])
         .pipe(cleanCSS())
         .pipe(dest(`../${config.OUTPUT_DIR}/demos`))
 }
 
-const clients = [];
+function cssLibFiles() {
+    return src(['../src/ui/**/*.css','!../src/ui/**/demo/*.css'])
+        .pipe(concat(`${config.LIB_FILE_CSS}`))
+        .pipe(cleanCSS())
+        .pipe(dest(`../${config.LIB_DIR}`))
+}
 
-function watchChanges() {
+// const clients = [];
+
+// function watchChanges() {
     
-    const base = watch(['./demos/**/*', '!./demos/demos_compiler.js'], parallel(cssBase, demos));
-    base.on('all', (path, stats) => {
-        console.log(`Gulp: ${path} - ${stats}`);
-    })
+//     const base = watch(['./demos/**/*', '!./demos/demos_compiler.js'], parallel(cssBase, demos));
+//     base.on('all', (path, stats) => {
+//         console.log(`Gulp: ${path} - ${stats}`);
+//     })
 
-    const watcher = watch(['../src/**/*'], parallel(html, demos));
-    watcher.on('all', (path, stats) => {
-        console.log(`Gulp: ${path} - ${stats}`);
-    })
+//     const watcher = watch(['../src/**/*'], parallel(html, demos));
+//     watcher.on('all', (path, stats) => {
+//         console.log(`Gulp: ${path} - ${stats}`);
+//     })
 
-    const changed = watch(`../demo/**/*`, parallel(demoDistribution));
-    changed.on('all', (path, stats) => {
-        console.log(`Complete: ${path} - ${stats}`);
-    })
+//     const changed = watch(`../demo/**/*`, parallel(demoDistribution));
+//     changed.on('all', (path, stats) => {
+//         console.log(`Complete: ${path} - ${stats}`);
+//     })
 
-    createServer((req, res) => {
-        return clients.push(
-        res.writeHead(200, {
-            "Content-Type": "text/event-stream",
-            "Cache-Control": "no-cache",
-            "Access-Control-Allow-Origin": "*",
-            Connection: "keep-alive",
-        }),
-        );
-    }).listen(config.PORT_RELOAD);
-}
+//     createServer((req, res) => {
+//         return clients.push(
+//         res.writeHead(200, {
+//             "Content-Type": "text/event-stream",
+//             "Cache-Control": "no-cache",
+//             "Access-Control-Allow-Origin": "*",
+//             Connection: "keep-alive",
+//         }),
+//         );
+//     }).listen(config.PORT_RELOAD);
+// }
 
-function demoDistribution(cb) {
-    clients.forEach((res) => res.write("data: update\n\n"));
-    clients.length = 0;
-    console.log(`Gulp: demo changed`);
-    cb();
-}
+// function demoDistribution(cb) {
+//     clients.forEach((res) => res.write("data: update\n\n"));
+//     clients.length = 0;
+//     console.log(`Gulp: demo changed`);
+//     cb();
+// }
 
 function getScript(file) {
     
@@ -180,4 +187,5 @@ function getScript(file) {
     return object;
 }
 
-export { demos, html, cssBase, watchChanges };
+// export { demos, html, cssBase, watchChanges };
+export { demos, html, cssBase, cssLibFiles };

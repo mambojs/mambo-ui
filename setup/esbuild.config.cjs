@@ -32,6 +32,8 @@ function buildLib() {
 
   esbuild.build(optionsJS).then(result => {
     console.log("JS Lib: Build complete!");
+  }).then(result => {
+    compileCssLib();
   });
   esbuild.build(optionsCssThemes).then(result => {
     console.log("Css Themes: Build complete!");
@@ -72,17 +74,17 @@ function dev() {
     bundle: true,
     minify: true,
     sourcemap: true,
-    watch: {
-      onRebuild(error, result) {
-        if (error) {
-          console.error('watch build failed:', error)
-        }
-        else 
-        {
-          console.log('esbuild: index.js rebuilt');
-        }
-      }
-    }
+    // watch: {
+    //   onRebuild(error, result) {
+    //     if (error) {
+    //       console.error('watch build failed:', error)
+    //     }
+    //     else 
+    //     {
+    //       console.log('esbuild: index.js rebuilt');
+    //     }
+    //   }
+    // }
   }).then(result => {
     exec('gulp -f ./setup/gulpfile.js demos', (err, stdout, stderr) => {
       if (err) {
@@ -112,6 +114,21 @@ function dev() {
     console.log("Css Themes: Build complete!");
   });
   
+}
+
+function compileCssLib(){
+  console.log("Compiling CSS...");
+  exec('gulp -f ./setup/gulpfile.js cssLibFiles', (err, stdout, stderr) => {
+    if (err) {
+        console.log(`error: ${err.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+    console.log(`stdout: ${stdout}`);
+  })
 }
 
 function checkHTMLexists() {

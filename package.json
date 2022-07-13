@@ -5,10 +5,10 @@
   "main": "server.cjs",
   "type": "module",
   "scripts": {
-    "build": "node ./setup/esbuild.config.cjs buildLib",
+    "build-lib": "node ./setup/esbuild.config.cjs buildLib",
     "build-deps": "node ./setup/esbuild.config.cjs buildLibDeps",
-    "dev": "node server.cjs runDev & node ./setup/esbuild.config.cjs dev & gulp -f ./setup/gulpfile.js watchChanges",
-    "newdev": "node server.cjs runDev",
+    "build-demo": "node ./setup/esbuild.config.cjs dev",
+    "dev": "node server.cjs runDev",
     "start": "node server.cjs runStart"
   },
   "author": "Alejandro Scotti, Scotti Corp, Open Source Community",

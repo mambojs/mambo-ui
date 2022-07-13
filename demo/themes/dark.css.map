@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/themes/dark.css"],
-  "sourcesContent": ["* {\r\n    --ui-background-color: black;\r\n    --ui-border: none;\r\n    --ui-border-radius: 0;\r\n    --ui-color: white;\r\n    --ui-font-size: 1.2rem;\r\n    --ui-padding: 0.5rem 1rem;\r\n\r\n    /* hover */\r\n    --ui-hover-background-color: #444;\r\n    --ui-hover-color: white;\r\n\r\n    /* selected */\r\n    --ui-selected-background-color: #444;\r\n    --ui-selected-color: white;\r\n}"],
-  "mappings": "AAAA,EACI,6BACA,kBACA,sBACA,kBACA,uBACA,yBAGA,kCACA,wBAGA,qCACA",
-  "names": []
-}
