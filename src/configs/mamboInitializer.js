@@ -1,10 +1,4 @@
-if (!window.mambo) {
-    window.mambo = {
-        develop: false
-    };
-}
-if (!window.ui) {
-    window.ui = {};
+window.ui = {};
 //@
 	import("./mamboDefaultTheme.js");
 	import("./mamboDefaultTagNames.js");
@@ -37,4 +31,3 @@ if (!window.ui) {
 	import("../ui/MamboUITemplate/MamboUITemplate.js");
 	import("../ui/MamboVideoPlayer/MamboVideoPlayer.js");
 //!
-}

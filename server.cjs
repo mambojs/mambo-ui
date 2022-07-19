@@ -26,53 +26,17 @@ const app = express();
 const path = require("path");
 const config = require("./setup/config.cjs");
 
+const DIR = config.SRC_DIR;
+const PORT = config.PORT;
+
 //setting middleware
 
-function appPath(folder) {
-  // Redirect to demo page
-  // app.get("/", (req, res) => {
-  //   res.redirect(301, `/${folder}`);
-  // });
+app.use(`/${DIR}`, express.static(DIR));
 
-  // Serves resources from public folder
-  // app.use(express.static(`${__dirname}/${config.OUTPUT_DIR}`));
-  // app.use(express.static(`${__dirname}/${folder}`));
-  app.use(`/src`, express.static('src'));
+// Return Index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, `${DIR}/index.html`));
+});
 
-  // Return Index.html
-  app.get("*", (req, res) => {
-    // res.sendFile(path.resolve(__dirname, config.OUTPUT_HTML));
-    // res.sendFile(path.resolve(__dirname, `${folder}/index.html`));
-    res.sendFile(path.resolve(__dirname, `index.html`));
-  });
-}
-
-// Start up Application
-function appListen(port) {
-  app.listen(port);
-  console.log(`Listening on http://localhost:${port}`);
-}
-
-for (var i=0; i<process.argv.length;i++) {
-  switch (process.argv[i]) {
-    case 'runStart':
-      runStart();
-      break;
-    case 'runDev':
-      runDev();
-      break;
-  }
-}
-
-function runStart() {
-  appPath('demo');
-  appListen(9002);
-}
-
-function runDev() {
-  appPath('src');
-  appListen(config.PORT);
-}
-
-module.exports.runStart = runStart;
-module.exports.runDev = runDev;
+app.listen(PORT);
+console.log(`Listening on http://localhost:${PORT}`);
