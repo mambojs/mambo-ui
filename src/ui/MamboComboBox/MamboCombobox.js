@@ -17,7 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboCombobox.js
  *******************************************/
- import styles from './MamboCombobox.css';
  
 ui.combobox = class MamboCombobox extends HTMLElement {
     constructor(initOptions) {

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboGraphics.js
  *******************************************/
-window.ui.graphics = new function MamboGraphics() {
+ui.graphics = new function MamboGraphics() {
     "use strict";
 
     let m_imageList = {

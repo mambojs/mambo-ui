@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDropdown.js
  *******************************************/
- import styles from './MamboDropdown.css';
-
 ui.dropdown = class MamboDropdown extends HTMLElement {
     constructor(initOptions) {
         super();

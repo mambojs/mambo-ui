@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboFileChooser.js
  *******************************************/
- import styles from './MamboFileChooser.css';
-
 ui.fileChooser = class MamboFileChooser extends HTMLElement {
     constructor(initOptions) {
         super();

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboCalendar.js
  *******************************************/
-import styles from './MamboCalendar.css';
+
 ui.calendar = class MamboCalendar extends HTMLElement {
     constructor(initOptions) {
         super();

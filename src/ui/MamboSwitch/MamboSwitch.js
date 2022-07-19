@@ -17,7 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSwitch.js
  *******************************************/
- import styles from './MamboSwitch.css';
  ui.switch = class MamboSwitch extends HTMLElement {
 	constructor(initOptions) {
 		super();

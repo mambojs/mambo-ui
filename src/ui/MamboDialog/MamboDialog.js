@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDialog.js
  *******************************************/
- import styles from './MamboDialog.css';
-
 ui.dialog = class MamboDialog extends HTMLElement {
     constructor(parentTag, options, fnReady) {
         super();

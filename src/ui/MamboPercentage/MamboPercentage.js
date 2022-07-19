@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboPercentage.js
  *******************************************/
- import styles from './MamboPercentage.css';
-
 ui.percentage = class MamboPercentage extends HTMLElement {
     constructor(initOptions) {
         super();

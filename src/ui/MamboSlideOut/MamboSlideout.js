@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlideout.js
  *******************************************/
- import styles from './MamboSlideout.css';
-
 ui.slideout = class MamboSlideout extends HTMLElement {
     constructor(parentTag, options) {
         super();

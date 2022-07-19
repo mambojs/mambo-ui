@@ -1,4 +1,4 @@
-window.ui.g_mamboDefaultTagNames = {
+ui.g_mamboDefaultTagNames = {
     "mambo-tab": {
         tabs: "mambo-tabs",
         contentParent: "mambo-tab-contents",

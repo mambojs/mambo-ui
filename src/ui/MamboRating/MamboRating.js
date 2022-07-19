@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboRating.js
  *******************************************/
- import styles from './MamboRating.css';
-
 ui.rating = class MamboRating extends HTMLElement {
     constructor(initOptions) {
         super();
