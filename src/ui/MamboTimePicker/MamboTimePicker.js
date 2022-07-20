@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTimePicker.js
  *******************************************/
- import styles from './MamboTimePicker.css';
-
 ui.timePicker = class MamboTimePicker extends HTMLElement {
     constructor(initOptions) {
         super();

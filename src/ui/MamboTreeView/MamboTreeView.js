@@ -17,8 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTreeView.js
  *******************************************/
- import styles from './MamboTreeView.css';
-
 ui.treeView = class MamboTreeView extends HTMLElement {
     constructor(parentTag, options) {
         super();

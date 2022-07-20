@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboCheckboxRadioGroup.js
  *******************************************/
-import styles from './MamboCheckboxRadioGroup.css';
+
 
 ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
     constructor(parentTag, options) {

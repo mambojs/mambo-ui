@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboButtonGroup.js
  *******************************************/
-import styles from './MamboButtonGroup.css';
+
 ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
     constructor(parentTag, options) {
         super();

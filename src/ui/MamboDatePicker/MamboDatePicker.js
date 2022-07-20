@@ -17,7 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDatePicker.js
  *******************************************/
-import styles from './MamboDatePicker.css';
 ui.datePicker = class MamboDatePicker extends HTMLElement {
     constructor(initOptions){
         super();

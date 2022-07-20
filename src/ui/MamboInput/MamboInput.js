@@ -17,7 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboInput.js
  *******************************************/
- import styles from './MamboInput.css';
 ui.input = class MamboInput extends HTMLElement {
     constructor(initOptions) {
         super();

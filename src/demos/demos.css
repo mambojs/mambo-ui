@@ -1,3 +1,15 @@
+body {
+    --background-color: #323c9e;
+    --font-size: 14px;
+    background-color: var(--background-color);
+    margin: auto;
+    font-size: var(--font-size);
+}
+.web-content {
+    height: 100vh;
+    display: grid;
+    align-items: center;
+}
 .mambo-docs-container {
     /* --background-color: #120b1b; */
     --section-color: #296484;

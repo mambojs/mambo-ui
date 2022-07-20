@@ -17,7 +17,6 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboGrid.js
  *******************************************/
- import styles from './MamboGrid.css';
 ui.grid = class MamboGrid extends HTMLElement {
     constructor(initOptions) {
         super();
