@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDraggable.js
  *******************************************/
-ui.draggable = class MamboDraggable extends HTMLElement {
+ui.class.MamboDraggable = class MamboDraggable extends HTMLElement {
   constructor(parentTag, containerTag, options) {
     super();
 
@@ -263,4 +263,6 @@ ui.draggable = class MamboDraggable extends HTMLElement {
   }
 };
 
-customElements.define("mambo-draggable", ui.draggable);
+ui.draggable = (parentTag, containerTag, options) => new ui.class.MamboDraggable(parentTag, containerTag, options);
+
+customElements.define("mambo-draggable", ui.class.MamboDraggable);

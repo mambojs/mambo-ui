@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDialog.js
  *******************************************/
-ui.dialog = class MamboDialog extends HTMLElement {
+ui.class.MamboDialog = class MamboDialog extends HTMLElement {
   constructor(parentTag, options, fnReady) {
     super();
 
@@ -111,7 +111,7 @@ ui.dialog = class MamboDialog extends HTMLElement {
         },
       };
 
-      new ui.button(btnConfig);
+      ui.button(btnConfig);
     }
 
     function installEventHandlers() {
@@ -157,4 +157,6 @@ ui.dialog = class MamboDialog extends HTMLElement {
   }
 };
 
-customElements.define("mambo-dialog", ui.dialog);
+ui.dialog = (parentTag, options, fnReady) => new ui.class.MamboDialog(parentTag, options, fnReady);
+
+customElements.define("mambo-dialog", ui.class.MamboDialog);

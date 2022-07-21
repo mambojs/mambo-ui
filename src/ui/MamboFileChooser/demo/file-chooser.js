@@ -17,7 +17,7 @@ function demoFileChooser(parentEle) {
       },
       fnUpload: handleFileSelection,
     };
-    new ui.fileChooser(config);
+    ui.fileChooser(config);
   }
 
   function multipleFiles() {
@@ -28,7 +28,7 @@ function demoFileChooser(parentEle) {
       },
       fnUpload: handleFileSelection,
     };
-    new ui.fileChooser(config);
+    ui.fileChooser(config);
   }
 
   function noLabel() {
@@ -40,7 +40,7 @@ function demoFileChooser(parentEle) {
       },
       fnUpload: handleFileSelection,
     };
-    new ui.fileChooser(config);
+    ui.fileChooser(config);
   }
 
   function buttonOnly() {
@@ -50,7 +50,7 @@ function demoFileChooser(parentEle) {
       textButton: "Button-only Example",
       fnUpload: handleFileSelection,
     };
-    new ui.fileChooser(config);
+    ui.fileChooser(config);
   }
 
   function handleFileSelection(context) {

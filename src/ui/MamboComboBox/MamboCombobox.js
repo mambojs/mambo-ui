@@ -18,7 +18,7 @@
  *  File : MamboCombobox.js
  *******************************************/
 
-ui.combobox = class MamboCombobox extends HTMLElement {
+ui.class.MamboCombobox = class MamboCombobox extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -94,7 +94,7 @@ ui.combobox = class MamboCombobox extends HTMLElement {
       let input = m_utils.extend(true, {}, m_config.input);
       input.css = m_utils.extend(true, m_config.css.input, input.css);
       input.parentTag = m_comboBoxParentTag;
-      m_input = new ui.input(input);
+      m_input = ui.input(input);
     }
 
     function installDropdown() {
@@ -124,7 +124,7 @@ ui.combobox = class MamboCombobox extends HTMLElement {
         }
       };
       dropdown.parentTag = m_dropdownWrapperTag;
-      m_dropdown = new ui.dropdown(dropdown);
+      m_dropdown = ui.dropdown(dropdown);
     }
 
     function installButtonGroup(dropdown, data) {
@@ -167,7 +167,7 @@ ui.combobox = class MamboCombobox extends HTMLElement {
         }
       };
 
-      m_buttonGroup = new ui.buttonGroup(contentTag, buttonGroup);
+      m_buttonGroup = ui.buttonGroup(contentTag, buttonGroup);
 
       if (m_config.value) {
         setValue(m_config.value);
@@ -319,4 +319,6 @@ ui.combobox = class MamboCombobox extends HTMLElement {
   }
 };
 
-customElements.define("mambo-combobox", ui.combobox);
+ui.combobox = (props) => new ui.class.MamboCombobox(props);
+
+customElements.define("mambo-combobox", ui.class.MamboCombobox);

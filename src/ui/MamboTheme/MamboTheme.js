@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTheme.js
  *******************************************/
-ui.theme = class MamboTheme {
+ ui.class.MamboTheme = class MamboTheme {
   constructor(initThemes) {
     "use strict";
 

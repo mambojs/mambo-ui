@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlideout.js
  *******************************************/
-ui.slideout = class MamboSlideout extends HTMLElement {
+ui.class.MamboSlideout = class MamboSlideout extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -122,7 +122,7 @@ ui.slideout = class MamboSlideout extends HTMLElement {
         closeAnimation();
       };
 
-      new ui.button(config);
+      ui.button(config);
     }
 
     function installEventHandler() {
@@ -181,4 +181,6 @@ ui.slideout = class MamboSlideout extends HTMLElement {
   }
 };
 
-customElements.define("mambo-slideout", ui.slideout);
+ui.slideout = (parentTag, options) => new ui.class.MamboSlideout(parentTag, options);
+
+customElements.define("mambo-slideout", ui.class.MamboSlideout);
