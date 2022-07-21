@@ -15,13 +15,13 @@ function demoDialog() {
 
             // Install Dialog window
             // First argument is the g_domJS. element where to install the Dialog. If null, the dialog will append into the BODY tag
-            new ui.dialog(null, dialogConfig, (context) => {
+            ui.dialog(null, dialogConfig, (context) => {
                 dom.append(context.dialogContentTag, "<p style='padding:3em;'>Your Dialog content will go here</p>");
             });
         }
     };
 
-    new ui.button(buttonConfig);
+    ui.button(buttonConfig);
 
 }
 //!

@@ -19,14 +19,14 @@ function demoSlideout(parentTag) {
             }
         };
 
-        new ui.button(buttonConfig);
+        ui.button(buttonConfig);
     }
 
     function installSlideout() {
         const slideoutConfig = {
             fnComplete: installSlideoutContent
         };
-        m_slideout = new ui.slideout("body", slideoutConfig);
+        m_slideout = ui.slideout("body", slideoutConfig);
     }
 
     function installSlideoutContent(context) {

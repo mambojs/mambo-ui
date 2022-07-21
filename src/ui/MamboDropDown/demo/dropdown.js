@@ -17,7 +17,7 @@ function demoDropdown(parentEle) {
     }
         ;
 
-    new ui.dropdown(config);
+    ui.dropdown(config);
 
     function installDropdownContent(context) {
         // Get the dropDown content

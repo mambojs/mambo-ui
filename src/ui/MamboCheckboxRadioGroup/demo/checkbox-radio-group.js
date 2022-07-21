@@ -37,7 +37,7 @@ function demoCheckboxRadioGroup(parentEle) {
             }
         };
 
-        new ui.checkboxRadioGroup(parentEle, config);
+        ui.checkboxRadioGroup(parentEle, config);
     }
 
     function radioGroup() {
@@ -68,7 +68,7 @@ function demoCheckboxRadioGroup(parentEle) {
             }
         };
 
-        new ui.checkboxRadioGroup(parentEle, config);
+        ui.checkboxRadioGroup(parentEle, config);
     }
 }
 //!
