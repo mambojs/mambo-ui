@@ -16,7 +16,7 @@ function demoCheckboxRadio(parentEle) {
             }
         };
 
-        new ui.checkboxRadio(parentEle, config);
+        ui.checkboxRadio(parentEle, config);
     }
 
     function radio() {
@@ -31,7 +31,7 @@ function demoCheckboxRadio(parentEle) {
             }
         };
 
-        new ui.checkboxRadio(parentEle, config);
+        ui.checkboxRadio(parentEle, config);
     }
 }
 //!

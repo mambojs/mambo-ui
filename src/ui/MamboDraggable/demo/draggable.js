@@ -33,7 +33,7 @@ function demoDraggable(parentEle) {
             }
         };
 
-        let draggable = new ui.draggable(container, container, config);
+        let draggable = ui.draggable(container, container, config);
         let text = dom.createTag("span", { class: "draggable-text", text: "Drag Inside" });
         dom.append(draggable.getParentTag(), text);
     }
@@ -51,7 +51,7 @@ function demoDraggable(parentEle) {
             }
         };
 
-        let draggable = new ui.draggable(container, null, config);
+        let draggable = ui.draggable(container, null, config);
         let text = dom.createTag("span", { class: "draggable-text", text: "Drag Everywhere" });
         dom.append(draggable.getParentTag(), text);
     }
@@ -70,7 +70,7 @@ function demoDraggable(parentEle) {
             axis: "x"
         };
 
-        let draggable = new ui.draggable(container, container, config);
+        let draggable = ui.draggable(container, container, config);
         let text = dom.createTag("span", { class: "draggable-text", text: "Drag Horizontally" });
         dom.append(draggable.getParentTag(), text);
     }
@@ -89,7 +89,7 @@ function demoDraggable(parentEle) {
             axis: "y"
         };
 
-        let draggable = new ui.draggable(container, container, config);
+        let draggable = ui.draggable(container, container, config);
         let text = dom.createTag("span", { class: "draggable-text", text: "Drag Vertically" });
         dom.append(draggable.getParentTag(), text);
     }
@@ -108,7 +108,7 @@ function demoDraggable(parentEle) {
             grid: [30, 30]
         };
 
-        let draggable = new ui.draggable(container, container, config);
+        let draggable = ui.draggable(container, container, config);
         let text = dom.createTag("span", { class: "draggable-text", text: "Drag Steps" });
         dom.append(draggable.getParentTag(), text);
     }

@@ -35,7 +35,7 @@ function demoTab(parentEle) {
             }
         };
 
-        new ui.tab(tabConfig);
+        ui.tab(tabConfig);
     }
 
     function installWithContentProp() {
@@ -72,7 +72,7 @@ function demoTab(parentEle) {
             contents: contentList
         };
 
-        new ui.tab(tabConfig);
+        ui.tab(tabConfig);
     }
 }
 //!

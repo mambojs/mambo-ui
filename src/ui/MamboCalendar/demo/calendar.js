@@ -7,6 +7,6 @@ function demoCalendar(parentEle) {
 		parentTag: parentEle,
 	};
 
-	new ui.calendar(config);
+	ui.calendar(config);
 }
 //!

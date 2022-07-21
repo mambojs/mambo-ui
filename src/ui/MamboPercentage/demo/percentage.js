@@ -1,38 +1,37 @@
 //: Percentage
 //@
-demoPercentage("demo-percentage")
+demoPercentage("demo-percentage");
 
 function demoPercentage(parentEle) {
+  lowPercentage();
+  highPercentage();
+  fullPercentage();
 
-    lowPercentage();
-    highPercentage();
-    fullPercentage();
+  function lowPercentage() {
+    const config = {
+      parentTag: parentEle,
+      value: 0.3,
+    };
 
-    function lowPercentage() {
-        const config = {
-            parentTag: parentEle,
-            value: .3
-        };
+    new ui.percentage(config);
+  }
 
-        new ui.percentage(config);
-    }
+  function highPercentage() {
+    const config = {
+      parentTag: parentEle,
+      value: 0.8,
+    };
 
-    function highPercentage() {
-        const config = {
-            parentTag: parentEle,
-            value: .8
-        };
+    new ui.percentage(config);
+  }
 
-        new ui.percentage(config);
-    }
+  function fullPercentage() {
+    const config = {
+      parentTag: parentEle,
+      value: 1,
+    };
 
-    function fullPercentage() {
-        const config = {
-            parentTag: parentEle,
-            value: 1
-        };
-
-        new ui.percentage(config);
-    }
+    new ui.percentage(config);
+  }
 }
 //!

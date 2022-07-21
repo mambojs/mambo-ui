@@ -6,6 +6,6 @@ function demoDatePicker(parentEle) {
 
     let config = {parentTag:parentEle};
 
-    new ui.datePicker(config);
+    ui.datePicker(config);
 }
 //!

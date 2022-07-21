@@ -11,7 +11,7 @@ function textOnly(eleName) {
             alert(`${context.button.text()} clicked.`);
         }
     };
-    new ui.button(config);
+    ui.button(config);
 }
 //!
 
@@ -40,7 +40,7 @@ function textImage(eleName) {
         }
     };
     
-    new ui.button(config);
+    ui.button(config);
 }
 //!
 
@@ -62,7 +62,7 @@ function anchorButtonText(eleName) {
         }
     };
 
-    new ui.button(config);
+    ui.button(config);
 }
 //!
 
@@ -95,7 +95,7 @@ function anchorButtonImg(eleName) {
         }
     };
 
-    new ui.button(config);
+    ui.button(config);
 }
 //!
 
@@ -143,7 +143,7 @@ function buttonImgWithHover(eleName) {
         }
     };
 
-    new ui.button(config);
+    ui.button(config);
 }
 //!
 
@@ -224,6 +224,6 @@ function buttonMultiImgWithHover(eleName) {
         }
     };
 
-    new ui.button(config);
+    ui.button(config);
 }
 //!
