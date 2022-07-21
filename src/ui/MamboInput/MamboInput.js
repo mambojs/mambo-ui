@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboInput.js
  *******************************************/
-ui.input = class MamboInput extends HTMLElement {
+ ui.class.MamboInput = class MamboInput extends HTMLElement {
   constructor(initOptions) {
     super();
     // Config default values
@@ -322,7 +322,7 @@ ui.input = class MamboInput extends HTMLElement {
   }
 };
 
-ui.input = (options) => new ui.class.MamboInput(options);
+ui.input = (props) => new ui.class.MamboInput(props);
 
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define("mambo-input", ui.input);
+customElements.define("mambo-input", ui.class.MamboInput);

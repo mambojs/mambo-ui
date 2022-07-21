@@ -18,7 +18,7 @@
  *  File : MamboCheckboxRadioGroup.js
  *******************************************/
 
-ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
+ui.class.MamboCheckboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -94,7 +94,7 @@ ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
       tag.fnGroupClick = handleGroupClick;
 
       m_checkboxRadiosList.push(
-        new ui.checkboxRadio(m_checkboxRadioGroupTag, tag)
+        ui.checkboxRadio(m_checkboxRadioGroupTag, tag)
       );
     }
 
@@ -204,4 +204,6 @@ ui.checkboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLElement {
   }
 };
 
-customElements.define("mambo-checkbox-radio-group", ui.checkboxRadioGroup);
+ui.checkboxRadioGroup = (parentTag, options) => new ui.class.MamboCheckboxRadioGroup(parentTag, options);
+
+customElements.define("mambo-checkbox-radio-group", ui.class.MamboCheckboxRadioGroup);

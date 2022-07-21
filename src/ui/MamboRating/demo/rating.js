@@ -15,7 +15,7 @@ function demoRating(parentEle) {
       },
     };
 
-    new ui.rating(config);
+    ui.rating(config);
   }
 
   function tenStars() {
@@ -31,7 +31,7 @@ function demoRating(parentEle) {
       },
     };
 
-    new ui.rating(config);
+    ui.rating(config);
   }
 
   function disabled() {
@@ -41,7 +41,7 @@ function demoRating(parentEle) {
       enable: false,
     };
 
-    new ui.rating(config);
+    ui.rating(config);
   }
 }
 //!

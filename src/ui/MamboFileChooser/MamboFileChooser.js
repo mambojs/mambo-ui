@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboFileChooser.js
  *******************************************/
-ui.fileChooser = class MamboFileChooser extends HTMLElement {
+ui.class.MamboFileChooser = class MamboFileChooser extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -89,7 +89,7 @@ ui.fileChooser = class MamboFileChooser extends HTMLElement {
         },
       };
 
-      new ui.button(config);
+      ui.button(config);
     }
 
     function installInput(hidden) {
@@ -122,7 +122,7 @@ ui.fileChooser = class MamboFileChooser extends HTMLElement {
         inputConfig.hidden = true;
       }
 
-      m_inputTag = new ui.input(inputConfig);
+      m_inputTag = ui.input(inputConfig);
     }
 
     function destroyFileChooser() {
@@ -161,4 +161,6 @@ ui.fileChooser = class MamboFileChooser extends HTMLElement {
   }
 };
 
-customElements.define("mambo-file-chooser", ui.fileChooser);
+ui.fileChooser = (props) => new ui.class.MamboFileChooser(props);
+
+customElements.define("mambo-file-chooser", ui.class.MamboFileChooser);

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDropdown.js
  *******************************************/
-ui.dropdown = class MamboDropdown extends HTMLElement {
+ui.class.MamboDropdown = class MamboDropdown extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -95,7 +95,7 @@ ui.dropdown = class MamboDropdown extends HTMLElement {
         }
       };
 
-      new ui.button(button);
+      ui.button(button);
     }
 
     function installContainer() {
@@ -188,4 +188,6 @@ ui.dropdown = class MamboDropdown extends HTMLElement {
   }
 };
 
-customElements.define("mambo-dropdown", ui.dropdown);
+ui.dropdown = (props) => new ui.class.MamboDropdown(props);
+
+customElements.define("mambo-dropdown", ui.class.MamboDropdown);

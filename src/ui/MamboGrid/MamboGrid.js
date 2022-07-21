@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboGrid.js
  *******************************************/
-ui.grid = class MamboGrid extends HTMLElement {
+ui.class.MamboGrid = class MamboGrid extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -362,7 +362,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       };
 
       buttonConfig.parentTag = context.parentTag;
-      const buttonTag = new ui.button(buttonConfig);
+      const buttonTag = ui.button(buttonConfig);
       addComponentToMap({
         column: context.column,
         colIndex: context.colIndex,
@@ -422,7 +422,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       };
 
       inputConfig.parentTag = context.parentTag;
-      const inputTag = new ui.input(inputConfig);
+      const inputTag = ui.input(inputConfig);
       addComponentToMap({
         column: context.column,
         colIndex: context.colIndex,
@@ -449,7 +449,7 @@ ui.grid = class MamboGrid extends HTMLElement {
 
       chooserConfig = m_utils.extend(true, chooserConfig, context.column);
       chooserConfig.parentTag = context.parentTag;
-      const fileChooserTag = new ui.fileChooser(chooserConfig);
+      const fileChooserTag = ui.fileChooser(chooserConfig);
       addComponentToMap({
         column: context.column,
         colIndex: context.colIndex,
@@ -511,7 +511,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       };
 
       buttonConfig.parentTag = context.parentTag;
-      const buttonTag = new ui.button(buttonConfig);
+      const buttonTag = ui.button(buttonConfig);
       addComponentToMap({
         column: context.column,
         colIndex: context.colIndex,
@@ -528,7 +528,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       );
       buttonGroupConfig.id = context.rowIndex;
 
-      const buttonGroupTag = new ui.buttonGroup(
+      const buttonGroupTag = ui.buttonGroup(
         context.parentTag,
         buttonGroupConfig
       );
@@ -556,7 +556,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       };
 
       config.parentTag = context.parentTag;
-      const buttonTag = new ui.button(config);
+      const buttonTag = ui.button(config);
 
       const slideoutConfig = m_utils.extend(true, {}, config);
       slideoutConfig.fnComplete = config.fnInstallContent;
@@ -580,7 +580,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       };
 
       const config = m_utils.extend(true, defaultConfig, context.column);
-      const dragDropTag = new ui.dragDrop(context.parentTag, config);
+      const dragDropTag = ui.dragDrop(context.parentTag, config);
 
       function handleDropEvent(contextDragDrop) {
         // Process the files data and model it for the grid
@@ -602,7 +602,7 @@ ui.grid = class MamboGrid extends HTMLElement {
       };
 
       const config = m_utils.extend(true, defaultConfig, context.column);
-      const treeViewTag = new ui.treeView(context.parentTag, config);
+      const treeViewTag = ui.treeView(context.parentTag, config);
 
       addComponentToMap({
         column: context.column,
@@ -628,7 +628,7 @@ ui.grid = class MamboGrid extends HTMLElement {
 
       const config = m_utils.extend(true, defaultConfig, context.column);
       config.parentTag = context.parentTag;
-      const dropdownTag = new ui.dropdown(config);
+      const dropdownTag = ui.dropdown(config);
 
       addComponentToMap({
         column: context.column,
@@ -649,7 +649,7 @@ ui.grid = class MamboGrid extends HTMLElement {
 
       const config = m_utils.extend(true, defaultConfig, context.column);
       config.parentTag = context.parentTag;
-      const comboboxTag = new ui.combobox(config);
+      const comboboxTag = ui.combobox(config);
 
       addComponentToMap({
         column: context.column,
@@ -672,7 +672,7 @@ ui.grid = class MamboGrid extends HTMLElement {
 
       const config = m_utils.extend(true, defaultConfig, context.column);
       config.parentTag = context.parentTag;
-      const timePickerTag = new ui.timePicker(config);
+      const timePickerTag = ui.timePicker(config);
 
       addComponentToMap({
         column: context.column,
@@ -690,7 +690,7 @@ ui.grid = class MamboGrid extends HTMLElement {
 
       const config = m_utils.extend(true, defaultConfig, context.column);
       config.parentTag = context.parentTag;
-      const calendarTag = new ui.calendar(config);
+      const calendarTag = ui.calendar(config);
 
       addComponentToMap({
         column: context.column,
@@ -708,7 +708,7 @@ ui.grid = class MamboGrid extends HTMLElement {
 
       const config = m_utils.extend(true, defaultConfig, context.column);
       config.parentTag = context.parentTag;
-      const datePickerTag = new ui.datePicker(config);
+      const datePickerTag = ui.datePicker(config);
 
       addComponentToMap({
         column: context.column,
@@ -925,4 +925,7 @@ ui.grid = class MamboGrid extends HTMLElement {
     }
   }
 };
-customElements.define("mambo-grid", ui.grid);
+
+ui.grid = (props) => new ui.class.MamboGrid(props);
+
+customElements.define("mambo-grid", ui.class.MamboGrid);

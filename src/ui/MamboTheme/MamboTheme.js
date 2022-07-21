@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTheme.js
  *******************************************/
-ui.theme = class MamboTheme {
+ ui.class.MamboTheme = class MamboTheme {
   constructor(initThemes) {
     "use strict";
 
@@ -57,4 +57,4 @@ ui.theme = class MamboTheme {
   }
 };
 
-ui.theme = (initThemes) => new ui.class.MamboTheme(initThemes);
+ui.theme = (props) => new ui.class.MamboTheme(props);

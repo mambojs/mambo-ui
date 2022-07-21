@@ -18,7 +18,7 @@
  *  File : MamboCalendar.js
  *******************************************/
 
-ui.calendar = class MamboCalendar extends HTMLElement {
+ui.class.MamboCalendar = class MamboCalendar extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -133,7 +133,7 @@ ui.calendar = class MamboCalendar extends HTMLElement {
         };
       });
 
-      m_headerButtonGroup = new ui.buttonGroup(
+      m_headerButtonGroup = ui.buttonGroup(
         m_calendarParentTag,
         buttonGroup
       );
@@ -289,7 +289,7 @@ ui.calendar = class MamboCalendar extends HTMLElement {
       );
       generateDates(buttonGroup);
 
-      m_datesButtonGroup = new ui.buttonGroup(m_bodyContentTag, buttonGroup);
+      m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
       m_datesButtonGroup.select({
         id: m_dateMgr.format(m_value, m_idFormat),
         notTrigger: true,
@@ -484,7 +484,7 @@ ui.calendar = class MamboCalendar extends HTMLElement {
         };
 
         button.parentTag = m_calendarParentTag;
-        new ui.button(button);
+        ui.button(button);
       }
     }
 
@@ -714,7 +714,7 @@ ui.calendar = class MamboCalendar extends HTMLElement {
   }
 };
 
-ui.calendar = (options) => new ui.class.MamboCalendar(options);
+ui.calendar = (props) => new ui.class.MamboCalendar(props);
 
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define("mambo-calendar", ui.calendar);
+customElements.define("mambo-calendar", ui.class.MamboCalendar);

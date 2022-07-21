@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSlider.js
  *******************************************/
-ui.slider = class MamboSlider extends HTMLElement {
+ui.class.MamboSlider = class MamboSlider extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -149,7 +149,7 @@ ui.slider = class MamboSlider extends HTMLElement {
         }
       };
 
-      new ui.button(button);
+      ui.button(button);
     }
 
     function decrease() {
@@ -255,7 +255,7 @@ ui.slider = class MamboSlider extends HTMLElement {
         fnDrag: updateSelection,
       };
 
-      m_handleTag = new ui.draggable(
+      m_handleTag = ui.draggable(
         m_sliderWrapperTag,
         m_sliderWrapperTag,
         config
@@ -471,4 +471,6 @@ ui.slider = class MamboSlider extends HTMLElement {
   }
 };
 
-customElements.define("mambo-slider", ui.slider);
+ui.slider = (props) => new ui.class.MamboSlider(props);
+
+customElements.define("mambo-slider", ui.class.MamboSlider);

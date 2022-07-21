@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDragDrop.js
  *******************************************/
-ui.dragDrop = class MamboDragDrop extends HTMLElement {
+ui.class.MamboDragDrop = class MamboDragDrop extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -178,4 +178,6 @@ ui.dragDrop = class MamboDragDrop extends HTMLElement {
   }
 };
 
-customElements.define("mambo-dragdrop", ui.dragDrop);
+ui.dragDrop = (parentTag, options) => new ui.class.MamboDragDrop(parentTag, options);
+
+customElements.define("mambo-dragdrop", ui.class.MamboDragDrop);

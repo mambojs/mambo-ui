@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTreeView.js
  *******************************************/
-ui.treeView = class MamboTreeView extends HTMLElement {
+ui.class.MamboTreeView = class MamboTreeView extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -268,4 +268,6 @@ ui.treeView = class MamboTreeView extends HTMLElement {
   }
 };
 
-customElements.define("mambo-tree-view", ui.treeView);
+ui.treeView = (parentTag, options) => new ui.class.MamboTreeView(parentTag, options);
+
+customElements.define("mambo-tree-view", ui.class.MamboTreeView);

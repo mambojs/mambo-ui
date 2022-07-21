@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboPlayer.js
  *******************************************/
-ui.player = class MamboPlayer extends HTMLElement {
+ui.class.MamboPlayer = class MamboPlayer extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -27,7 +27,7 @@ ui.player = class MamboPlayer extends HTMLElement {
     }
 
     const m_utils = tools.utils;
-    const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
+    const m_theme = ui.theme(ui.g_mamboDefaultTheme);
     const m_buttonGroups = [];
 
     let m_config;
@@ -198,4 +198,6 @@ ui.player = class MamboPlayer extends HTMLElement {
   }
 };
 
-customElements.define("mambo-player", ui.player);
+ui.player = (parentTag, options) => new ui.class.MamboPlayer(parentTag, options);
+
+customElements.define("mambo-player", ui.class.MamboPlayer);

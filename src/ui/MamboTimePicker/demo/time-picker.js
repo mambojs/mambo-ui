@@ -7,6 +7,6 @@ function demoTimePicker(parentEle) {
     parentTag: parentEle,
   };
 
-  new ui.timePicker(config);
+  ui.timePicker(config);
 }
 //!

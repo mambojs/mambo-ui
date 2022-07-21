@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboVideoPlayer.js
  *******************************************/
-ui.videoPlayer = class MamboVideoPlayer extends HTMLElement {
+ui.class.MamboVideoPlayer = class MamboVideoPlayer extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -29,7 +29,7 @@ ui.videoPlayer = class MamboVideoPlayer extends HTMLElement {
     // Config default values
     const self = this;
     const m_utils = tools.utils;
-    const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
+    const m_theme = ui.theme(ui.g_mamboDefaultTheme);
 
     // HTML tag variables
     let m_parentTag;
@@ -72,7 +72,7 @@ ui.videoPlayer = class MamboVideoPlayer extends HTMLElement {
     }
 
     function installPlayer() {
-      m_player = new ui.player(m_wrapperTag, m_config.player);
+      m_player = ui.player(m_wrapperTag, m_config.player);
     }
 
     function configure() {
@@ -103,4 +103,6 @@ ui.videoPlayer = class MamboVideoPlayer extends HTMLElement {
   }
 };
 
-customElements.define("mambo-video-player", ui.videoPlayer);
+ui.videoPlayer = (parentTag, options) => new ui.class.MamboVideoPlayer(parentTag, options);
+
+customElements.define("mambo-video-player", ui.class.MamboVideoPlayer);

@@ -18,7 +18,7 @@
  *  File : MamboButtonGroup.js
  *******************************************/
 
-ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
+ ui.class.MamboButtonGroup = class MamboButtonGroup extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -89,7 +89,7 @@ ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
         : m_config.css;
       button.fnGroupClick = m_config.fnGroupClick;
       button.parentTag = m_buttonGroupTag;
-      m_buttonsList.push(new ui.button(button));
+      m_buttonsList.push(ui.button(button));
     }
 
     function handleGroupBtnClick(context) {
@@ -155,4 +155,6 @@ ui.buttonGroup = class MamboButtonGroup extends HTMLElement {
   }
 };
 
-customElements.define("mambo-button-group", ui.buttonGroup);
+ui.buttonGroup = (parentTag, options) => new ui.class.MamboButtonGroup(parentTag, options);
+
+customElements.define("mambo-button-group", ui.class.MamboButtonGroup);
