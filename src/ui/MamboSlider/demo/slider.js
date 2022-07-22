@@ -14,7 +14,7 @@ function demoSlider(parentEle) {
       },
     };
 
-    new ui.slider(config);
+    ui.slider(config);
   }
 
   function verticalSlider() {
@@ -26,7 +26,7 @@ function demoSlider(parentEle) {
       },
     };
 
-    new ui.slider(config);
+    ui.slider(config);
   }
 }
 //!

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboSwitch.js
  *******************************************/
-ui.switch = class MamboSwitch extends HTMLElement {
+ui.class.MamboSwitch = class MamboSwitch extends HTMLElement {
   constructor(initOptions) {
     super();
     const self = this;
@@ -214,4 +214,7 @@ ui.switch = class MamboSwitch extends HTMLElement {
     }
   }
 };
-customElements.define("mambo-switch", ui.switch);
+
+ui.switch = (props) => new ui.class.MamboSwitch(props);
+
+customElements.define("mambo-switch", ui.class.MamboSwitch);

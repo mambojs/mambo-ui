@@ -17,14 +17,14 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTab.js
  *******************************************/
-ui.tab = class MamboTab extends HTMLElement {
+ ui.class.MamboTab = class MamboTab extends HTMLElement {
   constructor(initOptions) {
     super();
     // Define constants
     const self = this;
     const m_utils = tools.utils;
-    const m_theme = new ui.theme(ui.g_mamboDefaultTheme);
-    // const m_tags = new ui.tagNames(ui.g_mamboTagNames);
+    const m_theme = ui.theme(ui.g_mamboDefaultTheme);
+    // const m_tags = ui.tagNames(ui.g_mamboTagNames);
 
     // Define member variables
     let m_config;
@@ -225,4 +225,4 @@ ui.tab = class MamboTab extends HTMLElement {
 ui.tab = (options) => new ui.class.MamboTab(options);
 
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define("mambo-tab", ui.tab);
+customElements.define("mambo-tab", ui.class.MamboTab);

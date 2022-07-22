@@ -13,7 +13,7 @@ function demoPercentage(parentEle) {
       value: 0.3,
     };
 
-    new ui.percentage(config);
+    ui.percentage(config);
   }
 
   function highPercentage() {
@@ -22,7 +22,7 @@ function demoPercentage(parentEle) {
       value: 0.8,
     };
 
-    new ui.percentage(config);
+    ui.percentage(config);
   }
 
   function fullPercentage() {
@@ -31,7 +31,7 @@ function demoPercentage(parentEle) {
       value: 1,
     };
 
-    new ui.percentage(config);
+    ui.percentage(config);
   }
 }
 //!

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboTimePicker.js
  *******************************************/
-ui.timePicker = class MamboTimePicker extends HTMLElement {
+ui.class.MamboTimePicker = class MamboTimePicker extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -96,7 +96,7 @@ ui.timePicker = class MamboTimePicker extends HTMLElement {
 
       m_parentTag.innerHTML = "";
       combobox.parentTag = m_parentTag;
-      m_comboBox = new ui.combobox(combobox);
+      m_comboBox = ui.combobox(combobox);
     }
 
     function createComboBoxData() {
@@ -197,4 +197,6 @@ ui.timePicker = class MamboTimePicker extends HTMLElement {
   }
 };
 
-customElements.define("mambo-time-picker", ui.timePicker);
+ui.timePicker = (props) => new ui.class.MamboTimePicker(props);
+
+customElements.define("mambo-time-picker", ui.class.MamboTimePicker);

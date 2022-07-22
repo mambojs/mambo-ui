@@ -213,7 +213,7 @@ window.addEventListener("compiler-ready", () => {
         },
       };
 
-      new ui.tab(tabConfig);
+      ui.tab(tabConfig);
     }
 
     function hidrateArea(object) {

@@ -13,6 +13,6 @@ function demoComboBox(parentEle) {
     ],
   };
 
-  new ui.combobox(config);
+  ui.combobox(config);
 }
 //!

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboPercentage.js
  *******************************************/
-ui.percentage = class MamboPercentage extends HTMLElement {
+ui.class.MamboPercentage = class MamboPercentage extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -186,4 +186,6 @@ ui.percentage = class MamboPercentage extends HTMLElement {
   }
 };
 
-customElements.define("mambo-percentage", ui.percentage);
+ui.percentage = (props) => new ui.class.MamboPercentage(props);
+
+customElements.define("mambo-percentage", ui.class.MamboPercentage);

@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboDatePicker.js
  *******************************************/
-ui.datePicker = class MamboDatePicker extends HTMLElement {
+ui.class.MamboDatePicker = class MamboDatePicker extends HTMLElement {
   constructor(initOptions) {
     super();
     const self = this;
@@ -69,7 +69,7 @@ ui.datePicker = class MamboDatePicker extends HTMLElement {
       let input = m_utils.extend(true, {}, m_config.input);
       input.css = m_utils.extend(true, m_config.css.input, input.css);
       input.parentTag = m_datePickerParentTag;
-      m_input = new ui.input(input);
+      m_input = ui.input(input);
     }
 
     function installDropdown() {
@@ -100,7 +100,7 @@ ui.datePicker = class MamboDatePicker extends HTMLElement {
       };
       dropdown.parentTag = m_dropdownWrapperTag;
 
-      m_dropdown = new ui.dropdown(dropdown);
+      m_dropdown = ui.dropdown(dropdown);
     }
 
     function installCalendar(dropdown) {
@@ -133,7 +133,7 @@ ui.datePicker = class MamboDatePicker extends HTMLElement {
       };
       calendar.parentTag = contentTag;
 
-      m_calendar = new ui.calendar(calendar);
+      m_calendar = ui.calendar(calendar);
 
       if (m_config.value) {
         setValue(m_config.value);
@@ -238,4 +238,7 @@ ui.datePicker = class MamboDatePicker extends HTMLElement {
     }
   }
 };
-customElements.define("mambo-date-picker", ui.datePicker);
+
+ui.datePicker = (props) => new ui.class.MamboDatePicker(props);
+
+customElements.define("mambo-date-picker", ui.class.MamboDatePicker);

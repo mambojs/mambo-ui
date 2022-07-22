@@ -17,7 +17,7 @@
  *  Created On : Sat Feb 26 2022
  *  File : MamboRating.js
  *******************************************/
-ui.rating = class MamboRating extends HTMLElement {
+ui.class.MamboRating = class MamboRating extends HTMLElement {
   constructor(initOptions) {
     super();
 
@@ -247,4 +247,6 @@ ui.rating = class MamboRating extends HTMLElement {
   }
 };
 
-customElements.define("mambo-rating", ui.rating);
+ui.rating = (props) => new ui.class.MamboRating(props);
+
+customElements.define("mambo-rating", ui.class.MamboRating);

@@ -18,7 +18,7 @@
  *  File : MamboCheckboxRadio.js
  *******************************************/
 
-ui.checkboxRadio = class MamboCheckboxRadio extends HTMLElement {
+ui.class.MamboCheckboxRadio = class MamboCheckboxRadio extends HTMLElement {
   constructor(parentTag, options) {
     super();
 
@@ -236,4 +236,6 @@ ui.checkboxRadio = class MamboCheckboxRadio extends HTMLElement {
   }
 };
 
-customElements.define("mambo-checkbox-radio", ui.checkboxRadio);
+ui.checkboxRadio = (parentTag, options) => new ui.class.MamboCheckboxRadio(parentTag, options);
+
+customElements.define("mambo-checkbox-radio", ui.class.MamboCheckboxRadio);
