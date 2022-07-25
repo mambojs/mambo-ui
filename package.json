@@ -5,7 +5,7 @@
   "main": "server.cjs",
   "type": "module",
   "scripts": {
-    "build-lib": "node ./setup/esbuild.config.cjs buildLib",
+    "build": "node ./setup/esbuild.config.cjs buildLib",
     "dev": "node server.cjs",
     "start": "node server.cjs"
   },
@@ -16,10 +16,12 @@
   },
   "devDependencies": {
     "esbuild": "^0.14.32",
-    "esbuild-css-modules-plugin": "^2.2.16",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
-    "gulp-sourcemaps": "^3.0.0"
+    "gulp-empty": "^0.1.2",
+    "gulp-header-comment": "^0.10.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-strip-css-comments": "^2.0.0"
   }
 }
