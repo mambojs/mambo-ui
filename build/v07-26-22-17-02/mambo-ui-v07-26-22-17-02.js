@@ -14,12 +14,13 @@
 *  limitations under the License.
 
 *  @author Alejandro Sebastian Scotti
-*  @version v07-25-22-13-50
+*  @version v07-26-22-17-02
 *******************************************/
 
-window.ui = {
-  class: {}
-};
+function mamboUI() { 
+const ui = { class: {} };
+const dom = domJS();
+
 ui.g_mamboDefaultTagNames = {
   "mambo-tab": {
     tabs: "mambo-tabs",
@@ -5152,3 +5153,6 @@ ui.class.MamboVideoPlayer = class MamboVideoPlayer extends HTMLElement {
 };
 ui.videoPlayer = (parentTag2, options) => new ui.class.MamboVideoPlayer(parentTag2, options);
 customElements.define("mambo-video-player", ui.class.MamboVideoPlayer);
+
+return ui;
+}
