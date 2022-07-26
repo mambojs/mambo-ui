@@ -23,18 +23,12 @@ function cssLibFiles() {
     let copyright = config.COPYRIGHT.replace(/.+\*\/|\/\*+|\*/gm, '')
 
     switch (type) {
-        case 'uncompressed':
         case 'bundle':
             mapInit = empty();
             mapWrite = empty();
             cleanCss = empty();
             break;
         case 'min':
-            libName = config.LIB_FILE_CSS_MIN;
-            mapInit = empty();
-            mapWrite = empty();
-            break;
-        case 'map':
             libName = config.LIB_FILE_CSS_MIN;
             break;
     }
@@ -46,7 +40,7 @@ function cssLibFiles() {
         .pipe(cleanCss)
         .pipe(headerComment(copyright))
         .pipe(mapWrite)
-        .pipe(dest(`../${config.LIB_DIR}/${version}/${type}`))
+        .pipe(dest(`../${config.LIB_DIR}/${version}`))
 }
 
 export { cssLibFiles };

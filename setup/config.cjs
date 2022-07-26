@@ -2,10 +2,6 @@ const PORT_DEV = 8002;
 const PORT = process.env.PORT || PORT_DEV;
 
 const LIB_DIR = "build";
-const LIB_MAP = "map";
-const LIB_UNCOMPRESSED = "uncompressed";
-const LIB_BUNDLE = "bundle";
-const LIB_MIN = "min";
 const LIB_NAME = "mambo-ui";
 const LIB_VERSION = `v${dateFormat()}`;
 const LIB_FILE_NAME = `${LIB_NAME}-${LIB_VERSION}`;
@@ -14,7 +10,6 @@ const LIB_FILE_CSS = `${LIB_FILE_NAME}.css`;
 const LIB_FILE_CSS_MIN = `${LIB_FILE_NAME_MIN}.css`;
 
 const SRC_DIR = "src";
-const SRC_PATH = `${SRC_DIR}/configs/mamboInitializer.js`;
 const SRC_UI = `${SRC_DIR}/ui`;
 
 const COPYRIGHT = `/******************************************
@@ -42,10 +37,6 @@ module.exports = {
     PORT_DEV,
     
     LIB_DIR,
-    LIB_MAP,
-    LIB_UNCOMPRESSED,
-    LIB_BUNDLE,
-    LIB_MIN,
     LIB_NAME,
     LIB_VERSION,
     LIB_FILE_NAME,
@@ -54,7 +45,6 @@ module.exports = {
     LIB_FILE_CSS_MIN,
 
     SRC_DIR,
-    SRC_PATH,
     SRC_UI,
 
     COPYRIGHT

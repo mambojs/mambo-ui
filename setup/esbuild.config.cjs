@@ -10,33 +10,28 @@ function buildLib() {
 
   console.log("Building library...");
 
-  // Uncompressed
-  const optionsUncompressed = {
-    stdin: { contents: '' },
-    banner: { js: config.COPYRIGHT },
-    inject: getLibFiles(),
-    entryNames: config.LIB_FILE_NAME,
-    outdir: `${config.LIB_DIR}/${libVersion}/${config.LIB_UNCOMPRESSED}`
-  };
+  const headerFn = `\nfunction mamboUI() { \nconst ui = { class: {} };\nconst dom = domJS();\n`;
+  const footerFn = `\nreturn ui;\n}`;
+
   // Bundle Native
   const optionsBundle = {
-    ...optionsUncompressed,
-    outdir: `${config.LIB_DIR}/${libVersion}/${config.LIB_BUNDLE}`,
-    bundle: true
-  };
-  // Minified bundle
-  const optionsMinify = {
-    ...optionsBundle,
-    entryNames: config.LIB_FILE_NAME_MIN,
-    outdir: `${config.LIB_DIR}/${libVersion}/${config.LIB_MIN}`,
-    minify: true
+    stdin: { contents: '' },
+    banner: { js: config.COPYRIGHT + headerFn },
+    footer: { js: footerFn },
+    inject: getLibFiles(),
+    entryNames: config.LIB_FILE_NAME,
+    outdir: `${config.LIB_DIR}/${libVersion}`,
   };
   // Minified bundle with sourcemap
   const optionsMinifyMap = {
-    ...optionsMinify,
-    outdir: `${config.LIB_DIR}/${libVersion}/${config.LIB_MAP}`,
+    ...optionsBundle,
+    banner: { js: config.COPYRIGHT + headerFn.replace(/\r?\n|\r/g, "") },
+    footer: { js: footerFn.replace(/\r?\n|\r/g, "") },
+    entryNames: config.LIB_FILE_NAME_MIN,
+    outdir: `${config.LIB_DIR}/${libVersion}`,
+    minify: true,
     sourcemap: true
-  }
+  };
 
   const optionsCssThemes = {
     entryPoints: ['src/themes/dark.css'],
@@ -46,24 +41,14 @@ function buildLib() {
     sourcemap: true
   };
 
-  esbuild.build(optionsUncompressed).then(result => {
-    console.log("Uncompressed JS Lib: Build complete!");
-    compileCssLib(config.LIB_UNCOMPRESSED, libVersion);
-  });
-
   esbuild.build(optionsBundle).then(result => {
     console.log("Bundle JS Lib: Build complete!");
-    compileCssLib(config.LIB_BUNDLE, libVersion);
-  });
-
-  esbuild.build(optionsMinify).then(result => {
-    console.log("JS Lib Minify: Build complete!");
-    compileCssLib(config.LIB_MIN, libVersion);
+    compileCssLib('bundle', libVersion);
   });
 
   esbuild.build(optionsMinifyMap).then(result => {
     console.log("JS Lib Minify mapped: Build complete!");
-    compileCssLib(config.LIB_MAP, libVersion);
+    compileCssLib('min', libVersion);
   });
   
   esbuild.build(optionsCssThemes).then(result => {
@@ -91,20 +76,19 @@ function compileCssLib(lib, version){
 
 function getLibFiles() {
   const arrFiles = [
-    `${config.SRC_DIR}/configs/mamboInit.js`,
     `${config.SRC_DIR}/configs/mamboDefaultTagNames.js`,
     `${config.SRC_DIR}/configs/mamboDefaultTheme.js`,
     `${config.SRC_DIR}/configs/mamboGraphics.js`
   ];
-  const files = fs.readdirSync(`${config.SRC_DIR}/ui`); 
+  const files = fs.readdirSync(`${config.SRC_UI}`); 
   files.forEach(file => {
-    let component = `${config.SRC_DIR}/ui/${file}`;
+    let component = `${config.SRC_UI}/${file}`;
     let componentName = file;
     if (fs.lstatSync(component).isDirectory() && !file.startsWith('_')) {
       let componentFiles = fs.readdirSync(component);
       componentFiles.forEach(filejs => {
         if (filejs.endsWith(".js")) {
-          const filepath = `${config.SRC_DIR}/ui/${componentName}/${filejs}`;
+          const filepath = `${config.SRC_UI}/${componentName}/${filejs}`;
           arrFiles.push(filepath);
         }
       });
