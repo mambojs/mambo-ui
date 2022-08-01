@@ -22,7 +22,7 @@
     super();
     // Config default values
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     const m_theme = ui.theme(ui.g_mamboDefaultTheme);
 
     // HTML tag variables

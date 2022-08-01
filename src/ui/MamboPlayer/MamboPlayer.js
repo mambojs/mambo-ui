@@ -26,7 +26,7 @@ ui.class.MamboPlayer = class MamboPlayer extends HTMLElement {
       return;
     }
 
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     const m_theme = ui.theme(ui.g_mamboDefaultTheme);
     const m_buttonGroups = [];
 

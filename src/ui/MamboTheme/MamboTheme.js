@@ -21,7 +21,7 @@
   constructor(initThemes) {
     "use strict";
 
-    const m_utils = tools.utils; //g_mamboUtils;
+    const m_utils = new ui.utils; //g_mamboUtils;
     // If default themes provided, initialize Themes with them
     const m_themes = { default: {} };
     m_themes.default = m_utils.extend(true, {}, initThemes);

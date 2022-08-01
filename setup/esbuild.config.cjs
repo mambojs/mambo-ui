@@ -78,7 +78,10 @@ function getLibFiles() {
   const arrFiles = [
     `${config.SRC_DIR}/configs/mamboDefaultTagNames.js`,
     `${config.SRC_DIR}/configs/mamboDefaultTheme.js`,
-    `${config.SRC_DIR}/configs/mamboGraphics.js`
+    `${config.SRC_DIR}/configs/mamboGraphics.js`,
+    `${config.SRC_DIR}/configs/MamboDate/MamboDateManager.js`,
+    `${config.SRC_DIR}/configs/MamboString/MamboString.js`,
+    `${config.SRC_DIR}/configs/MamboUtils/MamboUtilities.js`
   ];
   const files = fs.readdirSync(`${config.SRC_UI}`); 
   files.forEach(file => {

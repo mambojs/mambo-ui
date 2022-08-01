@@ -21,7 +21,7 @@ ui.class.MamboSwitch = class MamboSwitch extends HTMLElement {
   constructor(initOptions) {
     super();
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
 
     // HTML tag variables
     let m_parentTag;

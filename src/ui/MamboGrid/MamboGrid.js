@@ -32,7 +32,7 @@ ui.class.MamboGrid = class MamboGrid extends HTMLElement {
     }
 
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     const m_colsMaxPxWidth = [];
     const m_componentsMapById = {};
     const m_componentsMapByColNbr = [];

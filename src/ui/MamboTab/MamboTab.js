@@ -22,7 +22,7 @@
     super();
     // Define constants
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     const m_theme = ui.theme(ui.g_mamboDefaultTheme);
     // const m_tags = ui.tagNames(ui.g_mamboTagNames);
 

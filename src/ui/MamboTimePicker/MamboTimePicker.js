@@ -29,8 +29,8 @@ ui.class.MamboTimePicker = class MamboTimePicker extends HTMLElement {
     }
 
     const self = this;
-    const m_utils = tools.utils;
-    const m_dateMgr = tools.date;
+    const m_utils = new ui.utils;
+    const m_dateMgr = new ui.date;
 
     // HTML tag variables
     let m_parentTag;

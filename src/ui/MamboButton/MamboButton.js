@@ -22,7 +22,7 @@ ui.class.MamboButton = class MamboButton extends HTMLElement {
   constructor(initOptions) {
     super();
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     const m_theme = ui.theme(ui.g_mamboDefaultTheme);
     const m_imageList = [];
 
