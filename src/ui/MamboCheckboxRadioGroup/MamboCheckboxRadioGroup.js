@@ -28,7 +28,7 @@ ui.class.MamboCheckboxRadioGroup = class MamboCheckboxRadioGroup extends HTMLEle
     }
 
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
 
     // HTML tag variables
     const m_checkboxRadiosList = [];

@@ -23,7 +23,7 @@ ui.class.MamboDialog = class MamboDialog extends HTMLElement {
 
     // Config default values
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
 
     // HTML tag variables
     let m_overlayTag;

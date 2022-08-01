@@ -29,7 +29,7 @@ ui.class.MamboDragDrop = class MamboDragDrop extends HTMLElement {
     }
 
     // Config default values
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     // const m_graphics = g_mamboGraphics;
 
     // HTML tag variables

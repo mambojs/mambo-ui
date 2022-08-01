@@ -21,10 +21,10 @@ ui.class.MamboDatePicker = class MamboDatePicker extends HTMLElement {
   constructor(initOptions) {
     super();
     const self = this;
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils; 
     const m_theme = ui.theme(ui.g_mamboDefaultTheme);
     // const m_graphics = g_mamboGraphics;
-    const m_dateMgr = tools.date;
+    const m_dateMgr = new ui.date;
 
     // HTML tag variables
     let m_parentTag;

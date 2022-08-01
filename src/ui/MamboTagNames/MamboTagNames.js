@@ -19,7 +19,7 @@
  *******************************************/
  ui.class.MamboTagNames = class MamboTagNames {
   constructor(initTags) {
-    const m_utils = tools.utils;
+    const m_utils = new ui.utils;
     // If default themes provided, initialize Themes with them
     this.m_tagNames = {
       default: m_utils.extend(true, {}, initTags),
