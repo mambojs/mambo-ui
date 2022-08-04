@@ -1,6 +1,4 @@
-const PORT_DEV = 8002;
-const PORT = process.env.PORT || PORT_DEV;
-
+const PORT = process.env.PORT || 8003;
 const LIB_DIR = "build";
 const LIB_NAME = "mambo-ui";
 const LIB_VERSION = "latest" // `v${dateFormat()}`;
@@ -33,9 +31,7 @@ const COPYRIGHT = `/******************************************
 `;
 
 module.exports = {
-    PORT,
-    PORT_DEV,
-    
+    PORT,    
     LIB_DIR,
     LIB_NAME,
     LIB_VERSION,
@@ -43,10 +39,8 @@ module.exports = {
     LIB_FILE_NAME_MIN,
     LIB_FILE_CSS,
     LIB_FILE_CSS_MIN,
-
     SRC_DIR,
     SRC_UI,
-
     COPYRIGHT
 }
 
