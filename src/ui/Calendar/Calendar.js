@@ -533,53 +533,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "calendar-parent",
-					body: "calendar-body",
-					bodyHeader: "calendar-body-header",
-					bodyContent: "calendar-body-content",
-					currentDate: "current-date",
-					otherMonth: "other-month",
-					otherDecade: "other-decade",
-					otherCentury: "other-century",
-					headerButtonGroup: {
-						parent: "calendar-header",
-					},
-					datesHeader: {
-						tilesParent: "dates-header-parent",
-						tileItem: "dates-header-day",
-					},
-					datesButtonGroup: {
-						parent: "dates-button-group",
-						button: "dates-button-group-button",
-						disabled: "dates-button-group-button-disabled",
-					},
-					monthsButtonGroup: {
-						parent: "months-button-group",
-						button: "months-button-group-button",
-						disabled: "months-button-group-button-disabled",
-					},
-					yearsButtonGroup: {
-						parent: "years-button-group",
-						button: "years-button-group-button",
-						disabled: "years-button-group-button-disabled",
-					},
-					decadesButtonGroup: {
-						parent: "decades-button-group",
-						button: "decades-button-group-button",
-						disabled: "decades-button-group-button-disabled",
-					},
-					footerButton: {
-						button: "calendar-footer-button",
-						disabled: "calendar-footer-button-disabled",
-					},
-				},
-				tag: {
-					parent: "sc-calendar",
-					body: "calendar-body",
-					bodyHeader: "calendar-body-header",
-					bodyContent: "calendar-body-content",
-				},
+				theme: "default",
+				tag:"default",
 				headerButtonGroup: {
 					buttons: [
 						{

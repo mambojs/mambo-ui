@@ -110,18 +110,8 @@ ui.class.MamboSlideout = class MamboSlideout extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					overlay: "slideout-overlay",
-					content: "slideout-content",
-					header: "slideout-header",
-					body: "slideout-body",
-				},
-				tag: {
-					overlay: "slideout-overlay",
-					content: "slideout-content",
-					header: "slideout-header",
-					body: "slideout-body",
-				},
+				tag:"default",
+				theme: "default",
 				closeButton: {
 					attr: {
 						type: "button",

@@ -326,53 +326,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					horizontal: {
-						parent: "slider-parent-horizontal",
-						wrapper: "slider-wrapper-horizontal",
-						track: "slider-track-horizontal",
-						handle: "slider-handle-horizontal",
-						stepsContainer: "slider-steps-container-horizontal",
-						step: "slider-step-horizontal",
-						stepLarge: "slider-step-large-horizontal",
-						stepLargeSpan: "slider-step-large-span-horizontal",
-						selection: "slider-selection-horizontal",
-						decreaseButton: {
-							button: "slider-button-decrease-horizontal",
-						},
-						increaseButton: {
-							button: "slider-button-increase-horizontal",
-						},
-					},
-					vertical: {
-						parent: "slider-parent-vertical",
-						wrapper: "slider-wrapper-vertical",
-						track: "slider-track-vertical",
-						handle: "slider-handle-vertical",
-						stepsContainer: "slider-steps-container-vertical",
-						step: "slider-step-vertical",
-						stepLarge: "slider-step-large-vertical",
-						stepLargeSpan: "slider-step-large-span-vertical",
-						selection: "slider-selection-vertical",
-						decreaseButton: {
-							button: "slider-button-decrease-vertical",
-						},
-						increaseButton: {
-							button: "slider-button-increase-vertical",
-						},
-					},
-					disabled: "slider-disabled",
-				},
-				tag: {
-					slider: "sc-slider",
-					wrapper: "slider-wrapper",
-					track: "slider-track",
-					handle: "slider-handle",
-					stepsContainer: "slider-steps-container",
-					step: "slider-step",
-					stepLarge: "slider-step-large",
-					selection: "slider-selection",
-				},
+				tag: "default",
+				theme:"default",
 				value: 0,
 				min: -10,
 				max: 10,

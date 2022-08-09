@@ -185,25 +185,8 @@ ui.class.Rating = class Rating extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "rating-parent",
-					empty: "rating-empty",
-					selected: "rating-selected",
-					hover: "rating-hover",
-					emptyStar: "rating-empty-star",
-					selectedStar: "rating-selected-star",
-					hoverStar: "rating-hover-star",
-					disabled: "rating-disabled",
-				},
-				tag: {
-					rating: "sc-rating",
-					empty: "rating-empty",
-					selected: "rating-selected",
-					hover: "rating-hover",
-					emptyStar: "rating-empty-star",
-					selectedStar: "rating-selected-star",
-					hoverStar: "rating-hover-star",
-				},
+				tag: "default",
+				theme: "default",
 				value: 0,
 				max: 5,
 				enable: true,

@@ -125,18 +125,8 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "dropdown-parent",
-					container: "dropdown-container",
-					open: "open",
-					button: {
-						button: "dropdown-button",
-					},
-				},
-				tag: {
-					parent: "sc-dropdown",
-					container: "dropdown-container",
-				},
+				tag: "default",
+				theme: "default",
 				button: {
 					text: "Open Dropdown",
 				},

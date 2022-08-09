@@ -118,20 +118,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			m_config = {
 				closeButton: true,
 				closeText: "close",
-				css: {
-					parent: "dialog-parent",
-					dialogHdr: "dialog-header",
-					dialogHdrLeft: "dialog-header-left",
-					dialogHdrCenter: "dialog-header-center",
-					dialogHdrRight: "dialog-header-right",
-					dialogBody: "dialog-body",
-					hdrCloseBtn: "dialog-header-close",
-					hdrTitle: "dialog-header-title",
-				},
-				tag: {
-					parent: "sc-dialog",
-					dialogBody: "dialog-body",
-				},
+				theme: "default",
+				tag: "default",
 			};
 
 			// If options provided, override default config

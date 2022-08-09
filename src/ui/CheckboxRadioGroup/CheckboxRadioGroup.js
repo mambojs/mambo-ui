@@ -145,21 +145,8 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "checkbox-radio-group",
-					checkboxRadioParent: "checkbox-radio-group-parent",
-					checkbox: {
-						input: "checkbox-group-input",
-						span: "checkbox-group-span",
-					},
-					radio: {
-						input: "radio-group-input",
-						span: "radio-group-span",
-					},
-				},
-				tag: {
-					parent: "sc-checkbox-radio-group",
-				},
+				tag: "default",
+				theme: "default",
 				name: Math.random().toString(36).slice(2),
 				checkboxes: [],
 				radios: [],

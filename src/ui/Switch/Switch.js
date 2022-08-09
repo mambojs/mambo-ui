@@ -153,25 +153,8 @@ ui.class.Switch = class Switch extends HTMLElement {
 
 		function configure(options) {
 			m_config = {
-				css: {
-					parent: "switch-parent",
-					input: "switch-input",
-					container: "switch-container",
-					parentTag: undefined,
-					install: true,
-					installPrepend: false,
-					on: "switch-label-on",
-					off: "switch-label-off",
-					handle: "switch-handle",
-					disabled: "switch-disabled",
-				},
-				tag: {
-					switch: "sc-switch",
-					container: "switch-container",
-					on: "switch-label-on",
-					off: "switch-label-off",
-					handle: "switch-handle",
-				},
+				tag: "default",
+				theme: "default",
 				enable: true,
 				checked: false,
 				messages: {
