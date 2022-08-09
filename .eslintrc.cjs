@@ -9,6 +9,7 @@ module.exports = {
 		ecmaVersion: 11,
 	},
 	rules: {
+		"no-unused-vars": "off",
 		indent: [
 			"error",
 			"tab",
@@ -20,5 +21,13 @@ module.exports = {
 		"linebreak-style": ["error", "windows"],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
+	},
+	globals: {
+		object: true,
+		dom: true,
+		ui: true,
+		Hls: true,
+		HlsjsIpfsLoader: true,
+		m3u8Parser: true,
 	},
 };

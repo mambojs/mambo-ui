@@ -1,0 +1,25 @@
+.percentage-parent {
+  display: flex;
+  height: 1.5rem;
+  width: 100%;
+}
+
+.percentage-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.percentage-text {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  font-weight: bold;
+}
+
+.percentage-range-low {
+  background-color: #df2222;
+}
+
+.percentage-range-high {
+  background-color: #00b300;
+}

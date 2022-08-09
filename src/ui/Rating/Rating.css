@@ -1,0 +1,46 @@
+.rating-parent {
+  position: relative;
+  display: flex;
+  font-size: 2rem;
+}
+
+.rating-empty {
+  display: flex;
+  flex-direction: row;
+}
+
+.rating-selected {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.rating-hover {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.rating-empty-star:after {
+  content: "☆";
+}
+
+.rating-selected-star:after {
+  content: "★";
+}
+
+.rating-hover-star:after {
+  content: "★";
+}
+
+.rating-disabled {
+  pointer-events: none;
+}
