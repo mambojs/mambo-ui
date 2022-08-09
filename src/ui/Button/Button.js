@@ -252,8 +252,8 @@ ui.class.Button = class Button extends HTMLElement {
 				parentTag: undefined,
 				preventDefault: true,
 				stopPropagation: true,
-				tag: "button",
 				text: "",
+				tag: "default",
 				theme: "default",
 			};
 

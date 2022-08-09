@@ -111,16 +111,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 					type: "file",
 				},
 				prop: {},
-				css: {
-					parent: "file-chooser-parent",
-					label: "file-chooser-label",
-					input: "file-chooser-input",
-					button: "file-chooser-button",
-					wrapper: "file-chooser-input-wrapper",
-				},
-				tag: {
-					parent: "sc-file-chooser",
-				},
+				tag: "default",
+				theme: "default",
 				fnUpload: (context) => {
 					// Provide your callback function
 				},

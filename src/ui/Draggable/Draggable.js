@@ -190,12 +190,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					draggable: "draggable",
-				},
-				tag: {
-					draggable: "draggable",
-				},
+				tag: "default",
+				theme: "default",
 				enable: true,
 				axis: null,
 				grid: null, //[x, y]

@@ -163,9 +163,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		function configure() {
 			m_config = {
 				theme: "default",
-				tag: {
-					parent: "sc-date-picker",
-				},
+				tag: "default",
 				input: {
 					events: [
 						{

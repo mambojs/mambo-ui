@@ -141,11 +141,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 				hidden: false,
 				baseUrl: "",
 				maxFileCount: null,
-				css: {
-					parent: "drag-drop-parent",
-					imgDropIcon: "drag-drop-icon",
-					dropText: "drag-drop-text",
-				},
+				theme: "default"
 			};
 
 			// If options provided, override default config

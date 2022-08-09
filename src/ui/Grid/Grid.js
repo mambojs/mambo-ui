@@ -800,40 +800,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					gridParent: "grid-parent",
-					gridHdr: "grid-hdr",
-					gridBody: "grid-body",
-					row: "grid-row",
-					cell: "grid-cell",
-					colCell: "grid-col-cell",
-					text: "grid-text-cell",
-					input: "grid-input-cell",
-					button: "grid-button-cell",
-					dropParent: "grid-drag-drop-parent",
-					dropImgDropIcon: "grid-drag-drop-icon",
-					dropText: "grid-drag-drop-text",
-					treeViewParent: "grid-tree-view-parent",
-					dropDownParent: "grid-dropdown-parent",
-					dropDownContainer: "grid-dropdown-container",
-					comboboxParent: "grid-combobox-parent",
-					comboboxDropDownContainer: "grid-combobox-dropdown-container",
-					timePickerParent: "grid-time-picker-parent",
-					timePickerDropDownContainer: "grid-time-picker-dropdown-container",
-					calendarParent: "grid-calendar-parent",
-					datePickerParent: "grid-date-picker-parent",
-					tilesParent: "tiles-parent",
-					tileItem: "tile-item",
-				},
-				tag: {
-					gridParent: "sc-grid",
-					gridHdr: "grid-hdr",
-					gridBody: "grid-body",
-					colCell: "col-cell",
-					row: "data-grid-row",
-					tilesParent: "sc-tiles",
-					tileItem: "tile-item",
-				},
+				tag: "default",
+				theme:"default",
 				events: {
 					inputChange: (context) => {
 						// example on how global event listener configuration works

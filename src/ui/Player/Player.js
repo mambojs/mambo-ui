@@ -129,6 +129,7 @@ ui.class.Player = class Player extends HTMLElement {
 
 		function configure() {
 			m_config = {
+				tag:"default",
 				theme: "default",
 				media: "video",
 				attr: {
@@ -136,11 +137,6 @@ ui.class.Player = class Player extends HTMLElement {
 				},
 				prop: {},
 				progressBar: true,
-				tag: {
-					parent: "html5player",
-					controls: "controls",
-					time: "time-stats",
-				},
 				controls: [
 					{
 						buttons: ["play", "previous", "next", "volume"],

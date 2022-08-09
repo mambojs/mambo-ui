@@ -197,28 +197,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "combobox-parent",
-					dropdownWrapper: "dropdown-wrapper",
-					input: {
-						inputWrapper: "combobox-input-wrapper",
-						input: "combobox-input-input",
-					},
-					dropdown: {
-						parent: "combobox-dropdown-parent",
-						container: "combobox-dropdown-container",
-						button: {
-							button: "combobox-button",
-						},
-					},
-					buttonGroup: {
-						parent: "combobox-button-group",
-						button: "combobox-button-group-button",
-					},
-				},
-				tag: {
-					parent: "sc-combobox",
-				},
+				tag: "default",
+				theme:"default",
 				input: {
 					events: [
 						{

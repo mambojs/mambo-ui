@@ -108,14 +108,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "button-group",
-					button: "button-group-button",
-					img: "button-group-img",
-				},
-				tag: {
-					parent: "button-group",
-				},
+				tag: "default",
+				theme: "default",
 				fnGroupClick: handleGroupBtnClick,
 			};
 

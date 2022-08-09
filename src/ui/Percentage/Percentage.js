@@ -118,16 +118,8 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					parent: "percentage-parent",
-					bar: "percentage-bar",
-					text: "percentage-text",
-				},
-				tag: {
-					percentage: "sc-percentage",
-					bar: "percentage-bar",
-					text: "percentage-text",
-				},
+				tag: "default",
+				theme: "default",
 				value: 0,
 				min: 0,
 				max: 1,

@@ -110,11 +110,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		function configure(options) {
 			m_config = {
-				tag: {
-					tabs: "mambo-tabs",
-					contentParent: "mambo-tab-contents",
-					content: "mambo-tab-content",
-				},
+				tag: "default",
 				tabs: {
 					// Expects a ButtonGroup config
 				},

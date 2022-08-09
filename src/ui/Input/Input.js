@@ -241,15 +241,9 @@ ui.class.Input = class Input extends HTMLElement {
 				parentTag: undefined,
 				install: true,
 				installPrepend: false,
-				tag: "input",
+				tag: "default",
+				theme: "default",
 				value: "",
-				css: {
-					input: "input-input",
-					label: "input-label",
-					inputWrapper: "input-wrapper",
-					button: "input-button",
-					img: "input-img",
-				},
 				validate: [
 					{
 						//Used for configuring field validations
@@ -268,7 +262,6 @@ ui.class.Input = class Input extends HTMLElement {
 				],
 				maxLenWidthAdj: 1,
 				maxLenWidthUnit: "ch",
-				theme: "default",
 			};
 
 			// If options provided, override default config

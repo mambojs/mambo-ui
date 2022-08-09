@@ -176,19 +176,7 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 
 		function configure() {
 			m_config = {
-				css: {
-					checkboxRadioParent: "checkbox-radio-parent",
-					checkboxRadioText: "checkbox-radio-text-span",
-					checkbox: {
-						input: "checkbox-input",
-						span: "checkbox-span",
-					},
-					radio: {
-						input: "radio-input",
-						span: "radio-span",
-					},
-					disabled: "checkbox-radio-disabled",
-				},
+				theme:"default",
 				id: "CheckboxRadio ID was not specified",
 				text: "",
 				value: "",
