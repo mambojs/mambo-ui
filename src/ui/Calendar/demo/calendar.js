@@ -1,6 +1,6 @@
 //: Calendar example
 //@
-demoCalendar("demo-calendar");
+demoCalendar("storyboard-calendar");
 
 function demoCalendar(parentEle) {
 	let config = {

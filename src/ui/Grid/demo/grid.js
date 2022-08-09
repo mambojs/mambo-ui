@@ -1,6 +1,6 @@
 //: Grid
 //@
-demoGrid("demo-grid");
+demoGrid("storyboard-grid");
 
 function demoGrid(parentEle) {
 	let firstGrid = dom.createTag(`${parentEle}-first`, {

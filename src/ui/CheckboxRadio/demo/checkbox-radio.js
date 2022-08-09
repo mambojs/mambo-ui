@@ -1,6 +1,6 @@
 //: Checkbox Radio
 //@
-demoCheckboxRadio("demo-checkbox-radio");
+demoCheckboxRadio("storyboard-checkbox-radio");
 
 function demoCheckboxRadio(parentEle) {
 	checkbox();

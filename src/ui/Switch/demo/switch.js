@@ -1,8 +1,8 @@
 //: Switch
 //@
-demoSwitch("demo-switch");
+switchStoryboard("storyboard-switch");
 
-function demoSwitch(parentEle) {
+function switchStoryboard(parentEle) {
 	defaultSwitch();
 	checkedSwitch();
 	customTextSwitch();

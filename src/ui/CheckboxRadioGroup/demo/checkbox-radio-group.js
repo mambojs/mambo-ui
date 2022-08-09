@@ -1,6 +1,6 @@
 //: Checkbox Radio Group
 //@
-demoCheckboxRadioGroup("demo-checkbox-radio-group");
+demoCheckboxRadioGroup("storyboard-checkbox-radio-group");
 
 function demoCheckboxRadioGroup(parentEle) {
 	checkboxGroup();

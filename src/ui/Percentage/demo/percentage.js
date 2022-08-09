@@ -1,6 +1,6 @@
 //: Percentage
 //@
-demoPercentage("demo-percentage");
+demoPercentage("storyboard-percentage");
 
 function demoPercentage(parentEle) {
 	lowPercentage();

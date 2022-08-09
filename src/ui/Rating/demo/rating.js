@@ -1,6 +1,6 @@
 //: Rating
 //@
-demoRating("demo-rating");
+demoRating("storyboard-rating");
 
 function demoRating(parentEle) {
 	defaultRating();

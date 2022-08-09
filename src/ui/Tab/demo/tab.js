@@ -1,6 +1,6 @@
 //: Tab
 //@
-demoTab("demo-tab");
+demoTab("storyboard-tab");
 
 function demoTab(parentEle) {
 	installWithFnCallback();

@@ -1,6 +1,6 @@
 //: File Chooser
 //@
-demoFileChooser("demo-file-chooser");
+demoFileChooser("storyboard-file-chooser");
 
 function demoFileChooser(parentEle) {
 	singleFile();

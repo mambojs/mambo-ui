@@ -1,6 +1,6 @@
 //: Input
 //@
-demoInput("demo-input");
+demoInput("storyboard-input");
 
 function demoInput(parentEle) {
 	let inputField;

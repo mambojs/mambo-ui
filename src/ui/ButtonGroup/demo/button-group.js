@@ -1,6 +1,6 @@
 //: Look at the single Button demo configuration for a complete breakdown of all individual button options
 //@
-demoButtonGroup("demo-button-group");
+demoButtonGroup("storyboard-button-group");
 
 function demoButtonGroup(eleName) {
 	// Look at the single Button demo configuration for a complete breakdown of all individual button options

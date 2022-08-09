@@ -1,6 +1,6 @@
 //: Draggable
 //@
-demoDraggable("demo-draggable");
+demoDraggable("storyboard-draggable");
 
 function demoDraggable(parentEle) {
 	withContainer();

@@ -5,7 +5,7 @@ demoDialog();
 function demoDialog() {
 	// Install button to trigger the dialog installation
 	const buttonConfig = {
-		parentTag: "demo-dialog",
+		parentTag: "storyboard-dialog",
 		text: "Click to trigger Dialog instance",
 		fnClick: () => {
 			let dialogConfig = {

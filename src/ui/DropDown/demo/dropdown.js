@@ -1,6 +1,6 @@
 //: Dropdown
 //@
-demoDropdown("demo-dropdown");
+demoDropdown("storyboard-dropdown");
 
 function demoDropdown(parentEle) {
 	let config = {

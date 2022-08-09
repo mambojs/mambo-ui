@@ -1,6 +1,6 @@
 //: Combobox
 //@
-demoComboBox("demo-combobox");
+demoComboBox("storyboard-combobox");
 
 function demoComboBox(parentEle) {
 	let config = {

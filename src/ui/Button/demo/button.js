@@ -1,6 +1,6 @@
 //: Creating a text only button
 //@
-textOnly("demo-button");
+textOnly("storyboard-button");
 
 function textOnly(eleName) {
 	const config = {
@@ -17,7 +17,7 @@ function textOnly(eleName) {
 
 //: Creating a button with an img element inside
 //@
-textImage("demo-button");
+textImage("storyboard-button");
 
 function textImage(eleName) {
 	const config = {
@@ -46,7 +46,7 @@ function textImage(eleName) {
 
 //: Creating a button with an <a> element
 //@
-anchorButtonText("demo-button");
+anchorButtonText("storyboard-button");
 
 function anchorButtonText(eleName) {
 	const config = {
@@ -68,7 +68,7 @@ function anchorButtonText(eleName) {
 
 //: Creating a button with an <a> and an <img> element inside
 //@
-anchorButtonImg("demo-button");
+anchorButtonImg("storyboard-button");
 
 function anchorButtonImg(eleName) {
 	const config = {
@@ -101,7 +101,7 @@ function anchorButtonImg(eleName) {
 
 //: Creating a button that replace the inner image in a hover event.
 //@
-buttonImgWithHover("demo-button");
+buttonImgWithHover("storyboard-button");
 
 function buttonImgWithHover(eleName) {
 	const config = {
@@ -149,7 +149,7 @@ function buttonImgWithHover(eleName) {
 
 //: Creating a button that replace the inner image in a hover event.
 //@
-buttonMultiImgWithHover("demo-button");
+buttonMultiImgWithHover("storyboard-button");
 
 function buttonMultiImgWithHover(eleName) {
 	const config = {
@@ -158,7 +158,7 @@ function buttonMultiImgWithHover(eleName) {
 		text: "Multi Hover Button",
 		img: [
 			{
-				css: { img: "demo-img" },
+				css: { img: "storyboard-img" },
 				attr: {
 					src: `data:image/svg+xml;base64,
                     PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0

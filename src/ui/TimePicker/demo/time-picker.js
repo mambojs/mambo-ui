@@ -1,6 +1,6 @@
 //: Time Picker
 //@
-demoTimePicker("demo-time-picker");
+demoTimePicker("storyboard-time-picker");
 
 function demoTimePicker(parentEle) {
 	let config = {

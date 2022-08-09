@@ -1,8 +1,8 @@
 //: Slider
 //@
-demoSlider("demo-slider");
+sliderStoryboard("storyboard-slider");
 
-function demoSlider(parentEle) {
+function sliderStoryboard(parentEle) {
 	defaultSlider();
 	verticalSlider();
 

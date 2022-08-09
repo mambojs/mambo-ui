@@ -42,7 +42,7 @@ function installStoryboard() {
 				alias,
 				code: demoContent.code,
 				component: `${name}.js`,
-				custom: `demo-${alias}`,
+				custom: `storyboard-${alias}`,
 				description: mdContent.fullcontent,
 				name,
 				script: demoContent.fullcontent,
@@ -65,7 +65,7 @@ function installStoryboard() {
 	});
 
 	async function getHtml() {
-		const html = await getScript(`src/demos/demos.html`);
+		const html = await getScript("src/storyboard/storyboard.html");
 		demoui.html = html.fullcontent;
 		window.dispatchEvent(cevt);
 	}
@@ -74,7 +74,7 @@ function installStoryboard() {
 		const file = await (await fetch(path)).text();
 
 		const htmlEntities = (html) => {
-			return html.replace(/[\u00A0-\u9999<>\&]/g, function (i) {
+			return html.replace(/[\u00A0-\u9999<>&]/g, function (i) {
 				return "&#" + i.charCodeAt(0) + ";";
 			});
 		};
@@ -88,13 +88,13 @@ function installStoryboard() {
 		if (path.endsWith(".js")) {
 			object.content = object.fullcontent.replace(/\/\*[\s\S]*?\*\/|([^:]|^)\/\/.*$/gm, "$1");
 
-			const codeList = object.fullcontent.match(/\/\/\:([\s\S]*?)\/\/\!/gm);
+			const codeList = object.fullcontent.match(/\/\/:([\s\S]*?)\/\/!/gm);
 
 			if (null !== codeList) {
 				object.code = codeList.map((code) => {
 					return {
-						comment: htmlEntities(code.match(/(?<=\/\/\:)(.*)/gm)[0].trim()),
-						script: code.match(/(?<=\/\/\@)([\s\S]*?)(?=\/\/\!)/gm)[0],
+						comment: htmlEntities(code.match(/(?<=\/\/:)(.*)/gm)[0].trim()),
+						script: code.match(/(?<=\/\/@)([\s\S]*?)(?=\/\/!)/gm)[0],
 					};
 				});
 			}
@@ -194,7 +194,7 @@ function installStoryboard() {
 								area: AREAS[2],
 							},
 							{
-								text: "Demos",
+								text: "storyboard",
 								area: AREAS[0],
 							},
 						],

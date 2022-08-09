@@ -1,8 +1,8 @@
 //: Slideout
 //@
-demoSlideout("demo-slideout");
+slideoutStoryboard("storyboard-slideout");
 
-function demoSlideout(parentTag) {
+function slideoutStoryboard(parentTag) {
 	let m_slideout;
 
 	installOpenButton();

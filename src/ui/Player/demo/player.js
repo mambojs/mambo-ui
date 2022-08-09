@@ -1,6 +1,6 @@
 //: HTML5 Player
 //@
-demoHtml5player("demo-player");
+demoHtml5player("storyboard-player");
 
 function demoHtml5player(parentTag) {
 	"use strict";
@@ -74,8 +74,8 @@ function demoHtml5player(parentTag) {
 	function videoPlayer() {
 		const html = `
         <div style="display: flex;padding: 1em;box-sizing: border-box">
-            <div id="demo-video" style="width: 50%;padding: 1em;"><h3>Video Player</h3></div>
-            <div id="demo-audio" style="width: 50%;padding: 1em;"><h3>Audio Player</h3></div>
+            <div id="storyboard-video" style="width: 50%;padding: 1em;"><h3>Video Player</h3></div>
+            <div id="storyboard-audio" style="width: 50%;padding: 1em;"><h3>Audio Player</h3></div>
         </div>`;
 		dom.append(parentTag, html);
 
@@ -88,7 +88,7 @@ function demoHtml5player(parentTag) {
 			},
 		};
 
-		m_videoPlayer = ui.videoPlayer("#demo-video", config);
+		m_videoPlayer = ui.videoPlayer("#storyboard-video", config);
 		m_playerTag = m_videoPlayer.getPlayer().getTag();
 	}
 

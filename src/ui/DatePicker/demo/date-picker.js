@@ -1,6 +1,6 @@
 //: Date Picker
 //@
-demoDatePicker("demo-date-picker");
+demoDatePicker("storyboard-date-picker");
 
 function demoDatePicker(parentEle) {
 	let config = { parentTag: parentEle };

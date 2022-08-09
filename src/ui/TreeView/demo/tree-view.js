@@ -1,6 +1,6 @@
 //:
 //@
-demoTreeView("demo-tree-view");
+demoTreeView("storyboard-tree-view");
 
 function demoTreeView(parentEle) {
 	let config = {
