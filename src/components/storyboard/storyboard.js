@@ -65,7 +65,7 @@ function installStoryboard() {
 	});
 
 	async function getHtml() {
-		const html = await getScript("src/storyboard/storyboard.html");
+		const html = await getScript("src/components/storyboard/storyboard.html");
 		demoui.html = html.fullcontent;
 		window.dispatchEvent(cevt);
 	}
@@ -172,7 +172,7 @@ function installStoryboard() {
 			function createHTMLbase() {
 				const html = eval("`" + demoui.html + "`");
 				let parser = new DOMParser().parseFromString(html, "text/html");
-				document.querySelector(".web-content").prepend(parser.body.firstChild);
+				document.querySelector("ui-storyboard").prepend(parser.body.firstChild);
 
 				createTabs("#main");
 			}
