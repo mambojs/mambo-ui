@@ -17,11 +17,11 @@ ui.class.TagNames = class TagNames {
 
 	addTags(context) {
 		if (!context || !context.name || !context.tags) {
-			return "TagNames: you invoked addTags() but failed to define the tags name.";
+			throw "TagNames: you invoked addTags() but failed to define the tags name.";
 		}
 
 		if (this.m_tagNames[context.name] && !this.m_tagNames[context.override]) {
-			return `TagNames: you have attempted to override the tags name ${context.name}. Please add the property 'override:true' to succesfully override the tags.`;
+			throw `TagNames: you have attempted to override the tags name ${context.name}. Please add the property 'override:true' to succesfully override the tags.`;
 		}
 
 		this.m_tagNames[context.name] = context.theme;

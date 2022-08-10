@@ -20,15 +20,11 @@ ui.class.Theme = class Theme {
 
 		function addTheme(context) {
 			if (!context || !context.name || !context.theme) {
-				console.error("ScTheme: you invoked addTheme() but failed to define the theme name and/or theme.");
-				return;
+				throw "ScTheme: you invoked addTheme() but failed to define the theme name and/or theme.";
 			}
 
 			if (m_themes[context.name] && !m_themes[context.override]) {
-				console.error(
-					`ScTheme: you have attempted to override the theme name ${context.name}. Please add the property 'override:true' to succesfully override the theme.`
-				);
-				return;
+				throw `ScTheme: you have attempted to override the theme name ${context.name}. Please add the property 'override:true' to succesfully override the theme.`;
 			}
 
 			m_themes[context.name] = context.theme;
