@@ -212,6 +212,15 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 			if (options) {
 				m_config = m_utils.extend(true, m_config, options);
 			}
+
+			m_config.css = m_utils.extend(
+				true,
+				m_theme.getTheme({
+					name: m_config.theme,
+					control: "draggable",
+				}),
+				m_config.css
+			);
 		}
 	}
 };

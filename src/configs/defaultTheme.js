@@ -11,9 +11,6 @@ ui.defaultTheme = {
 		time: "html5video-time",
 		progressBar: "html5video-progress-bar",
 	},
-	html5player: {
-		player: "html5player-player",
-	},
 	button: {
 		button: "button-button",
 		img: "button-img",
@@ -205,6 +202,9 @@ ui.defaultTheme = {
 		parent: "percentage-parent",
 		bar: "percentage-bar",
 		text: "percentage-text",
+	},
+	html5player: {
+		player: "html5player-player",
 	},
 	rating: {
 		parent: "rating-parent",

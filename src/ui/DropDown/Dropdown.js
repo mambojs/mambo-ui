@@ -145,6 +145,15 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 			if (initOptions) {
 				m_config = m_utils.extend(true, m_config, initOptions);
 			}
+
+			m_config.css = m_utils.extend(
+				true,
+				m_theme.getTheme({
+					name: m_config.theme,
+					control: "dropdown",
+				}),
+				m_config.css
+			);
 		}
 	}
 };

@@ -122,6 +122,15 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			if (initOptions) {
 				m_config = m_utils.extend(true, m_config, initOptions);
 			}
+
+			m_config.css = m_utils.extend(
+				true,
+				m_theme.getTheme({
+					name: m_config.theme,
+					control: "fileChooser",
+				}),
+				m_config.css
+			);
 		}
 	}
 };

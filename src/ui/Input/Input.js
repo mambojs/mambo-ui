@@ -277,7 +277,7 @@ ui.class.Input = class Input extends HTMLElement {
 				true,
 				m_theme.getTheme({
 					name: m_config.theme,
-					control: "mambo-input",
+					control: "input",
 				}),
 				m_config.css
 			);

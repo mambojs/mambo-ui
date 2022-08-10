@@ -173,6 +173,15 @@ ui.class.Switch = class Switch extends HTMLElement {
 			if (m_config.parentTag) {
 				m_parentTag = dom.getTag(m_config.parentTag);
 			}
+
+			m_config.css = m_utils.extend(
+				true,
+				m_theme.getTheme({
+					name: m_config.theme,
+					control: "switch",
+				}),
+				m_config.css
+			);
 		}
 	}
 };

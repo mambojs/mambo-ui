@@ -3,11 +3,6 @@ ui.defaultTagNames = {
 	buttonGroup: {
 		parent: "button-group",
 	},
-	tab: {
-		tabs: "mambo-tabs",
-		contentParent: "mambo-tab-contents",
-		content: "mambo-tab-content",
-	},
 	calendar: {
 		parent: "sc-calendar",
 		body: "calendar-body",
@@ -89,6 +84,11 @@ ui.defaultTagNames = {
 		on: "switch-label-on",
 		off: "switch-label-off",
 		handle: "switch-handle",
+	},
+	tab: {
+		tabs: "mambo-tabs",
+		contentParent: "mambo-tab-contents",
+		content: "mambo-tab-content",
 	},
 
 
