@@ -140,7 +140,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 				true,
 				m_theme.getTheme({
 					name: m_config.theme,
-					control: "mambo-tab",
+					control: "tab",
 				}),
 				m_config.css
 			);
