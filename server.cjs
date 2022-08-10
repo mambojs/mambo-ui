@@ -9,6 +9,13 @@ const separator = process.platform === "win32" ? "\\" : "/";
 
 // Setting Middleware
 
+// This is CORS-enabled for all origins!
+app.use(function (req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
 // Serves resources from public folder
 config.PUBLIC_DIRS.forEach((dir) => {
 	app.use(`/${dir}`, express.static(dir));
