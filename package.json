@@ -9,9 +9,9 @@
 	"scripts": {
 		"validate": "npm-run-all --parallel eslint hlint clint",
 		"start": "node server.cjs",
-		"eslint": "npx eslint \"**/*.js\" --fix --ignore-pattern node_modules/",
-		"hlint": "npx htmlhint \"**/*.html\"",
-		"clint": "npx stylelint \"**/*.css\"",
+		"eslint": "npx eslint \"./**/*.js\"",
+		"hlint": "npx htmlhint \"./**/*.html\" -i .htmlhintignore",
+		"clint": "npx stylelint \"./**/*.css\"",
 		"precommit": "npm run validate",
 		"prepush": "npm run validate",
 		"build": "node ./setup/esbuild.config.cjs buildLib"
@@ -24,7 +24,9 @@
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.5.4",
+		"babel-eslint": "^10.1.0",
 		"esbuild": "^0.14.32",
+		"eslint": "^8.19.0",
 		"gulp": "^4.0.2",
 		"gulp-clean-css": "^4.3.0",
 		"gulp-concat": "^2.6.1",
@@ -32,9 +34,6 @@
 		"gulp-header-comment": "^0.10.0",
 		"gulp-sourcemaps": "^3.0.0",
 		"gulp-strip-css-comments": "^2.0.0",
-		"babel-eslint": "^10.1.0",
-		"cors": "^2.8.5",
-		"eslint": "^8.19.0",
 		"htmlhint": "^1.1.4",
 		"husky": "^8.0.1",
 		"npm-run-all": "^4.1.5",

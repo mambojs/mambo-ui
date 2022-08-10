@@ -73,12 +73,11 @@ function compileCssLib(lib, version) {
 
 function getLibFiles() {
 	const arrFiles = [
-		`${config.PUBLIC_DIR}/configs/mamboDefaultTagNames.js`,
-		`${config.PUBLIC_DIR}/configs/mamboDefaultTheme.js`,
-		`${config.PUBLIC_DIR}/configs/mamboGraphics.js`,
-		`${config.PUBLIC_DIR}/configs/MamboDate/MamboDateManager.js`,
-		`${config.PUBLIC_DIR}/configs/MamboString/MamboString.js`,
-		`${config.PUBLIC_DIR}/configs/MamboUtils/MamboUtilities.js`,
+		`${config.PUBLIC_DIR}/configs/defaultTagNames.js`,
+		`${config.PUBLIC_DIR}/configs/defaultTheme.js`,
+		`${config.PUBLIC_DIR}/configs/Date/DateManager.js`,
+		`${config.PUBLIC_DIR}/configs/String/String.js`,
+		`${config.PUBLIC_DIR}/configs/Utils/Utilities.js`,
 	];
 	const files = fs.readdirSync(`${esconfig.SRC_UI}`);
 	files.forEach((file) => {
