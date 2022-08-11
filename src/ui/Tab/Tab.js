@@ -105,7 +105,8 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		function installSelf(parentTag, prepend) {
 			m_parentTag = parentTag ? parentTag : m_parentTag;
-			m_parentTag = dom.appendSelfToParentTag(parentTag, self, prepend);
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
 		}
 
 		function configure(options) {
