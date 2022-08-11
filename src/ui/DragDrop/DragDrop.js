@@ -9,6 +9,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 		// Config default values
 		const m_utils = new ui.utils();
+		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		let m_parentTag;

@@ -3,6 +3,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
+		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		let m_parentTag;

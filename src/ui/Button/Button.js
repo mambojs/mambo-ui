@@ -280,6 +280,7 @@ ui.class.Button = class Button extends HTMLElement {
 				}),
 				m_config.css
 			);
+
 		}
 	}
 };
