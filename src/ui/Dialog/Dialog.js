@@ -5,6 +5,7 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 		// Config default values
 		const self = this;
 		const m_utils = new ui.utils();
+		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		let m_overlayTag;

@@ -3,6 +3,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
+		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		const m_buttonsList = [];

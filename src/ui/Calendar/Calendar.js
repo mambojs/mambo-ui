@@ -4,6 +4,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		const self = this;
 		const m_utils = new ui.utils();
 		const m_dateMgr = new ui.date();
+		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		let m_parentTag;

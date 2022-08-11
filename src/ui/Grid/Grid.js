@@ -6,6 +6,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		const m_colsMaxPxWidth = [];
 		const m_componentsMapById = {};
 		const m_componentsMapByColNbr = [];
+		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		let m_gridParentTag;
