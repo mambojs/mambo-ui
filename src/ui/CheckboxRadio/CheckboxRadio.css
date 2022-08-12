@@ -23,76 +23,68 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 1.5rem;
   width: 1.5rem;
+  height: 1.5rem;
   background-color: #eee;
 }
 
 .checkbox-input:checked ~ .checkbox-span {
-  background-color: #000000;
+  background-color: #000;
 }
 
-.checkbox-span:after {
+.checkbox-span::after {
   content: "";
   position: absolute;
   display: none;
-}
-
-.checkbox-input:checked ~ .checkbox-span:after {
-  display: block;
-}
-
-.checkbox-span:after {
   left: 9px;
   top: 5px;
   width: 5px;
   height: 10px;
   border: solid white;
   border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.checkbox-input:checked ~ .checkbox-span::after {
+  display: block;
 }
 
 .radio-input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
-  height: 0;
   width: 0;
+  height: 0;
 }
 
 .radio-span {
   position: absolute;
   top: 0;
   left: 0;
-  height: 1.5rem;
   width: 1.5rem;
+  height: 1.5rem;
   background-color: #eee;
   border-radius: 50%;
 }
 
 .radio-input:checked ~ .radio-span {
-  background-color: #000000;
+  background-color: #000;
 }
 
-.radio-span:after {
+.radio-span::after {
   content: "";
   position: absolute;
   display: none;
-}
-
-.radio-input:checked ~ .radio-span:after {
-  display: block;
-}
-
-.radio-span:after {
   top: 0.5rem;
   left: 0.5rem;
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
   background: white;
+}
+
+.radio-input:checked ~ .radio-span::after {
+  display: block;
 }
 
 .checkbox-radio-disabled {
