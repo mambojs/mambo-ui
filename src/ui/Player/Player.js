@@ -1,11 +1,14 @@
 ui.class.Player = class Player extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(props) {
 		super();
+		const self = this;
 		const m_utils = new ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
+
 		const m_buttonGroups = [];
 
-		let m_config;
+		let m_props;
 		let m_timeInfo;
 		let m_progressBar;
 
@@ -15,6 +18,10 @@ ui.class.Player = class Player extends HTMLElement {
 
 		// Declare public methods
 		this.getTag = () => m_playerTag;
+		this.install = installSelf;
+		this.setup = setup;
+
+		if (props) setup(props);
 
 		/*
 		 * Custom controls:
@@ -25,30 +32,23 @@ ui.class.Player = class Player extends HTMLElement {
 		 *       button group: settings, theater mode, full screen
 		 * */
 
-		configure();
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(parentTag);
-
-			if (!m_parentTag) {
-				console.error(`HTML5 Player: dom. parent tag ${parentTag} was not found.`);
-				return;
-			}
-
-			installPlayer();
+		function setup(props) {
+			configure(props);
+			installDOM();
+			finishSetup();
 			//installControls();
 			//installProgressBar();
 		}
 
-		function installPlayer() {
+		function installDOM() {
 			const tagConfig = {
-				class: m_config.css.player,
-				prop: m_config.prop,
-				attr: m_config.attr,
+				class: m_props.css.player,
+				prop: m_props.prop,
+				attr: m_props.attr,
 			};
-			m_playerTag = dom.createTag(m_config.media, tagConfig);
-			dom.append(m_parentTag, m_playerTag);
+
+			m_playerTag = dom.createTag(m_props.media, tagConfig);
+			self.appendChild(m_playerTag);
 		}
 
 		function setSource(source) {
@@ -56,8 +56,8 @@ ui.class.Player = class Player extends HTMLElement {
 		}
 
 		function installControls() {
-			if (m_config.controls && Array.isArray(m_config.controls)) {
-				const controls = m_config.controls;
+			if (m_props.controls && Array.isArray(m_props.controls)) {
+				const controls = m_props.controls;
 				controls.forEach((object) => {
 					if (object.buttons) {
 						installButtonGroup(object.buttons);
@@ -95,8 +95,7 @@ ui.class.Player = class Player extends HTMLElement {
 				},
 			};
 
-			m_buttonGroups.push();
-			new ui.buttonGroup(parentTag, btnGroupProps);
+			m_buttonGroups.push(ui.buttonGroup(m_props.parentTag, btnGroupProps));
 		}
 
 		function installTime() {}
@@ -127,9 +126,23 @@ ui.class.Player = class Player extends HTMLElement {
 
 		function handleFullScreenClick() {}
 
-		function configure() {
-			m_config = {
-				tag:"default",
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ Player: self });
+		}
+
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
+				tag: "default",
 				theme: "default",
 				media: "video",
 				attr: {
@@ -149,19 +162,27 @@ ui.class.Player = class Player extends HTMLElement {
 					},
 				],
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "player",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "html5player",
+					name: m_props.theme,
+					component: "player",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

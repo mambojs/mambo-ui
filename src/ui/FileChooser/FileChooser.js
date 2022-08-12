@@ -1,48 +1,44 @@
 ui.class.FileChooser = class FileChooser extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
+		let m_parentTag;
 		let m_wrapperTag;
 		let m_inputTag;
 
-		let m_config;
+		let m_props;
 
 		// Configure public methods
 		this.destroy = destroyFileChooser;
 		this.getInputTag = () => m_inputTag;
 		this.getParentTag = () => m_wrapperTag;
+		this.install = installSelf;
+		this.setup = setup;
 
-		// Configure
-		configure();
+		if (props) setup(props);
 
-		setup();
-
-		function setup() {
-			installDOMTags();
+		function setup(props) {
+			configure(props);
+			installDOM();
+			finishSetup();
 		}
 
-		function installDOMTags() {
-			const parent = dom.getTag(initOptions.parentTag);
-			if (!parent) {
-				console.error(`File Chooser: dom. parent tag ${parent} was not found.`);
-				return;
-			}
-
-			m_wrapperTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
+		function installDOM() {
+			m_wrapperTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
 			});
 
-			dom.append(parent, m_wrapperTag);
+			self.appendChild(m_wrapperTag);
 
-			switch (m_config.buttonOnly) {
+			switch (m_props.buttonOnly) {
 				case true:
 					installButtonOnly();
 					break;
-
 				default:
 					installInput();
 					break;
@@ -54,12 +50,12 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 			const config = {
 				parentTag: m_wrapperTag,
-				text: m_config.textButton,
+				text: m_props.textButton,
 				fnClick: () => {
 					m_inputTag.getTag().click();
 				},
 				css: {
-					button: m_config.css.button,
+					button: m_props.css.button,
 				},
 			};
 
@@ -69,16 +65,16 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 		function installInput(hidden) {
 			let inputConfig = {
 				parentTag: m_wrapperTag,
-				labelText: m_config.textLabel,
-				attr: m_config.attr,
+				labelText: m_props.textLabel,
+				attr: m_props.attr,
 				css: {
-					inputWrapper: m_config.css.wrapper,
+					inputWrapper: m_props.css.wrapper,
 				},
 				events: [
 					{
 						name: "change",
 						fn: (context) => {
-							m_config.fnUpload({
+							m_props.fnUpload({
 								files: context.input.getTag().files,
 								ev: context.ev,
 							});
@@ -86,8 +82,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 					},
 				],
 				fnComplete: () => {
-					if (m_config.fnComplete) {
-						m_config.fnComplete({ fileChooser: self });
+					if (m_props.fnComplete) {
+						m_props.fnComplete({ fileChooser: self });
 					}
 				},
 			};
@@ -103,8 +99,21 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			dom.remove(m_wrapperTag);
 		}
 
-		function configure() {
-			m_config = {
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ FileChooser: self });
+		}
+
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				buttonOnly: false,
 				textButton: "Button Only - Select File",
 				textLabel: "Choose files to upload",
@@ -118,19 +127,27 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 					// Provide your callback function
 				},
 			};
-
-			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			/// If options provided, override default config
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "fileChooser",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "fileChooser",
+					name: m_props.theme,
+					component: "fileChooser",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

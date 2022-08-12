@@ -1,16 +1,17 @@
 ui.class.Dropdown = class Dropdown extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
 		let m_dropDownParentTag;
 		let m_dropdownContainerTag;
 
-		let m_config;
+		let m_props;
 		let m_open = false;
 
 		// Configure public methods
@@ -18,42 +19,32 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		this.destroy = destroyDropdown;
 		this.getContentTag = () => m_dropdownContainerTag;
 		this.getParentTag = () => m_dropDownParentTag;
+		this.install = installSelf;
 		this.open = open;
+		this.setup = setup;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Dropdown: dom. parent tag ${initOptions.parentTag} was not found.`);
-				return;
-			}
-
-			installDOM();
+		function setup(props) {
+			configure(props);
 			installEventHandler();
+			installDOM();
 		}
 
 		function installDOM() {
-			m_dropDownParentTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
+			m_dropDownParentTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
 			});
 
-			m_parentTag.innerHTML = "";
-			dom.append(m_parentTag, m_dropDownParentTag);
-
+			self.appendChild(m_dropDownParentTag);
 			installOpenButton();
 			installContainer();
 			finishSetup();
 		}
 
 		function installOpenButton() {
-			let button = m_utils.extend(true, {}, m_config.button);
-			button.css = m_utils.extend(true, m_config.css.button, button.css);
+			let button = m_utils.extend(true, {}, m_props.button);
+			button.css = m_utils.extend(true, m_props.css.button, button.css);
 			button.parentTag = m_dropDownParentTag;
 
 			button.fnClick = (context) => {
@@ -62,8 +53,8 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				} else {
 					openAnimation();
 				}
-				if (m_config.button.fnClick) {
-					m_config.button.fnClick(context);
+				if (m_props.button.fnClick) {
+					m_props.button.fnClick(context);
 				}
 			};
 
@@ -71,8 +62,8 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function installContainer() {
-			m_dropdownContainerTag = dom.createTag(m_config.tag.container, {
-				class: m_config.css.container,
+			m_dropdownContainerTag = dom.createTag(m_props.tag.container, {
+				class: m_props.css.container,
 			});
 			dom.append(m_dropDownParentTag, m_dropdownContainerTag);
 		}
@@ -82,10 +73,10 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function openAnimation() {
-			dom.addClass(m_dropdownContainerTag, m_config.css.open);
+			dom.addClass(m_dropdownContainerTag, m_props.css.open);
 			m_open = true;
-			if (m_config.fnOpen) {
-				m_config.fnOpen({ dropdown: self });
+			if (m_props.fnOpen) {
+				m_props.fnOpen({ dropdown: self });
 			}
 		}
 
@@ -94,14 +85,14 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function closeAnimation(ev) {
-			if (m_config.fnBeforeClose && !m_config.fnBeforeClose({ ev: ev })) {
+			if (m_props.fnBeforeClose && !m_props.fnBeforeClose({ ev: ev })) {
 				return;
 			}
 
-			dom.removeClass(m_dropdownContainerTag, m_config.css.open);
+			dom.removeClass(m_dropdownContainerTag, m_props.css.open);
 			m_open = false;
-			if (m_config.fnClose) {
-				m_config.fnClose({ dropdown: self });
+			if (m_props.fnClose) {
+				m_props.fnClose({ dropdown: self });
 			}
 		}
 
@@ -118,14 +109,21 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ dropdown: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Dropdown: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
 				button: {
@@ -141,19 +139,27 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 					return true;
 				},
 			};
-
 			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "dropdown",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "dropdown",
+					name: m_props.theme,
+					component: "dropdown",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

@@ -1,51 +1,49 @@
 ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		const m_checkboxRadiosList = [];
 		let m_checkboxRadioGroupTag;
 		let m_parentTag;
 
-		let m_config;
+		let m_props;
 
 		// Configure public methods
 		this.clear = clear;
 		this.destroy = destroyCheckboxRadioGroup;
 		this.getParentTag = () => m_checkboxRadioGroupTag;
 		this.getTag = getTagById;
+		this.install = installSelf;
 		this.select = select;
+		this.setup = setup;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
+		function setup(props) {
+			configure(props);
+			installDOM();
+			finishSetup();
+		}
 
-		function setup() {
-			m_parentTag = dom.getTag(parentTag);
-			if (!m_parentTag) {
-				console.error(`Checkbox Group: dom. tag ${parentTag} not found.`);
-				return;
-			}
-
-			m_checkboxRadioGroupTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
+		function installDOM() {
+			m_checkboxRadioGroupTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
 			});
-
-			dom.append(m_parentTag, m_checkboxRadioGroupTag);
+			self.appendChild(m_checkboxRadioGroupTag);
 
 			// Loop through all the checkbox
-			if (m_config.checkboxes) {
-				m_config.checkboxes.forEach(installCheckbox);
+			if (m_props.checkboxes) {
+				m_props.checkboxes.forEach(installCheckbox);
 			}
 
 			// Loop through all the radios
-			if (m_config.radios) {
-				m_config.radios.forEach(installRadio);
+			if (m_props.radios) {
+				m_props.radios.forEach(installRadio);
 			}
 		}
 
@@ -58,10 +56,10 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 		}
 
 		function installTag(tag, type) {
-			tag.css = tag.css ? m_utils.extend(true, m_config.css, tag.css) : m_config.css;
+			tag.css = tag.css ? m_utils.extend(true, m_props.css, tag.css) : m_props.css;
 			const attr = {
 				type: type,
-				name: m_config.name,
+				name: m_props.name,
 			};
 			tag.attr = m_utils.extend(true, attr, tag.attr);
 			tag.fnGroupClick = handleGroupClick;
@@ -75,12 +73,12 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 			}
 
 			// If same callback for all checkboxes / radios
-			if (m_config.fnClick) {
-				m_config.fnClick(context);
+			if (m_props.fnClick) {
+				m_props.fnClick(context);
 			}
 
-			if (m_config.fnGroupClick) {
-				m_config.fnGroupClick({
+			if (m_props.fnGroupClick) {
+				m_props.fnGroupClick({
 					checkboxRadioGroup: self,
 					checkboxRadio: context.checkboxRadio,
 					ev: context.ev,
@@ -144,8 +142,22 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 			dom.remove(m_checkboxRadioGroupTag);
 		}
 
-		function configure() {
-			m_config = {
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ CheckboxRadioGroup: self });
+		}
+
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
 				name: Math.random().toString(36).slice(2),
@@ -153,19 +165,27 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 				radios: [],
 				fnGroupClick: (context) => {},
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "checkboxRadioGroup",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "checkboxRadioGroup",
+					name: m_props.theme,
+					component: "checkboxRadioGroup",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

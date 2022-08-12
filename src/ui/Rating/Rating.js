@@ -1,9 +1,10 @@
 ui.class.Rating = class Rating extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
@@ -12,7 +13,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 		let m_ratingSelectedTag;
 		let m_ratingHoverTag;
 
-		let m_config;
+		let m_props;
 		let m_value = 0;
 		let m_enable = true;
 
@@ -20,62 +21,48 @@ ui.class.Rating = class Rating extends HTMLElement {
 		this.destroy = destroyRating;
 		this.enable = enable;
 		this.getParentTag = () => m_ratingParentTag;
+		this.install = installSelf;
+		this.setup = setup;
 		this.value = value;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Rating: dom. parent tag ${initOptions.parentTag} was not found.`);
-				return;
-			}
-
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
-		}
-
-		function setOptionValues() {
-			m_value = m_config.value;
-			m_enable = m_config.enable;
-		}
-
-		function installDOM() {
-			installTags();
+			setupEventHandler();
 			finishSetup();
 		}
 
-		function installTags() {
-			m_ratingParentTag = dom.createTag(m_config.tag.rating, {
-				class: m_config.css.parent,
+		function setOptionValues() {
+			m_value = m_props.value;
+			m_enable = m_props.enable;
+		}
+
+		function installDOM() {
+			m_ratingParentTag = dom.createTag(m_props.tag.rating, {
+				class: m_props.css.parent,
 			});
-			dom.append(m_parentTag, m_ratingParentTag);
-
+			self.appendChild(m_ratingParentTag);
 			installLayers();
-			setupEventHandler();
-
 			setValue(m_value);
 			setEnable(m_enable);
 		}
 
 		function installLayers() {
-			m_ratingEmptyTag = dom.createTag(m_config.tag.empty, {
-				class: m_config.css.empty,
+			m_ratingEmptyTag = dom.createTag(m_props.tag.empty, {
+				class: m_props.css.empty,
 			});
 			dom.append(m_ratingParentTag, m_ratingEmptyTag);
 
-			m_ratingSelectedTag = dom.createTag(m_config.tag.selected, {
-				class: m_config.css.selected,
+			m_ratingSelectedTag = dom.createTag(m_props.tag.selected, {
+				class: m_props.css.selected,
 			});
 			dom.append(m_ratingParentTag, m_ratingSelectedTag);
 
-			m_ratingHoverTag = dom.createTag(m_config.tag.hover, {
-				class: m_config.css.hover,
+			m_ratingHoverTag = dom.createTag(m_props.tag.hover, {
+				class: m_props.css.hover,
 			});
 			dom.append(m_ratingParentTag, m_ratingHoverTag);
 
@@ -83,19 +70,19 @@ ui.class.Rating = class Rating extends HTMLElement {
 		}
 
 		function installStars() {
-			for (let i = 0; i < m_config.max; i++) {
-				let emptyStarTag = dom.createTag(m_config.tag.emptyStar, {
-					class: m_config.css.emptyStar,
+			for (let i = 0; i < m_props.max; i++) {
+				let emptyStarTag = dom.createTag(m_props.tag.emptyStar, {
+					class: m_props.css.emptyStar,
 				});
 				dom.append(m_ratingEmptyTag, emptyStarTag);
 
-				let selectedStarTag = dom.createTag(m_config.tag.selectedStar, {
-					class: m_config.css.selectedStar,
+				let selectedStarTag = dom.createTag(m_props.tag.selectedStar, {
+					class: m_props.css.selectedStar,
 				});
 				dom.append(m_ratingSelectedTag, selectedStarTag);
 
-				let hoverStarTag = dom.createTag(m_config.tag.hoverStar, {
-					class: m_config.css.hoverStar,
+				let hoverStarTag = dom.createTag(m_props.tag.hoverStar, {
+					class: m_props.css.hoverStar,
 				});
 				dom.append(m_ratingHoverTag, hoverStarTag);
 			}
@@ -112,8 +99,8 @@ ui.class.Rating = class Rating extends HTMLElement {
 			if (m_enable) {
 				setValue(getHoverValue(ev));
 
-				if (m_config.fnSelect) {
-					m_config.fnSelect({ rating: self, ev: ev });
+				if (m_props.fnSelect) {
+					m_props.fnSelect({ rating: self, ev: ev });
 				}
 			}
 		}
@@ -134,7 +121,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 		}
 
 		function getStarWidth() {
-			return m_ratingEmptyTag.clientWidth / m_config.max;
+			return m_ratingEmptyTag.clientWidth / m_props.max;
 		}
 
 		function getLeftPosition(ev) {
@@ -170,7 +157,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 
 		function setEnable(enable) {
 			m_enable = enable;
-			m_enable ? dom.removeClass(m_ratingParentTag, m_config.css.disabled) : dom.addClass(m_ratingParentTag, m_config.css.disabled);
+			m_enable ? dom.removeClass(m_ratingParentTag, m_props.css.disabled) : dom.addClass(m_ratingParentTag, m_props.css.disabled);
 		}
 
 		function destroyRating() {
@@ -178,33 +165,48 @@ ui.class.Rating = class Rating extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ rating: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Rating: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
 				value: 0,
 				max: 5,
 				enable: true,
 			};
-
 			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "template",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "rating",
+					name: m_props.theme,
+					component: "template",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

@@ -1,59 +1,48 @@
 ui.class.DragDrop = class DragDrop extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(props) {
 		super();
-
-		if (!parentTag) {
-			console.error("DragDrop: required parentEle parameter was not passed in.");
-			return;
-		}
-
-		// Config default values
+		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
 		let m_dragDropTag;
 
-		let m_config;
+		let m_props;
 
 		// Public methods
 		this.destroy = destroyDragDrop;
 		this.getParentTag = () => m_dragDropTag;
+		this.install = installSelf;
+		this.setup = setup;
 
-		// Configure
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(parentTag);
-
-			if (m_config.hidden) {
-				// Install event handlers only
-				m_dragDropTag = m_parentTag;
-			} else {
-				installDOMTags();
-			}
-
+		function setup(props) {
+			configure(props);
 			setupEventHandlers();
+			installDOM();
 		}
 
-		function installDOMTags() {
-			m_dragDropTag = dom.createTag("div", { class: m_config.css.parent });
+		function installDOM() {
+			m_dragDropTag = dom.createTag("div", { class: m_props.css.parent });
 			const tagConfig = {
-				class: m_config.css.imgDropIcon,
-				attr: { src: m_config.baseUrl + m_config.imgDropIcon },
+				class: m_props.css.imgDropIcon,
+				attr: { src: m_props.baseUrl + m_props.imgDropIcon },
 			};
 			let imgEle = dom.createTag("img", tagConfig);
 			let textEle = dom.createTag("text", {
-				class: m_config.css.dropText,
-				text: m_config.dropText,
+				class: m_props.css.dropText,
+				text: m_props.dropText,
 			});
 
 			dom.append(m_dragDropTag, imgEle).append(m_dragDropTag, textEle);
-			dom.append(m_parentTag, m_dragDropTag);
+			self.appendChild(m_dragDropTag);
+
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 		}
 
 		function setupEventHandlers() {
@@ -65,15 +54,15 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 				// Prevent default behavior (Prevent file from being opened)
 				ev.preventDefault();
 
-				if (m_config.fnDragover) {
-					m_config.fnDragover({ ev: ev });
+				if (m_props.fnDragover) {
+					m_props.fnDragover({ ev: ev });
 				}
 			});
 
 			// On mouseenter mouseleave
 			m_dragDropTag.addEventListener("mouseenter mouseleave", (ev) => {
-				if (m_config.fnMouseenterMouseleave) {
-					m_config.fnMouseenterMouseleave({ ev: ev });
+				if (m_props.fnMouseenterMouseleave) {
+					m_props.fnMouseenterMouseleave({ ev: ev });
 				}
 			});
 		}
@@ -83,7 +72,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			ev.preventDefault();
 			ev.stopPropagation();
 
-			if (!m_config.fnDrop) {
+			if (!m_props.fnDrop) {
 				return;
 			}
 
@@ -92,13 +81,13 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 			// Return if no items were dropped
 			if (!items || items.length === 0) {
-				m_config.fnDrop({ error: "No items dropped", dataTransfer: {} });
+				m_props.fnDrop({ error: "No items dropped", dataTransfer: {} });
 				return;
 			}
 
 			// Return if drop count is larger than allowed
-			if (m_config.maxFileCount && items.length > m_config.maxFileCount) {
-				m_config.fnDrop({ error: "maxFileCount", dataTransfer: {} });
+			if (m_props.maxFileCount && items.length > m_props.maxFileCount) {
+				m_props.fnDrop({ error: "maxFileCount", dataTransfer: {} });
 				return;
 			}
 
@@ -111,15 +100,15 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			}
 
 			// Return results
-			m_config.fnDrop({ dataTransfer: ev.dataTransfer, ev: ev });
+			m_props.fnDrop({ dataTransfer: ev.dataTransfer, ev: ev });
 		}
 
 		function checkFileKindAllowed(type) {
 			let valid = true;
 
 			// Check property exists and it is an Array
-			if (m_config.allowKind && Array.isArray(m_config.allowKind)) {
-				m_config.allowKind.some((allowedKind) => {
+			if (m_props.allowKind && Array.isArray(m_props.allowKind)) {
+				m_props.allowKind.some((allowedKind) => {
 					// Check if file type is allowed
 					if (allowedKind !== type) {
 						valid = false;
@@ -135,28 +124,44 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			m_parentTag.removeChild(m_dragDropTag);
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				imgDropIcon: ui.graphics.getImage({ name: "arrow-down-box-black" }),
 				dropText: "Drop Here",
 				hidden: false,
 				baseUrl: "",
 				maxFileCount: null,
-				theme: "default"
+				tag: "default",
+				theme: "default",
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "dragDrop",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "dragDrop",
+					name: m_props.theme,
+					component: "dragDrop",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

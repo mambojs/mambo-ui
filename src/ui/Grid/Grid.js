@@ -1,12 +1,14 @@
 ui.class.Grid = class Grid extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
+
 		const m_colsMaxPxWidth = [];
 		const m_componentsMapById = {};
 		const m_componentsMapByColNbr = [];
-		const m_theme = ui.theme(ui.g_defaultTheme);
 
 		// HTML tag variables
 		let m_gridParentTag;
@@ -18,40 +20,32 @@ ui.class.Grid = class Grid extends HTMLElement {
 		let m_tileParentTag;
 		let m_tileParentTags = [];
 
-		let m_config;
-		let m_gridData = initOptions.data;
+		let m_props;
+		let m_gridData = props.data;
 		let m_gridDataChanged;
 		let m_colStylesId;
 		let m_tileIndexAttrName;
 
 		// Configure public methods
-		this.getRowIndex = getRowIndex;
-		this.getGridData = getGridData;
-		this.dataChanged = () => m_gridDataChanged;
 		this.commitDataChange = commitDataChange;
-		this.getId = () => m_config.id;
-		this.removeColsStyles = removeColsStyles;
+		this.dataChanged = () => m_gridDataChanged;
 		this.getCellComponentByIdByRow = getCellComponentByIdByRow;
 		this.getCellComponentsById = () => m_componentsMapById;
 		this.getCellComponentByColNbrByRow = getCellComponentByColNbrByRow;
 		this.getCellComponentsByColNbr = () => m_componentsMapByColNbr;
+		this.getGridData = getGridData;
+		this.getId = () => m_props.id;
+		this.getRowIndex = getRowIndex;
+		this.install = installSelf;
+		this.removeColsStyles = removeColsStyles;
+		this.setup = setup;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Data Grid: dom. parent tag ${initOptions.parentTag} was not found.`);
-				return;
-			}
-
+		function setup(props) {
+			configure(props);
 			// Validate grid layout
-			switch (m_config.layout) {
+			switch (m_props.layout) {
 				case "tile":
 					installTiles();
 					break;
@@ -60,17 +54,16 @@ ui.class.Grid = class Grid extends HTMLElement {
 					installGrid();
 					break;
 			}
+
+			finishSetup();
 		}
 
 		function installTiles() {
-			m_tileParentTag = dom.createTag(m_config.tag.tilesParent, {
-				class: m_config.css.tilesParent,
+			m_tileParentTag = dom.createTag(m_props.tag.tilesParent, {
+				class: m_props.css.tilesParent,
 			});
 			m_tileIndexAttrName = "data-grid-tile-index";
-
-			// Set basic tile structure into parent tag
-			m_parentTag.innerHTML = "";
-			dom.append(m_parentTag, m_tileParentTag);
+			self.appendChild(m_tileParentTag);
 
 			if (!validateGridData()) {
 				return;
@@ -83,8 +76,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function installTile(tileData, tileIndex) {
 			// Create tile parent tag
-			let tileTag = dom.createTag(m_config.tag.tileItem, {
-				class: m_config.css.tileItem,
+			let tileTag = dom.createTag(m_props.tag.tileItem, {
+				class: m_props.css.tileItem,
 				attr: { m_tileIndexAttrName: tileIndex },
 			});
 			dom.append(m_tileParentTag, tileTag);
@@ -94,14 +87,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function processTile(tileData, tileIndex, tileTag) {
-			if (m_config.tileHTML) {
-				let content = dom.supplantHTML(m_config.tileHTML, tileData);
+			if (m_props.tileHTML) {
+				let content = dom.supplantHTML(m_props.tileHTML, tileData);
 				dom.append(tileTag, content);
 			}
 
 			// Invoke callback for each completed tile
-			if (m_config.fnPostTile) {
-				m_config.fnPostTile({
+			if (m_props.fnPostTile) {
+				m_props.fnPostTile({
 					tileIndex: tileIndex,
 					tileTag: tileTag,
 					tileData: tileData,
@@ -110,33 +103,30 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function installGrid() {
-			m_gridParentTag = dom.createTag(m_config.tag.gridParent, {
-				class: m_config.css.gridParent,
+			m_gridParentTag = dom.createTag(m_props.tag.gridParent, {
+				class: m_props.css.gridParent,
 			});
-			m_gridHdrTag = dom.createTag(m_config.tag.gridHdr, {
-				class: m_config.css.gridHdr,
+			m_gridHdrTag = dom.createTag(m_props.tag.gridHdr, {
+				class: m_props.css.gridHdr,
 			});
-			m_gridBodyTag = dom.createTag(m_config.tag.gridBody, {
-				class: m_config.css.gridBody,
+			m_gridBodyTag = dom.createTag(m_props.tag.gridBody, {
+				class: m_props.css.gridBody,
 			});
 			m_gridBodyRowTagName = "data-grid-row";
 			m_rowIndexAttrName = "data-grid-row-index";
 
 			// Install grid parent tag
 			dom.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
-
-			// Set basic grid structure into parent tag
-			m_parentTag.innerHTML = "";
-			dom.append(m_parentTag, m_gridParentTag);
+			self.appendChild(m_gridParentTag);
 
 			// Install the header tags
 			installHdr();
 		}
 
 		function installHdr() {
-			m_config.columns.forEach((column) => {
-				let parentTag = dom.createTag(m_config.tag.colCell, {
-					class: m_config.css.colCell,
+			m_props.columns.forEach((column) => {
+				let parentTag = dom.createTag(m_props.tag.colCell, {
+					class: m_props.css.colCell,
 				});
 				applyColCellElStyles(column, parentTag);
 
@@ -167,7 +157,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 				processRow(rowData, rowIndex);
 			});
 
-			if (m_config.maxColWidth) {
+			if (m_props.maxColWidth) {
 				setTimeout(() => {
 					setColsWidth();
 				}, 1);
@@ -177,17 +167,17 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			function processRow(rowData, rowIndex) {
 				// Create row parent tag
-				let rowTag = dom.createTag(m_config.tag.row, {
-					class: m_config.css.row,
+				let rowTag = dom.createTag(m_props.tag.row, {
+					class: m_props.css.row,
 					attr: { m_rowIndexAttrName: rowIndex },
 				});
 				dom.append(m_gridBodyTag, rowTag);
 
 				// Loop through the header configuration
-				m_config.columns.forEach((column, colIndex) => {
+				m_props.columns.forEach((column, colIndex) => {
 					// Create cell parent
-					const parentTag = dom.createTag(m_config.tag.colCell, {
-						class: m_config.css.colCell,
+					const parentTag = dom.createTag(m_props.tag.colCell, {
+						class: m_props.css.colCell,
 					});
 					applyColCellElStyles(column, parentTag);
 					dom.append(rowTag, parentTag);
@@ -261,8 +251,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 				});
 
 				// Invoke callback for each completed row
-				if (m_config.fnPostRow) {
-					m_config.fnPostRow({
+				if (m_props.fnPostRow) {
+					m_props.fnPostRow({
 						rowIndex: rowIndex,
 						rowTag: rowTag,
 						rowData: rowData,
@@ -274,7 +264,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installTextCell(context) {
 			const text = context.column.dataKey in context.rowData ? context.rowData[context.column.dataKey] : context.column.text;
 			const tagConfig = {
-				class: m_config.css.text,
+				class: m_props.css.text,
 				prop: context.column.prop,
 				attr: context.column.attr,
 				text,
@@ -300,7 +290,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			let buttonConfig = {
 				id: context.rowIndex,
 				css: {
-					button: m_config.css.button,
+					button: m_props.css.button,
 				},
 			};
 
@@ -337,8 +327,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installInputCell(context) {
 			let inputConfig = {
 				css: {
-					input: m_config.css.input,
-					button: m_config.css.button,
+					input: m_props.css.input,
+					button: m_props.css.button,
 				},
 				value: context.column.dataKey in context.rowData ? context.rowData[context.column.dataKey] : context.column.text,
 			};
@@ -422,7 +412,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const dialogDefaultConfig = {
 				title: "Dialog Title",
 				css: {
-					button: m_config.css.button,
+					button: m_props.css.button,
 				},
 			};
 
@@ -474,7 +464,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function installButtonGroupCell(context) {
 			// Extend with header configuration
-			let buttonGroupConfig = m_utils.extend(true, { css: { button: m_config.css.button } }, context.column);
+			let buttonGroupConfig = m_utils.extend(true, { css: { button: m_props.css.button } }, context.column);
 			buttonGroupConfig.id = context.rowIndex;
 
 			const buttonGroupTag = ui.buttonGroup(context.parentTag, buttonGroupConfig);
@@ -492,7 +482,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 				slideoutParentTag: "body",
 				text: "Open",
 				css: {
-					button: m_config.css.button,
+					button: m_props.css.button,
 				},
 			};
 
@@ -519,9 +509,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 				dropText: "Drop Files",
 				fnDrop: handleDropEvent,
 				css: {
-					parent: m_config.css.dropParent,
-					imgDropIcon: m_config.css.dropImgDropIcon,
-					dropText: m_config.css.dropText,
+					parent: m_props.css.dropParent,
+					imgDropIcon: m_props.css.dropImgDropIcon,
+					dropText: m_props.css.dropText,
 				},
 			};
 
@@ -543,7 +533,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installTreeViewCell(context) {
 			const defaultConfig = {
 				css: {
-					treeViewParent: m_config.css.treeViewParent,
+					treeViewParent: m_props.css.treeViewParent,
 				},
 			};
 
@@ -560,11 +550,11 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installDropdownCell(context) {
 			const defaultConfig = {
 				css: {
-					parent: m_config.css.dropDownParent,
-					container: m_config.css.dropDownContainer,
+					parent: m_props.css.dropDownParent,
+					container: m_props.css.dropDownContainer,
 					open: "open",
 					button: {
-						button: m_config.css.button,
+						button: m_props.css.button,
 					},
 				},
 				button: {
@@ -586,9 +576,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installComboboxCell(context) {
 			const defaultConfig = {
 				css: {
-					parent: m_config.css.comboboxParent,
+					parent: m_props.css.comboboxParent,
 					dropdown: {
-						container: m_config.css.comboboxDropDownContainer,
+						container: m_props.css.comboboxDropDownContainer,
 					},
 				},
 			};
@@ -608,9 +598,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const defaultConfig = {
 				css: {
 					combobox: {
-						parent: m_config.css.timePickerParent,
+						parent: m_props.css.timePickerParent,
 						dropdown: {
-							container: m_config.css.timePickerDropDownContainer,
+							container: m_props.css.timePickerDropDownContainer,
 						},
 					},
 				},
@@ -630,7 +620,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installCalendarCell(context) {
 			const defaultConfig = {
 				css: {
-					parent: m_config.css.calendarParent,
+					parent: m_props.css.calendarParent,
 				},
 			};
 
@@ -648,7 +638,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installDatePickerCell(context) {
 			const defaultConfig = {
 				css: {
-					parent: m_config.css.datePickerParent,
+					parent: m_props.css.datePickerParent,
 				},
 			};
 
@@ -664,7 +654,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function inputElChangeEvent(context) {
-			m_config.events.inputChange({
+			m_props.events.inputChange({
 				input: context.input,
 				column: context.column,
 				rowIndex: context.rowIndex,
@@ -688,7 +678,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function saveCellTagWidth(context) {
-			if (!m_config.maxColWidth) {
+			if (!m_props.maxColWidth) {
 				return;
 			}
 			// Save largest width value
@@ -704,7 +694,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			m_colsMaxPxWidth.forEach((width, index) => {
 				// Create width adjustment style
-				const adjWidth = width + m_config.colWidthAdj;
+				const adjWidth = width + m_props.colWidthAdj;
 				let hdrSelector =
 					m_parentTag.tagName.toLowerCase() + " " + m_gridHdrTag.tagName.toLowerCase() + " > *:nth-child(" + (index + 1) + ")";
 				let bodySelector =
@@ -793,16 +783,23 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ grid: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Grid: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
-				theme:"default",
+				theme: "default",
 				events: {
 					inputChange: (context) => {
 						// example on how global event listener configuration works
@@ -820,17 +817,26 @@ ui.class.Grid = class Grid extends HTMLElement {
 			};
 
 			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "grid",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "grid",
+					name: m_props.theme,
+					component: "grid",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

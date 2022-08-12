@@ -1,21 +1,22 @@
 ui.class.Button = class Button extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 		const m_imageList = [];
 
 		let m_parentTag;
-		let m_config;
+		let m_props;
 		let m_buttonTag;
 		let m_text = "";
 		let m_enable = true;
 
 		this.deselect = deselectBtn;
 		this.enable = enable;
-		this.getConfig = () => m_config;
-		this.getId = () => m_config.id;
+		this.getConfig = () => m_props;
+		this.getId = () => m_props.id;
 		this.getImageTagById = getImageTagById;
 		this.getParentTag = () => m_parentTag;
 		this.getTag = () => m_buttonTag;
@@ -24,30 +25,26 @@ ui.class.Button = class Button extends HTMLElement {
 		this.select = handleExternalSelect;
 		this.setup = setup;
 
-		if (initOptions) setup(initOptions);
+		if (props) setup(props);
 
-		function setup(options) {
-			configure(options);
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
-		}
-
-		function setOptionValues() {
-			m_text = m_config.text;
-			m_enable = m_config.enable;
-		}
-
-		function installDOM() {
-			installTag();
 			finishSetup();
 		}
 
-		function installTag() {
+		function setOptionValues() {
+			m_text = m_props.text;
+			m_enable = m_props.enable;
+		}
+
+		function installDOM() {
 			const tagConfig = {
-				class: m_config.css.button,
-				prop: m_config.prop,
-				attr: m_config.attr,
-				text: m_config.text,
+				class: m_props.css.button,
+				prop: m_props.prop,
+				attr: m_props.attr,
+				text: m_props.text,
 				event: {
 					click: handleClick,
 					mouseenter: () => {
@@ -60,16 +57,17 @@ ui.class.Button = class Button extends HTMLElement {
 					},
 				},
 			};
-			m_buttonTag = dom.createTag(m_config.tag, tagConfig);
+
+			m_buttonTag = dom.createTag(m_props.tag.button, tagConfig);
 
 			//check if an img was provided
-			if (m_config.img) {
-				insertGraphic(m_config.img, addImg);
+			if (m_props.img) {
+				insertGraphic(m_props.img, addImg);
 			}
 
 			//check if an svg was provided
-			if (m_config.svg) {
-				insertGraphic(m_config.svg, addSVG);
+			if (m_props.svg) {
+				insertGraphic(m_props.svg, addSVG);
 			}
 			self.appendChild(m_buttonTag);
 			setEnable(m_enable);
@@ -87,7 +85,7 @@ ui.class.Button = class Button extends HTMLElement {
 		}
 
 		function addImg(img) {
-			img.css = img.css ? img.css : m_config.css;
+			img.css = img.css ? img.css : m_props.css;
 			const tagConfig = {
 				class: img.css.img,
 				prop: img.prop,
@@ -124,25 +122,25 @@ ui.class.Button = class Button extends HTMLElement {
 			if (m_enable) {
 				selectBtn();
 
-				if (m_config.preventDefault) {
+				if (m_props.preventDefault) {
 					ev.preventDefault();
 				}
 
-				if (m_config.stopPropagation) {
+				if (m_props.stopPropagation) {
 					ev.stopPropagation();
 				}
 
 				// Invoke callback for each button
-				if (m_config.fnClick) {
-					m_config.fnClick({
+				if (m_props.fnClick) {
+					m_props.fnClick({
 						button: self,
 						ev: ev,
 					});
 				}
 
 				// Invoke callback for group
-				if (m_config.fnGroupClick) {
-					m_config.fnGroupClick({
+				if (m_props.fnGroupClick) {
+					m_props.fnGroupClick({
 						button: self,
 						ev: ev,
 					});
@@ -151,37 +149,37 @@ ui.class.Button = class Button extends HTMLElement {
 		}
 
 		function mouseEnterOverImage() {
-			if (m_config.img && Array.isArray(m_config.img)) {
-				m_config.img.forEach((img, i) => {
+			if (m_props.img && Array.isArray(m_props.img)) {
+				m_props.img.forEach((img, i) => {
 					if (img.hover) {
 						setSrcAttr(m_imageList[i], img.hover);
 					}
 				});
-			} else if (m_config.img && m_config.img.hover) {
-				dom.setAttr(m_imageList[0], { src: m_config.img.hover });
+			} else if (m_props.img && m_props.img.hover) {
+				dom.setAttr(m_imageList[0], { src: m_props.img.hover });
 			}
 		}
 
 		function mouseLeaveOverImage() {
-			if (m_config.img && Array.isArray(m_config.img)) {
-				m_config.img.forEach((img, i) => {
+			if (m_props.img && Array.isArray(m_props.img)) {
+				m_props.img.forEach((img, i) => {
 					if (img.hover) {
 						setSrcAttr(m_imageList[i], img.attr.src);
 					}
 				});
-			} else if (m_config.img && m_config.img.hover) {
-				dom.setAttr(m_imageList[0], { src: m_config.img.attr.src });
+			} else if (m_props.img && m_props.img.hover) {
+				dom.setAttr(m_imageList[0], { src: m_props.img.attr.src });
 			}
 		}
 
 		function mouseEnterOverButton(tag) {
-			if (!dom.hasClass(tag, m_config.css.selected)) {
-				dom.addClass(tag, m_config.css.hover);
+			if (!dom.hasClass(tag, m_props.css.selected)) {
+				dom.addClass(tag, m_props.css.hover);
 			}
 		}
 
 		function mouseLeaveOverButton(tag) {
-			dom.removeClass(tag, m_config.css.hover);
+			dom.removeClass(tag, m_props.css.hover);
 		}
 
 		function setSrcAttr(tag, src) {
@@ -199,11 +197,11 @@ ui.class.Button = class Button extends HTMLElement {
 		}
 
 		function selectBtn() {
-			dom.addClass(m_buttonTag, m_config.css.selected);
+			dom.addClass(m_buttonTag, m_props.css.selected);
 		}
 
 		function deselectBtn() {
-			dom.removeClass(m_buttonTag, m_config.css.selected);
+			dom.removeClass(m_buttonTag, m_props.css.selected);
 		}
 
 		function text(context) {
@@ -225,16 +223,15 @@ ui.class.Button = class Button extends HTMLElement {
 
 		function setEnable(enable) {
 			m_enable = enable;
-			m_enable ? dom.removeClass(m_buttonTag, m_config.css.disabled) : dom.addClass(m_buttonTag, m_config.css.disabled);
+			m_enable ? dom.removeClass(m_buttonTag, m_props.css.disabled) : dom.addClass(m_buttonTag, m_props.css.disabled);
 		}
 
 		function finishSetup() {
 			// Install component into parent
-			if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
-
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ button: self });
+			if (m_props.fnComplete) {
+				m_props.fnComplete({ Button: self });
 			}
 		}
 
@@ -244,43 +241,38 @@ ui.class.Button = class Button extends HTMLElement {
 			dom.append(m_parentTag, self, prepend);
 		}
 
-		function configure(options) {
-			m_config = {
+		function configure(customProps) {
+			m_props = {
 				enable: true,
-				id: "Button ID was not specified",
 				install: true,
-				installPrepend: false,
-				parentTag: undefined,
 				preventDefault: true,
 				stopPropagation: true,
 				text: "",
 				tag: "default",
 				theme: "default",
 			};
-
 			// If options provided, override default config
-			if (options) {
-				if (options.tag === "a") {
-					m_config.preventDefault = false;
-					m_config.stopPropagation = false;
-				}
-
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			if (m_config.parentTag) {
-				m_parentTag = dom.getTag(m_config.parentTag);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "button",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "button",
+					name: m_props.theme,
+					component: "button",
 				}),
-				m_config.css
+				m_props.css
 			);
-
 		}
 	}
 };

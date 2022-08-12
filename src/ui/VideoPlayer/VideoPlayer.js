@@ -1,76 +1,77 @@
 ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
 		let m_wrapperTag;
 
+		let m_props;
 		let m_player;
-		let m_config;
 
 		// Configure public methods
 		this.getPlayer = () => m_player;
 		this.getPlayerTag = () => m_player.getTag();
+		this.install = installSelf;
+		this.setup = setup;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
+		function setup(props) {
+			configure(props);
 			installDOM();
+			finishSetup();
 		}
 
 		function installDOM() {
-			m_parentTag = dom.getTag(parentTag);
-
-			if (!m_parentTag) {
-				console.error(`ScHtml5Video: dom. parent tag ${parentTag} was not found.`);
-				return;
-			}
-
 			//create the wrapper div container for the input
 			m_wrapperTag = dom.createTag("video-player", {
-				class: m_config.css.wrapper,
+				class: m_props.css.wrapper,
 			});
-			dom.append(m_parentTag, m_wrapperTag);
 
-			installPlayer();
+			self.appendChild(m_wrapperTag);
+			m_player = ui.player(m_wrapperTag, m_props.player);
 		}
 
-		function installPlayer() {
-			m_player = ui.player(m_wrapperTag, m_config.player);
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ VideoPlayer: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
+				tag: "default",
+				theme: "default",
 				player: {
 					css: {},
 					attr: {
 						controls: true,
 					},
 				},
-				css: {},
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_config.theme,
-					control: "html5video",
-				}),
-				m_config.css
-			);
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "videoPlayer" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "videoPlayer" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

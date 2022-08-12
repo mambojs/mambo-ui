@@ -1,16 +1,16 @@
 ui.class.Draggable = class Draggable extends HTMLElement {
-	constructor(parentTag, containerTag, options) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
-		let m_containerTag;
 		let m_draggableTag;
 
-		let m_config;
+		let m_props;
 		let m_enable = true;
 		let m_active = false;
 		let m_axis; //null: no axis, 0: x, 1: y
@@ -24,41 +24,36 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		this.destroy = destroyDraggable;
 		this.enable = enable;
 		this.getParentTag = () => m_draggableTag;
+		this.install = installSelf;
+		this.setup = setup;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Draggable: dom. parent tag ${parentTag} was not found.`);
-				return;
-			}
-
-			m_containerTag = dom.getTag(containerTag);
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
 		}
 
 		function setOptionValues() {
-			m_enable = m_config.enable;
-			m_axis = m_config.axis === "x" ? 0 : m_config.axis === "y" ? 1 : null;
+			m_enable = m_props.enable;
+			m_axis = m_props.axis === "x" ? 0 : m_props.axis === "y" ? 1 : null;
 		}
 
 		function installDOM() {
 			const tagConfig = {
-				class: m_config.css.draggable,
-				prop: m_config.prop,
-				attr: m_config.attr,
+				class: m_props.css.draggable,
+				prop: m_props.prop,
+				attr: m_props.attr,
 			};
-			m_draggableTag = dom.createTag(m_config.tag.draggable, tagConfig);
-			dom.append(m_parentTag, m_draggableTag);
+			m_draggableTag = dom.createTag(m_props.tag.draggable, tagConfig);
+			self.appendChild(m_draggableTag);
 			setupEventHandler();
 			setEnable(m_enable);
+
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+
 			finishSetup();
 		}
 
@@ -74,7 +69,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 		function dragStart(ev) {
 			if (m_enable) {
-				m_bounding = m_containerTag ? m_containerTag.getBoundingClientRect() : null;
+				const boundingTag = m_props.containerTag ? dom.getTag(m_props.containerTag) : null;
+				m_bounding = boundingTag ? boundingTag.getBoundingClientRect() : null;
 				m_xOffset = m_draggableTag.offsetLeft;
 				m_yOffset = m_draggableTag.offsetTop;
 
@@ -93,16 +89,16 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 					m_active = true;
 				}
 
-				if (m_active && m_config.fnDragStart) {
-					m_config.fnDragStart({ draggable: self, ev: ev });
+				if (m_active && m_props.fnDragStart) {
+					m_props.fnDragStart({ draggable: self, ev: ev });
 				}
 			}
 		}
 
 		function dragEnd(ev) {
 			if (m_enable) {
-				if (m_active && m_config.fnDragEnd) {
-					m_config.fnDragEnd({ draggable: self, ev: ev });
+				if (m_active && m_props.fnDragEnd) {
+					m_props.fnDragEnd({ draggable: self, ev: ev });
 				}
 
 				m_active = false;
@@ -126,20 +122,20 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 				let currentX = m_axis !== 1 ? clientX - m_initialX : 0;
 				let currentY = m_axis !== 0 ? clientY - m_initialY : 0;
 
-				if (Array.isArray(m_config.grid) && m_config.grid.length === 2) {
+				if (Array.isArray(m_props.grid) && m_props.grid.length === 2) {
 					if (m_bounding) {
-						currentX = getAxisStep(currentX, m_config.grid[0], m_bounding.left - m_initialX, m_bounding.right - m_initialX);
-						currentY = getAxisStep(currentY, m_config.grid[1], m_bounding.top - m_initialY, m_bounding.bottom - m_initialY);
+						currentX = getAxisStep(currentX, m_props.grid[0], m_bounding.left - m_initialX, m_bounding.right - m_initialX);
+						currentY = getAxisStep(currentY, m_props.grid[1], m_bounding.top - m_initialY, m_bounding.bottom - m_initialY);
 					} else {
-						currentX = getAxisStep(currentX, m_config.grid[0]);
-						currentY = getAxisStep(currentY, m_config.grid[1]);
+						currentX = getAxisStep(currentX, m_props.grid[0]);
+						currentY = getAxisStep(currentY, m_props.grid[1]);
 					}
 				}
 
 				setPosition(currentX, currentY);
 
-				if (m_config.fnDrag && (currentX !== 0 || currentY !== 0)) {
-					m_config.fnDrag({ draggable: self, ev: ev });
+				if (m_props.fnDrag && (currentX !== 0 || currentY !== 0)) {
+					m_props.fnDrag({ draggable: self, ev: ev });
 				}
 			}
 		}
@@ -183,14 +179,21 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ draggable: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Draggable: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
 				enable: true,
@@ -208,24 +211,32 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 					// Nothing executes by default
 				},
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "draggable",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "draggable",
+					name: m_props.theme,
+					component: "draggable",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}
 };
 
-ui.draggable = (parentTag, containerTag, options) => new ui.class.Draggable(parentTag, containerTag, options);
+ui.draggable = (props) => new ui.class.Draggable(props);
 
 customElements.define("mambo-draggable", ui.class.Draggable);

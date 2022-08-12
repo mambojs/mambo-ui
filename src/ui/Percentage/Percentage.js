@@ -1,9 +1,10 @@
 ui.class.Percentage = class Percentage extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
@@ -11,54 +12,43 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		let m_percentageBarTag;
 		let m_percentageTextTag;
 
-		let m_config;
+		let m_props;
 		let m_value = 0;
 
 		// Configure public methods
 		this.destroy = destroyPercentage;
 		this.getParentTag = () => m_percentageParentTag;
+		this.install = installSelf;
+		this.setup = setup;
 		this.value = value;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Percentage: dom. parent tag ${initOptions.parentTag} was not found.`);
-				return;
-			}
-
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
-		}
-
-		function setOptionValues() {
-			m_value = m_config.value;
-		}
-
-		function installDOM() {
-			installTags();
 			finishSetup();
 		}
 
-		function installTags() {
-			m_percentageParentTag = dom.createTag(m_config.tag.percentage, {
-				class: m_config.css.parent,
-			});
-			dom.append(m_parentTag, m_percentageParentTag);
+		function setOptionValues() {
+			m_value = m_props.value;
+		}
 
-			m_percentageBarTag = dom.createTag(m_config.tag.bar, {
-				class: m_config.css.bar,
+		function installDOM() {
+			m_percentageParentTag = dom.createTag(m_props.tag.percentage, {
+				class: m_props.css.parent,
+			});
+
+			self.appendChild(m_percentageParentTag);
+
+			m_percentageBarTag = dom.createTag(m_props.tag.bar, {
+				class: m_props.css.bar,
 			});
 			dom.append(m_percentageParentTag, m_percentageBarTag);
 
-			m_percentageTextTag = dom.createTag(m_config.tag.text, {
-				class: m_config.css.text,
+			m_percentageTextTag = dom.createTag(m_props.tag.text, {
+				class: m_props.css.text,
 			});
 			dom.append(m_percentageBarTag, m_percentageTextTag);
 
@@ -81,7 +71,7 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		}
 
 		function setText() {
-			m_percentageTextTag.innerText = m_utils.formatPercentage(m_value, m_config.decimals);
+			m_percentageTextTag.innerText = m_utils.formatPercentage(m_value, m_props.decimals);
 		}
 
 		function setBarWidth() {
@@ -89,8 +79,8 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		}
 
 		function setRange() {
-			if (m_utils.isArray(m_config.ranges) && m_config.ranges.length > 0) {
-				let range = m_config.ranges.find((range) => {
+			if (m_utils.isArray(m_props.ranges) && m_props.ranges.length > 0) {
+				let range = m_props.ranges.find((range) => {
 					return m_value >= range.min && m_value <= range.max;
 				});
 				if (range && range.css) {
@@ -101,7 +91,7 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		}
 
 		function clearRangeClasses() {
-			m_config.ranges.forEach((range) => {
+			m_props.ranges.forEach((range) => {
 				dom.removeClass(m_percentageBarTag, range.css);
 			});
 		}
@@ -111,14 +101,21 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ percentage: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Percentage: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
 				value: 0,
@@ -138,19 +135,27 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 					},
 				],
 			};
-
 			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "percentage",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "percentage",
+					name: m_props.theme,
+					component: "percentage",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

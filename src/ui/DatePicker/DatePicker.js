@@ -1,9 +1,10 @@
 ui.class.DatePicker = class DatePicker extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 		const m_dateMgr = new ui.date();
 
 		// HTML tag variables
@@ -14,40 +15,38 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		let m_dropdown;
 		let m_calendar;
 
-		let m_config;
+		let m_props;
 		let m_value = null;
 		let m_previous_text = "";
 
 		// Configure public methods
 		this.destroy = destroyDatePicker;
 		this.getParentTag = () => m_datePickerParentTag;
-		this.value = value;
+		this.install = installSelf;
 		this.setup = setup;
-		this.insta = installSelf;
+		this.value = value;
 
-		if (initOptions) setup(initOptions);
+		if (props) setup(props);
 
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-			configure();
+		function setup(props) {
+			configure(props);
 			installDOM();
-		}
-
-		function installDOM() {
-			m_datePickerParentTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
-			});
-
-			dom.append(m_parentTag, m_datePickerParentTag);
-
-			installInput();
-			installDropdown();
 			finishSetup();
 		}
 
+		function installDOM() {
+			m_datePickerParentTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
+			});
+
+			self.appendChild(m_datePickerParentTag);
+			installInput();
+			installDropdown();
+		}
+
 		function installInput() {
-			let input = m_utils.extend(true, {}, m_config.input);
-			input.css = m_utils.extend(true, m_config.css.input, input.css);
+			let input = m_utils.extend(true, {}, m_props.input);
+			input.css = m_utils.extend(true, m_props.css.input, input.css);
 			input.parentTag = m_datePickerParentTag;
 			m_input = ui.input(input);
 		}
@@ -55,64 +54,52 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		function installDropdown() {
 			//create the wrapper div container for the input
 			m_dropdownWrapperTag = dom.createTag("div", {
-				class: m_config.css.dropdownWrapper,
+				class: m_props.css.dropdownWrapper,
 			});
-			dom.append(m_datePickerParentTag, m_dropdownWrapperTag);
 
-			let dropdown = m_utils.extend(true, {}, m_config.dropdown);
-			dropdown.css = m_utils.extend(true, m_config.css.dropdown, dropdown.css);
+			dom.append(m_datePickerParentTag, m_dropdownWrapperTag);
+			let dropdown = m_utils.extend(true, {}, m_props.dropdown);
+			dropdown.css = m_utils.extend(true, m_props.css.dropdown, dropdown.css);
 
 			dropdown.fnBeforeClose = (context) => {
-				const result = m_config.dropdown.fnBeforeClose ? m_config.dropdown.fnBeforeClose(context) : true;
+				const result = m_props.dropdown.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
 				return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
 			};
 			dropdown.fnComplete = (context) => {
 				installCalendar(context.dropdown);
-
-				if (m_config.dropdown.fnComplete) {
-					m_config.dropdown.fnComplete(context);
+				if (m_props.dropdown.fnComplete) {
+					m_props.dropdown.fnComplete(context);
 				}
 			};
 			dropdown.parentTag = m_dropdownWrapperTag;
-
 			m_dropdown = ui.dropdown(dropdown);
 		}
 
 		function installCalendar(dropdown) {
 			const contentTag = dropdown.getContentTag();
 			contentTag.innerHTML = "";
+			let calendar = m_utils.extend(true, {}, m_props.calendar);
+			calendar.css = m_utils.extend(true, m_props.css.calendar, calendar.css);
+			calendar.format = m_props.format;
+			calendar.footer = m_props.footer;
+			calendar.start = m_props.start;
+			calendar.depth = m_props.depth;
+			calendar.min = m_props.min;
+			calendar.max = m_props.max;
 
-			let calendar = m_utils.extend(true, {}, m_config.calendar);
-			calendar.css = m_utils.extend(true, m_config.css.calendar, calendar.css);
-
-			calendar.format = m_config.format;
-			calendar.footer = m_config.footer;
-			calendar.start = m_config.start;
-			calendar.depth = m_config.depth;
-			calendar.min = m_config.min;
-			calendar.max = m_config.max;
 			calendar.fnSelect = (context) => {
 				m_value = context.calendar.value();
-				let text = m_dateMgr.format(m_value, m_config.format);
+				let text = m_dateMgr.format(m_value, m_props.format);
 				m_input.value({ value: text });
 				m_previous_text = text;
 				dropdown.close();
-
-				if (m_config.calendar.fnSelect) {
-					m_config.calendar.fnSelect(context);
-				}
-
-				if (m_config.fnSelect) {
-					m_config.fnSelect({ datePicker: self, ev: context.ev });
-				}
+				if (m_props.calendar.fnSelect) m_props.calendar.fnSelect(context);
+				if (m_props.fnSelect) m_props.fnSelect({ datePicker: self, ev: context.ev });
 			};
+
 			calendar.parentTag = contentTag;
-
 			m_calendar = ui.calendar(calendar);
-
-			if (m_config.value) {
-				setValue(m_config.value);
-			}
+			if (m_props.value) setValue(m_props.value);
 		}
 
 		function value(context = {}) {
@@ -124,11 +111,11 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		}
 
 		function setValue(value) {
-			let date = m_dateMgr.getDate(value, m_config.format);
+			let date = m_dateMgr.getDate(value, m_props.format);
 			m_calendar.value({ value: date });
 
 			m_value = m_calendar.value();
-			let text = m_dateMgr.format(m_value, m_config.format);
+			let text = m_dateMgr.format(m_value, m_props.format);
 			m_input.value({ value: text });
 			m_previous_text = text;
 		}
@@ -138,8 +125,8 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			if (m_previous_text !== text) {
 				setValue(text);
 
-				if (m_config.fnSelect) {
-					m_config.fnSelect({ datePicker: self, ev: ev });
+				if (m_props.fnSelect) {
+					m_props.fnSelect({ datePicker: self, ev: ev });
 				}
 			}
 		}
@@ -149,20 +136,21 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				installSelf(m_parentTag, m_config.installPrepend);
-				m_config.fnComplete({ timePicker: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ DatePicker: self });
 		}
+
 		function installSelf(parentTag, prepend) {
 			m_parentTag = parentTag ? parentTag : m_parentTag;
 			m_parentTag = dom.getTag(m_parentTag);
 			dom.append(m_parentTag, self, prepend);
 		}
 
-		function configure() {
-			m_config = {
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				theme: "default",
 				tag: "default",
 				input: {
@@ -195,19 +183,27 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 					// Nothing executes by default
 				},
 			};
-
-			// If initOptions provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			// If options provided, override default config
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "datePicker",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "date-picker",
+					name: m_props.theme,
+					component: "datePicker",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

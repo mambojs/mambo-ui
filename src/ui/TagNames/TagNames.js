@@ -1,16 +1,16 @@
 ui.class.TagNames = class TagNames {
-	constructor(initTags) {
+	constructor(props) {
 		const m_utils = new ui.utils();
-		// If default themes provided, initialize Themes with them
+		// If default Tag Names provided, initialize with them
 		this.m_tagNames = {
-			default: m_utils.extend(true, {}, initTags),
+			default: m_utils.extend(true, {}, props),
 		};
 	}
 
 	getTags(context) {
-		if (context && context.name && context.control) {
+		if (context && context.name && context.component) {
 			if (context.name in this.m_tagNames) {
-				return this.m_tagNames[context.name][context.control];
+				return this.m_tagNames[context.name][context.component];
 			}
 		}
 	}
@@ -28,4 +28,4 @@ ui.class.TagNames = class TagNames {
 	}
 };
 
-ui.tagNames = (initTags) => new ui.class.TagNames(initTags);
+ui.tagNames = (props) => new ui.class.TagNames(props);

@@ -1,5 +1,7 @@
 ui.defaultTagNames = {
-	button: "button",
+	button: {
+		button: "button",
+	},
 	buttonGroup: {
 		parent: "button-group",
 	},
@@ -16,7 +18,7 @@ ui.defaultTagNames = {
 	combobox: {
 		parent: "sc-combobox",
 	},
-	datePicker:{
+	datePicker: {
 		parent: "sc-date-picker",
 	},
 	dialog: {
@@ -90,6 +92,14 @@ ui.defaultTagNames = {
 		contentParent: "mambo-tab-contents",
 		content: "mambo-tab-content",
 	},
-
-
+	timePicker: {
+		parent: "sc-time-picker",
+	},
+	treeView: {
+		treeView: "sc-tree-view",
+		treeViewGroup: "tree-view-group",
+		treeViewItem: "tree-view-item",
+		treeViewItemTop: "tree-view-item-top",
+		treeViewItemIn: "tree-view-item-in",
+	},
 };

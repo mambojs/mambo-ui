@@ -1,68 +1,73 @@
 ui.class.Dialog = class Dialog extends HTMLElement {
-	constructor(parentTag, options, fnReady) {
+	constructor(props) {
 		super();
 
 		// Config default values
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
+		let m_parentTag;
 		let m_overlayTag;
 		let m_overlayHdrTag;
 		let m_overlayBodyTag;
 
-		let m_config;
+		let m_props;
 
 		// Configure public methods
 		this.close = closeDialog;
 		this.getParentTag = () => m_overlayTag;
+		this.install = installSelf;
+		this.setup = setup;
 
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			installDialog();
+		function setup(props) {
+			configure(props);
+			installDOM();
+			installEventHandlers();
+			finishSetup();
 		}
 
-		function installDialog() {
-			m_overlayTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
+		function installDOM() {
+			m_overlayTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
 			});
-			m_overlayBodyTag = dom.createTag(m_config.tag.dialogBody, {
-				class: m_config.css.dialogBody,
+
+			m_overlayBodyTag = dom.createTag(m_props.tag.dialogBody, {
+				class: m_props.css.dialogBody,
 			});
 
 			const overlayHdrLeft = dom.createTag("dialog-header-left", {
-				class: m_config.css.dialogHdrLeft,
+				class: m_props.css.dialogHdrLeft,
 			});
 
-			if (m_config.closeButton) {
+			if (m_props.closeButton) {
 				installCloseButton(overlayHdrLeft);
 			}
 
 			const overlayHdrCenter = dom.createTag("dialog-header-center", {
-				class: m_config.css.dialogHdrCenter,
+				class: m_props.css.dialogHdrCenter,
 			});
 
-			if (m_config.title) {
+			if (m_props.title) {
 				const h3Tag = dom.createTag("h3", {
-					class: m_config.css.hdrTitle,
-					text: m_config.title,
+					class: m_props.css.hdrTitle,
+					text: m_props.title,
 				});
 				dom.append(overlayHdrCenter, h3Tag);
 			} else {
-				dom.append(overlayHdrCenter, m_config.hdrHtml);
+				dom.append(overlayHdrCenter, m_props.hdrHtml);
 			}
 
 			const overlayHdrRight = dom.createTag("dialog-header-right", {
-				class: m_config.css.dialogHdrRight,
+				class: m_props.css.dialogHdrRight,
 			});
 
 			m_overlayHdrTag = dom.createTag("dialog-header", {
-				class: m_config.css.dialogHdr,
+				class: m_props.css.dialogHdr,
 			});
 			dom.append(m_overlayHdrTag, overlayHdrLeft);
 			dom.append(m_overlayHdrTag, overlayHdrCenter);
@@ -72,25 +77,22 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			dom.append(m_overlayTag, m_overlayBodyTag);
 
 			// Determine where to install dialog
-			dom.append(parentTag ? parentTag : "body", m_overlayTag);
-
-			// Continue to install all event handlers
-			installEventHandlers();
+			self.appendChild(m_overlayTag);
 		}
 
 		function installCloseButton(headerLeftTag) {
 			const btnConfig = {
 				parentTag: headerLeftTag,
-				text: m_config.closeText,
+				text: m_props.closeText,
 				css: {
-					button: m_config.css.hdrCloseBtn,
+					button: m_props.css.hdrCloseBtn,
 				},
 				attr: {
 					type: "button",
 				},
 				fnClick: () => {
-					if (m_config.fnClose) {
-						m_config.fnClose({ dialog: self });
+					if (m_props.fnClose) {
+						m_props.fnClose({ dialog: self });
 					} else {
 						close();
 					}
@@ -102,8 +104,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 
 		function installEventHandlers() {
 			// Invoke call back when installation is completed
-			if (fnReady) {
-				fnReady({ dialog: self, dialogContentTag: m_overlayBodyTag });
+			if (m_props.fnReady) {
+				m_props.fnReady({ dialog: self, dialogContentTag: m_overlayBodyTag });
 			}
 		}
 
@@ -115,26 +117,49 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			dom.remove(m_overlayTag);
 		}
 
-		function configure() {
-			m_config = {
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ Dialog: self });
+		}
+
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
+				parentTag: "body",
 				closeButton: true,
 				closeText: "close",
 				theme: "default",
 				tag: "default",
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "dialog",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "dialog",
+					name: m_props.theme,
+					component: "dialog",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

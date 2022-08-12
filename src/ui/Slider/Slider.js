@@ -1,9 +1,10 @@
 ui.class.Slider = class Slider extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
@@ -14,7 +15,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		let m_handleTag;
 		let m_stepTags = [];
 
-		let m_config;
+		let m_props;
 		let m_horizontal = true;
 		let m_css;
 		let m_enable = true;
@@ -25,62 +26,52 @@ ui.class.Slider = class Slider extends HTMLElement {
 		this.destroy = destroySlider;
 		this.enable = enable;
 		this.getParentTag = () => m_sliderParentTag;
+		this.install = installSelf;
+		this.setup = setup;
 		this.value = value;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Slider: dom. parent tag ${initOptions.parentTag} was not found.`);
-				return;
-			}
-
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
-		}
-
-		function setOptionValues() {
-			m_enable = m_config.enable;
-			m_value = m_config.value;
-			m_horizontal = m_config.orientation !== "vertical";
-			m_css = m_horizontal ? m_config.css.horizontal : m_config.css.vertical;
-		}
-
-		function installDOM() {
-			installTags();
 			finishSetup();
 		}
 
-		function installTags() {
-			m_sliderParentTag = dom.createTag(m_config.tag.slider, {
+		function setOptionValues() {
+			m_enable = m_props.enable;
+			m_value = m_props.value;
+			m_horizontal = m_props.orientation !== "vertical";
+			m_css = m_horizontal ? m_props.css.horizontal : m_props.css.vertical;
+		}
+
+		function installDOM() {
+			m_sliderParentTag = dom.createTag(m_props.tag.slider, {
 				class: m_css.parent,
 			});
-			dom.append(m_parentTag, m_sliderParentTag);
-			m_sliderWrapperTag = dom.createTag(m_config.tag.wrapper, {
+
+			self.appendChild(m_sliderParentTag);
+
+			m_sliderWrapperTag = dom.createTag(m_props.tag.wrapper, {
 				class: m_css.wrapper,
 			});
 
-			if (m_config.showButtons) {
+			if (m_props.showButtons) {
 				if (m_horizontal) {
-					installButton(m_config.decreaseButton, m_css.decreaseButton, decrease);
+					installButton(m_props.decreaseButton, m_css.decreaseButton, decrease);
 				} else {
-					installButton(m_config.increaseButton, m_css.increaseButton, increase);
+					installButton(m_props.increaseButton, m_css.increaseButton, increase);
 				}
 			}
 
 			dom.append(m_sliderParentTag, m_sliderWrapperTag);
 
-			if (m_config.showButtons) {
+			if (m_props.showButtons) {
 				if (m_horizontal) {
-					installButton(m_config.increaseButton, m_css.increaseButton, increase);
+					installButton(m_props.increaseButton, m_css.increaseButton, increase);
 				} else {
-					installButton(m_config.decreaseButton, m_css.decreaseButton, decrease);
+					installButton(m_props.decreaseButton, m_css.decreaseButton, decrease);
 				}
 			}
 
@@ -98,8 +89,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 			button.fnClick = (context) => {
 				fnClick();
 
-				if (m_config.fnSelect) {
-					m_config.fnSelect({ slider: self, ev: context.ev });
+				if (m_props.fnSelect) {
+					m_props.fnSelect({ slider: self, ev: context.ev });
 				}
 
 				if (config.fnClick) {
@@ -111,18 +102,18 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function decrease() {
-			setValue(m_value - m_config.step);
+			setValue(m_value - m_props.step);
 		}
 
 		function increase() {
-			setValue(m_value + m_config.step);
+			setValue(m_value + m_props.step);
 		}
 
 		function installTrack() {
-			m_trackTag = dom.createTag(m_config.tag.track, { class: m_css.track });
+			m_trackTag = dom.createTag(m_props.tag.track, { class: m_css.track });
 			dom.append(m_sliderWrapperTag, m_trackTag);
 
-			m_selectionTag = dom.createTag(m_config.tag.selection, {
+			m_selectionTag = dom.createTag(m_props.tag.selection, {
 				class: m_css.selection,
 			});
 			dom.append(m_sliderWrapperTag, m_selectionTag);
@@ -131,19 +122,19 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installSteps() {
-			let stepsTag = dom.createTag(m_config.tag.stepsContainer, {
+			let stepsTag = dom.createTag(m_props.tag.stepsContainer, {
 				class: m_css.stepsContainer,
 			});
 			dom.prepend(m_sliderWrapperTag, stepsTag);
 			const trackLength = m_horizontal ? m_trackTag.clientWidth : m_trackTag.clientHeight;
-			const steps = Math.floor((m_config.max - m_config.min) / m_config.step);
+			const steps = Math.floor((m_props.max - m_props.min) / m_props.step);
 			m_stepLength = trackLength / steps;
 
 			for (let i = 0; i <= steps; i++) {
 				let stepTag = null;
-				const value = i * m_config.step + m_config.min;
+				const value = i * m_props.step + m_props.min;
 
-				if ((i * m_config.step) % m_config.largeStep === 0) {
+				if ((i * m_props.step) % m_props.largeStep === 0) {
 					stepTag = installLargeStep(stepsTag, value);
 				} else {
 					stepTag = installSmallStep(stepsTag);
@@ -155,7 +146,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installLargeStep(stepsTag, value) {
-			let stepTag = dom.createTag(m_config.tag.stepLarge, {
+			let stepTag = dom.createTag(m_props.tag.stepLarge, {
 				class: m_css.stepLarge,
 			});
 			let textTag = dom.createTag("span", {
@@ -176,7 +167,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installSmallStep(stepsTag) {
-			let stepTag = dom.createTag(m_config.tag.step, { class: m_css.step });
+			let stepTag = dom.createTag(m_props.tag.step, { class: m_css.step });
 
 			if (m_horizontal) {
 				dom.append(stepsTag, stepTag);
@@ -195,16 +186,16 @@ ui.class.Slider = class Slider extends HTMLElement {
 					draggable: m_css.handle,
 				},
 				tag: {
-					draggable: m_config.tag.handle,
+					draggable: m_props.tag.handle,
 				},
 				axis: m_horizontal ? "x" : "y",
 				grid: m_horizontal ? [m_stepLength, 0] : [0, m_stepLength],
 				attr: {
-					title: m_config.handleTitle,
+					title: m_props.handleTitle,
 				},
 				fnDragStart: (context) => {
-					if (m_config.fnSlideStart) {
-						m_config.fnSlideStart({ slider: self, ev: context.ev });
+					if (m_props.fnSlideStart) {
+						m_props.fnSlideStart({ slider: self, ev: context.ev });
 					}
 				},
 				fnDragEnd: updateValue,
@@ -218,16 +209,16 @@ ui.class.Slider = class Slider extends HTMLElement {
 			m_value = Number(m_stepTags[getSelectedIndex()].id);
 			setHandlePosition();
 
-			if (m_config.fnSelect) {
-				m_config.fnSelect({ slider: self, ev: context.ev });
+			if (m_props.fnSelect) {
+				m_props.fnSelect({ slider: self, ev: context.ev });
 			}
 		}
 
 		function updateSelection(context) {
 			setSelectionPosition();
 
-			if (m_config.fnSlide) {
-				m_config.fnSlide({ slider: self, ev: context.ev });
+			if (m_props.fnSlide) {
+				m_props.fnSlide({ slider: self, ev: context.ev });
 			}
 		}
 
@@ -259,7 +250,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function setEnable(enable) {
 			m_enable = enable;
-			m_enable ? dom.removeClass(m_sliderParentTag, m_config.css.disabled) : dom.addClass(m_sliderParentTag, m_config.css.disabled);
+			m_enable ? dom.removeClass(m_sliderParentTag, m_props.css.disabled) : dom.addClass(m_sliderParentTag, m_props.css.disabled);
 			m_handleTag.enable({ enable: enable });
 		}
 
@@ -305,11 +296,11 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function getValidValue(value) {
-			if (value < m_config.min) return m_config.min;
-			if (value > m_config.max) return m_config.max;
-			if ((value - m_config.min) % m_config.step !== 0) {
-				let steps = Math.floor((value - m_config.min) / m_config.step);
-				return m_config.min + steps * m_config.step;
+			if (value < m_props.min) return m_props.min;
+			if (value > m_props.max) return m_props.max;
+			if ((value - m_props.min) % m_props.step !== 0) {
+				let steps = Math.floor((value - m_props.min) / m_props.step);
+				return m_props.min + steps * m_props.step;
 			}
 			return value;
 		}
@@ -319,16 +310,23 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ slider: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Slider: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
-				theme:"default",
+				theme: "default",
 				value: 0,
 				min: -10,
 				max: 10,
@@ -358,20 +356,16 @@ ui.class.Slider = class Slider extends HTMLElement {
 					// Nothing executes by default
 				},
 			};
-
 			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_config.theme,
-					control: "slider",
-				}),
-				m_config.css
-			);
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "slider" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "slider" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

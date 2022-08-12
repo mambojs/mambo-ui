@@ -1,15 +1,13 @@
 // Instantiate global Object Manager and required Object instances
-/* const object = tools.object();
+const tools = mamboTools();
+const object = tools.object();
 object.save(tools.utils(), "utils");
 object.save(tools.string(), "string");
 object.save(tools.history(), "history");
 object.save(tools.router({ historyManager: object.get("history") }), "router");
 object.save(tools.api(), "api");
-object.save(mamboUI(), "ui");
-object.save(domJS(), "dom"); */
+object.save(domJS(), "dom");
 const dom = domJS();
-const tools = mamboTools();
-const router = tools.router();
 
 // Begin Storyboard development installation
 installStoryboard();

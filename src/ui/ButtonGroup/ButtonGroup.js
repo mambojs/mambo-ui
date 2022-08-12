@@ -1,16 +1,17 @@
 ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		const m_buttonsList = [];
 		let m_buttonGroupTag;
 		let m_parentTag;
 
-		let m_config;
+		let m_props;
 		let m_selectedButtonTag;
 
 		// Public methods
@@ -20,30 +21,27 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		this.getParentTag = () => m_buttonGroupTag;
 		this.getSelected = getSelected;
 		this.getTag = getButtonTagById;
+		this.install = installSelf;
 		this.select = selectBtn;
+		this.setup = setup;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
+		function setup(props) {
+			configure(props);
+			installDOM();
+			finishSetup();
+		}
 
-		function setup() {
-			m_parentTag = dom.getTag(parentTag);
-			if (!m_parentTag) {
-				console.error(`Button Group: dom. tag ${parentTag} not found.`);
-				return;
-			}
-
-			m_buttonGroupTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
+		function installDOM() {
+			m_buttonGroupTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
 			});
 
-			dom.append(m_parentTag, m_buttonGroupTag);
-
+			self.appendChild(m_buttonGroupTag);
 			// Loop through all the buttons
-			if (m_config.buttons) {
-				m_config.buttons.forEach(installButton);
+			if (m_props.buttons) {
+				m_props.buttons.forEach(installButton);
 			}
 		}
 
@@ -59,8 +57,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		}
 
 		function installButton(button) {
-			button.css = button.css ? m_utils.extend(true, m_config.css, button.css) : m_config.css;
-			button.fnGroupClick = m_config.fnGroupClick;
+			button.css = button.css ? m_utils.extend(true, m_props.css, button.css) : m_props.css;
+			button.fnGroupClick = m_props.fnGroupClick;
 			button.parentTag = m_buttonGroupTag;
 			m_buttonsList.push(ui.button(button));
 		}
@@ -70,8 +68,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			deselectBtns();
 
 			// If same callback for all buttons
-			if (m_config.fnClick) {
-				m_config.fnClick(context);
+			if (m_props.fnClick) {
+				m_props.fnClick(context);
 			}
 
 			// Select clicked button
@@ -107,25 +105,47 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			dom.remove(m_buttonGroupTag);
 		}
 
-		function configure() {
-			m_config = {
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ ButtonGroup: self });
+		}
+
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
 				fnGroupClick: handleGroupBtnClick,
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "buttonGroup",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "buttonGroup",
+					name: m_props.theme,
+					component: "buttonGroup",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

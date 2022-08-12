@@ -1,9 +1,10 @@
 ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
-	constructor(parentTag, options) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
@@ -11,7 +12,7 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 		let m_checkboxRadioTag;
 		let m_checkboxRadioSpanTag;
 
-		let m_config;
+		let m_props;
 		let m_type = 1; //1:checkbox 2:radio
 		let m_enable = true;
 		let m_checked = false;
@@ -19,62 +20,55 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 		// Configure public methods
 		this.destroy = destroyCheckboxRadio;
 		this.enable = enable;
-		this.getId = () => m_config.id;
+		this.getId = () => m_props.id;
 		this.getParentTag = () => m_checkboxRadioParentTag;
+		this.install = installSelf;
 		this.isCheckbox = isCheckbox;
 		this.isRadio = isRadio;
 		this.select = select;
+		this.setup = setup;
 		this.value = value;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Checkbox: dom. parent tag ${parentTag} was not found.`);
-				return;
-			}
-
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
+			setupEventHandler();
+			finishSetup();
 		}
 
 		function setOptionValues() {
-			m_enable = m_config.enable;
+			m_enable = m_props.enable;
 		}
 
 		function installDOM() {
 			installTags();
-			setupEventHandler();
-			finishSetup();
 		}
 
 		function installTags() {
 			// Install checkbox / radio parent tag
 			m_checkboxRadioParentTag = dom.createTag("label", {
-				class: m_config.css.checkboxRadioParent,
+				class: m_props.css.checkboxRadioParent,
 			});
-			dom.append(m_parentTag, m_checkboxRadioParentTag);
+
+			self.appendChild(m_checkboxRadioParentTag);
 
 			let textTag = dom.createTag("span", {
-				class: m_config.css.checkboxRadioText,
-				text: m_config.text,
+				class: m_props.css.checkboxRadioText,
+				text: m_props.text,
 			});
 			dom.append(m_checkboxRadioParentTag, textTag);
 
-			m_type = m_config.attr["type"] === "checkbox" ? 1 : 2;
-			let css = m_type === 1 ? m_config.css.checkbox : m_config.css.radio;
+			m_type = m_props.attr["type"] === "checkbox" ? 1 : 2;
+			let css = m_type === 1 ? m_props.css.checkbox : m_props.css.radio;
 
 			const tagConfig = {
 				class: css.input,
-				prop: m_config.prop,
-				attr: m_config.attr,
-				text: m_config.value,
+				prop: m_props.prop,
+				attr: m_props.attr,
+				text: m_props.value,
 			};
 			m_checkboxRadioTag = dom.createTag("input", tagConfig);
 			m_checkboxRadioSpanTag = dom.createTag("span", { class: css.span });
@@ -82,7 +76,7 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 			dom.append(m_checkboxRadioParentTag, m_checkboxRadioTag);
 			dom.append(m_checkboxRadioParentTag, m_checkboxRadioSpanTag);
 
-			m_checked = m_config.prop["checked"];
+			m_checked = m_props.prop["checked"];
 			setEnable(m_enable);
 		}
 
@@ -101,13 +95,13 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 						break;
 				}
 
-				if (m_config.fnClick) {
-					m_config.fnClick({ checkboxRadio: self, ev: ev });
+				if (m_props.fnClick) {
+					m_props.fnClick({ checkboxRadio: self, ev: ev });
 				}
 
 				// Invoke callback for group
-				if (m_config.fnGroupClick) {
-					m_config.fnGroupClick({ checkboxRadio: self, ev: ev });
+				if (m_props.fnGroupClick) {
+					m_props.fnGroupClick({ checkboxRadio: self, ev: ev });
 				}
 			} else {
 				ev.preventDefault();
@@ -144,8 +138,8 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 		function setEnable(enable) {
 			m_enable = enable;
 			m_enable
-				? dom.removeClass(m_checkboxRadioParentTag, m_config.css.disabled)
-				: dom.addClass(m_checkboxRadioParentTag, m_config.css.disabled);
+				? dom.removeClass(m_checkboxRadioParentTag, m_props.css.disabled)
+				: dom.addClass(m_checkboxRadioParentTag, m_props.css.disabled);
 		}
 
 		function value(context = {}) {
@@ -169,15 +163,22 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ checkboxRadio: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ CheckboxRadio: self });
 		}
 
-		function configure() {
-			m_config = {
-				theme:"default",
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				tag: "default",
+				theme: "default",
 				id: "CheckboxRadio ID was not specified",
 				text: "",
 				value: "",
@@ -190,19 +191,27 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 					checked: false,
 				},
 			};
-
 			// If options provided, override default config
-			if (options) {
-				m_config = m_utils.extend(true, m_config, options);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "checkboxRadio",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "checkboxRadio",
+					name: m_props.theme,
+					component: "checkboxRadio",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

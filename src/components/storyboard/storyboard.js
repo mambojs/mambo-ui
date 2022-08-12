@@ -1,4 +1,5 @@
 function installStoryboard() {
+	const router = object.get("router");
 	const cevt = new CustomEvent("compiler-ready", {
 		bubbles: true,
 		cancelable: true,
@@ -9,29 +10,29 @@ function installStoryboard() {
 	demoui.html = "&nbsp;";
 	demoui.components = [];
 	const demoFiles = [
-		{ alias: "button", name: "MamboButton" },
-		{ alias: "button-group", name: "MamboButtonGroup" },
-		{ alias: "calendar", name: "MamboCalendar" },
-		{ alias: "checkbox-radio", name: "MamboCheckboxRadio" },
-		{ alias: "checkbox-radio-group", name: "MamboCheckboxRadioGroup" },
-		{ alias: "combobox", name: "MamboCombobox" },
-		{ alias: "date-picker", name: "MamboDatePicker" },
-		{ alias: "dialog", name: "MamboDialog" },
-		{ alias: "drag-drop", name: "MamboDragDrop" },
-		{ alias: "draggable", name: "MamboDraggable" },
-		{ alias: "dropdown", name: "MamboDropdown" },
-		{ alias: "file-chooser", name: "MamboFileChooser" },
-		{ alias: "grid", name: "MamboGrid" },
-		{ alias: "input", name: "MamboInput" },
-		{ alias: "percentage", name: "MamboPercentage" },
-		{ alias: "player", name: "MamboPlayer" },
-		{ alias: "rating", name: "MamboRating" },
-		{ alias: "slideout", name: "MamboSlideout" },
-		{ alias: "slider", name: "MamboSlider" },
-		{ alias: "switch", name: "MamboSwitch" },
-		{ alias: "tab", name: "MamboTab" },
-		{ alias: "time-picker", name: "MamboTimePicker" },
-		{ alias: "tree-view", name: "MamboTreeView" },
+		{ alias: "button", name: "Button" },
+		{ alias: "button-group", name: "ButtonGroup" },
+		{ alias: "calendar", name: "Calendar" },
+		{ alias: "checkbox-radio", name: "CheckboxRadio" },
+		{ alias: "checkbox-radio-group", name: "CheckboxRadioGroup" },
+		{ alias: "combobox", name: "Combobox" },
+		{ alias: "date-picker", name: "DatePicker" },
+		{ alias: "dialog", name: "Dialog" },
+		{ alias: "drag-drop", name: "DragDrop" },
+		{ alias: "draggable", name: "Draggable" },
+		{ alias: "dropdown", name: "Dropdown" },
+		{ alias: "file-chooser", name: "FileChooser" },
+		{ alias: "grid", name: "Grid" },
+		{ alias: "input", name: "Input" },
+		{ alias: "percentage", name: "Percentage" },
+		{ alias: "player", name: "Player" },
+		{ alias: "rating", name: "Rating" },
+		{ alias: "slideout", name: "Slideout" },
+		{ alias: "slider", name: "Slider" },
+		{ alias: "switch", name: "Switch" },
+		{ alias: "tab", name: "Tab" },
+		{ alias: "time-picker", name: "TimePicker" },
+		{ alias: "tree-view", name: "TreeView" },
 	];
 
 	const getModules = Promise.all(
@@ -166,7 +167,7 @@ function installStoryboard() {
 
 			function clearArea(area) {
 				let element = document.getElementById(area);
-				element.innerHTML = "";
+				if (element) element.innerHTML = "";
 			}
 
 			function createHTMLbase() {
@@ -220,7 +221,7 @@ function installStoryboard() {
 
 				clearArea(object.area);
 
-				area.appendChild(customTag);
+				if (area) area.appendChild(customTag);
 
 				switch (object.type) {
 					case TYPES[0]:

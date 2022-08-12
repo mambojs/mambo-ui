@@ -1,12 +1,13 @@
 ui.class.Tab = class Tab extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// Define member variables
-		let m_config;
+		let m_props;
 		let m_selectedId;
 
 		// Define tag member variables
@@ -17,61 +18,57 @@ ui.class.Tab = class Tab extends HTMLElement {
 		const m_contentTagsMap = {};
 
 		// Define public functions
-		// this.install = installSelf;
+		this.install = installSelf;
 		this.setup = setup;
 
-		if (initOptions) setup(initOptions);
+		if (props) setup(props);
 
-		function setup(options) {
-			configure(options);
-			installDom();
+		function setup(props) {
+			configure(props);
+			installDOM();
+			finishSetup();
 		}
 
-		function installDom() {
+		function installDOM() {
 			// Add CSS class to parent
-			dom.addClass(self, m_config.css.parent);
+			dom.addClass(self, m_props.css.parent);
 			// Create content parent tag
 			const eleConfig = {
-				class: m_config.css.contentParent,
+				class: m_props.css.contentParent,
 			};
-			m_contentParentTag = dom.createTag(m_config.tag.contentParent, eleConfig);
+			m_contentParentTag = dom.createTag(m_props.tag.contentParent, eleConfig);
 
-			m_tabsTag = dom.createTag(m_config.tag.tabs, {
-				class: m_config.css.tabs,
+			m_tabsTag = dom.createTag(m_props.tag.tabs, {
+				class: m_props.css.tabs,
 			});
 
-			installTabs(m_config.tabs);
+			installTabs(m_props.tabs);
 			installContent();
 
 			// Append all childs
 			self.appendChild(m_tabsTag);
 			self.appendChild(m_contentParentTag);
-			// Install component into parent
-			// if (m_config.install) installSelf(m_parentTag, m_config.installPrepend);
-			if (m_parentTag) {
-				m_parentTag.appendChild(self);
-			}
 		}
 
 		function installContent() {
-			m_config.tabs.buttons.forEach((button, index) => {
-				const contentTag = dom.createTag(m_config.tag.content, {
-					class: m_config.css.content,
+			m_props.tabs.buttons.forEach((button, index) => {
+				const contentTag = dom.createTag(m_props.tag.content, {
+					class: m_props.css.content,
 				});
 
 				if (m_selectedId === button.id) {
 					// Set to show default selected Tab
-					dom.addClass(contentTag, m_config.css.selectedTab);
+					dom.addClass(contentTag, m_props.css.selectedTab);
 				} else if (!m_selectedId && index === 0) {
 					// Set to show first tab as selected Tab
-					dom.addClass(contentTag, m_config.css.selectedTab);
+					dom.addClass(contentTag, m_props.css.selectedTab);
 				}
 
 				m_contentTagsMap[button.id] = contentTag;
 
 				// Check if content already exists for this Tab
-				if (m_config.contents[index]) {
-					contentTag.appendChild(m_config.contents[index]);
+				if (m_props.contents[index]) {
+					contentTag.appendChild(m_props.contents[index]);
 				}
 
 				m_contentParentTag.appendChild(contentTag);
@@ -88,19 +85,26 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		function toggleTabContent(clickedBtn) {
 			// Remove selected class from ALL content tags
-			dom.removeClassAll(m_contentTagsMap, m_config.css.selectedTab);
+			dom.removeClassAll(m_contentTagsMap, m_props.css.selectedTab);
 			// Add class to newly selected Tab content tag
 			const tabId = clickedBtn.button.getId();
 			const selectedTab = m_contentTagsMap[tabId];
-			selectedTab.classList.add(m_config.css.selectedTab);
+			selectedTab.classList.add(m_props.css.selectedTab);
 			// Invoke outside listener
-			if (m_config.tabs.fnClick) {
-				m_config.tabs.fnClick(clickedBtn);
+			if (m_props.tabs.fnClick) {
+				m_props.tabs.fnClick(clickedBtn);
 			}
 		}
 
 		function handleTabReady(contentTag, tab) {
-			m_config.fnTabReady(contentTag, tab);
+			m_props.fnTabReady(contentTag, tab);
+		}
+
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ Tab: self });
 		}
 
 		function installSelf(parentTag, prepend) {
@@ -109,8 +113,9 @@ ui.class.Tab = class Tab extends HTMLElement {
 			dom.append(m_parentTag, self, prepend);
 		}
 
-		function configure(options) {
-			m_config = {
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				tag: "default",
 				tabs: {
 					// Expects a ButtonGroup config
@@ -122,29 +127,22 @@ ui.class.Tab = class Tab extends HTMLElement {
 				id: undefined,
 				theme: "default",
 			};
-
 			// If options provided, override default config
-			if (options) m_config = m_utils.extend(true, m_config, options);
-			// Set defaults
-			m_selectedId = m_config.selectedId;
-			if (m_config.parentTag) {
-				m_parentTag = dom.getTag(m_config.parentTag);
-			}
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "tab" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "tab" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 
 			// Must check that ButtonGroup config have IDs
 			// If not, create them
-			m_config.tabs.buttons.forEach((button) => {
+			m_props.tabs.buttons.forEach((button) => {
 				if (!button.id) button.id = Math.round(Math.random() * 1000);
 			});
-
-			m_config.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_config.theme,
-					control: "tab",
-				}),
-				m_config.css
-			);
 		}
 	}
 

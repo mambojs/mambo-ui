@@ -1,10 +1,11 @@
 ui.class.Calendar = class Calendar extends HTMLElement {
-	constructor(initOptions) {
+	constructor(props) {
 		super();
 		const self = this;
 		const m_utils = new ui.utils();
 		const m_dateMgr = new ui.date();
-		const m_theme = ui.theme(ui.g_defaultTheme);
+		const m_theme = ui.theme(ui.defaultTheme);
+		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
@@ -17,7 +18,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		let m_datesHeaderGrid;
 		let m_datesButtonGroup;
 
-		let m_config;
+		let m_props;
 		let m_idFormat = "YYYY/M/D";
 		let m_value;
 		let m_viewDate;
@@ -29,68 +30,55 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		// Configure public methods
 		this.destroy = destroyCalendar;
+		this.getParentTag = () => m_calendarParentTag;
+		this.install = installSelf;
 		this.navigateToFuture = navigateToFuture;
 		this.navigateToPast = navigateToPast;
 		this.navigateUp = navigateUp;
-		this.getParentTag = () => m_calendarParentTag;
+		this.setup = setup;
 		this.value = value;
 
-		// Config default values
-		configure();
+		if (props) setup(props);
 
-		// Begin setup
-		setup();
-
-		function setup() {
-			m_parentTag = dom.getTag(initOptions.parentTag);
-
-			if (!m_parentTag) {
-				console.error(`Calendar: dom. parent tag ${initOptions.parentTag} was not found.`);
-				return;
-			}
-
+		function setup(props) {
+			configure(props);
 			setOptionValues();
 			installDOM();
+			finishSetup();
 		}
 
 		function setOptionValues() {
-			m_depth = typeof m_depths[m_config.start] !== "undefined" ? m_depths[m_config.start] : 0;
-			m_minDepth = typeof m_depths[m_config.depth] !== "undefined" ? m_depths[m_config.depth] : 0;
+			m_depth = typeof m_depths[m_props.start] !== "undefined" ? m_depths[m_props.start] : 0;
+			m_minDepth = typeof m_depths[m_props.depth] !== "undefined" ? m_depths[m_props.depth] : 0;
 			m_minDepth = m_minDepth > m_depth ? m_depth : m_minDepth;
 
-			m_minDate = m_dateMgr.getDate(m_config.min, m_config.format);
-			m_maxDate = m_dateMgr.getDate(m_config.max, m_config.format);
+			m_minDate = m_dateMgr.getDate(m_props.min, m_props.format);
+			m_maxDate = m_dateMgr.getDate(m_props.max, m_props.format);
 
 			m_value = getDefaultValue();
 			setViewDate(m_value);
 		}
 
 		function installDOM() {
-			m_calendarParentTag = dom.createTag(m_config.tag.parent, {
-				class: m_config.css.parent,
+			m_calendarParentTag = dom.createTag(m_props.tag.parent, {
+				class: m_props.css.parent,
 			});
 
-			m_parentTag.innerHTML = "";
-			dom.append(m_parentTag, m_calendarParentTag);
-
+			self.appendChild(m_calendarParentTag);
 			installHeader();
 			installBody();
 			installFooter();
-
-			finishSetup();
 		}
 
-		//Header
-
 		function installHeader() {
-			let buttonGroup = m_utils.extend(true, {}, m_config.headerButtonGroup);
-			buttonGroup.css = m_utils.extend(true, m_config.css.headerButtonGroup, buttonGroup.css);
+			let buttonGroup = m_utils.extend(true, {}, m_props.headerButtonGroup);
+			buttonGroup.css = m_utils.extend(true, m_props.css.headerButtonGroup, buttonGroup.css);
 
 			buttonGroup.buttons.forEach((button, index) => {
 				button.fnComplete = (context) => {
 					m_headerButtonsList[index] = context.button;
-					if (m_config.headerButtonGroup.buttons[index].fnComplete) {
-						m_config.headerButtonGroup.buttons[index].fnComplete(context);
+					if (m_props.headerButtonGroup.buttons[index].fnComplete) {
+						m_props.headerButtonGroup.buttons[index].fnComplete(context);
 					}
 				};
 			});
@@ -118,9 +106,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function setHeaderButtonsEnabled() {
 			m_headerButtonsList.forEach((button, index) => {
-				if (m_config.headerButtonGroup.buttons[index].fnEnabled) {
+				if (m_props.headerButtonGroup.buttons[index].fnEnabled) {
 					button.enable({
-						enable: m_config.headerButtonGroup.buttons[index].fnEnabled(),
+						enable: m_props.headerButtonGroup.buttons[index].fnEnabled(),
 					});
 				}
 			});
@@ -155,9 +143,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function setHeaderButtonsText() {
 			m_headerButtonsList.forEach((button, index) => {
-				if (m_config.headerButtonGroup.buttons[index].fnText) {
+				if (m_props.headerButtonGroup.buttons[index].fnText) {
 					button.text({
-						text: m_config.headerButtonGroup.buttons[index].fnText(),
+						text: m_props.headerButtonGroup.buttons[index].fnText(),
 					});
 				}
 			});
@@ -179,18 +167,18 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Body
 
 		function installBody() {
-			m_bodyTag = dom.createTag(m_config.tag.body, {
-				class: m_config.css.body,
+			m_bodyTag = dom.createTag(m_props.tag.body, {
+				class: m_props.css.body,
 			});
 			dom.append(m_calendarParentTag, m_bodyTag);
 
-			m_bodyHeaderTag = dom.createTag(m_config.tag.bodyHeader, {
-				class: m_config.css.bodyHeader,
+			m_bodyHeaderTag = dom.createTag(m_props.tag.bodyHeader, {
+				class: m_props.css.bodyHeader,
 			});
 			dom.append(m_bodyTag, m_bodyHeaderTag);
 
-			m_bodyContentTag = dom.createTag(m_config.tag.bodyContent, {
-				class: m_config.css.bodyContent,
+			m_bodyContentTag = dom.createTag(m_props.tag.bodyContent, {
+				class: m_props.css.bodyContent,
 			});
 			dom.append(m_bodyTag, m_bodyContentTag);
 
@@ -224,8 +212,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Body: Dates
 
 		function installDatesHeader() {
-			let grid = m_utils.extend(true, {}, m_config.datesHeader);
-			grid.css = m_utils.extend(true, m_config.css.datesHeader, grid.css);
+			let grid = m_utils.extend(true, {}, m_props.datesHeader);
+			grid.css = m_utils.extend(true, m_props.css.datesHeader, grid.css);
 			grid.data = [];
 
 			for (let i = 0; i < 7; i++) {
@@ -240,8 +228,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		}
 
 		function installDates() {
-			let buttonGroup = m_utils.extend(true, {}, m_config.datesButtonGroup);
-			buttonGroup.css = m_utils.extend(true, m_config.css.datesButtonGroup, buttonGroup.css);
+			let buttonGroup = m_utils.extend(true, {}, m_props.datesButtonGroup);
+			buttonGroup.css = m_utils.extend(true, m_props.css.datesButtonGroup, buttonGroup.css);
 			generateDates(buttonGroup);
 
 			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
@@ -263,15 +251,15 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					text: value.getDate(),
 					attr: { title: m_dateMgr.format(value, "dddd, MMMM DD, YYYY") },
 					fnClick: (context) => {
-						buttonClick(context, m_config.datesButtonGroup);
+						buttonClick(context, m_props.datesButtonGroup);
 					},
 				};
 				if (!isValidButton(value)) {
 					button.enable = false;
 				} else if (m_dateMgr.isSame(value, today)) {
-					button.css = { button: m_config.css.currentDate };
+					button.css = { button: m_props.css.currentDate };
 				} else if (value.getMonth() !== m_viewDate.getMonth()) {
-					button.css = { button: m_config.css.otherMonth };
+					button.css = { button: m_props.css.otherMonth };
 				}
 				buttonGroup.buttons.push(button);
 				m_dateMgr.add(value, 1, "days");
@@ -281,8 +269,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Body Months
 
 		function installMonths() {
-			let buttonGroup = m_utils.extend(true, {}, m_config.monthsButtonGroup);
-			buttonGroup.css = m_utils.extend(true, m_config.css.monthsButtonGroup, buttonGroup.css);
+			let buttonGroup = m_utils.extend(true, {}, m_props.monthsButtonGroup);
+			buttonGroup.css = m_utils.extend(true, m_props.css.monthsButtonGroup, buttonGroup.css);
 			generateMonths(buttonGroup);
 
 			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
@@ -305,7 +293,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					text: m_dateMgr.format(value, "MMM"),
 					attr: { title: m_dateMgr.format(value, "MMMM") },
 					fnClick: (context) => {
-						buttonClick(context, m_config.monthsButtonGroup);
+						buttonClick(context, m_props.monthsButtonGroup);
 					},
 				};
 				if (!isValidButton(value)) {
@@ -319,8 +307,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Body Years
 
 		function installYears() {
-			let buttonGroup = m_utils.extend(true, {}, m_config.yearsButtonGroup);
-			buttonGroup.css = m_utils.extend(true, m_config.css.yearsButtonGroup, buttonGroup.css);
+			let buttonGroup = m_utils.extend(true, {}, m_props.yearsButtonGroup);
+			buttonGroup.css = m_utils.extend(true, m_props.css.yearsButtonGroup, buttonGroup.css);
 			generateYears(buttonGroup);
 
 			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
@@ -343,13 +331,13 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					id: m_dateMgr.format(value, m_idFormat),
 					text: m_dateMgr.format(value, "YYYY"),
 					fnClick: (context) => {
-						buttonClick(context, m_config.yearsButtonGroup);
+						buttonClick(context, m_props.yearsButtonGroup);
 					},
 				};
 				if (!isValidButton(value)) {
 					button.enable = false;
 				} else if (i === 0 || i === 11) {
-					button.css = { button: m_config.css.otherDecade };
+					button.css = { button: m_props.css.otherDecade };
 				}
 				buttonGroup.buttons.push(button);
 				m_dateMgr.add(value, 1, "years");
@@ -359,8 +347,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Body Decades
 
 		function installDecades() {
-			let buttonGroup = m_utils.extend(true, {}, m_config.decadesButtonGroup);
-			buttonGroup.css = m_utils.extend(true, m_config.css.decadesButtonGroup, buttonGroup.css);
+			let buttonGroup = m_utils.extend(true, {}, m_props.decadesButtonGroup);
+			buttonGroup.css = m_utils.extend(true, m_props.css.decadesButtonGroup, buttonGroup.css);
 			generateDecades(buttonGroup);
 
 			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
@@ -383,13 +371,13 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					id: m_dateMgr.format(value, m_idFormat),
 					text: `${value.getFullYear()}-${value.getFullYear() + 9}`,
 					fnClick: (context) => {
-						buttonClick(context, m_config.decadesButtonGroup);
+						buttonClick(context, m_props.decadesButtonGroup);
 					},
 				};
 				if (!isValidButton(value)) {
 					button.enable = false;
 				} else if (i === 0 || i === 11) {
-					button.css = { button: m_config.css.otherCentury };
+					button.css = { button: m_props.css.otherCentury };
 				}
 				buttonGroup.buttons.push(button);
 				m_dateMgr.add(value, 10, "years");
@@ -399,13 +387,13 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Footer
 
 		function installFooter() {
-			if (m_config.footer) {
-				let button = m_utils.extend(true, {}, m_config.footerButton);
-				button.css = m_utils.extend(true, m_config.css.footerButton, button.css);
+			if (m_props.footer) {
+				let button = m_utils.extend(true, {}, m_props.footerButton);
+				button.css = m_utils.extend(true, m_props.css.footerButton, button.css);
 
 				let today = m_dateMgr.getToday();
 				button.id = m_dateMgr.format(today, m_idFormat);
-				button.text = m_dateMgr.format(today, m_config.footer);
+				button.text = m_dateMgr.format(today, m_props.footer);
 
 				if (m_dateMgr.isBefore(today, m_minDate) || m_dateMgr.isAfter(today, m_maxDate)) {
 					button.enable = false;
@@ -414,8 +402,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				button.fnClick = (context) => {
 					m_depth = m_minDepth;
 					selectValue(context.button, context.ev);
-					if (m_config.footerButton.fnClick) {
-						m_config.footerButton.fnClick(context);
+					if (m_props.footerButton.fnClick) {
+						m_props.footerButton.fnClick(context);
 					}
 				};
 
@@ -441,8 +429,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			let value = m_dateMgr.createDate(button.getId(), m_idFormat);
 			if (m_depth <= m_minDepth) {
 				setValue(value);
-				if (m_config.fnSelect) {
-					m_config.fnSelect({ calendar: self, ev: ev });
+				if (m_props.fnSelect) {
+					m_props.fnSelect({ calendar: self, ev: ev });
 				}
 			} else {
 				--m_depth;
@@ -453,7 +441,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		}
 
 		function getDefaultValue() {
-			let optionValue = m_config.value ? m_dateMgr.getDate(m_config.value, m_config.format) : null;
+			let optionValue = m_props.value ? m_dateMgr.getDate(m_props.value, m_props.format) : null;
 			optionValue = optionValue ? optionValue : m_dateMgr.getToday();
 			return getInRangeDate(optionValue);
 		}
@@ -502,7 +490,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			if (typeof context.value === "undefined") {
 				return m_value;
 			} else {
-				setValue(m_dateMgr.getDate(context.value, m_config.format));
+				setValue(m_dateMgr.getDate(context.value, m_props.format));
 			}
 		}
 
@@ -526,16 +514,23 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		}
 
 		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_config.fnComplete) {
-				m_config.fnComplete({ calendar: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Calendar: self });
 		}
 
-		function configure() {
-			m_config = {
+		function installSelf(parentTag, prepend) {
+			m_parentTag = parentTag ? parentTag : m_parentTag;
+			m_parentTag = dom.getTag(m_parentTag);
+			dom.append(m_parentTag, self, prepend);
+		}
+
+		function configure(customProps) {
+			m_props = {
+				install: true,
 				theme: "default",
-				tag:"default",
+				tag: "default",
 				headerButtonGroup: {
 					buttons: [
 						{
@@ -590,19 +585,27 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					// Nothing executes by default
 				},
 			};
-
 			// If options provided, override default config
-			if (initOptions) {
-				m_config = m_utils.extend(true, m_config, initOptions);
-			}
-
-			m_config.css = m_utils.extend(
+			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+			// Resolve parent tag
+			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+			// Extend tag names names
+			m_props.tags = m_utils.extend(
+				true,
+				m_tags.getTags({
+					name: m_props.tag,
+					component: "calendar",
+				}),
+				m_props.tags
+			);
+			// Extend CSS class names
+			m_props.css = m_utils.extend(
 				true,
 				m_theme.getTheme({
-					name: m_config.theme,
-					control: "calendar",
+					name: m_props.theme,
+					component: "calendar",
 				}),
-				m_config.css
+				m_props.css
 			);
 		}
 	}

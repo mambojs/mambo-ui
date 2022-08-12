@@ -109,7 +109,7 @@ ui.defaultTheme = {
 			button: "combobox-button-group-button",
 		},
 	},
-	"date-picker": {
+	datePicker: {
 		parent: "date-picker-parent",
 		dropdownWrapper: "date-picker-dropdown-wrapper",
 		input: {
@@ -277,5 +277,29 @@ ui.defaultTheme = {
 		contentParent: "mambo-tab-contents",
 		parent: "mambo-tab",
 		tabs: "mambo-tabs",
+	},
+	timePicker: {
+		combobox: {
+			parent: "time-picker-parent",
+			dropdown: {
+				container: "time-picker-dropdown-container",
+				button: {
+					button: "time-picker-combobox-button",
+				},
+			},
+		},
+	},
+	treeView: {
+		treeViewParent: "tree-view-parent",
+		group: "tree-view-group",
+		item: "tree-view-item",
+		top: "tree-view-item-top",
+		in: "tree-view-item-in",
+		icon: "tree-view-item-icon",
+		iconExpand: "tree-view-icon-expand",
+		iconCollapse: "tree-view-icon-collapse",
+		hover: "hover",
+		selected: "selected",
+		expanded: "expanded",
 	},
 };

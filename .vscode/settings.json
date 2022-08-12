@@ -22,5 +22,6 @@
 	"html.format.indentInnerHtml": true,
 	"html.format.wrapLineLength": 200,
 	"css.format.spaceAroundSelectorSeparator": true,
-	"css.lint.float": "error"
+	"css.lint.float": "error",
+	"editor.lineHeight": 24
 }
