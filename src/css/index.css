@@ -1,0 +1,19 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Ubuntu Light", sans-serif;
+}
+
+body {
+  --mambo-dark: #130b1d;
+  --mambo-black: #160c21;
+  --mambo-blue: #3ba9d7;
+  --mambo-yellow: #f3df45;
+  --font-size: 1rem;
+  --font-color: white;
+
+  background-color: var(--mambo-dark);
+  font-size: var(--font-size);
+  color: var(--font-color);
+}

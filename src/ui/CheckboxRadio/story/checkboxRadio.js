@@ -1,13 +1,12 @@
-//: Checkbox Radio
-//@
-demoCheckboxRadio("storyboard-checkbox-radio");
-
-function demoCheckboxRadio(parentEle) {
+function storyCheckboxRadio(selectedStory) {
+	//: Checkbox Radio
+	//@
 	checkbox();
 	radio();
 
 	function checkbox() {
 		const config = {
+			parentTag: selectedStory.parentTag,
 			id: 1,
 			text: "Checkbox",
 			fnClick: (context) => {
@@ -15,11 +14,12 @@ function demoCheckboxRadio(parentEle) {
 			},
 		};
 
-		ui.checkboxRadio(parentEle, config);
+		ui.checkboxRadio(config);
 	}
 
 	function radio() {
 		const config = {
+			parentTag: selectedStory.parentTag,
 			id: 2,
 			text: "Radio",
 			attr: {
@@ -30,7 +30,7 @@ function demoCheckboxRadio(parentEle) {
 			},
 		};
 
-		ui.checkboxRadio(parentEle, config);
+		ui.checkboxRadio(config);
 	}
+	//!
 }
-//!

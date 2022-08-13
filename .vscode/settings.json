@@ -1,11 +1,16 @@
 {
 	"editor.wordWrapColumn": 160,
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"editor.formatOnType": true,
+	"editor.wordWrap": "off",
+	"editor.lineHeight": 24,
+	"editor.insertSpaces": true,
+	"editor.detectIndentation": true,
 	"[markdown]": {
 		"editor.wordWrapColumn": 160,
 		"editor.wordWrap": "on"
 	},
-	"editor.insertSpaces": true,
-	"editor.detectIndentation": true,
 	"[javascript]": {
 		"editor.tabSize": 4
 	},
@@ -15,13 +20,9 @@
 	"[html]": {
 		"editor.tabSize": 2
 	},
-	"editor.formatOnSave": true,
-	"editor.formatOnPaste": true,
-	"editor.formatOnType": true,
-	"editor.wordWrap": "off",
 	"html.format.indentInnerHtml": true,
 	"html.format.wrapLineLength": 200,
 	"css.format.spaceAroundSelectorSeparator": true,
+	"stylelint.enable": true,
 	"css.lint.float": "error",
-	"editor.lineHeight": 24
 }

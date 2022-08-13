@@ -23,6 +23,8 @@ module.exports = {
 		semi: ["error", "always"],
 	},
 	globals: {
+		mamboTools: true,
+		domJS: true,
 		router: true,
 		object: true,
 		dom: true,
@@ -30,5 +32,7 @@ module.exports = {
 		Hls: true,
 		HlsjsIpfsLoader: true,
 		m3u8Parser: true,
+		PR: true,
+		installStoryboard: true,
 	},
 };

@@ -191,6 +191,6 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 	}
 };
 
-ui.checkboxRadioGroup = (parentTag, options) => new ui.class.CheckboxRadioGroup(parentTag, options);
+ui.checkboxRadioGroup = (props) => new ui.class.CheckboxRadioGroup(props);
 
 customElements.define("mambo-checkbox-radio-group", ui.class.CheckboxRadioGroup);

@@ -1,8 +1,4 @@
-//: Draggable
-//@
-demoDraggable("storyboard-draggable");
-
-function demoDraggable(parentEle) {
+function storyDraggable(parentEle) {
 	withContainer();
 	withoutContainer();
 	horizontal();

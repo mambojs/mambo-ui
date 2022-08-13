@@ -10,18 +10,20 @@
     <link rel="icon" href="src/img/mambo/mambo-m.ico" />
     <!-- Scotti Dependencies -->
     <link rel="stylesheet" href="https://www.scotti.tech/lib/fonts/ubuntu/ubuntu.css" />
+    <!-- Style Dependencies -->
+    <link rel="stylesheet" href="src/lib/run_prettify.css" />
     <!-- Load Mambo UI Styles -->
     <link rel="stylesheet" href="src/ui/Button/Button.css" />
     <link rel="stylesheet" href="src/ui/ButtonGroup/ButtonGroup.css" />
     <link rel="stylesheet" href="src/ui/Calendar/Calendar.css" />
     <link rel="stylesheet" href="src/ui/CheckboxRadio/CheckboxRadio.css" />
     <link rel="stylesheet" href="src/ui/CheckboxRadioGroup/CheckboxRadioGroup.css" />
-    <link rel="stylesheet" href="src/ui/ComboBox/Combobox.css" />
+    <link rel="stylesheet" href="src/ui/Combobox/Combobox.css" />
     <link rel="stylesheet" href="src/ui/DatePicker/DatePicker.css" />
     <link rel="stylesheet" href="src/ui/Dialog/Dialog.css" />
     <link rel="stylesheet" href="src/ui/DragDrop/DragDrop.css" />
     <link rel="stylesheet" href="src/ui/Draggable/Draggable.css" />
-    <link rel="stylesheet" href="src/ui/DropDown/Dropdown.css" />
+    <link rel="stylesheet" href="src/ui/Dropdown/Dropdown.css" />
     <link rel="stylesheet" href="src/ui/FileChooser/FileChooser.css" />
     <link rel="stylesheet" href="src/ui/Grid/Grid.css" />
     <link rel="stylesheet" href="src/ui/Input/Input.css" />
@@ -35,14 +37,39 @@
     <link rel="stylesheet" href="src/ui/TimePicker/TimePicker.css" />
     <link rel="stylesheet" href="src/ui/TreeView/TreeView.css" />
     <link rel="stylesheet" href="src/ui/VideoPlayer/VideoPlayer.css" />
-
+    <!-- Web App Styles -->
     <link rel="stylesheet" href="src/components/storyboard/storyboard.css" />
+    <link rel="stylesheet" href="src/css/index.css" />
   </head>
   <body>
-    <ui-storyboard></ui-storyboard>
+    <ui-storyboard>
+      <card-container>
+        <div class="angle angle-top-left"></div>
+        <div class="angle angle-top-right"></div>
+        <div class="angle angle-bottom-left"></div>
+        <div class="angle angle-bottom-right"></div>
+        <div class="bottom-tab"></div>
+        <div class="right-tab"></div>
+        <div class="close"></div>
+        <card-content>
+          <card-header>
+            <button class="mambo-btn">Que es Mambo UI?</button>
+            <button class="mambo-btn">Como lo uso?</button>
+            <button class="mambo-btn">DESCARGAR</button>
+          </card-header>
+          <card-body>
+            <storyboard-treeview></storyboard-treeview>
+            <storyboard-component>
+              <story-tab></story-tab>
+            </storyboard-component>
+          </card-body>
+        </card-content>
+      </card-container>
+    </ui-storyboard>
     <!-- Load JavaScripts Dependencies -->
     <script src="https://dom.domjs.dev/dist/domjs-latest.js"></script>
     <script src="https://tools.mambojs.dev/dist/mambo-tools-latest.js"></script>
+    <script src="src/lib/run_prettify.js"></script>
     <!-- Load Initializer JavaScript -->
     <script src="src/js/init.js"></script>
     <!-- Load Mambo UI JavaScripts -->
@@ -52,16 +79,25 @@
     <script src="src/configs/String/String.js"></script>
     <script src="src/configs/Utils/Utilities.js"></script>
     <script src="src/ui/Button/Button.js"></script>
+    <script src="src/ui/Button/story/button.js"></script>
     <script src="src/ui/ButtonGroup/ButtonGroup.js"></script>
+    <script src="src/ui/ButtonGroup/story/buttonGroup.js"></script>
     <script src="src/ui/Calendar/Calendar.js"></script>
+    <script src="src/ui/Calendar/story/calendar.js"></script>
     <script src="src/ui/CheckboxRadio/CheckboxRadio.js"></script>
+    <script src="src/ui/CheckboxRadio/story/checkboxRadio.js"></script>
     <script src="src/ui/CheckboxRadioGroup/CheckboxRadioGroup.js"></script>
-    <script src="src/ui/ComboBox/Combobox.js"></script>
+    <script src="src/ui/CheckboxRadioGroup/story/checkboxRadioGroup.js"></script>
+    <script src="src/ui/Combobox/Combobox.js"></script>
+    <script src="src/ui/Combobox/story/combobox.js"></script>
     <script src="src/ui/DatePicker/DatePicker.js"></script>
+    <script src="src/ui/DatePicker/story/datePicker.js"></script>
     <script src="src/ui/Dialog/Dialog.js"></script>
+    <script src="src/ui/Dialog/story/dialog.js"></script>
     <script src="src/ui/DragDrop/DragDrop.js"></script>
+    <script src="src/ui/DragDrop/story/dragDrop.js"></script>
     <script src="src/ui/Draggable/Draggable.js"></script>
-    <script src="src/ui/DropDown/Dropdown.js"></script>
+    <script src="src/ui/Dropdown/Dropdown.js"></script>
     <script src="src/ui/FileChooser/FileChooser.js"></script>
     <script src="src/ui/Grid/Grid.js"></script>
     <script src="src/ui/Input/Input.js"></script>

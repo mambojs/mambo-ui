@@ -1,124 +1,125 @@
-//: Creating a text only button
-//@
-textOnly("storyboard-button");
+function storyButton(selectedStory) {
+	//: Creating a text only button
+	//@
+	textOnly();
 
-function textOnly(eleName) {
-	const config = {
-		parentTag: eleName,
-		id: 1,
-		text: "Single button",
-		fnClick: (context) => {
-			alert(`${context.button.text()} clicked.`);
-		},
-	};
-	ui.button(config);
-}
-//!
+	function textOnly() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			id: 1,
+			text: "Single button",
+			fnClick: (context) => {
+				alert(`${context.button.text()} clicked.`);
+			},
+		};
+		ui.button(config);
+	}
+	//!
 
-//: Creating a button with an img element inside
-//@
-textImage("storyboard-button");
+	//: Creating a button with an img element inside
+	//@
+	textImage();
 
-function textImage(eleName) {
-	const config = {
-		parentTag: eleName,
-		img: {
-			attr: {
-				src: `data:image/svg+xml;base64,
+	function textImage() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			img: {
+				attr: {
+					src: `data:image/svg+xml;base64,
                 PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
                 JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
                 +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
                 zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
                 gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
-				alt: "home",
+					alt: "home",
+				},
 			},
-		},
-		id: 2,
-		text: "Image Button",
-		fnClick: (context) => {
-			alert(`${context.button.text()} clicked.`);
-		},
-	};
+			id: 2,
+			text: "Image Button",
+			fnClick: (context) => {
+				alert(`${context.button.text()} clicked.`);
+			},
+		};
 
-	ui.button(config);
-}
-//!
+		ui.button(config);
+	}
+	//!
 
-//: Creating a button with an <a> element
-//@
-anchorButtonText("storyboard-button");
+	//: Creating a button with an <a> element
+	//@
+	anchorButtonText();
 
-function anchorButtonText(eleName) {
-	const config = {
-		parentTag: eleName,
-		id: 3,
-		tag: "a",
-		text: "Anchor Button",
-		attr: {
-			href: location.pathname,
-		},
-		fnClick: (context) => {
-			alert(`${context.button.text()} clicked.`);
-		},
-	};
-
-	ui.button(config);
-}
-//!
-
-//: Creating a button with an <a> and an <img> element inside
-//@
-anchorButtonImg("storyboard-button");
-
-function anchorButtonImg(eleName) {
-	const config = {
-		parentTag: eleName,
-		id: 4,
-		tag: "a",
-		text: "Anchor Button Image",
-		attr: {
-			href: location.pathname,
-		},
-		img: {
+	function anchorButtonText() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			id: 3,
+			tag: "a",
+			text: "Anchor Button",
 			attr: {
-				src: `data:image/svg+xml;base64,
+				href: location.pathname,
+			},
+			fnClick: (context) => {
+				alert(`${context.button.text()} clicked.`);
+			},
+		};
+
+		ui.button(config);
+	}
+	//!
+
+	//: Creating a button with an <a> and an <img> element inside
+	//@
+	anchorButtonImg();
+
+	function anchorButtonImg() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			id: 4,
+			tag: "a",
+			text: "Anchor Button Image",
+			attr: {
+				href: location.pathname,
+			},
+			img: {
+				attr: {
+					src: `data:image/svg+xml;base64,
                 PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
                 JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
                 +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
                 zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
                 gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
-				alt: "home",
+					alt: "home",
+				},
 			},
-		},
-		fnClick: (context) => {
-			alert(`${context.button.text()} clicked.`);
-		},
-	};
+			fnClick: (context) => {
+				alert(`${context.button.text()} clicked.`);
+			},
+		};
 
-	ui.button(config);
-}
-//!
+		ui.button(config);
+	}
+	//!
 
-//: Creating a button that replace the inner image in a hover event.
-//@
-buttonImgWithHover("storyboard-button");
+	//: Creating a button that replace the inner image in a hover event.
+	//@
+	buttonImgWithHover();
 
-function buttonImgWithHover(eleName) {
-	const config = {
-		parentTag: eleName,
-		id: 5,
-		text: "Hover Button",
-		img: {
-			attr: {
-				src: `data:image/svg+xml;base64,
+	function buttonImgWithHover() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			id: 5,
+			text: "Hover Button",
+			img: {
+				attr: {
+					src: `data:image/svg+xml;base64,
                 PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
                 JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
                 +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
                 zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
                 gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
-				alt: "home",
-			},
-			hover: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
+					alt: "home",
+				},
+				hover: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
             +hVVRTGv1+ZL3Jg9kAqKKU0CHrQwwaWSlEgggi9KBLRQVKzIIheVtAkaBAoBilFTSpqFBFhD5pkFFQWUUEvKAhpYCBZ/
             qsvluwb19u5d+9z7jn/7l2Te+Cuvdb37fXYLzTlQpf4bZ8gaR5wpCs/
             XRNYL2k58NS0EvhU0unA0qkjkNLnT0kR5YVdpVFnKWR7naS30sxvB3Z3EYUuCeyXdGUC/RNw1tQQsB0T81dKnx7u
@@ -137,38 +138,38 @@ function buttonImgWithHover(eleName) {
             +T9Gaf0bjEvQr4qMTRMB3b8ejxebxk9uncAzxZYrcOgQ8lXZaMfizpCiBIjC3pUeR1STckYweBM0oMFxEYeLS7G9hZYryu
             ju2Nkl5N7X0B8HvORimBeLR7IxVqFGxnYvtkSdEsohtlzwilBDYDpatpK+RsbwOeyRkrIpAz8n/+/
             w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`,
-		},
-		fnClick: (context) => {
-			alert(`${context.button.text()} clicked.`);
-		},
-	};
+			},
+			fnClick: (context) => {
+				alert(`${context.button.text()} clicked.`);
+			},
+		};
 
-	ui.button(config);
-}
-//!
+		ui.button(config);
+	}
+	//!
 
-//: Creating a button that replace the inner image in a hover event.
-//@
-buttonMultiImgWithHover("storyboard-button");
+	//: Creating a button that replace the inner image in a hover event.
+	//@
+	buttonMultiImgWithHover();
 
-function buttonMultiImgWithHover(eleName) {
-	const config = {
-		parentTag: eleName,
-		id: 5,
-		text: "Multi Hover Button",
-		img: [
-			{
-				css: { img: "storyboard-img" },
-				attr: {
-					src: `data:image/svg+xml;base64,
+	function buttonMultiImgWithHover() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			id: 5,
+			text: "Multi Hover Button",
+			img: [
+				{
+					css: { img: "storyboard-img" },
+					attr: {
+						src: `data:image/svg+xml;base64,
                     PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
                     JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
                     +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
                     zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
                     gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
-					alt: "home",
-				},
-				hover: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
+						alt: "home",
+					},
+					hover: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
                 +hVVRTGv1+ZL3Jg9kAqKKU0CHrQwwaWSlEgggi9KBLRQVKzIIheVtAkaBAoBilFTSpqFBFhD5pkFFQWUUEvKAhpYCBZ/
                 qsvluwb19u5d+9z7jn/7l2Te+Cuvdb37fXYLzTlQpf4bZ8gaR5wpCs/
                 XRNYL2k58NS0EvhU0unA0qkjkNLnT0kR5YVdpVFnKWR7naS30sxvB3Z3EYUuCeyXdGUC/RNw1tQQsB0T81dKnx7u
@@ -187,10 +188,10 @@ function buttonMultiImgWithHover(eleName) {
                 +T9Gaf0bjEvQr4qMTRMB3b8ejxebxk9uncAzxZYrcOgQ8lXZaMfizpCiBIjC3pUeR1STckYweBM0oMFxEYeLS7G9hZYryu
                 ju2Nkl5N7X0B8HvORimBeLR7IxVqFGxnYvtkSdEsohtlzwilBDYDpatpK+RsbwOeyRkrIpAz8n/+/
                 w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`,
-			},
-			{
-				attr: {
-					src: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
+				},
+				{
+					attr: {
+						src: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADxElEQVRoQ9WZS
                     +hVVRTGv1+ZL3Jg9kAqKKU0CHrQwwaWSlEgggi9KBLRQVKzIIheVtAkaBAoBilFTSpqFBFhD5pkFFQWUUEvKAhpYCBZ/
                     qsvluwb19u5d+9z7jn/7l2Te+Cuvdb37fXYLzTlQpf4bZ8gaR5wpCs/
                     XRNYL2k58NS0EvhU0unA0qkjkNLnT0kR5YVdpVFnKWR7naS30sxvB3Z3EYUuCeyXdGUC/RNw1tQQsB0T81dKnx7u
@@ -209,21 +210,22 @@ function buttonMultiImgWithHover(eleName) {
                     +T9Gaf0bjEvQr4qMTRMB3b8ejxebxk9uncAzxZYrcOgQ8lXZaMfizpCiBIjC3pUeR1STckYweBM0oMFxEYeLS7G9hZYryu
                     ju2Nkl5N7X0B8HvORimBeLR7IxVqFGxnYvtkSdEsohtlzwilBDYDpatpK+RsbwOeyRkrIpAz8n/+/
                     w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`,
-					alt: "Star",
-				},
-				hover: `data:image/svg+xml;base64,
+						alt: "Star",
+					},
+					hover: `data:image/svg+xml;base64,
                 PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
                 JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
                 +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
                 zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
                 gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
+				},
+			],
+			fnClick: (context) => {
+				alert(`${context.button.text()} clicked.`);
 			},
-		],
-		fnClick: (context) => {
-			alert(`${context.button.text()} clicked.`);
-		},
-	};
+		};
 
-	ui.button(config);
+		ui.button(config);
+	}
+	//!
 }
-//!

@@ -1,13 +1,13 @@
-//: Checkbox Radio Group
-//@
-demoCheckboxRadioGroup("storyboard-checkbox-radio-group");
+function storyCheckboxRadioGroup(selectedStory) {
+	//: Checkbox Radio Group
+	//@
 
-function demoCheckboxRadioGroup(parentEle) {
 	checkboxGroup();
 	radioGroup();
 
 	function checkboxGroup() {
 		const config = {
+			parentTag: selectedStory.parentTag,
 			checkboxes: [
 				{
 					id: 1,
@@ -39,11 +39,12 @@ function demoCheckboxRadioGroup(parentEle) {
 			},
 		};
 
-		ui.checkboxRadioGroup(parentEle, config);
+		ui.checkboxRadioGroup(config);
 	}
 
 	function radioGroup() {
 		const config = {
+			parentTag: selectedStory.parentTag,
 			radios: [
 				{
 					id: 1,
@@ -74,7 +75,7 @@ function demoCheckboxRadioGroup(parentEle) {
 			},
 		};
 
-		ui.checkboxRadioGroup(parentEle, config);
+		ui.checkboxRadioGroup(config);
 	}
+	//!
 }
-//!

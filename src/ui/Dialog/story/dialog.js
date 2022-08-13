@@ -1,11 +1,6 @@
-//: Dialog
-//@
-demoDialog();
-
-function demoDialog() {
-	// Install button to trigger the dialog installation
-	const buttonConfig = {
-		parentTag: "storyboard-dialog",
+function storyDialog(selectedStory) {
+	const props = {
+		parentTag: selectedStory.parentTag,
 		text: "Click to trigger Dialog instance",
 		fnClick: () => {
 			let dialogConfig = {
@@ -20,6 +15,5 @@ function demoDialog() {
 		},
 	};
 
-	ui.button(buttonConfig);
+	ui.button(props);
 }
-//!
