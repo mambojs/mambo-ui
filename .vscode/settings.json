@@ -7,6 +7,8 @@
 	"editor.lineHeight": 24,
 	"editor.insertSpaces": true,
 	"editor.detectIndentation": true,
+	"editor.renderWhitespace": "all",
+	"diffEditor.ignoreTrimWhitespace": false,
 	"[markdown]": {
 		"editor.wordWrapColumn": 160,
 		"editor.wordWrap": "on"
@@ -25,4 +27,5 @@
 	"css.format.spaceAroundSelectorSeparator": true,
 	"stylelint.enable": true,
 	"css.lint.float": "error",
+	"prettier.htmlWhitespaceSensitivity": "strict",
 }
