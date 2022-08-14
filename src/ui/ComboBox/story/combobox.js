@@ -1,4 +1,4 @@
-function storyCombobox(selectedStory) {
+function storyComboboxNew(selectedStory) {
 	const config = {
 		parentTag: selectedStory.parentTag,
 		data: [
