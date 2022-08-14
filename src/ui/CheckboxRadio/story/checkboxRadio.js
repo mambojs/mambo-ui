@@ -1,6 +1,4 @@
 function storyCheckboxRadio(selectedStory) {
-	//: Checkbox Radio
-	//@
 	checkbox();
 	radio();
 
@@ -28,5 +26,4 @@ function storyCheckboxRadio(selectedStory) {
 
 		ui.checkboxRadio(config);
 	}
-	//!
 }

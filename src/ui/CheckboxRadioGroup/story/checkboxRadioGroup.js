@@ -57,5 +57,4 @@ function storyCheckboxRadioGroup(selectedStory) {
 
 		ui.checkboxRadioGroup(config);
 	}
-	//!
 }

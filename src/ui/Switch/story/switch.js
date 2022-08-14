@@ -47,4 +47,3 @@ function storySwitch(selectedStory) {
 		ui.switch(config);
 	}
 }
-//!

@@ -127,5 +127,3 @@ function storyPlayer(selectedStory) {
 		ui.buttonGroup(btnGroupProps);
 	}
 }
-
-//!

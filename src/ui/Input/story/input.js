@@ -16,25 +16,23 @@ function storyInput(selectedStory) {
 		fnComplete: (context) => {},
 	};
 
-	// Configure automatic field validation
 	inputConfig.validate = {
 		onStart: true,
 		types: [
 			{
 				minLength: {
 					len: 20,
-					value: "-", // Character to use to fill in minimum length requirement
+					value: "-",
 				},
 			},
 		],
 	};
-	inputConfig.maxLenWidthUnit = "ch"; // Character based width style
-	inputConfig.maxLenWidth = 30; // Width of the element
-	inputConfig.maxLenWidthAdj = 2; // Adjust the width - helpful when the element width is set dynamically
+	inputConfig.maxLenWidthUnit = "ch";
+	inputConfig.maxLenWidth = 30;
+	inputConfig.maxLenWidthAdj = 2;
 
 	ui.input(inputConfig);
 
-	//adding an input field with images inside of it.
 	inputConfig = {
 		parentTag: selectedStory.parentTag,
 		value: "My Input Element Value",
@@ -98,22 +96,20 @@ function storyInput(selectedStory) {
 		],
 	};
 
-	// Configure automatic field validation
 	inputConfig.validate = {
 		onStart: true,
 		types: [
 			{
 				minLength: {
 					len: 20,
-					value: "-", // Character to use to fill in minimum length requirement
+					value: "-",
 				},
 			},
 		],
 	};
-	inputConfig.maxLenWidthUnit = "ch"; // Character based width style
-	inputConfig.maxLenWidth = 30; // Width of the element
-	inputConfig.maxLenWidthAdj = 2; // Adjust the width - helpful when the element width is set dynamically
+	inputConfig.maxLenWidthUnit = "ch";
+	inputConfig.maxLenWidth = 30;
+	inputConfig.maxLenWidthAdj = 2;
 
 	ui.input(inputConfig);
 }
-//!

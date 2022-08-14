@@ -24,4 +24,3 @@ function storyTreeView(selectedStory) {
 
 	ui.treeView(props);
 }
-//!

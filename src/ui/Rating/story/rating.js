@@ -36,4 +36,3 @@ function storyRating(selectedStory) {
 		ui.rating(config);
 	}
 }
-//!

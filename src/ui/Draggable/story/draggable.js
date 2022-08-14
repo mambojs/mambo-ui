@@ -70,4 +70,3 @@ function storyDraggable(selectedStory) {
 		ui.draggable(config);
 	}
 }
-//!

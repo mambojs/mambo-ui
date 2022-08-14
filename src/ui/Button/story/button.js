@@ -1,6 +1,4 @@
 function storyButton(selectedStory) {
-	//: Creating a text only button
-	//@
 	textOnly();
 
 	function textOnly() {
@@ -14,10 +12,6 @@ function storyButton(selectedStory) {
 		};
 		ui.button(config);
 	}
-	//!
-
-	//: Creating a button with an img element inside
-	//@
 	textImage();
 
 	function textImage() {
@@ -43,13 +37,7 @@ function storyButton(selectedStory) {
 
 		ui.button(config);
 	}
-	//!
 
-	//: Creating a button with an <a> element
-	//@
-
-	//: Creating a button that replace the inner image in a hover event.
-	//@
 	buttonImgWithHover();
 
 	function buttonImgWithHover() {
@@ -94,10 +82,7 @@ function storyButton(selectedStory) {
 
 		ui.button(config);
 	}
-	//!
 
-	//: Creating a button that replace the inner image in a hover event.
-	//@
 	buttonMultiImgWithHover();
 
 	function buttonMultiImgWithHover() {
@@ -175,5 +160,4 @@ function storyButton(selectedStory) {
 
 		ui.button(config);
 	}
-	//!
 }

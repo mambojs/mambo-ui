@@ -21,4 +21,3 @@ function storySlider(selectedStory) {
 		ui.slider(config);
 	}
 }
-//!

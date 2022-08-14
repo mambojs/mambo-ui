@@ -30,4 +30,3 @@ function storyPercentage(selectedStory) {
 		ui.percentage(config);
 	}
 }
-//!

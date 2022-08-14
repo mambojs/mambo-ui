@@ -1,21 +1,14 @@
 function storyButtonGroup(selectedStory) {
-	//: Look at the single Button demo configuration for a complete breakdown of all individual button options
-	//@
 	demoButtonGroup();
 
 	function demoButtonGroup() {
-		// Look at the single Button demo configuration for a complete breakdown of all individual button options
-		// A Button Group is simply a collection of individual Buttons
-
 		let btnGroupProps = {
 			parentTag: selectedStory.parentTag,
 			buttons: [
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {
-						// You can declare individual event handlers for each button
-					},
+					fnClick: (context) => {},
 				},
 				{
 					id: 2,
@@ -26,13 +19,9 @@ function storyButtonGroup(selectedStory) {
 					text: "Button Three",
 				},
 			],
-			fnClick: (context) => {
-				// You can declare a single event handler for all buttons
-				alert(`'Button clicked: ' ${context.Button.getId()}`);
-			},
+			fnClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);
 	}
-	//!
 }

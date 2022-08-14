@@ -34,9 +34,7 @@ function storyTab(selectedStory) {
 				{
 					id: 4,
 					text: "Tab 4",
-					fnClick: (context) => {
-						// You can declare individual event handlers for tab clicks
-					},
+					fnClick: (context) => {},
 				},
 				{
 					id: 5,
@@ -47,9 +45,7 @@ function storyTab(selectedStory) {
 					text: "Tab 6",
 				},
 			],
-			fnClick: (buttonContext) => {
-				// You can declare a single event handler for all tab clicks
-			},
+			fnClick: (buttonContext) => {},
 		};
 
 		const contentList = btnGroupConfig.buttons.map((btn) => {
@@ -67,4 +63,3 @@ function storyTab(selectedStory) {
 		ui.tab(tabConfig);
 	}
 }
-//!

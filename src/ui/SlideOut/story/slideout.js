@@ -27,9 +27,7 @@ function storySlideout(selectedStory) {
 	function installSlideoutContent(context) {
 		const headerTag = context.Slideout.getHeaderTag();
 		dom.append(headerTag, "<h3>My Header Content</h3>");
-		// Insert Body content
 		const bodyTag = context.Slideout.getBodyTag();
 		dom.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
 	}
 }
-//!

@@ -5,4 +5,3 @@ function storyTimePicker(selectedStory) {
 
 	ui.timePicker(config);
 }
-//!
