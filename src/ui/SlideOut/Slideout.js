@@ -28,13 +28,10 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			installCloseButton();
-			installEventHandler();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_slideoutHeaderTag = dom.createTag(m_props.tags.header, { class: m_props.css.header });
 			m_slideoutBodyTag = dom.createTag(m_props.tags.body, { class: m_props.css.body });
 			m_slideoutContentTag = dom.createTag(m_props.tags.content, { class: m_props.css.content });
@@ -43,6 +40,7 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 			m_slideoutOverlayTag = dom.createTag(m_props.tags.overlay, { class: m_props.css.overlay });
 			self.appendChild(m_slideoutContentTag);
 			self.appendChild(m_slideoutOverlayTag);
+			installCloseButton();
 		}
 
 		function openAnimation() {
@@ -70,29 +68,29 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 		}
 
 		function installCloseButton() {
-			if (!m_props.closeButton) {
-				return;
+			if (m_props.closeButton) {
+				const config = m_props.closeButton;
+				config.parentTag = m_slideoutHeaderTag;
+				config.fnClick = () => {
+					closeAnimation();
+				};
+
+				ui.button(config);
 			}
 
-			const config = m_props.closeButton;
-			config.parentTag = m_slideoutHeaderTag;
-			config.fnClick = () => {
-				closeAnimation();
-			};
-
-			ui.button(config);
+			installEventHandler();
 		}
 
 		function installEventHandler() {
 			m_slideoutOverlayTag.addEventListener("click", (ev) => {
 				closeAnimation();
 			});
+
+			loadDOM();
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Slideout: self });
 		}
 

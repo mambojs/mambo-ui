@@ -32,17 +32,15 @@ ui.class.Switch = class Switch extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			setupEventHandler();
-			finishSetup();
 		}
 
 		function setOptionValues() {
 			m_enable = m_props.enable;
 			m_checked = m_props.checked;
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_switchParentTag = dom.createTag(m_props.tags.switch, {
 				class: m_props.css.parent,
 			});
@@ -84,10 +82,12 @@ ui.class.Switch = class Switch extends HTMLElement {
 			dom.append(m_containerTag, handleTag);
 
 			setEnable(m_enable);
+			setupEventHandler();
 		}
 
 		function setupEventHandler() {
 			m_switchParentTag.addEventListener("click", handleClick);
+			loadDOM();
 		}
 
 		function handleClick(ev) {
@@ -137,10 +137,8 @@ ui.class.Switch = class Switch extends HTMLElement {
 			dom.remove(m_switchParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Switch: self });
 		}
 
@@ -159,9 +157,6 @@ ui.class.Switch = class Switch extends HTMLElement {
 				messages: {
 					checked: "ON",
 					unchecked: "OFF",
-				},
-				fnChange: (context) => {
-					// Nothing executes by default
 				},
 			};
 			// If options provided, override default config

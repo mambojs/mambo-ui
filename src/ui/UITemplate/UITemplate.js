@@ -21,19 +21,16 @@ class Template extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDom();
+			setupDOM();
 		}
 
-		function installDom() {
+		function setupDOM() {
 			// Logic
-
-			finishSetup();
+			loadDOM();
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ UITemplate: self });
 		}
 

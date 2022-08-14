@@ -28,11 +28,10 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_dialogTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
@@ -70,15 +69,14 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			m_dialogHdrTag = dom.createTag("dialog-header", {
 				class: m_props.css.dialogHdr,
 			});
+
 			dom.append(m_dialogHdrTag, dialogHdrLeft);
 			dom.append(m_dialogHdrTag, overlayHdrCenter);
 			dom.append(m_dialogHdrTag, overlayHdrRight);
-
 			dom.append(m_dialogTag, m_dialogHdrTag);
 			dom.append(m_dialogTag, m_dialogBodyTag);
-
-			// Determine where to install dialog
 			self.appendChild(m_dialogTag);
+			loadDOM();
 		}
 
 		function installCloseButton(headerLeftTag) {
@@ -111,10 +109,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			dom.remove(m_dialogTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Dialog: self });
 		}
 

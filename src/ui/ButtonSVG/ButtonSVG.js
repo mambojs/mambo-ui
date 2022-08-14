@@ -1,4 +1,4 @@
-ui.class.Button = class Button extends HTMLElement {
+ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
@@ -258,7 +258,7 @@ ui.class.Button = class Button extends HTMLElement {
 	}
 };
 
-ui.button = (props) => new ui.class.Button(props);
+ui.buttonSVG = (props) => new ui.class.ButtonSVG(props);
 
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define("mambo-button", ui.class.Button);
+customElements.define("mambo-button-svg", ui.class.ButtonSVG);

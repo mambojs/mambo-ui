@@ -34,20 +34,18 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			setupEventHandler();
-			finishSetup();
 		}
 
 		function setOptionValues() {
 			m_enable = m_props.enable;
+			setupDOM();
 		}
 
-		function installDOM() {
-			installTags();
+		function setupDOM() {
+			setupTags();
 		}
 
-		function installTags() {
+		function setupTags() {
 			// Install checkbox / radio parent tag
 			m_checkboxRadioParentTag = dom.createTag("label", {
 				class: m_props.css.checkboxRadioParent,
@@ -78,10 +76,12 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 
 			m_checked = m_props.prop["checked"];
 			setEnable(m_enable);
+			setupEventHandler();
 		}
 
 		function setupEventHandler() {
 			m_checkboxRadioTag.addEventListener("click", handleClick);
+			loadDOM();
 		}
 
 		function handleClick(ev) {
@@ -162,10 +162,8 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 			dom.remove(m_checkboxRadioParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ CheckboxRadio: self });
 		}
 

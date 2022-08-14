@@ -18,6 +18,13 @@ ui.defaultTheme = {
 		hover: "hover",
 		disabled: "button-disabled",
 	},
+	buttonSVG: {
+		button: "button-button",
+		img: "button-img",
+		selected: "selected",
+		hover: "hover",
+		disabled: "button-disabled",
+	},
 	buttonGroup: {
 		parent: "button-group",
 		button: "button-group-button",

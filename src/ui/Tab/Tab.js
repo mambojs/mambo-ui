@@ -25,11 +25,10 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			// Add CSS class to parent
 			dom.addClass(self, m_props.css.parent);
 			// Create content parent tag
@@ -42,12 +41,17 @@ ui.class.Tab = class Tab extends HTMLElement {
 				class: m_props.css.tabs,
 			});
 
-			installTabs(m_props.tabs);
-			installContent();
-
-			// Append all childs
 			self.appendChild(m_tabsTag);
 			self.appendChild(m_contentParentTag);
+			installTabs();
+		}
+
+		function installTabs(tabsConfig) {
+			const tabConfig = m_utils.extend(true, m_props.tabs, {});
+			tabConfig.fnClick = toggleTabContent;
+			tabConfig.parentTag = m_tabsTag;
+			m_tabsGroup = ui.buttonGroup(tabConfig);
+			installContent();
 		}
 
 		function installContent() {
@@ -75,13 +79,8 @@ ui.class.Tab = class Tab extends HTMLElement {
 				// Invoke Tab installed callback
 				handleTabReady(contentTag, button);
 			});
-		}
 
-		function installTabs(tabsConfig) {
-			const tabConfig = m_utils.extend(true, tabsConfig, {});
-			tabConfig.fnClick = toggleTabContent;
-			tabConfig.parentTag = m_tabsTag;
-			m_tabsGroup = ui.buttonGroup(tabConfig);
+			loadDOM();
 		}
 
 		function toggleTabContent(clickedBtn) {
@@ -101,10 +100,8 @@ ui.class.Tab = class Tab extends HTMLElement {
 			if (m_props.fnTabComplete) m_props.fnTabComplete(contentTag, tab);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Tab: self });
 		}
 

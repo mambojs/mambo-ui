@@ -27,15 +27,14 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			finishSetup();
 		}
 
 		function setOptionValues() {
 			m_value = m_props.value;
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_percentageParentTag = dom.createTag(m_props.tags.percentage, {
 				class: m_props.css.parent,
 			});
@@ -53,6 +52,7 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 			dom.append(m_percentageBarTag, m_percentageTextTag);
 
 			setValue(m_value);
+			loadDOM();
 		}
 
 		function value(context = {}) {
@@ -100,10 +100,8 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 			dom.remove(m_percentageParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Percentage: self });
 		}
 

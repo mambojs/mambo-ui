@@ -22,12 +22,10 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			setupEventHandlers();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_dragDropTag = dom.createTag("div", { class: m_props.css.parent });
 			const tagConfig = {
 				class: m_props.css.imgDropIcon,
@@ -42,28 +40,31 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			m_dragDropTag.appendChild(imgEle);
 			m_dragDropTag.appendChild(textEle);
 			self.appendChild(m_dragDropTag);
+			setupEventHandlers();
 		}
 
 		function setupEventHandlers() {
 			m_dragDropTag.addEventListener("drop", handleDrop);
+			m_dragDropTag.addEventListener("dragover", handleDragover);
+			m_dragDropTag.addEventListener("mouseenter mouseleave", handleMouseEnterLeave);
+			loadDOM();
+		}
 
-			m_dragDropTag.addEventListener("dragover", (ev) => {
-				ev.preventDefault();
+		function handleMouseEnterLeave(ev) {
+			if (m_props.fnMouseenterMouseleave) {
+				m_props.fnMouseenterMouseleave({ ev: ev });
+			}
+		}
 
-				if (m_props.fnDragover) {
-					m_props.fnDragover({ ev: ev });
-				}
-			});
+		function handleDragover(ev) {
+			ev.preventDefault();
 
-			m_dragDropTag.addEventListener("mouseenter mouseleave", (ev) => {
-				if (m_props.fnMouseenterMouseleave) {
-					m_props.fnMouseenterMouseleave({ ev: ev });
-				}
-			});
+			if (m_props.fnDragover) {
+				m_props.fnDragover({ ev: ev });
+			}
 		}
 
 		function handleDrop(ev) {
-			// Prevent default behavior (Prevent file from being opened)
 			ev.preventDefault();
 			ev.stopPropagation();
 
@@ -71,7 +72,6 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 				return;
 			}
 
-			// Get file types
 			let items = ev.dataTransfer.items;
 
 			// Return if no items were dropped
@@ -119,10 +119,8 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			m_parentTag.removeChild(m_dragDropTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Button: self });
 		}
 

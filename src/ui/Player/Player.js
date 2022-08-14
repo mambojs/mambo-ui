@@ -35,7 +35,6 @@ ui.class.Player = class Player extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			installDOM();
-			finishSetup();
 			//installControls();
 			//installProgressBar();
 		}
@@ -49,6 +48,7 @@ ui.class.Player = class Player extends HTMLElement {
 
 			m_playerTag = dom.createTag(m_props.media, tagConfig);
 			self.appendChild(m_playerTag);
+			finishSetup();
 		}
 
 		function setSource(source) {

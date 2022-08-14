@@ -32,17 +32,15 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			setupEventHandler();
-			finishSetup();
 		}
 
 		function setOptionValues() {
 			m_enable = m_props.enable;
 			m_axis = m_props.axis === "x" ? 0 : m_props.axis === "y" ? 1 : null;
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			const tagConfig = {
 				class: m_props.css.parent,
 				prop: m_props.prop,
@@ -51,6 +49,7 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 			m_draggableTag = dom.createTag(m_props.tags.parent, tagConfig);
 			setEnable(m_enable);
 			self.appendChild(m_draggableTag);
+			setupEventHandler();
 		}
 
 		function setupEventHandler() {
@@ -61,6 +60,7 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 			document.addEventListener("mousedown", dragStart, false);
 			document.addEventListener("mouseup", dragEnd, false);
 			document.addEventListener("mousemove", drag, false);
+			loadDOM();
 		}
 
 		function dragStart(ev) {
@@ -173,10 +173,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 			dom.remove(m_draggableTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Draggable: self });
 		}
 

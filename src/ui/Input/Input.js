@@ -29,12 +29,10 @@ ui.class.Input = class Input extends HTMLElement {
 
 		function setup(options) {
 			configure(options);
-			installDOM();
-			setupEventListeners();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			//create the wrapper div container for the input
 			m_wrapperTag = dom.createTag("div", {
 				class: m_props.css.inputWrapper,
@@ -99,6 +97,8 @@ ui.class.Input = class Input extends HTMLElement {
 			if (m_props.validate.onStart) {
 				validate();
 			}
+
+			setupEventListeners();
 		}
 
 		function appendInputElement(parent) {
@@ -161,8 +161,9 @@ ui.class.Input = class Input extends HTMLElement {
 					});
 				});
 			}
-			// Always handle onBlur internally
+
 			m_inputTag.addEventListener("blur", handleOnBlur);
+			loadDOM();
 		}
 
 		function handleOnBlur(ev) {
@@ -219,10 +220,8 @@ ui.class.Input = class Input extends HTMLElement {
 			}
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Input: self });
 		}
 

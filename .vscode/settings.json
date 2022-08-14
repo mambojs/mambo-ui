@@ -8,6 +8,7 @@
 	"editor.insertSpaces": true,
 	"editor.detectIndentation": true,
 	"editor.renderWhitespace": "all",
+	"editor.minimap.size": "fit",
 	"diffEditor.ignoreTrimWhitespace": false,
 	"[markdown]": {
 		"editor.wordWrapColumn": 160,

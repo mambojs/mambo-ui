@@ -25,11 +25,10 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_treeViewParentTag = dom.createTag(m_props.tags.treeView, {
 				class: m_props.css.treeViewParent,
 			});
@@ -42,6 +41,8 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 			groupData.forEach((itemData) => {
 				processItem(itemData, groupTag);
 			});
+
+			loadDOM();
 		}
 
 		function processItem(itemData, parentTag) {
@@ -159,10 +160,8 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 			dom.remove(m_treeViewParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ TreeView: self });
 		}
 

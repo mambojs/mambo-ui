@@ -30,29 +30,27 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_datePickerParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
 			self.appendChild(m_datePickerParentTag);
-			installInput();
-			installDropdown();
+			setupInput();
+			setupDropdown();
 		}
 
-		function installInput() {
+		function setupInput() {
 			let input = m_utils.extend(true, {}, m_props.input);
 			input.css = m_utils.extend(true, m_props.css.input, input.css);
 			input.parentTag = m_datePickerParentTag;
 			m_input = ui.input(input);
 		}
 
-		function installDropdown() {
-			//create the wrapper div container for the input
+		function setupDropdown() {
 			m_dropdownWrapperTag = dom.createTag("div", {
 				class: m_props.css.dropdownWrapper,
 			});
@@ -73,6 +71,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			};
 			dropdown.parentTag = m_dropdownWrapperTag;
 			m_dropdown = ui.dropdown(dropdown);
+			loadDOM();
 		}
 
 		function installCalendar(dropdown) {
@@ -135,10 +134,8 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			dom.remove(m_datePickerParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ DatePicker: self });
 		}
 
@@ -176,9 +173,6 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 				depth: "month",
 				min: new Date(1900, 0, 1),
 				max: new Date(2099, 11, 31),
-				fnSelect: (context) => {
-					// Nothing executes by default
-				},
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);

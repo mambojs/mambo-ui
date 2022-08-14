@@ -35,13 +35,6 @@ ui.class.Slider = class Slider extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			finishSetup();
-			// Must configure after installation
-			installTrack();
-			installHandle();
-			setEnable(m_enable);
-			setValue(m_value);
 		}
 
 		function setOptionValues() {
@@ -49,9 +42,10 @@ ui.class.Slider = class Slider extends HTMLElement {
 			m_value = m_props.value;
 			m_horizontal = m_props.orientation !== "vertical";
 			m_css = m_horizontal ? m_props.css.horizontal : m_props.css.vertical;
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_sliderParentTag = dom.createTag(m_props.tags.slider, {
 				class: m_css.parent,
 			});
@@ -79,6 +73,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 					installButton(m_props.decreaseButton, m_css.decreaseButton, decrease);
 				}
 			}
+
+			loadDOM();
 		}
 
 		function installButton(config, css, fnClick) {
@@ -308,10 +304,12 @@ ui.class.Slider = class Slider extends HTMLElement {
 			dom.remove(m_sliderParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
+			installTrack();
+			installHandle();
+			setEnable(m_enable);
+			setValue(m_value);
 			if (m_props.fnComplete) m_props.fnComplete({ Slider: self });
 		}
 

@@ -25,15 +25,14 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
-			installComboBox();
+		function setupDOM() {
+			setupComboBox();
 		}
 
-		function installComboBox() {
+		function setupComboBox() {
 			const combobox = m_utils.extend(true, {}, m_props.combobox);
 			combobox.parentTag = m_parentTag;
 			combobox.data = createComboBoxData();
@@ -53,6 +52,7 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 			};
 
 			m_comboBox = ui.combobox(combobox);
+			loadDOM();
 		}
 
 		function createComboBoxData() {
@@ -96,10 +96,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 			m_comboBox.destroy();
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ TimePicker: self });
 		}
 

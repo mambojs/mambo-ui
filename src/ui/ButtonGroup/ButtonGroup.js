@@ -29,20 +29,21 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_buttonGroupTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
 			self.appendChild(m_buttonGroupTag);
-			// Loop through all the buttons
+
 			if (m_props.buttons) {
 				m_props.buttons.forEach(installButton);
 			}
+
+			loadDOM();
 		}
 
 		function deselect() {
@@ -105,10 +106,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			dom.remove(m_buttonGroupTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ ButtonGroup: self });
 		}
 

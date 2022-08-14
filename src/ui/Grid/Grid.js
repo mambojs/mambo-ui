@@ -44,21 +44,19 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			// Validate grid layout
+
 			switch (m_props.layout) {
 				case "tile":
-					installTiles();
+					setupTilesDOM();
 					break;
 
 				case "grid":
-					installGrid();
+					setupGridDOM();
 					break;
 			}
-
-			finishSetup();
 		}
 
-		function installTiles() {
+		function setupTilesDOM() {
 			m_tileParentTag = dom.createTag(m_props.tags.tilesParent, {
 				class: m_props.css.tilesParent,
 			});
@@ -72,6 +70,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 			m_gridData.forEach((tileData, tileIndex) => {
 				installTile(tileData, tileIndex);
 			});
+
+			loadDOM();
 		}
 
 		function installTile(tileData, tileIndex) {
@@ -102,24 +102,23 @@ ui.class.Grid = class Grid extends HTMLElement {
 			}
 		}
 
-		function installGrid() {
+		function setupGridDOM() {
 			m_gridParentTag = dom.createTag(m_props.tags.gridParent, {
 				class: m_props.css.gridParent,
 			});
+
 			m_gridHdrTag = dom.createTag(m_props.tags.gridHdr, {
 				class: m_props.css.gridHdr,
 			});
+
 			m_gridBodyTag = dom.createTag(m_props.tags.gridBody, {
 				class: m_props.css.gridBody,
 			});
+
 			m_gridBodyRowTagName = "data-grid-row";
 			m_rowIndexAttrName = "data-grid-row-index";
-
-			// Install grid parent tag
 			dom.append(m_gridParentTag, m_gridHdrTag).append(m_gridParentTag, m_gridBodyTag);
 			self.appendChild(m_gridParentTag);
-
-			// Install the header tags
 			installHdr();
 		}
 
@@ -162,7 +161,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 					setColsWidth();
 				}, 1);
 			} else {
-				finishSetup();
+				loadDOM();
 			}
 
 			function processRow(rowData, rowIndex) {
@@ -720,8 +719,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			// Append to HTML HEAD tag
 			dom.append("head", styleEl);
-
-			finishSetup();
+			loadDOM();
 		}
 
 		function getRowIndex(context = {}) {
@@ -779,17 +777,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function validateGridData() {
 			if (!m_gridData || !Array.isArray(m_gridData)) {
 				console.error("Data Grid alert: grid data not found or is not data type Array -->", m_parentTag);
-				finishSetup();
 				return false;
 			}
 
 			return true;
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Grid: self });
 		}
 

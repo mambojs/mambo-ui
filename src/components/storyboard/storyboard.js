@@ -13,6 +13,7 @@ function installStoryboard() {
 		// Use alpha characters and spaces only, any other char will break
 		stories = [
 			{ text: "Button" },
+			{ text: "Button SVG" },
 			{ text: "Button Group" },
 			{ text: "Calendar" },
 			{ text: "Checkbox Radio" },

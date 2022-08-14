@@ -26,36 +26,36 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_checkboxRadioGroupTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
+
 			self.appendChild(m_checkboxRadioGroupTag);
 
-			// Loop through all the checkbox
 			if (m_props.checkboxes) {
-				m_props.checkboxes.forEach(installCheckbox);
+				m_props.checkboxes.forEach(setupCheckbox);
 			}
 
-			// Loop through all the radios
 			if (m_props.radios) {
-				m_props.radios.forEach(installRadio);
+				m_props.radios.forEach(setupRadio);
 			}
+
+			loadDOM();
 		}
 
-		function installCheckbox(checkbox) {
-			installTag(checkbox, "checkbox");
+		function setupCheckbox(checkbox) {
+			setupTag(checkbox, "checkbox");
 		}
 
-		function installRadio(radio) {
-			installTag(radio, "radio");
+		function setupRadio(radio) {
+			setupTag(radio, "radio");
 		}
 
-		function installTag(tag, type) {
+		function setupTag(tag, type) {
 			tag.css = tag.css ? m_utils.extend(true, m_props.css, tag.css) : m_props.css;
 			const attr = {
 				type: type,
@@ -73,7 +73,6 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 				selectTag(context.CheckboxRadio, true);
 			}
 
-			// If same callback for all checkboxes / radios
 			if (m_props.fnClick) {
 				m_props.fnClick(context);
 			}
@@ -143,10 +142,8 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 			dom.remove(m_checkboxRadioGroupTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ CheckboxRadioGroup: self });
 		}
 
@@ -164,7 +161,6 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 				name: Math.random().toString(36).slice(2),
 				checkboxes: [],
 				radios: [],
-				fnGroupClick: (context) => {},
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);

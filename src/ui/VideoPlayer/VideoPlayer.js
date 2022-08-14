@@ -23,12 +23,10 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
-			//create the wrapper div container for the input
+		function setupDOM() {
 			m_wrapperTag = dom.createTag("video-player", {
 				class: m_props.css.wrapper,
 			});
@@ -36,12 +34,11 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 			self.appendChild(m_wrapperTag);
 			m_props.player.parentTag = m_wrapperTag;
 			m_player = ui.player(m_props.player);
+			loadDOM();
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ VideoPlayer: self });
 		}
 

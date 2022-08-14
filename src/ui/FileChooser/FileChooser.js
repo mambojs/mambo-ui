@@ -24,11 +24,10 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_wrapperTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
@@ -60,6 +59,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			};
 
 			ui.button(config);
+			loadDOM();
 		}
 
 		function installInput(hidden) {
@@ -74,10 +74,12 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 					{
 						name: "change",
 						fn: (context) => {
-							m_props.fnUpload({
-								files: context.Input.getTag().files,
-								ev: context.ev,
-							});
+							if (m_props.fnUpload) {
+								m_props.fnUpload({
+									files: context.Input.getTag().files,
+									ev: context.ev,
+								});
+							}
 						},
 					},
 				],
@@ -93,16 +95,15 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			}
 
 			m_inputTag = ui.input(inputConfig);
+			loadDOM();
 		}
 
 		function destroyFileChooser() {
 			dom.remove(m_wrapperTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ FileChooser: self });
 		}
 
@@ -111,10 +112,10 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			m_parentTag = dom.getTag(m_parentTag);
 			dom.append(m_parentTag, self, prepend);
 		}
+
 		function configure(customProps) {
 			m_props = {
 				install: true,
-				buttonOnly: false,
 				textButton: "Button Only - Select File",
 				textLabel: "Choose files to upload",
 				attr: {
@@ -122,9 +123,6 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 				},
 				tag: "default",
 				theme: "default",
-				fnUpload: (context) => {
-					// Provide your callback function
-				},
 			};
 			/// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);

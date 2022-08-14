@@ -32,28 +32,26 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installDOM();
-			finishSetup();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_comboBoxParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 			self.appendChild(m_comboBoxParentTag);
-			installInput();
-			installDropdown();
+			setupInput();
+			setupDropdown();
 		}
 
-		function installInput() {
+		function setupInput() {
 			let input = m_utils.extend(true, {}, m_props.input);
 			input.css = m_utils.extend(true, m_props.css.input, input.css);
 			input.parentTag = m_comboBoxParentTag;
 			m_input = ui.input(input);
 		}
 
-		function installDropdown() {
-			//create the wrapper div container for the input
+		function setupDropdown() {
 			m_dropdownWrapperTag = dom.createTag("div", {
 				class: m_props.css.dropdownWrapper,
 			});
@@ -75,6 +73,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 			};
 			dropdown.parentTag = m_dropdownWrapperTag;
 			m_dropdown = ui.dropdown(dropdown);
+			loadDOM();
 		}
 
 		function installButtonGroup(dropdown, data) {
@@ -179,10 +178,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 			dom.remove(m_comboBoxParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Combobox: self });
 		}
 
@@ -223,9 +220,6 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 				textField: "text",
 				filter: true,
 				value: "",
-				fnSelect: (context) => {
-					// Nothing executes by default
-				},
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);

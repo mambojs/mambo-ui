@@ -43,8 +43,6 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			finishSetup();
 		}
 
 		function setOptionValues() {
@@ -57,20 +55,21 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 			m_value = getDefaultValue();
 			setViewDate(m_value);
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_calendarParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
 			self.appendChild(m_calendarParentTag);
-			installHeader();
-			installBody();
-			installFooter();
+			setupHeader();
+			setupBody();
+			setupFooter();
 		}
 
-		function installHeader() {
+		function setupHeader() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.headerButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.headerButtonGroup, buttonGroup.css);
 			buttonGroup.parentTag = m_calendarParentTag;
@@ -165,9 +164,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			}
 		}
 
-		//Body
-
-		function installBody() {
+		function setupBody() {
 			m_bodyTag = dom.createTag(m_props.tags.body, {
 				class: m_props.css.body,
 			});
@@ -209,8 +206,6 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			setHeaderButtonsText();
 			setHeaderButtonsEnabled();
 		}
-
-		//Body: Dates
 
 		function installDatesHeader() {
 			let grid = m_utils.extend(true, {}, m_props.datesHeader);
@@ -268,8 +263,6 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			}
 		}
 
-		//Body Months
-
 		function installMonths() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.monthsButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.monthsButtonGroup, buttonGroup.css);
@@ -306,8 +299,6 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				m_dateMgr.add(value, 1, "months");
 			}
 		}
-
-		//Body Years
 
 		function installYears() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.yearsButtonGroup);
@@ -348,8 +339,6 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			}
 		}
 
-		//Body Decades
-
 		function installDecades() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.decadesButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.decadesButtonGroup, buttonGroup.css);
@@ -389,9 +378,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			}
 		}
 
-		//Footer
-
-		function installFooter() {
+		function setupFooter() {
 			if (m_props.footer) {
 				let button = m_utils.extend(true, {}, m_props.footerButton);
 				button.css = m_utils.extend(true, m_props.css.footerButton, button.css);
@@ -415,9 +402,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				button.parentTag = m_calendarParentTag;
 				ui.button(button);
 			}
-		}
 
-		//Private methods
+			loadDOM();
+		}
 
 		function isValidButton(value) {
 			return !m_dateMgr.isBefore(value, m_minDate) && !m_dateMgr.isAfter(value, m_maxDate);
@@ -518,10 +505,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			dom.remove(m_calendarParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Calendar: self });
 		}
 

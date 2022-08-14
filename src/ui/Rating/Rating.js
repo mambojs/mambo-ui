@@ -30,25 +30,22 @@ ui.class.Rating = class Rating extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			setOptionValues();
-			installDOM();
-			setupEventHandler();
-			finishSetup();
-			// Must set value after installation
-			setValue(m_value);
 		}
 
 		function setOptionValues() {
 			m_value = m_props.value;
 			m_enable = m_props.enable;
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_ratingParentTag = dom.createTag(m_props.tags.rating, {
 				class: m_props.css.parent,
 			});
 			self.appendChild(m_ratingParentTag);
 			installLayers();
 			setEnable(m_enable);
+			setupEventHandler();
 		}
 
 		function installLayers() {
@@ -94,6 +91,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 			m_ratingParentTag.addEventListener("mouseenter", setHoverValue);
 			m_ratingParentTag.addEventListener("mousemove", setHoverValue);
 			m_ratingParentTag.addEventListener("mouseleave", hideHoverLayer);
+			setValue(m_value);
 		}
 
 		function selectValue(ev) {
@@ -146,6 +144,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 			m_ratingSelectedTag.style.display = "block";
 			m_ratingHoverTag.style.display = "none";
 			m_ratingSelectedTag.style.width = getStarWidth() * m_value + "px";
+			loadDOM();
 		}
 
 		function enable(context = {}) {
@@ -165,10 +164,8 @@ ui.class.Rating = class Rating extends HTMLElement {
 			dom.remove(m_ratingParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Rating: self });
 		}
 

@@ -27,22 +27,20 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installEventHandler();
-			installDOM();
+			setupDOM();
 		}
 
-		function installDOM() {
+		function setupDOM() {
 			m_dropDownParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
 			self.appendChild(m_dropDownParentTag);
-			installOpenButton();
-			installContainer();
-			finishSetup();
+			setupOpenButton();
+			setupContainer();
 		}
 
-		function installOpenButton() {
+		function setupOpenButton() {
 			let button = m_utils.extend(true, {}, m_props.button);
 			button.css = m_utils.extend(true, m_props.css.button, button.css);
 			button.parentTag = m_dropDownParentTag;
@@ -61,11 +59,12 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 			ui.button(button);
 		}
 
-		function installContainer() {
+		function setupContainer() {
 			m_dropdownContainerTag = dom.createTag(m_props.tags.container, {
 				class: m_props.css.container,
 			});
 			dom.append(m_dropDownParentTag, m_dropdownContainerTag);
+			setupEventHandler();
 		}
 
 		function open() {
@@ -96,22 +95,21 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 			}
 		}
 
-		function installEventHandler() {
+		function setupEventHandler() {
 			window.addEventListener("click", function (ev) {
 				if (m_open && !m_dropdownContainerTag.contains(ev.target)) {
 					closeAnimation(ev);
 				}
 			});
+			loadDOM();
 		}
 
 		function destroyDropdown() {
 			dom.remove(m_dropDownParentTag);
 		}
 
-		function finishSetup() {
-			// Install component into parent
+		function loadDOM() {
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-			// Execute complete callback function
 			if (m_props.fnComplete) m_props.fnComplete({ Dropdown: self });
 		}
 

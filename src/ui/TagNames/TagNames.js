@@ -2,6 +2,9 @@ ui.defaultTagNames = {
 	button: {
 		button: "button",
 	},
+	buttonSVG: {
+		button: "button",
+	},
 	buttonGroup: {
 		parent: "m-button-group",
 	},
