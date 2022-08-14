@@ -4,8 +4,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 		const self = this;
 		const m_utils = ui.utils();
 		const m_string = ui.string();
-		const m_theme = ui.theme(ui.defaultTheme);
-		const m_tags = ui.tagNames(ui.defaultTagNames);
+		const m_theme = ui.theme();
+		const m_tags = ui.tagNames();
 
 		// HTML tag variables
 		let m_parentTag;

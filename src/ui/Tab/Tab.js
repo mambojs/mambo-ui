@@ -3,8 +3,8 @@ ui.class.Tab = class Tab extends HTMLElement {
 		super();
 		const self = this;
 		const m_utils = ui.utils();
-		const m_theme = ui.theme(ui.defaultTheme);
-		const m_tags = ui.tagNames(ui.defaultTagNames);
+		const m_theme = ui.theme();
+		const m_tags = ui.tagNames();
 
 		// Define member variables
 		let m_props;

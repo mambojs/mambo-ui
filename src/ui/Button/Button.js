@@ -3,8 +3,8 @@ ui.class.Button = class Button extends HTMLElement {
 		super();
 		const self = this;
 		const m_utils = ui.utils();
-		const m_theme = ui.theme(ui.defaultTheme);
-		const m_tags = ui.tagNames(ui.defaultTagNames);
+		const m_theme = ui.theme();
+		const m_tags = ui.tagNames();
 		const m_imageList = [];
 
 		let m_parentTag;
