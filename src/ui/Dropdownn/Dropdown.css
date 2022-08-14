@@ -1,0 +1,37 @@
+.dropdown-button {
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  background: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-button.hover {
+  background: #444;
+}
+
+.dropdown-button.selected {
+  background: #444;
+}
+
+.dropdown-container {
+  display: none;
+  position: absolute;
+  width: 25rem;
+  height: 15rem;
+  background-color: #f8f8f8;
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0, 0, 0, 0.15);
+  overflow: auto;
+  z-index: 999;
+  color: black;
+}
+
+.dropdown-container.open {
+  display: block;
+}
