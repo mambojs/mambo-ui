@@ -17,7 +17,7 @@ function installStoryboard() {
 			{ text: "Calendar" },
 			{ text: "Checkbox Radio" },
 			{ text: "Checkbox Radio Group" },
-			{ text: "ComboboxNew" },
+			/* { text: "ComboboxNew" }, */
 			{ text: "Date Picker" },
 			{ text: "Dialog" },
 			{ text: "Drag Drop" },
