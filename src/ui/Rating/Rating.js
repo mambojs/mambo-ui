@@ -2,7 +2,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -33,6 +33,8 @@ ui.class.Rating = class Rating extends HTMLElement {
 			installDOM();
 			setupEventHandler();
 			finishSetup();
+			// Must set value after installation
+			setValue(m_value);
 		}
 
 		function setOptionValues() {
@@ -41,27 +43,26 @@ ui.class.Rating = class Rating extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_ratingParentTag = dom.createTag(m_props.tag.rating, {
+			m_ratingParentTag = dom.createTag(m_props.tags.rating, {
 				class: m_props.css.parent,
 			});
 			self.appendChild(m_ratingParentTag);
 			installLayers();
-			setValue(m_value);
 			setEnable(m_enable);
 		}
 
 		function installLayers() {
-			m_ratingEmptyTag = dom.createTag(m_props.tag.empty, {
+			m_ratingEmptyTag = dom.createTag(m_props.tags.empty, {
 				class: m_props.css.empty,
 			});
 			dom.append(m_ratingParentTag, m_ratingEmptyTag);
 
-			m_ratingSelectedTag = dom.createTag(m_props.tag.selected, {
+			m_ratingSelectedTag = dom.createTag(m_props.tags.selected, {
 				class: m_props.css.selected,
 			});
 			dom.append(m_ratingParentTag, m_ratingSelectedTag);
 
-			m_ratingHoverTag = dom.createTag(m_props.tag.hover, {
+			m_ratingHoverTag = dom.createTag(m_props.tags.hover, {
 				class: m_props.css.hover,
 			});
 			dom.append(m_ratingParentTag, m_ratingHoverTag);
@@ -71,17 +72,17 @@ ui.class.Rating = class Rating extends HTMLElement {
 
 		function installStars() {
 			for (let i = 0; i < m_props.max; i++) {
-				let emptyStarTag = dom.createTag(m_props.tag.emptyStar, {
+				let emptyStarTag = dom.createTag(m_props.tags.emptyStar, {
 					class: m_props.css.emptyStar,
 				});
 				dom.append(m_ratingEmptyTag, emptyStarTag);
 
-				let selectedStarTag = dom.createTag(m_props.tag.selectedStar, {
+				let selectedStarTag = dom.createTag(m_props.tags.selectedStar, {
 					class: m_props.css.selectedStar,
 				});
 				dom.append(m_ratingSelectedTag, selectedStarTag);
 
-				let hoverStarTag = dom.createTag(m_props.tag.hoverStar, {
+				let hoverStarTag = dom.createTag(m_props.tags.hoverStar, {
 					class: m_props.css.hoverStar,
 				});
 				dom.append(m_ratingHoverTag, hoverStarTag);
@@ -100,7 +101,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 				setValue(getHoverValue(ev));
 
 				if (m_props.fnSelect) {
-					m_props.fnSelect({ rating: self, ev: ev });
+					m_props.fnSelect({ Rating: self, ev: ev });
 				}
 			}
 		}
@@ -190,24 +191,12 @@ ui.class.Rating = class Rating extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "template",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "template",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "rating" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "rating" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

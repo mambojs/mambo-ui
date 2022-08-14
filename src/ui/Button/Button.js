@@ -2,7 +2,7 @@ ui.class.Button = class Button extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 		const m_imageList = [];
@@ -58,7 +58,7 @@ ui.class.Button = class Button extends HTMLElement {
 				},
 			};
 
-			m_buttonTag = dom.createTag(m_props.tag.button, tagConfig);
+			m_buttonTag = dom.createTag(m_props.tags.button, tagConfig);
 
 			//check if an img was provided
 			if (m_props.img) {
@@ -133,7 +133,7 @@ ui.class.Button = class Button extends HTMLElement {
 				// Invoke callback for each button
 				if (m_props.fnClick) {
 					m_props.fnClick({
-						button: self,
+						Button: self,
 						ev: ev,
 					});
 				}
@@ -141,7 +141,7 @@ ui.class.Button = class Button extends HTMLElement {
 				// Invoke callback for group
 				if (m_props.fnGroupClick) {
 					m_props.fnGroupClick({
-						button: self,
+						Button: self,
 						ev: ev,
 					});
 				}
@@ -230,9 +230,7 @@ ui.class.Button = class Button extends HTMLElement {
 			// Install component into parent
 			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 			// Execute complete callback function
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Button: self });
-			}
+			if (m_props.fnComplete) m_props.fnComplete({ Button: self });
 		}
 
 		function installSelf(parentTag, prepend) {
@@ -247,7 +245,6 @@ ui.class.Button = class Button extends HTMLElement {
 				install: true,
 				preventDefault: true,
 				stopPropagation: true,
-				text: "",
 				tag: "default",
 				theme: "default",
 			};
@@ -255,29 +252,17 @@ ui.class.Button = class Button extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "button",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "button",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "button" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "button" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.button = (options) => new ui.class.Button(options);
+ui.button = (props) => new ui.class.Button(props);
 
 // Must ALWAYS define the new element as a Native Web Component
 customElements.define("mambo-button", ui.class.Button);

@@ -9,7 +9,7 @@ function storyButton(selectedStory) {
 			id: 1,
 			text: "Single button",
 			fnClick: (context) => {
-				alert(`${context.button.text()} clicked.`);
+				alert(`${context.Button.text()} clicked.`);
 			},
 		};
 		ui.button(config);
@@ -37,7 +37,7 @@ function storyButton(selectedStory) {
 			id: 2,
 			text: "Image Button",
 			fnClick: (context) => {
-				alert(`${context.button.text()} clicked.`);
+				alert(`${context.Button.text()} clicked.`);
 			},
 		};
 
@@ -47,58 +47,6 @@ function storyButton(selectedStory) {
 
 	//: Creating a button with an <a> element
 	//@
-	anchorButtonText();
-
-	function anchorButtonText() {
-		const config = {
-			parentTag: selectedStory.parentTag,
-			id: 3,
-			tag: "a",
-			text: "Anchor Button",
-			attr: {
-				href: location.pathname,
-			},
-			fnClick: (context) => {
-				alert(`${context.button.text()} clicked.`);
-			},
-		};
-
-		ui.button(config);
-	}
-	//!
-
-	//: Creating a button with an <a> and an <img> element inside
-	//@
-	anchorButtonImg();
-
-	function anchorButtonImg() {
-		const config = {
-			parentTag: selectedStory.parentTag,
-			id: 4,
-			tag: "a",
-			text: "Anchor Button Image",
-			attr: {
-				href: location.pathname,
-			},
-			img: {
-				attr: {
-					src: `data:image/svg+xml;base64,
-                PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgdmlld0
-                JveD0iMCAwIDUwIDUwIj48dGl0bGU+aG9tZTwvdGl0bGU
-                +PHBvbHlnb24gcG9pbnRzPSI0NyAyMy45OCAyNC41IDEuNDggMiAyMy45OCA4LjA5IDI0IDguMDkgNDguNTIgMTguM
-                zYgNDguNTIgMTguMzYgMzUuMTIgMzAuNjQgMzUuMTIgMzAuNjQgNDguNTIgNDAuOTEgNDguNTIgNDAuOTEgMjQgNDc
-                gMjMuOTgiIHN0eWxlPSJmaWxsOiNmZmYiLz48L3N2Zz4=`,
-					alt: "home",
-				},
-			},
-			fnClick: (context) => {
-				alert(`${context.button.text()} clicked.`);
-			},
-		};
-
-		ui.button(config);
-	}
-	//!
 
 	//: Creating a button that replace the inner image in a hover event.
 	//@
@@ -140,7 +88,7 @@ function storyButton(selectedStory) {
             w9yPSt2FCZ6UwAAAABJRU5ErkJggg==`,
 			},
 			fnClick: (context) => {
-				alert(`${context.button.text()} clicked.`);
+				alert(`${context.Button.text()} clicked.`);
 			},
 		};
 
@@ -221,7 +169,7 @@ function storyButton(selectedStory) {
 				},
 			],
 			fnClick: (context) => {
-				alert(`${context.button.text()} clicked.`);
+				alert(`${context.Button.text()} clicked.`);
 			},
 		};
 

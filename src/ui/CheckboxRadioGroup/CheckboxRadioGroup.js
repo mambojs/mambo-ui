@@ -2,7 +2,7 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -31,7 +31,7 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_checkboxRadioGroupTag = dom.createTag(m_props.tag.parent, {
+			m_checkboxRadioGroupTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 			self.appendChild(m_checkboxRadioGroupTag);
@@ -63,13 +63,14 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 			};
 			tag.attr = m_utils.extend(true, attr, tag.attr);
 			tag.fnGroupClick = handleGroupClick;
+			tag.parentTag = m_checkboxRadioGroupTag;
 
-			m_checkboxRadiosList.push(ui.checkboxRadio(m_checkboxRadioGroupTag, tag));
+			m_checkboxRadiosList.push(ui.checkboxRadio(tag));
 		}
 
 		function handleGroupClick(context) {
-			if (context.checkboxRadio.isRadio()) {
-				selectTag(context.checkboxRadio, true);
+			if (context.CheckboxRadio.isRadio()) {
+				selectTag(context.CheckboxRadio, true);
 			}
 
 			// If same callback for all checkboxes / radios
@@ -79,8 +80,8 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 
 			if (m_props.fnGroupClick) {
 				m_props.fnGroupClick({
-					checkboxRadioGroup: self,
-					checkboxRadio: context.checkboxRadio,
+					CheckboxRadioGroup: self,
+					CheckboxRadio: context.CheckboxRadio,
 					ev: context.ev,
 				});
 			}
@@ -169,24 +170,12 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "checkboxRadioGroup",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "checkboxRadioGroup",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "checkboxRadioGroup" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "checkboxRadioGroup" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

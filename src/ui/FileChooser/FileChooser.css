@@ -1,7 +1,5 @@
 .file-chooser-parent {
-  padding: 0.25em;
-  display: grid;
-  border: 1px solid #ccc;
+  display: block;
 }
 
 .file-chooser-input {

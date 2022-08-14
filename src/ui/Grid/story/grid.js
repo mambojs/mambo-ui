@@ -1,18 +1,8 @@
-//: Grid
-//@
-demoGrid("storyboard-grid");
-
-function demoGrid(parentEle) {
-	let firstGrid = dom.createTag(`${parentEle}-first`, {
-		class: "first-grid",
-	});
-	let secondGrid = dom.createTag(`${parentEle}-second`, {
-		class: "second-grid",
-	});
-
-	dom.append(parentEle, firstGrid);
-	dom.append(parentEle, secondGrid);
-
+function storyGrid(selectedStory) {
+	const firstGridParentTag = dom.createTag(`${selectedStory.id}-first`, { class: "first-grid" });
+	selectedStory.parentTag.appendChild(firstGridParentTag);
+	const secondGridParentTag = dom.createTag(`${selectedStory.id}-second`, { class: "second-grid" });
+	selectedStory.parentTag.appendChild(secondGridParentTag);
 	//First Grid
 	const data = [
 		{
@@ -59,11 +49,7 @@ function demoGrid(parentEle) {
 				},
 				{
 					id: 3,
-					tag: "a",
 					text: "3",
-					attr: {
-						href: "#",
-					},
 				},
 			],
 			fnClick: handleButtonClick,
@@ -89,8 +75,8 @@ function demoGrid(parentEle) {
 			},
 			fnClick: (context) => {
 				// Callback from the Input Button through the Input interface
-				if (context.button.getId() === "input-clear") {
-					context.input.clear();
+				if (context.Button.getId() === "input-clear") {
+					context.Input.clear();
 				}
 			},
 		},
@@ -111,9 +97,7 @@ function demoGrid(parentEle) {
 			id: "fileChooser",
 			name: "File Chooser",
 			type: "file-chooser",
-			fnUpload: (context) => {
-				console.log(context.files, context.ev);
-			},
+			fnUpload: (context) => {},
 		},
 		{
 			id: "dialog",
@@ -148,14 +132,14 @@ function demoGrid(parentEle) {
 				// Get the slideout content, header and body tags
 				// Insert your own HTML content
 				// You can replace the entire contents of the slideout area
-				const contentTag = context.slideout.getContentTag();
+				const contentTag = context.Slideout.getContentTag();
 
 				// Insert Header content
-				const headerTag = context.slideout.getHeaderTag();
+				const headerTag = context.Slideout.getHeaderTag();
 				dom.append(headerTag, "<h3>My Header Content</h3>");
 
 				// Insert Body content
-				const bodyTag = context.slideout.getBodyTag();
+				const bodyTag = context.Slideout.getBodyTag();
 				dom.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
 			},
 		},
@@ -164,23 +148,17 @@ function demoGrid(parentEle) {
 			type: "drag-drop",
 			name: "Drag & Drop",
 			dropText: "Drop Files",
-			fnDrop: (context) => {
-				console.log(context.dataTransfer.files);
-			},
+			fnDrop: (context) => {},
 		},
 	];
 
 	let config = {
+		parentTag: firstGridParentTag,
 		data: data,
 		columns: columnsConfig,
 		maxColWidth: true,
 		fnPostRow: handleGridPostRow,
-		fnComplete: (context) => {
-			// Execute when grid installation is complete
-			console.log(context.grid.getCellComponentsById());
-			console.log(context.grid.getCellComponentsByColNbr());
-		},
-		parentTag: firstGrid,
+		fnComplete: (context) => {},
 	};
 
 	ui.grid(config);
@@ -242,9 +220,7 @@ function demoGrid(parentEle) {
 					],
 				},
 			],
-			fnSelect: (context) => {
-				console.log(context.itemData);
-			},
+			fnSelect: (context) => {},
 		},
 		{
 			id: "dropdown",
@@ -256,7 +232,7 @@ function demoGrid(parentEle) {
 				"max-width": "130px",
 			},
 			fnComplete: (context) => {
-				const contentTag = context.dropdown.getContentTag();
+				const contentTag = context.Dropdown.getContentTag();
 				dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
 			},
 		},
@@ -287,9 +263,7 @@ function demoGrid(parentEle) {
 					id: "4",
 				},
 			],
-			fnSelect: (context) => {
-				console.log(context.combobox.value());
-			},
+			fnSelect: (context) => {},
 		},
 		{
 			id: "timePicker",
@@ -300,9 +274,7 @@ function demoGrid(parentEle) {
 				width: "130px",
 				"max-width": "130px",
 			},
-			fnSelect: (context) => {
-				console.log(context.timePicker.value());
-			},
+			fnSelect: (context) => {},
 		},
 		{
 			id: "datePicker",
@@ -313,24 +285,17 @@ function demoGrid(parentEle) {
 				width: "130px",
 				"max-width": "130px",
 			},
-			fnSelect: (context) => {
-				console.log(context.datePicker.value());
-			},
+			fnSelect: (context) => {},
 		},
 	];
 
 	let config2 = {
+		parentTag: secondGridParentTag,
 		data: data2,
 		columns: columnsConfig2,
 		maxColWidth: true,
-		fnComplete: (context) => {
-			// Execute when grid installation is complete
-			console.log(context.grid.getCellComponentsById());
-			console.log(context.grid.getCellComponentsByColNbr());
-		},
-		parentTag: secondGrid,
+		fnComplete: (context) => {},
 	};
 
 	ui.grid(config2);
 }
-//!

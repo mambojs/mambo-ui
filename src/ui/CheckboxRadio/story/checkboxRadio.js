@@ -9,9 +9,7 @@ function storyCheckboxRadio(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			id: 1,
 			text: "Checkbox",
-			fnClick: (context) => {
-				alert(`Checkbox id: ${context.checkboxRadio.getId()} ${context.checkboxRadio.select() ? "checked" : "not checked"}.`);
-			},
+			fnClick: (context) => {},
 		};
 
 		ui.checkboxRadio(config);
@@ -25,9 +23,7 @@ function storyCheckboxRadio(selectedStory) {
 			attr: {
 				type: "radio",
 			},
-			fnClick: (context) => {
-				alert(`Radio id: ${context.checkboxRadio.getId()} ${context.checkboxRadio.select() ? "checked" : "not checked"}.`);
-			},
+			fnClick: (context) => {},
 		};
 
 		ui.checkboxRadio(config);

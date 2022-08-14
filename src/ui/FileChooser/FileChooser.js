@@ -2,7 +2,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -29,7 +29,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_wrapperTag = dom.createTag(m_props.tag.parent, {
+			m_wrapperTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
@@ -75,7 +75,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 						name: "change",
 						fn: (context) => {
 							m_props.fnUpload({
-								files: context.input.getTag().files,
+								files: context.Input.getTag().files,
 								ev: context.ev,
 							});
 						},
@@ -83,7 +83,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 				],
 				fnComplete: () => {
 					if (m_props.fnComplete) {
-						m_props.fnComplete({ fileChooser: self });
+						m_props.fnComplete({ FileChooser: self });
 					}
 				},
 			};
@@ -120,7 +120,6 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 				attr: {
 					type: "file",
 				},
-				prop: {},
 				tag: "default",
 				theme: "default",
 				fnUpload: (context) => {
@@ -131,24 +130,12 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "fileChooser",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "fileChooser",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "fileChooser" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "fileChooser" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

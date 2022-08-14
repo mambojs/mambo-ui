@@ -2,7 +2,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -37,6 +37,11 @@ ui.class.Slider = class Slider extends HTMLElement {
 			setOptionValues();
 			installDOM();
 			finishSetup();
+			// Must configure after installation
+			installTrack();
+			installHandle();
+			setEnable(m_enable);
+			setValue(m_value);
 		}
 
 		function setOptionValues() {
@@ -47,13 +52,13 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_sliderParentTag = dom.createTag(m_props.tag.slider, {
+			m_sliderParentTag = dom.createTag(m_props.tags.slider, {
 				class: m_css.parent,
 			});
 
 			self.appendChild(m_sliderParentTag);
 
-			m_sliderWrapperTag = dom.createTag(m_props.tag.wrapper, {
+			m_sliderWrapperTag = dom.createTag(m_props.tags.wrapper, {
 				class: m_css.wrapper,
 			});
 
@@ -74,11 +79,6 @@ ui.class.Slider = class Slider extends HTMLElement {
 					installButton(m_props.decreaseButton, m_css.decreaseButton, decrease);
 				}
 			}
-
-			installTrack();
-			installHandle();
-			setEnable(m_enable);
-			setValue(m_value);
 		}
 
 		function installButton(config, css, fnClick) {
@@ -90,7 +90,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 				fnClick();
 
 				if (m_props.fnSelect) {
-					m_props.fnSelect({ slider: self, ev: context.ev });
+					m_props.fnSelect({ Slider: self, ev: context.ev });
 				}
 
 				if (config.fnClick) {
@@ -110,10 +110,10 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installTrack() {
-			m_trackTag = dom.createTag(m_props.tag.track, { class: m_css.track });
-			dom.append(m_sliderWrapperTag, m_trackTag);
+			m_trackTag = dom.createTag(m_props.tags.track, { class: m_css.track });
+			m_sliderWrapperTag.appendChild(m_trackTag);
 
-			m_selectionTag = dom.createTag(m_props.tag.selection, {
+			m_selectionTag = dom.createTag(m_props.tags.selection, {
 				class: m_css.selection,
 			});
 			dom.append(m_sliderWrapperTag, m_selectionTag);
@@ -122,7 +122,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installSteps() {
-			let stepsTag = dom.createTag(m_props.tag.stepsContainer, {
+			let stepsTag = dom.createTag(m_props.tags.stepsContainer, {
 				class: m_css.stepsContainer,
 			});
 			dom.prepend(m_sliderWrapperTag, stepsTag);
@@ -146,7 +146,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installLargeStep(stepsTag, value) {
-			let stepTag = dom.createTag(m_props.tag.stepLarge, {
+			let stepTag = dom.createTag(m_props.tags.stepLarge, {
 				class: m_css.stepLarge,
 			});
 			let textTag = dom.createTag("span", {
@@ -167,7 +167,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installSmallStep(stepsTag) {
-			let stepTag = dom.createTag(m_props.tag.step, { class: m_css.step });
+			let stepTag = dom.createTag(m_props.tags.step, { class: m_css.step });
 
 			if (m_horizontal) {
 				dom.append(stepsTag, stepTag);
@@ -182,11 +182,10 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function installHandle() {
 			const config = {
+				parentTag: m_sliderWrapperTag,
+				containerTag: m_sliderWrapperTag,
 				css: {
 					draggable: m_css.handle,
-				},
-				tag: {
-					draggable: m_props.tag.handle,
 				},
 				axis: m_horizontal ? "x" : "y",
 				grid: m_horizontal ? [m_stepLength, 0] : [0, m_stepLength],
@@ -195,14 +194,14 @@ ui.class.Slider = class Slider extends HTMLElement {
 				},
 				fnDragStart: (context) => {
 					if (m_props.fnSlideStart) {
-						m_props.fnSlideStart({ slider: self, ev: context.ev });
+						m_props.fnSlideStart({ Slider: self, ev: context.ev });
 					}
 				},
 				fnDragEnd: updateValue,
 				fnDrag: updateSelection,
 			};
 
-			m_handleTag = ui.draggable(m_sliderWrapperTag, m_sliderWrapperTag, config);
+			m_handleTag = ui.draggable(config);
 		}
 
 		function updateValue(context) {
@@ -210,7 +209,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 			setHandlePosition();
 
 			if (m_props.fnSelect) {
-				m_props.fnSelect({ slider: self, ev: context.ev });
+				m_props.fnSelect({ Slider: self, ev: context.ev });
 			}
 		}
 
@@ -218,7 +217,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 			setSelectionPosition();
 
 			if (m_props.fnSlide) {
-				m_props.fnSlide({ slider: self, ev: context.ev });
+				m_props.fnSlide({ Slider: self, ev: context.ev });
 			}
 		}
 

@@ -28,7 +28,7 @@ function storyButtonGroup(selectedStory) {
 			],
 			fnClick: (context) => {
 				// You can declare a single event handler for all buttons
-				alert(`'Button clicked: ' ${context.button.getId()}`);
+				alert(`'Button clicked: ' ${context.Button.getId()}`);
 			},
 		};
 

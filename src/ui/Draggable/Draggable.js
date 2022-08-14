@@ -2,7 +2,7 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -33,6 +33,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 			configure(props);
 			setOptionValues();
 			installDOM();
+			setupEventHandler();
+			finishSetup();
 		}
 
 		function setOptionValues() {
@@ -42,19 +44,13 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 		function installDOM() {
 			const tagConfig = {
-				class: m_props.css.draggable,
+				class: m_props.css.parent,
 				prop: m_props.prop,
 				attr: m_props.attr,
 			};
-			m_draggableTag = dom.createTag(m_props.tag.draggable, tagConfig);
-			self.appendChild(m_draggableTag);
-			setupEventHandler();
+			m_draggableTag = dom.createTag(m_props.tags.parent, tagConfig);
 			setEnable(m_enable);
-
-			// Install component into parent
-			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
-
-			finishSetup();
+			self.appendChild(m_draggableTag);
 		}
 
 		function setupEventHandler() {
@@ -85,12 +81,11 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 				}
 
 				if (ev.target === m_draggableTag) {
-					//|| ev.target.closest(m_config.tag.draggable)) {
 					m_active = true;
 				}
 
 				if (m_active && m_props.fnDragStart) {
-					m_props.fnDragStart({ draggable: self, ev: ev });
+					m_props.fnDragStart({ Draggable: self, ev: ev });
 				}
 			}
 		}
@@ -98,7 +93,7 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		function dragEnd(ev) {
 			if (m_enable) {
 				if (m_active && m_props.fnDragEnd) {
-					m_props.fnDragEnd({ draggable: self, ev: ev });
+					m_props.fnDragEnd({ Draggable: self, ev: ev });
 				}
 
 				m_active = false;
@@ -135,7 +130,7 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 				setPosition(currentX, currentY);
 
 				if (m_props.fnDrag && (currentX !== 0 || currentY !== 0)) {
-					m_props.fnDrag({ draggable: self, ev: ev });
+					m_props.fnDrag({ Draggable: self, ev: ev });
 				}
 			}
 		}
@@ -197,46 +192,20 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 				tag: "default",
 				theme: "default",
 				enable: true,
-				axis: null,
-				grid: null, //[x, y]
-				attr: {},
-				prop: {},
-				fnDragStart: (context) => {
-					// Nothing executes by default
-				},
-				fnDragEnd: (context) => {
-					// Nothing executes by default
-				},
-				fnDrag: (context) => {
-					// Nothing executes by default
-				},
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "draggable",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "draggable",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "draggable" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "draggable" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
 ui.draggable = (props) => new ui.class.Draggable(props);
-
 customElements.define("mambo-draggable", ui.class.Draggable);

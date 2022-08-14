@@ -1,110 +1,73 @@
-function storyDraggable(parentEle) {
-	withContainer();
-	withoutContainer();
-	horizontal();
-	vertical();
-	step();
+function storyDraggable(selectedStory) {
+	basic();
+	fullScreen();
+	axisX();
+	axisY();
+	grid();
 
-	function withContainer() {
-		let container = dom.createTag("div", { class: "draggable-container" });
-		dom.append(parentEle, container);
-
+	function basic() {
+		const containerTag = dom.createTag("div", { class: "draggable-container" });
+		containerTag.appendChild(dom.createTag("span", { class: "draggable-text", text: "Drag" }));
+		selectedStory.parentTag.appendChild(containerTag);
 		const config = {
-			css: {
-				draggable: "draggable-element",
-			},
-			tag: {
-				draggable: "draggable-element",
-			},
-			fnDragStart: (context) => {
-				console.log("Drag started");
-			},
-			fnDragEnd: (context) => {
-				console.log("Drag ended");
-			},
-			fnDrag: (context) => {
-				console.log("Dragging");
-			},
+			containerTag: containerTag,
+			parentTag: containerTag,
 		};
 
-		let draggable = ui.draggable(container, container, config);
-		let text = dom.createTag("span", { class: "draggable-text", text: "Drag Inside" });
-		dom.append(draggable.getParentTag(), text);
+		ui.draggable(config);
 	}
 
-	function withoutContainer() {
-		let container = dom.createTag("div", { class: "draggable-container" });
-		dom.append(parentEle, container);
+	function fullScreen() {
+		const containerTag = dom.createTag("div", { class: "draggable-container" });
+		containerTag.appendChild(dom.createTag("span", { class: "draggable-text", text: "Drag Without Container" }));
+		selectedStory.parentTag.appendChild(containerTag);
 
 		const config = {
-			css: {
-				draggable: "draggable-element",
-			},
-			tag: {
-				draggable: "draggable-element",
-			},
+			parentTag: containerTag,
 		};
 
-		let draggable = ui.draggable(container, null, config);
-		let text = dom.createTag("span", { class: "draggable-text", text: "Drag Everywhere" });
-		dom.append(draggable.getParentTag(), text);
+		ui.draggable(config);
 	}
 
-	function horizontal() {
-		let container = dom.createTag("div", { class: "draggable-container" });
-		dom.append(parentEle, container);
+	function axisX() {
+		const containerTag = dom.createTag("div", { class: "draggable-container" });
+		containerTag.appendChild(dom.createTag("span", { class: "draggable-text", text: "Drag x Axis" }));
+		selectedStory.parentTag.appendChild(containerTag);
 
 		const config = {
-			css: {
-				draggable: "draggable-element",
-			},
-			tag: {
-				draggable: "draggable-element",
-			},
+			containerTag: containerTag,
+			parentTag: containerTag,
 			axis: "x",
 		};
-
-		let draggable = ui.draggable(container, container, config);
-		let text = dom.createTag("span", { class: "draggable-text", text: "Drag Horizontally" });
-		dom.append(draggable.getParentTag(), text);
+		ui.draggable(config);
 	}
 
-	function vertical() {
-		let container = dom.createTag("div", { class: "draggable-container" });
-		dom.append(parentEle, container);
+	function axisY() {
+		const containerTag = dom.createTag("div", { class: "draggable-container" });
+		containerTag.appendChild(dom.createTag("span", { class: "draggable-text", text: "Drag y Axis" }));
+		selectedStory.parentTag.appendChild(containerTag);
 
 		const config = {
-			css: {
-				draggable: "draggable-element",
-			},
-			tag: {
-				draggable: "draggable-element",
-			},
+			containerTag: containerTag,
+			parentTag: containerTag,
 			axis: "y",
 		};
 
-		let draggable = ui.draggable(container, container, config);
-		let text = dom.createTag("span", { class: "draggable-text", text: "Drag Vertically" });
-		dom.append(draggable.getParentTag(), text);
+		ui.draggable(config);
 	}
 
-	function step() {
-		let container = dom.createTag("div", { class: "draggable-container" });
-		dom.append(parentEle, container);
+	function grid() {
+		const containerTag = dom.createTag("div", { class: "draggable-container" });
+		containerTag.appendChild(dom.createTag("span", { class: "draggable-text", text: "Drag grid [30, 30]" }));
+		selectedStory.parentTag.appendChild(containerTag);
 
 		const config = {
-			css: {
-				draggable: "draggable-element",
-			},
-			tag: {
-				draggable: "draggable-element",
-			},
+			containerTag: containerTag,
+			parentTag: containerTag,
 			grid: [30, 30],
 		};
 
-		let draggable = ui.draggable(container, container, config);
-		let text = dom.createTag("span", { class: "draggable-text", text: "Drag Steps" });
-		dom.append(draggable.getParentTag(), text);
+		ui.draggable(config);
 	}
 }
 //!

@@ -149,7 +149,7 @@ ui.defaultTheme = {
 		dropText: "drag-drop-text",
 	},
 	draggable: {
-		draggable: "draggable",
+		parent: "m-draggable",
 	},
 	dropdown: {
 		parent: "dropdown-parent",

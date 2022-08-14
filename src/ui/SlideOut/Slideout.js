@@ -1,8 +1,8 @@
-ui.class.MamboSlideout = class MamboSlideout extends HTMLElement {
+ui.class.Slideout = class Slideout extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -28,27 +28,19 @@ ui.class.MamboSlideout = class MamboSlideout extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			installCloseButton();
 			installDOM();
+			installCloseButton();
 			installEventHandler();
 			finishSetup();
 		}
 
 		function installDOM() {
-			m_slideoutHeaderTag = dom.createTag(m_props.tag.header, {
-				class: m_props.css.header,
-			});
-			m_slideoutBodyTag = dom.createTag(m_props.tag.body, {
-				class: m_props.css.body,
-			});
-			m_slideoutContentTag = dom.createTag(m_props.tag.content, {
-				class: m_props.css.content,
-			});
-			dom.append(m_slideoutContentTag, m_slideoutHeaderTag).append(m_slideoutContentTag, m_slideoutBodyTag);
-
-			m_slideoutOverlayTag = dom.createTag(m_props.tag.overlay, {
-				class: m_props.css.overlay,
-			});
+			m_slideoutHeaderTag = dom.createTag(m_props.tags.header, { class: m_props.css.header });
+			m_slideoutBodyTag = dom.createTag(m_props.tags.body, { class: m_props.css.body });
+			m_slideoutContentTag = dom.createTag(m_props.tags.content, { class: m_props.css.content });
+			m_slideoutContentTag.appendChild(m_slideoutHeaderTag);
+			m_slideoutContentTag.appendChild(m_slideoutBodyTag);
+			m_slideoutOverlayTag = dom.createTag(m_props.tags.overlay, { class: m_props.css.overlay });
 			self.appendChild(m_slideoutContentTag);
 			self.appendChild(m_slideoutOverlayTag);
 		}
@@ -116,23 +108,10 @@ ui.class.MamboSlideout = class MamboSlideout extends HTMLElement {
 				tag: "default",
 				theme: "default",
 				closeButton: {
-					attr: {
-						type: "button",
-					},
-					img: {
-						attr: {
-							src: ui.graphics.getImage({ name: "x-black" }),
-						},
-					},
+					text: "X",
 					css: {
 						button: "slideout-close-button",
 					},
-				},
-				fnClose: (context) => {
-					// Nothing executes by default
-				},
-				fnOpen: (context) => {
-					// Nothing executes by default
 				},
 			};
 			// If options provided, override default config
@@ -149,6 +128,6 @@ ui.class.MamboSlideout = class MamboSlideout extends HTMLElement {
 	}
 };
 
-ui.slideout = (parentTag, options) => new ui.class.MamboSlideout(parentTag, options);
+ui.slideout = (props) => new ui.class.Slideout(props);
 
-customElements.define("mambo-slideout", ui.class.MamboSlideout);
+customElements.define("mambo-slideout", ui.class.Slideout);

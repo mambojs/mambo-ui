@@ -2,8 +2,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
-		const m_dateMgr = new ui.date();
+		const m_utils = ui.utils();
+		const m_dateMgr = ui.date();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -60,7 +60,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_calendarParentTag = dom.createTag(m_props.tag.parent, {
+			m_calendarParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
@@ -73,17 +73,18 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function installHeader() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.headerButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.headerButtonGroup, buttonGroup.css);
+			buttonGroup.parentTag = m_calendarParentTag;
 
 			buttonGroup.buttons.forEach((button, index) => {
 				button.fnComplete = (context) => {
-					m_headerButtonsList[index] = context.button;
+					m_headerButtonsList[index] = context.Button;
 					if (m_props.headerButtonGroup.buttons[index].fnComplete) {
 						m_props.headerButtonGroup.buttons[index].fnComplete(context);
 					}
 				};
 			});
 
-			m_headerButtonGroup = ui.buttonGroup(m_calendarParentTag, buttonGroup);
+			m_headerButtonGroup = ui.buttonGroup(buttonGroup);
 		}
 
 		function navigate(number) {
@@ -167,17 +168,17 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		//Body
 
 		function installBody() {
-			m_bodyTag = dom.createTag(m_props.tag.body, {
+			m_bodyTag = dom.createTag(m_props.tags.body, {
 				class: m_props.css.body,
 			});
 			dom.append(m_calendarParentTag, m_bodyTag);
 
-			m_bodyHeaderTag = dom.createTag(m_props.tag.bodyHeader, {
+			m_bodyHeaderTag = dom.createTag(m_props.tags.bodyHeader, {
 				class: m_props.css.bodyHeader,
 			});
 			dom.append(m_bodyTag, m_bodyHeaderTag);
 
-			m_bodyContentTag = dom.createTag(m_props.tag.bodyContent, {
+			m_bodyContentTag = dom.createTag(m_props.tags.bodyContent, {
 				class: m_props.css.bodyContent,
 			});
 			dom.append(m_bodyTag, m_bodyContentTag);
@@ -230,9 +231,10 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function installDates() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.datesButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.datesButtonGroup, buttonGroup.css);
+			buttonGroup.parentTag = m_bodyContentTag;
 			generateDates(buttonGroup);
 
-			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
+			m_datesButtonGroup = ui.buttonGroup(buttonGroup);
 			m_datesButtonGroup.select({
 				id: m_dateMgr.format(m_value, m_idFormat),
 				notTrigger: true,
@@ -271,9 +273,10 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function installMonths() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.monthsButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.monthsButtonGroup, buttonGroup.css);
+			buttonGroup.parentTag = m_bodyContentTag;
 			generateMonths(buttonGroup);
 
-			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
+			m_datesButtonGroup = ui.buttonGroup(buttonGroup);
 
 			let selectedMonth = m_dateMgr.cloneDate(m_value);
 			m_dateMgr.startOf(selectedMonth, "month");
@@ -309,9 +312,10 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function installYears() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.yearsButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.yearsButtonGroup, buttonGroup.css);
+			buttonGroup.parentTag = m_bodyContentTag;
 			generateYears(buttonGroup);
 
-			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
+			m_datesButtonGroup = ui.buttonGroup(buttonGroup);
 
 			let selectedYear = m_dateMgr.cloneDate(m_value);
 			m_dateMgr.startOf(selectedYear, "year");
@@ -349,9 +353,10 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function installDecades() {
 			let buttonGroup = m_utils.extend(true, {}, m_props.decadesButtonGroup);
 			buttonGroup.css = m_utils.extend(true, m_props.css.decadesButtonGroup, buttonGroup.css);
+			buttonGroup.parentTag = m_bodyContentTag;
 			generateDecades(buttonGroup);
 
-			m_datesButtonGroup = ui.buttonGroup(m_bodyContentTag, buttonGroup);
+			m_datesButtonGroup = ui.buttonGroup(buttonGroup);
 
 			let selectedDecade = m_dateMgr.cloneDate(m_value);
 			m_dateMgr.startOf(selectedDecade, "decade");
@@ -401,7 +406,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 				button.fnClick = (context) => {
 					m_depth = m_minDepth;
-					selectValue(context.button, context.ev);
+					selectValue(context.Button, context.ev);
 					if (m_props.footerButton.fnClick) {
 						m_props.footerButton.fnClick(context);
 					}
@@ -419,7 +424,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		}
 
 		function buttonClick(context, buttonGroup) {
-			selectValue(context.button, context.ev);
+			selectValue(context.Button, context.ev);
 			if (buttonGroup.fnClick) {
 				buttonGroup.fnClick(context);
 			}
@@ -430,7 +435,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			if (m_depth <= m_minDepth) {
 				setValue(value);
 				if (m_props.fnSelect) {
-					m_props.fnSelect({ calendar: self, ev: ev });
+					m_props.fnSelect({ Calendar: self, ev: ev });
 				}
 			} else {
 				--m_depth;
@@ -571,47 +576,30 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				monthsButtonGroup: {},
 				yearsButtonGroup: {},
 				decadesButtonGroup: {},
-				footerButton: {
-					tag: "a",
-				},
+				footerButton: {},
 				format: "M/D/YYYY",
-				value: null,
 				footer: "dddd, MMMM D, YYYY",
 				start: "month",
 				depth: "month",
 				min: new Date(1900, 0, 1),
 				max: new Date(2099, 11, 31),
-				fnSelect: (context) => {
-					// Nothing executes by default
-				},
+				fnSelect: (context) => {},
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "calendar",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "calendar",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "calendar" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "calendar" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.calendar = (options) => new ui.class.Calendar(options);
+ui.calendar = (props) => new ui.class.Calendar(props);
 
 // Must ALWAYS define the new element as a Native Web Component
 customElements.define("mambo-calendar", ui.class.Calendar);

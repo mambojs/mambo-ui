@@ -1,10 +1,6 @@
-//: Time Picker
-//@
-demoTimePicker("storyboard-time-picker");
-
-function demoTimePicker(parentEle) {
-	let config = {
-		parentTag: parentEle,
+function storyTimePicker(selectedStory) {
+	const config = {
+		parentTag: selectedStory.parentTag,
 	};
 
 	ui.timePicker(config);

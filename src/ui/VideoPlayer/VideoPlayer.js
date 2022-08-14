@@ -2,7 +2,7 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -34,7 +34,8 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 			});
 
 			self.appendChild(m_wrapperTag);
-			m_player = ui.player(m_wrapperTag, m_props.player);
+			m_props.player.parentTag = m_wrapperTag;
+			m_player = ui.player(m_props.player);
 		}
 
 		function finishSetup() {
@@ -56,7 +57,6 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 				tag: "default",
 				theme: "default",
 				player: {
-					css: {},
 					attr: {
 						controls: true,
 					},
@@ -76,6 +76,6 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 	}
 };
 
-ui.videoPlayer = (parentTag, options) => new ui.class.VideoPlayer(parentTag, options);
+ui.videoPlayer = (props) => new ui.class.VideoPlayer(props);
 
 customElements.define("mambo-video-player", ui.class.VideoPlayer);

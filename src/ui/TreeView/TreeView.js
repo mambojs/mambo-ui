@@ -2,7 +2,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -30,7 +30,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_treeViewParentTag = dom.createTag(m_props.tag.treeView, {
+			m_treeViewParentTag = dom.createTag(m_props.tags.treeView, {
 				class: m_props.css.treeViewParent,
 			});
 
@@ -46,7 +46,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 
 		function processItem(itemData, parentTag) {
 			// Create item tag
-			let itemTag = dom.createTag(m_props.tag.treeViewItem, {
+			let itemTag = dom.createTag(m_props.tags.treeViewItem, {
 				class: m_props.css.item,
 			});
 			dom.append(parentTag, itemTag);
@@ -57,10 +57,10 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 			m_dataMapById[itemId] = m_utils.clone(itemData);
 			delete m_dataMapById[itemId][m_props.itemsField];
 
-			const topTag = dom.createTag(m_props.tag.treeViewItemTop, {
+			const topTag = dom.createTag(m_props.tags.treeViewItemTop, {
 				class: m_props.css.top,
 			});
-			const inTag = dom.createTag(m_props.tag.treeViewItemIn, {
+			const inTag = dom.createTag(m_props.tags.treeViewItemIn, {
 				class: m_props.css.in,
 				attr: idAtt,
 				text: itemData[m_props.textField],
@@ -78,7 +78,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 
 		function processGroup(groupData, parentTag) {
 			// Create group tag
-			let groupTag = dom.createTag(m_props.tag.treeViewGroup, {
+			let groupTag = dom.createTag(m_props.tags.treeViewGroup, {
 				class: m_props.css.group,
 			});
 			dom.append(parentTag, groupTag);
@@ -114,7 +114,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 			inTag.addEventListener("click", (ev) => {
 				if (m_props.fnSelect) {
 					m_props.fnSelect({
-						treeView: self,
+						TreeView: self,
 						tag: inTag,
 						itemData: itemData,
 						ev: ev,
@@ -180,12 +180,10 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 				idField: "id",
 				textField: "text",
 				itemsField: "items",
-				expanded: false,
 				itemIdAttrName: "data-tree-view-item-id",
 				fnSelect: (context) => {
 					// Nothing executes by default
 				},
-				events: {},
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
@@ -201,6 +199,6 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 	}
 };
 
-ui.treeView = (parentTag, options) => new ui.class.TreeView(parentTag, options);
+ui.treeView = (props) => new ui.class.TreeView(props);
 
 customElements.define("mambo-tree-view", ui.class.TreeView);

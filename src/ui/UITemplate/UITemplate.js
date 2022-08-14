@@ -3,7 +3,7 @@ class Template extends HTMLElement {
 		super();
 		// Define constants
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 

@@ -2,7 +2,7 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -36,18 +36,18 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_percentageParentTag = dom.createTag(m_props.tag.percentage, {
+			m_percentageParentTag = dom.createTag(m_props.tags.percentage, {
 				class: m_props.css.parent,
 			});
 
 			self.appendChild(m_percentageParentTag);
 
-			m_percentageBarTag = dom.createTag(m_props.tag.bar, {
+			m_percentageBarTag = dom.createTag(m_props.tags.bar, {
 				class: m_props.css.bar,
 			});
 			dom.append(m_percentageParentTag, m_percentageBarTag);
 
-			m_percentageTextTag = dom.createTag(m_props.tag.text, {
+			m_percentageTextTag = dom.createTag(m_props.tags.text, {
 				class: m_props.css.text,
 			});
 			dom.append(m_percentageBarTag, m_percentageTextTag);
@@ -139,24 +139,12 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "percentage",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "percentage",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "percentage" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "percentage" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

@@ -2,7 +2,7 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -59,7 +59,7 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 				class: m_props.css.checkboxRadioText,
 				text: m_props.text,
 			});
-			dom.append(m_checkboxRadioParentTag, textTag);
+			m_checkboxRadioParentTag.appendChild(textTag);
 
 			m_type = m_props.attr["type"] === "checkbox" ? 1 : 2;
 			let css = m_type === 1 ? m_props.css.checkbox : m_props.css.radio;
@@ -73,8 +73,8 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 			m_checkboxRadioTag = dom.createTag("input", tagConfig);
 			m_checkboxRadioSpanTag = dom.createTag("span", { class: css.span });
 
-			dom.append(m_checkboxRadioParentTag, m_checkboxRadioTag);
-			dom.append(m_checkboxRadioParentTag, m_checkboxRadioSpanTag);
+			m_checkboxRadioParentTag.appendChild(m_checkboxRadioTag);
+			m_checkboxRadioParentTag.appendChild(m_checkboxRadioSpanTag);
 
 			m_checked = m_props.prop["checked"];
 			setEnable(m_enable);
@@ -96,12 +96,12 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 				}
 
 				if (m_props.fnClick) {
-					m_props.fnClick({ checkboxRadio: self, ev: ev });
+					m_props.fnClick({ CheckboxRadio: self, ev: ev });
 				}
 
 				// Invoke callback for group
 				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({ checkboxRadio: self, ev: ev });
+					m_props.fnGroupClick({ CheckboxRadio: self, ev: ev });
 				}
 			} else {
 				ev.preventDefault();
@@ -177,11 +177,9 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 
 		function configure(customProps) {
 			m_props = {
+				install: true,
 				tag: "default",
 				theme: "default",
-				id: "CheckboxRadio ID was not specified",
-				text: "",
-				value: "",
 				enable: true,
 				attr: {
 					type: "checkbox",
@@ -195,28 +193,16 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "checkboxRadio",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "checkboxRadio",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "checkboxRadio" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "checkboxRadio" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.checkboxRadio = (parentTag, options) => new ui.class.CheckboxRadio(parentTag, options);
+ui.checkboxRadio = (props) => new ui.class.CheckboxRadio(props);
 
 customElements.define("mambo-checkbox-radio", ui.class.CheckboxRadio);

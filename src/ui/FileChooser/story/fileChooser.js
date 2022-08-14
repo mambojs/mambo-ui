@@ -1,55 +1,29 @@
-//: File Chooser
-//@
-demoFileChooser("storyboard-file-chooser");
-
-function demoFileChooser(parentEle) {
+function storyFileChooser(selectedStory) {
 	singleFile();
 	multipleFiles();
-	noLabel();
-	buttonOnly();
 
 	function singleFile() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			textLabel: "Choose a single .txt file.",
 			attr: {
 				accept: ".txt",
 			},
 			fnUpload: handleFileSelection,
 		};
+
 		ui.fileChooser(config);
 	}
 
 	function multipleFiles() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			attr: {
 				multiple: true,
 			},
 			fnUpload: handleFileSelection,
 		};
-		ui.fileChooser(config);
-	}
 
-	function noLabel() {
-		const config = {
-			parentTag: parentEle,
-			textLabel: false,
-			attr: {
-				multiple: true,
-			},
-			fnUpload: handleFileSelection,
-		};
-		ui.fileChooser(config);
-	}
-
-	function buttonOnly() {
-		const config = {
-			parentTag: parentEle,
-			buttonOnly: true,
-			textButton: "Button-only Example",
-			fnUpload: handleFileSelection,
-		};
 		ui.fileChooser(config);
 	}
 
@@ -57,4 +31,3 @@ function demoFileChooser(parentEle) {
 		console.log(context.files);
 	}
 }
-//!

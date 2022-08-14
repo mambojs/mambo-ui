@@ -2,7 +2,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -22,8 +22,9 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 		function setup(props) {
 			configure(props);
-			setupEventHandlers();
 			installDOM();
+			setupEventHandlers();
+			finishSetup();
 		}
 
 		function installDOM() {
@@ -38,20 +39,15 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 				text: m_props.dropText,
 			});
 
-			dom.append(m_dragDropTag, imgEle).append(m_dragDropTag, textEle);
+			m_dragDropTag.appendChild(imgEle);
+			m_dragDropTag.appendChild(textEle);
 			self.appendChild(m_dragDropTag);
-
-			// Install component into parent
-			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
 		}
 
 		function setupEventHandlers() {
-			// on drop
 			m_dragDropTag.addEventListener("drop", handleDrop);
 
-			// on drag over
 			m_dragDropTag.addEventListener("dragover", (ev) => {
-				// Prevent default behavior (Prevent file from being opened)
 				ev.preventDefault();
 
 				if (m_props.fnDragover) {
@@ -59,7 +55,6 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 				}
 			});
 
-			// On mouseenter mouseleave
 			m_dragDropTag.addEventListener("mouseenter mouseleave", (ev) => {
 				if (m_props.fnMouseenterMouseleave) {
 					m_props.fnMouseenterMouseleave({ ev: ev });
@@ -124,6 +119,13 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			m_parentTag.removeChild(m_dragDropTag);
 		}
 
+		function finishSetup() {
+			// Install component into parent
+			if (m_props.install) installSelf(m_parentTag, m_props.installPrepend);
+			// Execute complete callback function
+			if (m_props.fnComplete) m_props.fnComplete({ Button: self });
+		}
+
 		function installSelf(parentTag, prepend) {
 			m_parentTag = parentTag ? parentTag : m_parentTag;
 			m_parentTag = dom.getTag(m_parentTag);
@@ -133,7 +135,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 		function configure(customProps) {
 			m_props = {
 				install: true,
-				imgDropIcon: ui.graphics.getImage({ name: "arrow-down-box-black" }),
+				imgDropIcon: "drop icon",
 				dropText: "Drop Here",
 				hidden: false,
 				baseUrl: "",
@@ -145,28 +147,16 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "dragDrop",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "dragDrop",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "dragDrop" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "dragDrop" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.dragDrop = (parentTag, options) => new ui.class.DragDrop(parentTag, options);
+ui.dragDrop = (props) => new ui.class.DragDrop(props);
 
 customElements.define("mambo-dragdrop", ui.class.DragDrop);

@@ -1,16 +1,11 @@
-//: Slideout
-//@
-slideoutStoryboard("storyboard-slideout");
-
-function slideoutStoryboard(parentTag) {
+function storySlideout(selectedStory) {
 	let m_slideout;
-
 	installOpenButton();
 	installSlideout();
 
 	function installOpenButton() {
 		const buttonConfig = {
-			parentTag: parentTag,
+			parentTag: selectedStory.parentTag,
 			id: 1,
 			text: "Open Slideout",
 			fnClick: () => {
@@ -23,24 +18,17 @@ function slideoutStoryboard(parentTag) {
 
 	function installSlideout() {
 		const slideoutConfig = {
+			parentTag: "body",
 			fnComplete: installSlideoutContent,
 		};
-		m_slideout = ui.slideout("body", slideoutConfig);
+		m_slideout = ui.slideout(slideoutConfig);
 	}
 
 	function installSlideoutContent(context) {
-		// Get the slideout content, header and body tags
-		// Insert your own HTML content
-
-		// You can replace the entire contents of the slideout area
-		const contentTag = context.slideout.getContentTag();
-
-		// Insert Header content
-		const headerTag = context.slideout.getHeaderTag();
+		const headerTag = context.Slideout.getHeaderTag();
 		dom.append(headerTag, "<h3>My Header Content</h3>");
-
 		// Insert Body content
-		const bodyTag = context.slideout.getBodyTag();
+		const bodyTag = context.Slideout.getBodyTag();
 		dom.append(bodyTag, "<p style='padding:1em;'>Here goes your content</p>");
 	}
 }

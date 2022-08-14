@@ -1,4 +1,4 @@
-ui.string = function String() {
+ui.class.String = function String() {
 	const self = this;
 
 	this.filterArray = filterArray;
@@ -36,3 +36,6 @@ ui.string = function String() {
 		return itemText.toLowerCase() === searchText.toLowerCase();
 	}
 };
+
+ui.class.StringInstance = new ui.class.String();
+ui.string = () => ui.class.StringInstance;

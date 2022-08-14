@@ -1,8 +1,4 @@
-//: Switch
-//@
-switchStoryboard("storyboard-switch");
-
-function switchStoryboard(parentEle) {
+function storySwitch(selectedStory) {
 	defaultSwitch();
 	checkedSwitch();
 	customTextSwitch();
@@ -10,10 +6,8 @@ function switchStoryboard(parentEle) {
 
 	function defaultSwitch() {
 		const config = {
-			parentTag: parentEle,
-			fnChange: (context) => {
-				alert(context.switch.checked());
-			},
+			parentTag: selectedStory.parentTag,
+			fnChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -21,11 +15,9 @@ function switchStoryboard(parentEle) {
 
 	function checkedSwitch() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			checked: true,
-			fnChange: (context) => {
-				alert(context.switch.checked());
-			},
+			fnChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -33,15 +25,13 @@ function switchStoryboard(parentEle) {
 
 	function customTextSwitch() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			checked: true,
 			messages: {
 				checked: "YES",
 				unchecked: "NO",
 			},
-			fnChange: (context) => {
-				alert(context.switch.checked());
-			},
+			fnChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -49,11 +39,9 @@ function switchStoryboard(parentEle) {
 
 	function disabledSwitch() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			enable: false,
-			fnChange: (context) => {
-				alert(context.switch.checked());
-			},
+			fnChange: (context) => {},
 		};
 
 		ui.switch(config);

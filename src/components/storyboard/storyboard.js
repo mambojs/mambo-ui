@@ -12,36 +12,34 @@ function installStoryboard() {
 	function configureStoriesData() {
 		// Use alpha characters and spaces only, any other char will break
 		stories = [
-			{ name: "Button" },
-			{ name: "Button Group" },
-			{ name: "Calendar" },
-			{ name: "Checkbox Radio" },
-			{ name: "Checkbox Radio Group" },
-			{ name: "Combobox" },
-			{ name: "Date Picker" },
-			{ name: "Dialog" },
-			{ name: "Drag Drop" },
-			{ name: "Draggable" },
-			{ name: "Dropdown" },
-			{ name: "File Chooser" },
-			{ name: "Grid" },
-			{ name: "Input" },
-			{ name: "Percentage" },
-			{ name: "Rating" },
-			{ name: "Slideout" },
-			{ name: "Slider" },
-			{ name: "Switch" },
-			{ name: "Tab" },
-			{ name: "Time Picker" },
-			{ name: "TreeView" },
-			{ name: "Video Player" },
+			{ text: "Button" },
+			{ text: "Button Group" },
+			{ text: "Calendar" },
+			{ text: "Checkbox Radio" },
+			{ text: "Checkbox Radio Group" },
+			{ text: "Combobox" },
+			{ text: "Date Picker" },
+			{ text: "Dialog" },
+			{ text: "Drag Drop" },
+			{ text: "Draggable" },
+			{ text: "Dropdown" },
+			{ text: "File Chooser" },
+			{ text: "Grid" },
+			{ text: "Input" },
+			{ text: "Percentage" },
+			{ text: "Rating" },
+			{ text: "Slideout" },
+			{ text: "Slider" },
+			{ text: "Switch" },
+			{ text: "Tab" },
+			{ text: "Time Picker" },
+			{ text: "TreeView" },
+			{ text: "Video Player" },
 		];
 		// Add props to stories collection
 		stories.map((story) => {
-			story.text = story.name;
-			story.id = story.name.replaceAll(" ", "-").toLowerCase();
+			story.id = story.text.replaceAll(" ", "-").toLowerCase();
 			story.parentTag = dom.createTag(`story-${story.id}`);
-			story.storyFnName = `story${story.name.replaceAll(" ", "")}`;
 		});
 	}
 
@@ -64,14 +62,18 @@ function installStoryboard() {
 	function loadComponent({ itemData }) {
 		if (!itemData.id) return; // User clicked the main Tree
 		const selectedStory = stories.find((story) => story.id === itemData.id);
+		selectedStory.parentTag.innerHTML = null;
 		storyParentTag.innerHTML = null;
-		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.name }));
+		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.text }));
 		storyParentTag.appendChild(selectedStory.parentTag);
 
 		// Invoke story function from the global scope
-		window[selectedStory.storyFnName](selectedStory);
+		const fnName = `story${selectedStory.text.replaceAll(" ", "")}`;
+		const storyFn = window[fnName];
+		storyFn(selectedStory);
+		const storyFnContent = window[fnName].toString();
 
-		//installTab();
+		installTab();
 
 		//outputCode(selectedStory.name);
 	}
@@ -103,7 +105,7 @@ function installStoryboard() {
 			},
 		};
 
-		ui.tab(tabConfig);
+		//ui.tab(tabConfig);
 	}
 
 	async function outputCode(storyName) {

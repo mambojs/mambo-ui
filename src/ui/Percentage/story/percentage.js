@@ -1,15 +1,11 @@
-//: Percentage
-//@
-demoPercentage("storyboard-percentage");
-
-function demoPercentage(parentEle) {
+function storyPercentage(selectedStory) {
 	lowPercentage();
 	highPercentage();
 	fullPercentage();
 
 	function lowPercentage() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			value: 0.3,
 		};
 
@@ -18,7 +14,7 @@ function demoPercentage(parentEle) {
 
 	function highPercentage() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			value: 0.8,
 		};
 
@@ -27,7 +23,7 @@ function demoPercentage(parentEle) {
 
 	function fullPercentage() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			value: 1,
 		};
 

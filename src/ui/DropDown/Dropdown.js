@@ -2,7 +2,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -32,7 +32,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_dropDownParentTag = dom.createTag(m_props.tag.parent, {
+			m_dropDownParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
@@ -62,7 +62,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function installContainer() {
-			m_dropdownContainerTag = dom.createTag(m_props.tag.container, {
+			m_dropdownContainerTag = dom.createTag(m_props.tags.container, {
 				class: m_props.css.container,
 			});
 			dom.append(m_dropDownParentTag, m_dropdownContainerTag);
@@ -143,24 +143,12 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "dropdown",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "dropdown",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "dropdown" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "dropdown" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

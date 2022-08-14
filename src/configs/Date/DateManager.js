@@ -1,4 +1,4 @@
-ui.date = function DateManager() {
+ui.class.DateManager = function DateManager() {
 	const self = this;
 	const m_formatTokens =
 		/(\[[^[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
@@ -447,3 +447,6 @@ ui.date = function DateManager() {
 		return typeof value === "number" || Object.prototype.toString.call(value) === "[object Number]";
 	}
 };
+
+ui.class.DateManagerInstance = new ui.class.DateManager();
+ui.date = () => ui.class.DateManagerInstance;

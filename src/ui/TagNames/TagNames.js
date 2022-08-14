@@ -1,6 +1,6 @@
 ui.class.TagNames = class TagNames {
 	constructor(props) {
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		// If default Tag Names provided, initialize with them
 		this.m_tagNames = {
 			default: m_utils.extend(true, {}, props),

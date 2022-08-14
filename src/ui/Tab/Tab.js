@@ -2,7 +2,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -36,9 +36,9 @@ ui.class.Tab = class Tab extends HTMLElement {
 			const eleConfig = {
 				class: m_props.css.contentParent,
 			};
-			m_contentParentTag = dom.createTag(m_props.tag.contentParent, eleConfig);
+			m_contentParentTag = dom.createTag(m_props.tags.contentParent, eleConfig);
 
-			m_tabsTag = dom.createTag(m_props.tag.tabs, {
+			m_tabsTag = dom.createTag(m_props.tags.tabs, {
 				class: m_props.css.tabs,
 			});
 
@@ -52,7 +52,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		function installContent() {
 			m_props.tabs.buttons.forEach((button, index) => {
-				const contentTag = dom.createTag(m_props.tag.content, {
+				const contentTag = dom.createTag(m_props.tags.content, {
 					class: m_props.css.content,
 				});
 
@@ -80,14 +80,15 @@ ui.class.Tab = class Tab extends HTMLElement {
 		function installTabs(tabsConfig) {
 			const tabConfig = m_utils.extend(true, tabsConfig, {});
 			tabConfig.fnClick = toggleTabContent;
-			m_tabsGroup = ui.buttonGroup(m_tabsTag, tabConfig);
+			tabConfig.parentTag = m_tabsTag;
+			m_tabsGroup = ui.buttonGroup(tabConfig);
 		}
 
 		function toggleTabContent(clickedBtn) {
 			// Remove selected class from ALL content tags
 			dom.removeClassAll(m_contentTagsMap, m_props.css.selectedTab);
 			// Add class to newly selected Tab content tag
-			const tabId = clickedBtn.button.getId();
+			const tabId = clickedBtn.Button.getId();
 			const selectedTab = m_contentTagsMap[tabId];
 			selectedTab.classList.add(m_props.css.selectedTab);
 			// Invoke outside listener
@@ -97,7 +98,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 		}
 
 		function handleTabReady(contentTag, tab) {
-			m_props.fnTabReady(contentTag, tab);
+			if (m_props.fnTabComplete) m_props.fnTabComplete(contentTag, tab);
 		}
 
 		function finishSetup() {
@@ -116,16 +117,12 @@ ui.class.Tab = class Tab extends HTMLElement {
 		function configure(customProps) {
 			m_props = {
 				install: true,
+				theme: "default",
 				tag: "default",
 				tabs: {
 					// Expects a ButtonGroup config
 				},
 				contents: [],
-				parentTag: undefined,
-				selectedId: undefined,
-				fnTabReady: () => {},
-				id: undefined,
-				theme: "default",
 			};
 			// If options provided, override default config
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);

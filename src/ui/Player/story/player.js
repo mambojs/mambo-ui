@@ -1,16 +1,5 @@
-//: HTML5 Player
-//@
-demoHtml5player("storyboard-player");
-
-function demoHtml5player(parentTag) {
-	"use strict";
-
-	// Don't get this from Object Manager anymore
-
-	// Need to figure out this ipfs dependency
-	//const ipfs = g_mamboObjMgr.get("ipfs");
+function storyPlayer(selectedStory) {
 	const ipfs = {};
-
 	let m_videoPlayer;
 	let m_playerTag;
 
@@ -77,9 +66,10 @@ function demoHtml5player(parentTag) {
             <div id="storyboard-video" style="width: 50%;padding: 1em;"><h3>Video Player</h3></div>
             <div id="storyboard-audio" style="width: 50%;padding: 1em;"><h3>Audio Player</h3></div>
         </div>`;
-		dom.append(parentTag, html);
+		selectedStory.parentTag.appendChild(html);
 
 		const config = {
+			parentTag: "#storyboard-video",
 			player: {
 				attr: {
 					src: "public/app/demo/media/video1.mp4",
@@ -88,12 +78,13 @@ function demoHtml5player(parentTag) {
 			},
 		};
 
-		m_videoPlayer = ui.videoPlayer("#storyboard-video", config);
+		m_videoPlayer = ui.videoPlayer(config);
 		m_playerTag = m_videoPlayer.getPlayer().getTag();
 	}
 
 	function installButtonGroup() {
 		let btnGroupProps = {
+			parentTag: selectedStory.parentTag,
 			buttons: [
 				{
 					id: 1,
@@ -113,7 +104,7 @@ function demoHtml5player(parentTag) {
 				},
 			],
 			fnClick: (context) => {
-				const buttonId = context.button.getId();
+				const buttonId = context.Button.getId();
 				switch (buttonId) {
 					case 1:
 						m_playerTag.src = "public/app/demo/media/video1.mp4";
@@ -133,7 +124,7 @@ function demoHtml5player(parentTag) {
 			},
 		};
 
-		ui.buttonGroup(parentTag, btnGroupProps);
+		ui.buttonGroup(btnGroupProps);
 	}
 }
 

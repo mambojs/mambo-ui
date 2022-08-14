@@ -5,13 +5,12 @@ function storyDialog(selectedStory) {
 		fnClick: () => {
 			let dialogConfig = {
 				title: "Dialog Title",
+				fnComplete: (context) => {
+					context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em;'>Your Dialog content will go here</p>";
+				},
 			};
 
-			// Install Dialog window
-			// First argument is the g_domJS. element where to install the Dialog. If null, the dialog will append into the BODY tag
-			ui.dialog(null, dialogConfig, (context) => {
-				dom.append(context.dialogContentTag, "<p style='padding:3em;'>Your Dialog content will go here</p>");
-			});
+			ui.dialog(dialogConfig);
 		},
 	};
 

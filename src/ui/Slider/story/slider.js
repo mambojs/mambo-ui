@@ -1,17 +1,11 @@
-//: Slider
-//@
-sliderStoryboard("storyboard-slider");
-
-function sliderStoryboard(parentEle) {
+function storySlider(selectedStory) {
 	defaultSlider();
 	verticalSlider();
 
 	function defaultSlider() {
 		const config = {
-			parentTag: parentEle,
-			fnSelect: (context) => {
-				console.log(context.slider.value());
-			},
+			parentTag: selectedStory.parentTag,
+			fnSelect: (context) => {},
 		};
 
 		ui.slider(config);
@@ -19,11 +13,9 @@ function sliderStoryboard(parentEle) {
 
 	function verticalSlider() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			orientation: "vertical",
-			fnSelect: (context) => {
-				console.log(context.slider.value());
-			},
+			fnSelect: (context) => {},
 		};
 
 		ui.slider(config);

@@ -1,6 +1,6 @@
 ui.class.Theme = class Theme {
 	constructor(props) {
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		// If default themes provided, initialize with them
 		this.m_themes = {
 			default: m_utils.extend(true, {}, props),

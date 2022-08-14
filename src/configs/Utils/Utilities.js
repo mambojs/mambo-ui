@@ -1,4 +1,4 @@
-ui.utils = function Utilities() {
+ui.class.Utilities = function Utilities() {
 	this.clone = clone;
 	this.extend = extend;
 	this.formatPercentage = formatPercentage;
@@ -90,3 +90,6 @@ ui.utils = function Utilities() {
 		return (number * 100).toFixed(decimals) + "%";
 	}
 };
+
+ui.class.UtilitiesInstance = new ui.class.Utilities();
+ui.utils = () => ui.class.UtilitiesInstance;

@@ -3,7 +3,7 @@ ui.class.Input = class Input extends HTMLElement {
 		super();
 		// Config default values
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -47,7 +47,7 @@ ui.class.Input = class Input extends HTMLElement {
 				text: m_props.value,
 			};
 
-			m_inputTag = dom.createTag(m_props.tag, tagConfig);
+			m_inputTag = dom.createTag(m_props.tags.parent, tagConfig);
 
 			if (m_props.hidden) {
 				m_wrapperTag.style.display = "none";
@@ -128,8 +128,8 @@ ui.class.Input = class Input extends HTMLElement {
 				componentConfig.fnClick = (context) => {
 					if (m_props.fnClick) {
 						m_props.fnClick({
-							input: self,
-							button: context.button,
+							Input: self,
+							Button: context.Button,
 							ev: context.ev,
 						});
 					}
@@ -155,7 +155,7 @@ ui.class.Input = class Input extends HTMLElement {
 				m_props.events.forEach((event) => {
 					m_inputTag.addEventListener(event.name, (ev) => {
 						event.fn({
-							input: self,
+							Input: self,
 							ev: ev,
 						});
 					});
@@ -199,7 +199,7 @@ ui.class.Input = class Input extends HTMLElement {
 
 					if (m_props.fnDataValidationChange) {
 						m_props.fnDataValidationChange({
-							input: self,
+							Input: self,
 							ev: ev,
 						});
 					}
@@ -234,9 +234,7 @@ ui.class.Input = class Input extends HTMLElement {
 
 		function configure(customProps) {
 			m_props = {
-				parentTag: undefined,
 				install: true,
-				installPrepend: false,
 				tag: "default",
 				theme: "default",
 				value: "",
@@ -249,7 +247,6 @@ ui.class.Input = class Input extends HTMLElement {
 					type: "text",
 					name: Math.random().toString(36).slice(2),
 				},
-				prop: {},
 				events: [
 					{
 						name: "input",
@@ -264,29 +261,17 @@ ui.class.Input = class Input extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "input",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "input",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "input" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "input" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.input = (options) => new ui.class.Input(options);
+ui.input = (props) => new ui.class.Input(props);
 
 // Must ALWAYS define the new element as a Native Web Component
 customElements.define("mambo-input", ui.class.Input);

@@ -2,7 +2,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -34,7 +34,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_buttonGroupTag = dom.createTag(m_props.tag.parent, {
+			m_buttonGroupTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
@@ -73,8 +73,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			}
 
 			// Select clicked button
-			context.button.select({ notTrigger: true });
-			m_selectedButtonTag = context.button;
+			context.Button.select({ notTrigger: true });
+			m_selectedButtonTag = context.Button;
 		}
 
 		function selectBtn(context = {}) {
@@ -129,28 +129,16 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "buttonGroup",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "buttonGroup",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "buttonGroup" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "buttonGroup" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.buttonGroup = (parentTag, options) => new ui.class.ButtonGroup(parentTag, options);
+ui.buttonGroup = (props) => new ui.class.ButtonGroup(props);
 
 customElements.define("mambo-button-group", ui.class.ButtonGroup);

@@ -1,21 +1,15 @@
-//: Tab
-//@
-demoTab("storyboard-tab");
-
-function demoTab(parentEle) {
+function storyTab(selectedStory) {
 	installWithFnCallback();
 	installWithContentProp();
 
 	function installWithFnCallback() {
 		let tabConfig = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			tabs: {
 				buttons: [
 					{
 						text: "Tab 1",
-						fnClick: (context) => {
-							// You can declare individual event handlers for tab clicks
-						},
+						fnClick: (context) => {},
 					},
 					{
 						text: "Tab 2",
@@ -24,15 +18,10 @@ function demoTab(parentEle) {
 						text: "Tab 3",
 					},
 				],
-				fnClick: (buttonContext) => {
-					// You can declare a single event handler for all tab clicks
-				},
+				fnClick: (context) => {},
 			},
-			fnTabReady: (contentTag, tab) => {
-				const content = dom.createTag("div", {
-					text: `This is content for Tab id: ${tab.id} name: ${tab.text}`,
-				});
-				contentTag.appendChild(content);
+			fnTabComplete: (contentTag, tab) => {
+				contentTag.appendChild(dom.createTag("div", { text: `Tab id: ${tab.id} name: ${tab.text}` }));
 			},
 		};
 
@@ -70,7 +59,7 @@ function demoTab(parentEle) {
 		});
 
 		let tabConfig = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			tabs: btnGroupConfig,
 			contents: contentList,
 		};

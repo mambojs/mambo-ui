@@ -4,21 +4,23 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 
 		// Config default values
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
 		// HTML tag variables
 		let m_parentTag;
-		let m_overlayTag;
-		let m_overlayHdrTag;
-		let m_overlayBodyTag;
+		let m_dialogTag;
+		let m_dialogHdrTag;
+		let m_dialogBodyTag;
 
 		let m_props;
 
 		// Configure public methods
 		this.close = closeDialog;
-		this.getParentTag = () => m_overlayTag;
+		this.getParentTag = () => m_dialogTag;
+		this.getBodyTag = () => m_dialogBodyTag;
+		this.getHeaderTag = () => m_dialogHdrTag;
 		this.install = installSelf;
 		this.setup = setup;
 
@@ -27,25 +29,24 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 		function setup(props) {
 			configure(props);
 			installDOM();
-			installEventHandlers();
 			finishSetup();
 		}
 
 		function installDOM() {
-			m_overlayTag = dom.createTag(m_props.tag.parent, {
+			m_dialogTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
-			m_overlayBodyTag = dom.createTag(m_props.tag.dialogBody, {
+			m_dialogBodyTag = dom.createTag(m_props.tags.dialogBody, {
 				class: m_props.css.dialogBody,
 			});
 
-			const overlayHdrLeft = dom.createTag("dialog-header-left", {
+			const dialogHdrLeft = dom.createTag("dialog-header-left", {
 				class: m_props.css.dialogHdrLeft,
 			});
 
 			if (m_props.closeButton) {
-				installCloseButton(overlayHdrLeft);
+				installCloseButton(dialogHdrLeft);
 			}
 
 			const overlayHdrCenter = dom.createTag("dialog-header-center", {
@@ -66,18 +67,18 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 				class: m_props.css.dialogHdrRight,
 			});
 
-			m_overlayHdrTag = dom.createTag("dialog-header", {
+			m_dialogHdrTag = dom.createTag("dialog-header", {
 				class: m_props.css.dialogHdr,
 			});
-			dom.append(m_overlayHdrTag, overlayHdrLeft);
-			dom.append(m_overlayHdrTag, overlayHdrCenter);
-			dom.append(m_overlayHdrTag, overlayHdrRight);
+			dom.append(m_dialogHdrTag, dialogHdrLeft);
+			dom.append(m_dialogHdrTag, overlayHdrCenter);
+			dom.append(m_dialogHdrTag, overlayHdrRight);
 
-			dom.append(m_overlayTag, m_overlayHdrTag);
-			dom.append(m_overlayTag, m_overlayBodyTag);
+			dom.append(m_dialogTag, m_dialogHdrTag);
+			dom.append(m_dialogTag, m_dialogBodyTag);
 
 			// Determine where to install dialog
-			self.appendChild(m_overlayTag);
+			self.appendChild(m_dialogTag);
 		}
 
 		function installCloseButton(headerLeftTag) {
@@ -102,19 +103,12 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			ui.button(btnConfig);
 		}
 
-		function installEventHandlers() {
-			// Invoke call back when installation is completed
-			if (m_props.fnReady) {
-				m_props.fnReady({ dialog: self, dialogContentTag: m_overlayBodyTag });
-			}
-		}
-
 		function closeDialog() {
 			close();
 		}
 
 		function close() {
-			dom.remove(m_overlayTag);
+			dom.remove(m_dialogTag);
 		}
 
 		function finishSetup() {
@@ -143,28 +137,16 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "dialog",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "dialog",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "dialog" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "dialog" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };
 
-ui.dialog = (parentTag, options, fnReady) => new ui.class.Dialog(parentTag, options, fnReady);
+ui.dialog = (props) => new ui.class.Dialog(props);
 
 customElements.define("mambo-dialog", ui.class.Dialog);

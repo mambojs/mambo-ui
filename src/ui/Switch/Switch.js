@@ -2,7 +2,7 @@ ui.class.Switch = class Switch extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
 
@@ -43,7 +43,7 @@ ui.class.Switch = class Switch extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_switchParentTag = dom.createTag(m_props.tag.switch, {
+			m_switchParentTag = dom.createTag(m_props.tags.switch, {
 				class: m_props.css.parent,
 			});
 
@@ -57,7 +57,7 @@ ui.class.Switch = class Switch extends HTMLElement {
 
 			m_inputTag = dom.createTag("input", tagConfig);
 
-			m_containerTag = dom.createTag(m_props.tag.container, {
+			m_containerTag = dom.createTag(m_props.tags.container, {
 				class: m_props.css.container,
 			});
 
@@ -67,15 +67,15 @@ ui.class.Switch = class Switch extends HTMLElement {
 		}
 
 		function installLabels() {
-			let onTag = dom.createTag(m_props.tag.on, {
+			let onTag = dom.createTag(m_props.tags.on, {
 				class: m_props.css.on,
 				text: m_props.messages.checked,
 			});
-			let offTag = dom.createTag(m_props.tag.off, {
+			let offTag = dom.createTag(m_props.tags.off, {
 				class: m_props.css.off,
 				text: m_props.messages.unchecked,
 			});
-			let handleTag = dom.createTag(m_props.tag.handl, {
+			let handleTag = dom.createTag(m_props.tags.handle, {
 				class: m_props.css.handle,
 			});
 
@@ -105,7 +105,7 @@ ui.class.Switch = class Switch extends HTMLElement {
 			dom.setProps(m_inputTag, { checked: m_checked });
 
 			if (m_props.fnChange) {
-				m_props.fnChange({ switch: self, ev: ev });
+				m_props.fnChange({ Switch: self, ev: ev });
 			}
 		}
 
@@ -156,7 +156,6 @@ ui.class.Switch = class Switch extends HTMLElement {
 				tag: "default",
 				theme: "default",
 				enable: true,
-				checked: false,
 				messages: {
 					checked: "ON",
 					unchecked: "OFF",

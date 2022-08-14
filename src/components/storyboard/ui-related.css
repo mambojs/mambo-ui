@@ -1,0 +1,12 @@
+.draggable-container {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid #a9a9a9;
+  margin: 0.5rem;
+}
+
+story-draggable {
+  display: flex;
+  flex-wrap: wrap;
+}

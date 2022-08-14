@@ -1,25 +1,11 @@
-.draggable-container {
-  position: relative;
-  width: 400px;
-  height: 200px;
-  border: 1px solid #a9a9a9;
-  margin-bottom: 20px;
-}
-
-.draggable-element {
+.m-draggable {
   position: absolute;
-  background-color: #000000;
-  color: #ffffff;
-  width: 140px;
-  text-align: center;
-  border-radius: 5px;
-  top: 90px;
-  left: 130px;
-  padding: 5px;
-  cursor: pointer;
-}
-
-.draggable-text {
-  font-size: 1rem;
-  pointer-events: none;
+  background-color: #000;
+  color: #fff;
+  min-width: 1rem;
+  min-height: 1rem;
+  border-radius: 1rem;
+  cursor: grab;
+  left: 50%;
+  top: 50%;
 }

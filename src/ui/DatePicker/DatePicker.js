@@ -2,10 +2,10 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
-		const m_dateMgr = new ui.date();
+		const m_dateMgr = ui.date();
 
 		// HTML tag variables
 		let m_parentTag;
@@ -35,7 +35,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		}
 
 		function installDOM() {
-			m_datePickerParentTag = dom.createTag(m_props.tag.parent, {
+			m_datePickerParentTag = dom.createTag(m_props.tags.parent, {
 				class: m_props.css.parent,
 			});
 
@@ -66,7 +66,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 				return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
 			};
 			dropdown.fnComplete = (context) => {
-				installCalendar(context.dropdown);
+				installCalendar(context.Dropdown);
 				if (m_props.dropdown.fnComplete) {
 					m_props.dropdown.fnComplete(context);
 				}
@@ -88,13 +88,13 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			calendar.max = m_props.max;
 
 			calendar.fnSelect = (context) => {
-				m_value = context.calendar.value();
+				m_value = context.Calendar.value();
 				let text = m_dateMgr.format(m_value, m_props.format);
 				m_input.value({ value: text });
 				m_previous_text = text;
 				dropdown.close();
 				if (m_props.calendar.fnSelect) m_props.calendar.fnSelect(context);
-				if (m_props.fnSelect) m_props.fnSelect({ datePicker: self, ev: context.ev });
+				if (m_props.fnSelect) m_props.fnSelect({ DatePicker: self, ev: context.ev });
 			};
 
 			calendar.parentTag = contentTag;
@@ -126,7 +126,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 				setValue(text);
 
 				if (m_props.fnSelect) {
-					m_props.fnSelect({ datePicker: self, ev: ev });
+					m_props.fnSelect({ DatePicker: self, ev: ev });
 				}
 			}
 		}
@@ -165,10 +165,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 				},
 				dropdown: {
 					button: {
-						text: "",
-						svg: {
-							element: ui.graphics.getSVG({ name: "calendar" }),
-						},
+						text: "calIcon",
 					},
 				},
 				calendar: {},
@@ -187,24 +184,12 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
 			// Resolve parent tag
 			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names names
-			m_props.tags = m_utils.extend(
-				true,
-				m_tags.getTags({
-					name: m_props.tag,
-					component: "datePicker",
-				}),
-				m_props.tags
-			);
-			// Extend CSS class names
-			m_props.css = m_utils.extend(
-				true,
-				m_theme.getTheme({
-					name: m_props.theme,
-					component: "datePicker",
-				}),
-				m_props.css
-			);
+			// Extend tag names
+			const tags = m_tags.getTags({ name: m_props.tag, component: "datePicker" });
+			m_props.tags = m_utils.extend(true, tags, m_props.tags);
+			// Extend css class names
+			const css = m_theme.getTheme({ name: m_props.theme, component: "datePicker" });
+			m_props.css = m_utils.extend(true, css, m_props.css);
 		}
 	}
 };

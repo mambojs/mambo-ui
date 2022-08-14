@@ -1,18 +1,12 @@
-//: Rating
-//@
-demoRating("storyboard-rating");
-
-function demoRating(parentEle) {
+function storyRating(selectedStory) {
 	defaultRating();
 	tenStars();
 	disabled();
 
 	function defaultRating() {
 		const config = {
-			parentTag: parentEle,
-			fnSelect: (context) => {
-				console.log(context.rating.value());
-			},
+			parentTag: selectedStory.parentTag,
+			fnSelect: (context) => {},
 		};
 
 		ui.rating(config);
@@ -20,15 +14,13 @@ function demoRating(parentEle) {
 
 	function tenStars() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			css: {
 				parent: "rating-parent rating-parent-ten",
 			},
 			value: 5,
 			max: 10,
-			fnSelect: (context) => {
-				console.log(context.rating.value());
-			},
+			fnSelect: (context) => {},
 		};
 
 		ui.rating(config);
@@ -36,7 +28,7 @@ function demoRating(parentEle) {
 
 	function disabled() {
 		const config = {
-			parentTag: parentEle,
+			parentTag: selectedStory.parentTag,
 			value: 3,
 			enable: false,
 		};

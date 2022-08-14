@@ -1,9 +1,6 @@
-//:
-//@
-demoTreeView("storyboard-tree-view");
-
-function demoTreeView(parentEle) {
-	let config = {
+function storyTreeView(selectedStory) {
+	const props = {
+		parentTag: selectedStory.parentTag,
 		data: [
 			{
 				text: "Item 1",
@@ -22,12 +19,9 @@ function demoTreeView(parentEle) {
 				items: [{ text: "Item 2-1" }, { text: "Item 2-2" }, { text: "Item 2-3" }, { text: "Item 2-4" }],
 			},
 		],
-		fnSelect: (context) => {
-			//let itemData = treeView.getItemData({tag: context.tag});
-			alert(`${context.itemData["text"]} selected.`);
-		},
+		fnSelect: (context) => {},
 	};
 
-	ui.treeView(parentEle, config);
+	ui.treeView(props);
 }
 //!

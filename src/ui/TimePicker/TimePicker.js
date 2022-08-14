@@ -2,10 +2,10 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_utils = new ui.utils();
+		const m_utils = ui.utils();
 		const m_theme = ui.theme(ui.defaultTheme);
 		const m_tags = ui.tagNames(ui.defaultTagNames);
-		const m_dateMgr = new ui.date();
+		const m_dateMgr = ui.date();
 
 		// HTML tag variables
 		let m_parentTag;
@@ -34,14 +34,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 		}
 
 		function installComboBox() {
-			let combobox = {
-				tag: {
-					parent: m_props.tag.parent,
-				},
-			};
-
-			combobox = m_utils.extend(true, combobox, m_props.combobox);
-			combobox.css = m_utils.extend(true, m_props.css.combobox, combobox.css);
+			const combobox = m_utils.extend(true, {}, m_props.combobox);
+			combobox.parentTag = m_parentTag;
 			combobox.data = createComboBoxData();
 
 			if (m_props.value) {
@@ -53,13 +47,11 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 
 			combobox.fnSelect = (context) => {
 				selectTime(context);
-
 				if (m_props.combobox.fnSelect) {
 					m_props.combobox.fnSelect(context);
 				}
 			};
 
-			combobox.parentTag = m_parentTag;
 			m_comboBox = ui.combobox(combobox);
 		}
 
@@ -75,12 +67,12 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 		}
 
 		function selectTime(context) {
-			m_value = context.button ? m_dateMgr.createDate(context.button.text(), m_props.format) : null;
+			m_value = context.Button ? m_dateMgr.createDate(context.Button.text(), m_props.format) : null;
 
 			if (m_props.fnSelect) {
 				m_props.fnSelect({
-					timePicker: self,
-					button: context.button,
+					TimePicker: self,
+					button: context.Button,
 					ev: context.ev,
 				});
 			}
@@ -126,10 +118,7 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 					filter: false,
 					dropdown: {
 						button: {
-							text: "",
-							svg: {
-								element: ui.graphics.getSVG({ name: "watch" }),
-							},
+							text: "watchIcon",
 						},
 					},
 				},
