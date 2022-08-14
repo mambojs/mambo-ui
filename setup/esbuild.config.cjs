@@ -73,8 +73,6 @@ function compileCssLib(lib, version) {
 
 function getLibFiles() {
 	const arrFiles = [
-		`${config.PUBLIC_DIR}/configs/defaultTagNames.js`,
-		`${config.PUBLIC_DIR}/configs/defaultTheme.js`,
 		`${config.PUBLIC_DIR}/configs/Date/DateManager.js`,
 		`${config.PUBLIC_DIR}/configs/String/String.js`,
 		`${config.PUBLIC_DIR}/configs/Utils/Utilities.js`,
