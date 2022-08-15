@@ -27,48 +27,54 @@ ui.class.Button = class Button extends HTMLElement {
 
 		if (props) setup(props);
 
-		function setup(props) {
-			configure(props);
-			setOptionValues();
+		async function setup(props) {
+			await configure(props);
+			await setOptionValues();
+			await setupDOM();
+			loadDOM();
 		}
 
 		function setOptionValues() {
-			m_text = m_props.text;
-			m_enable = m_props.enable;
-			setupDOM();
+			return new Promise((resolve) => {
+				m_text = m_props.text;
+				m_enable = m_props.enable;
+				resolve();
+			});
 		}
 
 		function setupDOM() {
-			const tagConfig = {
-				class: m_props.css.button,
-				prop: m_props.prop,
-				attr: m_props.attr,
-				text: m_props.text,
-				event: {
-					click: handleClick,
-					mouseenter: () => {
-						mouseEnterOverButton(m_buttonTag);
-						mouseEnterOverImage();
+			return new Promise((resolve) => {
+				const tagConfig = {
+					class: m_props.css.button,
+					prop: m_props.prop,
+					attr: m_props.attr,
+					text: m_props.text,
+					event: {
+						click: handleClick,
+						mouseenter: () => {
+							mouseEnterOverButton(m_buttonTag);
+							mouseEnterOverImage();
+						},
+						mouseleave: () => {
+							mouseLeaveOverButton(m_buttonTag);
+							mouseLeaveOverImage();
+						},
 					},
-					mouseleave: () => {
-						mouseLeaveOverButton(m_buttonTag);
-						mouseLeaveOverImage();
-					},
-				},
-			};
+				};
 
-			m_buttonTag = dom.createTag(m_props.tags.button, tagConfig);
+				m_buttonTag = dom.createTag(m_props.tags.button, tagConfig);
 
-			if (m_props.img) {
-				insertGraphic(m_props.img, addImg);
-			}
+				if (m_props.img) {
+					insertGraphic(m_props.img, addImg);
+				}
 
-			if (m_props.svg) {
-				insertGraphic(m_props.svg, addSVG);
-			}
-			self.appendChild(m_buttonTag);
-			setEnable(m_enable);
-			loadDOM();
+				if (m_props.svg) {
+					insertGraphic(m_props.svg, addSVG);
+				}
+				self.appendChild(m_buttonTag);
+				setEnable(m_enable);
+				resolve();
+			});
 		}
 
 		function insertGraphic(graphic, func) {
@@ -236,24 +242,27 @@ ui.class.Button = class Button extends HTMLElement {
 		}
 
 		function configure(customProps) {
-			m_props = {
-				enable: true,
-				install: true,
-				preventDefault: true,
-				stopPropagation: true,
-				tag: "default",
-				theme: "default",
-			};
-			// If options provided, override default config
-			if (customProps) m_props = m_utils.extend(true, m_props, customProps);
-			// Resolve parent tag
-			if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
-			// Extend tag names
-			const tags = m_tags.getTags({ name: m_props.tag, component: "button" });
-			m_props.tags = m_utils.extend(true, tags, m_props.tags);
-			// Extend css class names
-			const css = m_theme.getTheme({ name: m_props.theme, component: "button" });
-			m_props.css = m_utils.extend(true, css, m_props.css);
+			return new Promise((resolve) => {
+				m_props = {
+					enable: true,
+					install: true,
+					preventDefault: true,
+					stopPropagation: true,
+					tag: "default",
+					theme: "default",
+				};
+				// If options provided, override default config
+				if (customProps) m_props = m_utils.extend(true, m_props, customProps);
+				// Resolve parent tag
+				if (m_props.parentTag) m_parentTag = dom.getTag(m_props.parentTag);
+				// Extend tag names
+				const tags = m_tags.getTags({ name: m_props.tag, component: "button" });
+				m_props.tags = m_utils.extend(true, tags, m_props.tags);
+				// Extend css class names
+				const css = m_theme.getTheme({ name: m_props.theme, component: "button" });
+				m_props.css = m_utils.extend(true, css, m_props.css);
+				resolve();
+			});
 		}
 	}
 };
