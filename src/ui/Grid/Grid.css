@@ -38,7 +38,7 @@
 }
 
 .grid-cell {
-  display: flex , inline-block;
+  display: inline-block;
   align-items: center;
   justify-content: center;
   text-align: center;
