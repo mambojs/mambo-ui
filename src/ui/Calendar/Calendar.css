@@ -154,7 +154,7 @@
   border-radius: 0;
   font-size: 1rem;
   color: #a9a9a9;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 100%;
 }
@@ -175,7 +175,7 @@
   border: none;
   border-radius: 0;
   font-size: 1rem;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 100%;
 }
@@ -206,7 +206,7 @@
   border: none;
   border-radius: 0;
   font-size: 1rem;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 100%;
 }
@@ -230,7 +230,7 @@
   border-radius: 0;
   font-size: 1rem;
   color: #a9a9a9;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 100%;
 }
@@ -251,7 +251,7 @@
   border: none;
   border-radius: 0;
   font-size: 1rem;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 100%;
 }
@@ -275,13 +275,9 @@
   border-radius: 0;
   font-size: 1rem;
   color: #a9a9a9;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 100%;
-}
-
-.other-decade:hover {
-  background-color: #ccc;
 }
 
 .calendar-footer-button {
@@ -295,7 +291,7 @@
   opacity: 0.6;
   cursor: default;
   pointer-events: none;
-  color: #000000;
+  color: #000;
 }
 
 .calendar-header-button-disabled {

@@ -1,19 +1,6 @@
 .dialog-parent {
   width: 100%;
   display: flex;
-}
-
-.dialog-header {
-  width: 100%;
-  display: flex;
-}
-
-.dialog-body {
-  width: 100%;
-  display: flex;
-}
-
-.dialog-parent {
   flex-direction: column;
   min-height: 100%;
   background: white;
@@ -23,8 +10,16 @@
 }
 
 .dialog-header {
+  width: 100%;
+  display: flex;
   min-height: 3rem;
   height: 3rem;
+}
+
+.dialog-body {
+  width: 100%;
+  display: flex;
+  height: 100%;
 }
 
 .dialog-header-left {
@@ -35,20 +30,13 @@
 .dialog-header-center {
   display: flex;
   align-items: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .dialog-header-right {
   display: flex;
   align-items: center;
-}
-
-.dialog-header-center {
-  width: 100%;
-  justify-content: center;
-}
-
-.dialog-body {
-  height: 100%;
 }
 
 .dialog-header-close {
@@ -63,7 +51,7 @@
 }
 
 .dialog-header-close:hover {
-  background: rgb(220, 0, 0);
+  background: rgb(220 0 0);
 }
 
 .dialog-header-title {

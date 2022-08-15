@@ -47,7 +47,7 @@
   margin-left: -1rem;
 }
 
-.tree-view-item-icon:before {
+.tree-view-item-icon::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -55,14 +55,14 @@
   transform: translate(-50%, -50%);
 }
 
-.tree-view-icon-expand:before {
+.tree-view-icon-expand::before {
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
-  border-left: 6px solid #000000;
+  border-left: 6px solid #000;
 }
 
-.tree-view-icon-collapse:before {
+.tree-view-icon-collapse::before {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 6px solid #000000;
+  border-top: 6px solid #000;
 }

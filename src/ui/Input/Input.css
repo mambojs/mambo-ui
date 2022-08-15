@@ -11,7 +11,7 @@
 .input-img {
   height: 1rem;
   padding: 0.1rem;
-  margin: 0 0.1rem 0;
+  margin: 0 0.1rem;
 }
 
 .input-button {
@@ -25,5 +25,5 @@
   border: 1px solid #008ca8;
   box-shadow: 0 0 3px #008ca8;
   padding: 1px 6px;
-  font: 400 13.3333px Arial;
+  font: 400 13.3333px Arial ,serif ;
 }
