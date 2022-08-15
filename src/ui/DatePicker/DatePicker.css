@@ -46,7 +46,7 @@
   display: none;
   position: absolute;
   background-color: #f8f8f8;
-  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 15%);
   overflow: auto;
   z-index: 999;
   left: 0;
@@ -59,6 +59,7 @@
 .date-picker-calendar-parent {
   display: flex;
   flex-direction: column;
+
   /* width: 17em; */
   overflow: hidden;
   border: 1px solid #a9a9a9;

@@ -14,8 +14,8 @@
 .switch-container {
   position: relative;
   flex: 1 0 auto;
-  color: #000000;
-  background-color: #ffffff;
+  color: #000;
+  background-color: #fff;
   border-radius: 4rem;
   border: 1px solid #a9a9a9;
   pointer-events: none;
@@ -43,15 +43,15 @@
   position: relative;
   width: 2rem;
   height: 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0 0 0 15%);
   border-radius: 4rem;
   vertical-align: middle;
   background-color: #f2f2f2;
 }
 
 .switch-input:checked ~ .switch-container {
-  color: #ffffff;
-  background-color: #000000;
+  color: #fff;
+  background-color: #000;
 }
 
 .switch-input:checked ~ .switch-container .switch-label-off {

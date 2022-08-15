@@ -29,15 +29,15 @@
   overflow: hidden;
 }
 
-.rating-empty-star:after {
+.rating-empty-star::after {
   content: "☆";
 }
 
-.rating-selected-star:after {
+.rating-selected-star::after {
   content: "★";
 }
 
-.rating-hover-star:after {
+.rating-hover-star::after {
   content: "★";
 }
 
