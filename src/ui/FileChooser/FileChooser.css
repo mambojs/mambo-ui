@@ -1,11 +1,11 @@
-.file-chooser-parent {
+.m-file-chooser-parent {
   display: block;
 }
 
-.file-chooser-input {
+.m-file-chooser-input {
   margin-top: 0.5rem;
 }
 
-.file-chooser-input-wrapper {
+.m-file-chooser-input-wrapper {
   display: flex;
 }

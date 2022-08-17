@@ -1,4 +1,4 @@
-.drag-drop-parent {
+.m-drag-drop-parent {
   padding: 1rem;
   border: 1px dashed black;
   border-radius: 1rem;
@@ -11,13 +11,13 @@
   cursor: crosshair;
 }
 
-.drag-drop-parent:hover {
+.m-drag-drop-parent:hover {
   border-color: black;
   transform: scale(1.01);
   box-shadow: 0 0 10px black;
 }
 
-.drag-drop-icon {
+.m-drag-drop-icon {
   width: 3rem;
   height: 3rem;
   margin-bottom: 1rem;

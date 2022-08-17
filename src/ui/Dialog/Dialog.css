@@ -1,4 +1,4 @@
-.dialog-parent {
+.m-dialog-parent {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -9,37 +9,37 @@
   left: 0;
 }
 
-.dialog-header {
+.m-dialog-header {
   width: 100%;
   display: flex;
   min-height: 3rem;
   height: 3rem;
 }
 
-.dialog-body {
+.m-dialog-body {
   width: 100%;
   display: flex;
   height: 100%;
 }
 
-.dialog-header-left {
+.m-dialog-header-left {
   display: flex;
   align-items: center;
 }
 
-.dialog-header-center {
+.m-dialog-header-center {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: center;
 }
 
-.dialog-header-right {
+.m-dialog-header-right {
   display: flex;
   align-items: center;
 }
 
-.dialog-header-close {
+.m-dialog-header-close {
   height: 1.5rem;
   margin: 0.5rem;
   line-height: 1rem;
@@ -50,11 +50,11 @@
   cursor: pointer;
 }
 
-.dialog-header-close:hover {
+.m-dialog-header-close:hover {
   background: rgb(220 0 0);
 }
 
-.dialog-header-title {
+.m-dialog-header-title {
   text-transform: capitalize;
   text-align: center;
 }

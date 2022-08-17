@@ -1,4 +1,4 @@
-.dropdown-button {
+.m-dropdown-button {
   color: white;
   font-size: 1.2rem;
   padding: 0.5rem 1rem;
@@ -12,15 +12,15 @@
   align-items: center;
 }
 
-.dropdown-button.hover {
+.m-dropdown-button.hover {
   background: #444;
 }
 
-.dropdown-button.selected {
+.m-dropdown-button.selected {
   background: #444;
 }
 
-.dropdown-container {
+.m-dropdown-container {
   display: none;
   position: absolute;
   width: 25rem;
@@ -32,6 +32,6 @@
   color: black;
 }
 
-.dropdown-container.open {
+.m-dropdown-container.open {
   display: block;
 }

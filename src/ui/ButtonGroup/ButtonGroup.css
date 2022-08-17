@@ -1,10 +1,10 @@
-.button-group {
+.m-button-group {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.button-group-button {
+.m-button-group-button {
   color: var(--ui-color);
   font-size: var(--ui-font-size);
   padding: var(--ui-padding);
@@ -19,16 +19,16 @@
   align-items: center;
 }
 
-.button-group-button:hover {
+.m-button-group-button:hover {
   background: var(--ui-hover-background-color);
 }
 
-.button-group-button.selected {
+.m-button-group-button.selected {
   color: var(--ui-selected-color);
   background: var(--ui-selected-background-color);
 }
 
-.button-group-img {
+.m-button-group-img {
   width: 1rem;
   height: 1rem;
   margin: 0 0.5rem;

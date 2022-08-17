@@ -1,4 +1,4 @@
-.slideout-overlay {
+.m-slideout-overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -9,11 +9,11 @@
   z-index: 998;
 }
 
-.slideout-overlay.fade-in {
+.m-slideout-overlay.fade-in {
   display: block;
 }
 
-.slideout-content {
+.m-slideout-content {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -26,11 +26,11 @@
   z-index: 999;
 }
 
-.slideout-content.open {
+.m-slideout-content.open {
   left: 0;
 }
 
-.slideout-header {
+.m-slideout-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,13 +42,13 @@
   padding: 1rem;
 }
 
-.slideout-body {
+.m-slideout-body {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-.slideout-close-button {
+.m-slideout-close-button {
   display: flex;
   justify-content: center;
   align-items: center;
