@@ -1,23 +1,23 @@
-.mambo-tab {
+.m-mambo-tab {
   display: flex;
   flex-direction: column;
 }
 
-.mambo-tab-content {
+.m-mambo-tab-content {
   display: none;
   border: 1px solid grey;
   padding: 0.5rem;
   width: 100%;
 }
 
-.mambo-tab-content.selected {
+.m-mambo-tab-content.selected {
   display: flex;
 }
 
-.mambo-tab-contents {
+.m-mambo-tab-contents {
   display: flex;
 }
 
-.mambo-tabs {
+.m-mambo-tabs {
   display: flex;
 }

@@ -1,4 +1,4 @@
-.button-button {
+.m-button-button {
   color: var(--ui-color);
   font-size: var(--ui-font-size);
   padding: var(--ui-padding);
@@ -12,15 +12,15 @@
   align-items: center;
 }
 
-.button-button.hover {
+.m-button-button.hover {
   background: var(--ui-hover-background-color);
 }
 
-.button-button.selected {
+.m-button-button.selected {
   background: var(--ui-selected-background-color);
 }
 
-.button-img {
+.m-button-img {
   height: 1.25em;
   margin: 0 0.5rem;
 }
@@ -35,7 +35,7 @@ svg path {
   fill: #fff;
 }
 
-.button-disabled {
+.m-button-disabled {
   opacity: 0.6;
   cursor: default;
   pointer-events: none;

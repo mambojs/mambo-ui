@@ -1,4 +1,4 @@
-.grid-parent {
+.m-grid-parent {
   width: fit-content;
   height: 100%;
   display: flex;
@@ -6,7 +6,7 @@
   border: 1px solid #aaa;
 }
 
-.grid-hdr {
+.m-grid-hdr {
   display: flex;
   width: 100%;
   min-height: 2rem;
@@ -17,7 +17,7 @@
   white-space: nowrap;
 }
 
-.grid-col-cell {
+.m-grid-col-cell {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,17 +27,17 @@
   white-space: nowrap;
 }
 
-.grid-col-cell:nth-child(n + 2) {
+.m-grid-col-cell:nth-child(n + 2) {
   border-left: 1px solid #aaa;
 }
 
-.grid-body {
+.m-grid-body {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.grid-cell {
+.m-grid-cell {
   display: inline-block;
   align-items: center;
   justify-content: center;
@@ -47,16 +47,16 @@
   white-space: pre;
 }
 
-.grid-row {
+.m-grid-row {
   display: flex;
   border-bottom: 1px solid #aaa;
 }
 
-.grid-body .grid-row:last-child {
+.m-grid-body .grid-row:last-child {
   border-bottom: none;
 }
 
-.grid-button-cell {
+.m-grid-button-cell {
   background: none;
   border: none;
   display: flex;
@@ -66,20 +66,20 @@
   cursor: pointer;
 }
 
-.grid-input-cell {
+.m-grid-input-cell {
   width: 100%;
   border: 0;
 }
 
-.grid-text-cell {
+.m-grid-text-cell {
   width: 100%;
 }
 
-.grid-button-cell:hover {
+.m-grid-button-cell:hover {
   background: #eee;
 }
 
-.grid-drag-drop-parent {
+.m-grid-drag-drop-parent {
   padding: 0.2rem;
   display: flex;
   flex-direction: column;
@@ -90,25 +90,25 @@
   cursor: crosshair;
 }
 
-.grid-drag-drop-parent:hover {
+.m-grid-drag-drop-parent:hover {
   transform: scale(1.01);
 }
 
-.grid-drag-drop-icon {
+.m-grid-drag-drop-icon {
   width: 1.25rem;
   height: 1.25rem;
 }
 
-.grid-drag-drop-text {
+.m-grid-drag-drop-text {
   font-size: 90%;
 }
 
-.tiles-parent {
+.m-tiles-parent {
   display: grid;
   grid-gap: 0.5rem;
 }
 
-.grid-tree-view-parent {
+.m-grid-tree-view-parent {
   display: flex;
   flex-direction: column;
   white-space: nowrap;
@@ -116,7 +116,7 @@
   padding: 0.2rem;
 }
 
-.grid-dropdown-container {
+.m-grid-dropdown-container {
   display: none;
   position: absolute;
   width: 25rem;
@@ -127,11 +127,11 @@
   z-index: 999;
 }
 
-.grid-dropdown-container.open {
+.m-grid-dropdown-container.open {
   display: block;
 }
 
-.grid-combobox-parent {
+.m-grid-combobox-parent {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -139,7 +139,7 @@
   width: 10rem;
 }
 
-.grid-combobox-dropdown-container {
+.m-grid-combobox-dropdown-container {
   display: none;
   position: absolute;
   width: 10rem;
@@ -151,11 +151,11 @@
   left: 0;
 }
 
-.grid-combobox-dropdown-container.open {
+.m-grid-combobox-dropdown-container.open {
   display: block;
 }
 
-.grid-time-picker-parent {
+.m-grid-time-picker-parent {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -163,7 +163,7 @@
   width: 7em;
 }
 
-.grid-time-picker-dropdown-container {
+.m-grid-time-picker-dropdown-container {
   display: none;
   position: absolute;
   width: 7rem;
@@ -175,11 +175,11 @@
   left: 0;
 }
 
-.grid-time-picker-dropdown-container.open {
+.m-grid-time-picker-dropdown-container.open {
   display: block;
 }
 
-.grid-calendar-parent {
+.m-grid-calendar-parent {
   display: flex;
   flex-direction: column;
   width: 17em;
@@ -188,7 +188,7 @@
   border-radius: 0.25rem;
 }
 
-.grid-date-picker-parent {
+.m-grid-date-picker-parent {
   position: relative;
   display: flex;
   flex-direction: row;

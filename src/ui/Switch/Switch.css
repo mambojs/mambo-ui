@@ -1,4 +1,4 @@
-.switch-parent {
+.m-switch-parent {
   display: flex;
   flex-direction: row;
   width: 4rem;
@@ -7,11 +7,11 @@
   cursor: pointer;
 }
 
-.switch-input {
+.m-switch-input {
   display: none;
 }
 
-.switch-container {
+.m-switch-container {
   position: relative;
   flex: 1 0 auto;
   color: #000;
@@ -21,7 +21,7 @@
   pointer-events: none;
 }
 
-.switch-label-on {
+.m-switch-label-on {
   display: none;
   position: absolute;
   font-size: 0.7rem;
@@ -30,7 +30,7 @@
   transform: translateY(-50%);
 }
 
-.switch-label-off {
+.m-switch-label-off {
   position: absolute;
   font-size: 0.7rem;
   right: 0.3rem;
@@ -38,7 +38,7 @@
   transform: translateY(-50%);
 }
 
-.switch-handle {
+.m-switch-handle {
   display: inline-block;
   position: relative;
   width: 2rem;
@@ -49,24 +49,24 @@
   background-color: #f2f2f2;
 }
 
-.switch-input:checked ~ .switch-container {
+.m-switch-input:checked ~ .m-switch-container {
   color: #fff;
   background-color: #000;
 }
 
-.switch-input:checked ~ .switch-container .switch-label-off {
+.m-switch-input:checked ~ .m-switch-container .switch-label-off {
   display: none;
 }
 
-.switch-input:checked ~ .switch-container .switch-label-on {
+.m-switch-input:checked ~ .m-switch-container .switch-label-on {
   display: block;
 }
 
-.switch-input:checked ~ .switch-container .switch-handle {
+.m-switch-input:checked ~ .m-switch-container .switch-handle {
   left: calc(100% - 2rem);
 }
 
-.switch-disabled {
+.m-switch-disabled {
   opacity: 0.6;
   cursor: default;
   pointer-events: none;

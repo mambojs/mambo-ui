@@ -1,45 +1,45 @@
-.tree-view-parent {
+.m-tree-view-parent {
   display: flex;
   flex-direction: column;
   white-space: nowrap;
   line-height: 1.1rem;
 }
 
-.tree-view-group {
+.m-tree-view-group {
   display: none;
   position: relative;
 }
 
-.tree-view-group.expanded {
+.m-tree-view-group.expanded {
   display: flex;
   flex-direction: column;
 }
 
-.tree-view-item {
+.m-tree-view-item {
   padding: 0 0 0 1rem;
 }
 
-.tree-view-item-top {
+.m-tree-view-item-top {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.tree-view-item-in {
+.m-tree-view-item-in {
   padding: 0.25rem 0.5rem;
   cursor: default;
 }
 
-.tree-view-item-in.hover {
+.m-tree-view-item-in.hover {
   background-color: #ddd;
 }
 
-.tree-view-item-in.selected {
+.m-tree-view-item-in.selected {
   color: #fff;
   background-color: #000;
 }
 
-.tree-view-item-icon {
+.m-tree-view-item-icon {
   position: relative;
   cursor: pointer;
   width: 1rem;
@@ -47,7 +47,7 @@
   margin-left: -1rem;
 }
 
-.tree-view-item-icon::before {
+.m-tree-view-item-icon::before {
   position: absolute;
   content: "";
   top: 50%;
@@ -55,13 +55,13 @@
   transform: translate(-50%, -50%);
 }
 
-.tree-view-icon-expand::before {
+.m-tree-view-icon-expand::before {
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
   border-left: 6px solid #000;
 }
 
-.tree-view-icon-collapse::before {
+.m-tree-view-icon-collapse::before {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 6px solid #000;

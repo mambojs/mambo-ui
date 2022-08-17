@@ -1,15 +1,15 @@
-.rating-parent {
+.m-rating-parent {
   position: relative;
   display: flex;
   font-size: 2rem;
 }
 
-.rating-empty {
+.m-rating-empty {
   display: flex;
   flex-direction: row;
 }
 
-.rating-selected {
+.m-rating-selected {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -19,7 +19,7 @@
   overflow: hidden;
 }
 
-.rating-hover {
+.m-rating-hover {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -29,18 +29,18 @@
   overflow: hidden;
 }
 
-.rating-empty-star::after {
+.m-rating-empty-star::after {
   content: "☆";
 }
 
-.rating-selected-star::after {
+.m-rating-selected-star::after {
   content: "★";
 }
 
-.rating-hover-star::after {
+.m-rating-hover-star::after {
   content: "★";
 }
 
-.rating-disabled {
+.m-rating-disabled {
   pointer-events: none;
 }

@@ -1,11 +1,11 @@
-.time-picker-parent {
+.m-time-picker-parent {
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
-.time-picker-combobox-button {
+.m-time-picker-combobox-button {
   position: relative;
   height: 100%;
   color: white;
@@ -21,15 +21,15 @@
   align-items: center;
 }
 
-.time-picker-combobox-button.hover {
+.m-time-picker-combobox-button.hover {
   background: #444;
 }
 
-.time-picker-combobox-button.selected {
+.m-time-picker-combobox-button.selected {
   background: #444;
 }
 
-.time-picker-dropdown-container {
+.m-time-picker-dropdown-container {
   display: none;
   position: absolute;
   width: 10rem;
@@ -41,6 +41,6 @@
   left: 0;
 }
 
-.time-picker-dropdown-container.open {
+.m-time-picker-dropdown-container.open {
   display: block;
 }
