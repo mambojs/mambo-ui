@@ -1,0 +1,32 @@
+.m-button-button {
+  color: var(--m-color);
+  font-size: var(--m-font-size);
+  padding: var(--m-padding-s);
+  background: var(--m-background-color);
+  border: var(--m-border);
+  border-radius: var(--m-border-radius);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-button-button.m-hover {
+  background: var(--m-hover-background-color);
+}
+
+.m-button-button.m-selected {
+  background: var(--m-selected-background-color);
+}
+
+.m-button-img {
+  height: 1.25em;
+  margin: 0 0.5rem;
+}
+
+.m-button-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}

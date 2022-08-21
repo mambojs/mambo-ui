@@ -1,6 +1,6 @@
 {
-    "recommendations": [
-        "hookyqr.beautify",
+	"recommendations": [
+		"hookyqr.beautify",
 		"formulahendry.auto-rename-tag",
 		"yzhang.markdown-all-in-one",
 		"msjsdiag.debugger-for-chrome",
@@ -12,6 +12,7 @@
 		"mrmlnc.vscode-json5",
 		"stylelint.vscode-stylelint",
 		"dbaeumer.vscode-eslint",
-		"mkaufman.htmlhint"
-    ]
+		"mkaufman.htmlhint",
+		"gaz77a.javascript-sort"
+	]
 }

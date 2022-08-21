@@ -1,0 +1,19 @@
+.m-tab {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-tab-body {
+  display: none;
+  border: 1px solid grey;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.m-tab-body.m-selected {
+  display: flex;
+}
+
+.m-tabs {
+  display: flex;
+}

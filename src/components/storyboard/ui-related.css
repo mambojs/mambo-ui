@@ -10,3 +10,8 @@ story-draggable {
   display: flex;
   flex-wrap: wrap;
 }
+
+story-calendar {
+  display: block;
+  width: 15rem;
+}

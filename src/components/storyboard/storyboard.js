@@ -1,5 +1,4 @@
 function installStoryboard() {
-	const dom = object.get("dom");
 	const storyParentTag = dom.getTag("storyboard-component");
 	let stories;
 	setup();
@@ -61,7 +60,11 @@ function installStoryboard() {
 	}
 
 	function loadComponent({ itemData }) {
-		if (!itemData.id) return; // User clicked the main Tree
+		if (!itemData.id) {
+			// User clicked the main Tree
+			return;
+		}
+
 		const selectedStory = stories.find((story) => story.id === itemData.id);
 		selectedStory.parentTag.innerHTML = null;
 		storyParentTag.innerHTML = null;
@@ -101,9 +104,7 @@ function installStoryboard() {
 					// You can declare a single event handler for all tab clicks
 				},
 			},
-			fnTabReady: (contentTag, tab) => {
-				contentTag.appendChild("test");
-			},
+			fnTabReady: (contentTag, tab) => {},
 		};
 
 		//ui.tab(tabConfig);

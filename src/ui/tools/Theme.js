@@ -1,0 +1,354 @@
+ui.defaultTheme = {
+	button: {
+		button: "m-button-button",
+		disabled: "m-button-disabled",
+		hover: "m-hover",
+		img: "m-button-img",
+		selected: "m-selected",
+		self: "m-button-self",
+	},
+	buttonGroup: {
+		button: {
+			button: "m-button-group-button",
+			img: "m-button-group-img",
+		},
+		self: "m-button-group-self",
+	},
+	buttonSVG: {
+		button: "m-buttonsvg-button",
+		disabled: "m-buttonsvg-disabled",
+		hover: "m-hover",
+		img: "m-buttonsvg-img",
+		selected: "m-selected",
+		self: "m-buttonsvg-self",
+	},
+	calendar: {
+		body: "m-calendar-body",
+		bodyContent: "m-calendar-body-content",
+		bodyHeader: "m-calendar-body-header",
+		currentDate: "m-current-date",
+		datesButtonGroup: {
+			button: {
+				button: "m-dates-button-group-button",
+				disabled: "m-dates-button-group-button-disabled",
+			},
+			self: "m-dates-button-group",
+		},
+		datesHeader: {
+			tileItem: "m-dates-header-day",
+			tiles: "m-dates-header-parent",
+		},
+		decadesButtonGroup: {
+			button: {
+				button: "m-decades-button-group-button",
+				disabled: "m-decades-button-group-button-disabled",
+			},
+			self: "m-decades-button-group",
+		},
+		footerButton: {
+			button: "m-calendar-footer-button",
+			disabled: "m-calendar-footer-button-disabled",
+		},
+		headerButtonGroup: {
+			self: "m-calendar-header-button-group",
+		},
+		monthsButtonGroup: {
+			button: {
+				button: "m-months-button-group-button",
+				disabled: "m-months-button-group-button-disabled",
+			},
+			self: "m-months-button-group",
+		},
+		otherCentury: "m-other-century",
+		otherDecade: "m-other-decade",
+		otherMonth: "m-other-month",
+		self: "m-calendar-self",
+		yearsButtonGroup: {
+			button: {
+				button: "m-years-button-group-button",
+				disabled: "m-years-button-group-button-disabled",
+			},
+			self: "m-years-button-group",
+		},
+	},
+	checkboxRadio: {
+		checkbox: {
+			input: "m-checkbox-input",
+			span: "m-checkbox-span",
+			radioSpanTag: "m-checkbox-radio-span",
+		},
+		disabled: "m-checkbox-radio-disabled",
+		label: "m-checkbox-radio-label",
+		radio: {
+			input: "m-radio-input",
+			span: "m-radio-span",
+			radioSpanTag: "m-radio-radio-span",
+		},
+		radioText: "m-checkbox-radio-text",
+		self: "m-checkbox-radio-self",
+	},
+	checkboxRadioGroup: {
+		checkbox: {
+			checkbox: {
+				input: "m-checkbox-group-input",
+				span: "m-checkbox-group-span",
+			},
+			label: "m-checkbox-radio-group-radio-label",
+			radio: {
+				input: "m-radio-group-input",
+				span: "m-radio-group-span",
+			},
+		},
+		self: "m-checkbox-radio-group-self",
+	},
+	combobox: {
+		buttonGroup: {
+			button: {
+				button: "m-combobox-button-group-button",
+			},
+			self: "m-combobox-button-group",
+		},
+		dropdown: {
+			button: {
+				button: "m-combobox-button",
+			},
+			container: "m-combobox-dropdown-container",
+			self: "m-combobox-dropdown-parent",
+		},
+		wrapper: "m-dropdown-wrapper",
+		input: {
+			input: "m-combobox-input-input",
+			inputWrapper: "m-combobox-input-wrapper",
+		},
+		self: "m-combobox-self",
+	},
+	datePicker: {
+		calendar: {
+			body: "m-date-picker-calendar-body",
+			bodyContent: "m-date-picker-calendar-body-content",
+			bodyHeader: "m-date-picker-calendar-body-header",
+			headerButtonGroup: {
+				self: "m-date-picker-calendar-header",
+			},
+			self: "m-date-picker-calendar-parent",
+		},
+		dropdown: {
+			button: {
+				button: "m-date-picker-button",
+			},
+			container: "m-date-picker-dropdown-container",
+			self: "m-date-picker-dropdown-parent",
+		},
+		dropdownWrapper: "m-date-picker-dropdown-wrapper",
+		input: {
+			input: "m-date-picker-input-input",
+			inputWrapper: "m-date-picker-input-wrapper",
+		},
+		self: "m-date-picker-self",
+	},
+	dialog: {
+		body: "m-dialog-body",
+		header: "m-dialog-header",
+		headerCenter: "m-dialog-header-center",
+		headerCloseButton: "m-dialog-header-close",
+		headerLeft: "m-dialog-header-left",
+		headerRight: "m-dialog-header-right",
+		headerTitle: "m-dialog-header-title",
+		self: "m-dialog-self",
+	},
+	dragDrop: {
+		dropText: "m-drag-drop-text",
+		imgDropIcon: "m-drag-drop-icon",
+		self: "m-drag-drop-self",
+	},
+	draggable: {
+		draggable: "m-draggable",
+		self: "m-draggable-self",
+	},
+	dropdown: {
+		button: {
+			button: "m-dropdown-button",
+		},
+		container: "m-dropdown-container",
+		open: "m-open",
+		self: "m-dropdown-self",
+	},
+	fileChooser: {
+		button: "m-file-chooser-button",
+		input: "m-file-chooser-input",
+		label: "m-file-chooser-label",
+		self: "m-file-chooser-self",
+		wrapper: "m-file-chooser-input-wrapper",
+	},
+	grid: {
+		body: "m-grid-body",
+		button: "m-grid-button",
+		calendarParent: "m-grid-calendar-parent",
+		cell: "m-grid-cell",
+		colCell: "m-grid-col-cell",
+		comboboxDropDownContainer: "m-grid-combobox-dropdown-container",
+		comboboxParent: "m-grid-combobox-parent",
+		datePickerParent: "m-grid-date-picker-parent",
+		dropDownContainer: "m-grid-dropdown-container",
+		dropDownParent: "m-grid-dropdown-parent",
+		dropImgDropIcon: "m-grid-drag-drop-icon",
+		dropParent: "m-grid-drag-drop-parent",
+		dropText: "m-grid-drag-drop-text",
+		grid: "m-grid",
+		header: "m-grid-hdr",
+		headerTitle: "m-grid-title",
+		input: "m-grid-input",
+		row: "m-grid-row",
+		self: "m-grid-self",
+		text: "m-grid-text",
+		tileItem: "m-tile-item",
+		tiles: "m-tiles",
+		timePickerDropDownContainer: "m-grid-time-picker-dropdown-container",
+		timePickerParent: "m-grid-time-picker-parent",
+		treeViewParent: "m-grid-tree-view-parent",
+	},
+	input: {
+		button: "m-input-button",
+		img: "m-input-img",
+		input: "m-input-input",
+		label: "m-input-label",
+		self: "m-input-self",
+	},
+	percentage: {
+		bar: "m-percentage-bar",
+		self: "m-percentage-self",
+		text: "m-percentage-text",
+	},
+	player: {
+		player: "m-player-player",
+		self: "m-player-self",
+	},
+	rating: {
+		disabled: "m-rating-disabled",
+		empty: "m-rating-empty",
+		emptyStar: "m-rating-empty-star",
+		hover: "m-rating-hover",
+		hoverStar: "m-rating-hover-star",
+		selected: "m-rating-selected",
+		selectedStar: "m-rating-selected-star",
+		self: "m-rating-self",
+	},
+	slideout: {
+		body: "m-slideout-body",
+		header: "m-slideout-header",
+		overlay: "m-slideout-overlay",
+		self: "m-slideout-self",
+	},
+	slider: {
+		disabled: "m-slider-disabled",
+		horizontal: {
+			decreaseButton: {
+				button: "m-slider-button-decrease-horizontal",
+			},
+			handle: "m-slider-handle-horizontal",
+			increaseButton: {
+				button: "m-slider-button-increase-horizontal",
+			},
+			self: "m-slider-parent-horizontal",
+			selection: "m-slider-selection-horizontal",
+			step: "m-slider-step-horizontal",
+			stepLarge: "m-slider-step-large-horizontal",
+			stepLargeSpan: "m-slider-step-large-span-horizontal",
+			stepsContainer: "m-slider-steps-container-horizontal",
+			track: "m-slider-track-horizontal",
+			wrapper: "m-slider-wrapper-horizontal",
+		},
+		self: "m-slider-self",
+		vertical: {
+			decreaseButton: {
+				button: "m-slider-button-decrease-vertical",
+			},
+			handle: "m-slider-handle-vertical",
+			increaseButton: {
+				button: "m-slider-button-increase-vertical",
+			},
+			self: "m-slider-parent-vertical",
+			selection: "m-slider-selection-vertical",
+			step: "m-slider-step-vertical",
+			stepLarge: "m-slider-step-large-vertical",
+			stepLargeSpan: "m-slider-step-large-span-vertical",
+			stepsContainer: "m-slider-steps-container-vertical",
+			track: "m-slider-track-vertical",
+			wrapper: "m-slider-wrapper-vertical",
+		},
+	},
+	switch: {
+		container: "m-switch-container",
+		disabled: "m-switch-disabled",
+		handle: "m-switch-handle",
+		input: "m-switch-input",
+		off: "m-switch-label-off",
+		on: "m-switch-label-on",
+		self: "m-switch-self",
+	},
+	tab: {
+		body: "m-tab-body",
+		content: "m-tab-content",
+		selectedTab: "m-selected",
+		self: "m-tab-self",
+		tabs: "m-tabs",
+	},
+	timePicker: {
+		combobox: {
+			dropdown: {
+				button: {
+					button: "m-time-picker-combobox-button",
+				},
+				container: "m-time-picker-dropdown-container",
+			},
+			self: "m-time-picker-combobox",
+		},
+		self: "m-time-picker-self",
+	},
+	treeView: {
+		expanded: "m-expanded",
+		group: "m-tree-view-group",
+		hover: "m-hover",
+		icon: "m-tree-view-item-icon",
+		iconCollapse: "m-tree-view-icon-collapse",
+		iconExpand: "m-tree-view-icon-expand",
+		in: "m-tree-view-item-in",
+		item: "m-tree-view-item",
+		selected: "m-selected",
+		self: "m-tree-view-self",
+		top: "m-tree-view-item-top",
+	},
+	videoPlayer: {
+		self: "m-video-player-self",
+	},
+};
+
+ui.class.Theme = class Theme {
+	constructor() {
+		this.m_themes = {
+			default: ui.defaultTheme,
+		};
+	}
+
+	getTheme(context) {
+		if (context && context.name && context.component) {
+			if (context.name in this.m_themes) {
+				return this.m_themes[context.name][context.component];
+			}
+		}
+	}
+
+	addTheme(context) {
+		if (!context || !context.name || !context.theme) {
+			throw "Theme: you invoked addTheme() but failed to define the theme name and/or theme.";
+		}
+
+		if (this.m_themes[context.name] && !this.m_themes[context.override]) {
+			throw `Theme: you have attempted to override the theme name ${context.name}. Please add the property 'override:true' to succesfully override the theme.`;
+		}
+
+		this.m_themes[context.name] = context.theme;
+	}
+};
+
+ui.theme = new ui.class.Theme();

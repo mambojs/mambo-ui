@@ -1,0 +1,31 @@
+* {
+  /* Fonts */
+  --m-font-family: "Ubuntu Light", sans-serif;
+  --m-font-size: 1rem;
+
+  /* Colors */
+  --m-text-color: white;
+  --m-disabled-text-color: #ccc;
+  --m-background-color: black;
+  --m-error-color: red;
+
+  /* Paddings */
+  --m-padding-xs: 0.125rem;
+  --m-padding-s: 0.25rem;
+  --m-padding-m: 0.5rem;
+  --m-padding-lg: 0.75rem;
+  --m-padding-xl: 0.875rem;
+  --m-padding-xxl: 1rem;
+
+  /* Borders */
+  --m-border: none;
+  --m-border-radius: 0;
+
+  /* Hover */
+  --m-hover-background-color: #555;
+  --m-hover-color: white;
+
+  /* Selected */
+  --m-selected-background-color: #e4e4e4;
+  --m-selected-color: black;
+}

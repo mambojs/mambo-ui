@@ -1,0 +1,33 @@
+.m-button-group-self {
+  display: flex;
+}
+
+.m-button-group-button {
+  color: var(--m-color);
+  font-size: var(--m-font-size);
+  padding: var(--m-padding-s);
+  margin: 0 0.2em;
+  background: var(--m-background-color);
+  border: var(--m-border);
+  border-radius: var(--m-border-radius);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-button-group-button:hover {
+  background: var(--m-hover-background-color);
+}
+
+.m-button-group-button.m-selected {
+  color: var(--m-selected-color);
+  background: var(--m-selected-background-color);
+}
+
+.m-button-group-img {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.5rem;
+}
