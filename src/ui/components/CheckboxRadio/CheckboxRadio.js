@@ -39,7 +39,7 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_checkboxLabelParentTag = ui.d.createTag(m_props.tags.label, {
-					class: m_props.css.label,
+					class: m_props.css.radioParent,
 				});
 
 				let textTag = ui.d.createTag(m_props.tags.radioText, {
@@ -61,11 +61,11 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 				};
 
 				m_checkboxInputTag = ui.d.createTag(m_props.tags.inputTag, tagConfig);
-				m_checkboxRadioSpanTag = ui.d.createTag(m_props.tags.radioSpanTag, { class: css.radioSpanTag });
+				m_checkboxRadioSpanTag = ui.d.createTag(m_props.tags.radioSpanTag, { class: css.span });
 				m_checkboxLabelParentTag.appendChild(textTag);
 				m_checkboxLabelParentTag.appendChild(m_checkboxInputTag);
 				m_checkboxLabelParentTag.appendChild(m_checkboxRadioSpanTag);
-				m_checked = m_props.prop["checked"];
+				m_checked = m_props.prop?.checked;
 				setEnable();
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_checkboxLabelParentTag);
@@ -162,9 +162,6 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 				attr: {
 					type: "checkbox",
 					name: Math.random().toString(36).slice(2),
-				},
-				prop: {
-					checked: false,
 				},
 			};
 			m_props = ui.utils.extend(true, m_props, customProps);

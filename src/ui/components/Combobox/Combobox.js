@@ -11,7 +11,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 		let m_buttonGroup;
 
 		let m_props;
-		let m_comboBoxData = props.data;
+		let m_comboBoxData;
 		let m_value = "";
 		let m_previous_text = "";
 
@@ -216,6 +216,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
+				m_comboBoxData = props.data;
 				const tags = ui.tags.getTags({ name: m_props.tag, component: "combobox" });
 				m_props.tags = ui.utils.extend(true, tags, m_props.tags);
 				const css = ui.theme.getTheme({ name: m_props.theme, component: "combobox" });

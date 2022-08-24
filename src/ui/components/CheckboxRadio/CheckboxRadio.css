@@ -1,4 +1,4 @@
-.m-checkbox-radio-label {
+.m-checkbox-radio-parent {
   display: block;
   position: relative;
   padding-left: 2rem;
@@ -6,7 +6,7 @@
   user-select: none;
 }
 
-.m-checkbox-radio-text {
+.m-checkbox-radio-text-span {
   font-size: 1.2rem;
   line-height: 1.5rem;
 }
@@ -57,7 +57,7 @@
   height: 0;
 }
 
-.m-checkbox-radio-span {
+.m-radio-span {
   position: absolute;
   top: 0;
   left: 0;
@@ -67,11 +67,11 @@
   border-radius: 50%;
 }
 
-.m-radio-input:checked ~ .m-checkbox-radio-span {
+.m-radio-input:checked ~ .m-radio-span {
   background-color: #000;
 }
 
-.m-checkbox-radio-span::after {
+.m-radio-span::after {
   content: "";
   position: absolute;
   display: none;
@@ -83,7 +83,7 @@
   background: white;
 }
 
-.m-radio-input:checked ~ .m-checkbox-radio-span::after {
+.m-radio-input:checked ~ .m-radio-span::after {
   display: block;
 }
 

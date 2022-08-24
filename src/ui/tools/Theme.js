@@ -72,20 +72,17 @@ ui.defaultTheme = {
 		},
 	},
 	checkboxRadio: {
+		radioParent: "m-checkbox-radio-parent",
+		radioText: "m-checkbox-radio-text-span",
 		checkbox: {
 			input: "m-checkbox-input",
 			span: "m-checkbox-span",
-			radioSpanTag: "m-checkbox-radio-span",
 		},
-		disabled: "m-checkbox-radio-disabled",
-		label: "m-checkbox-radio-label",
 		radio: {
 			input: "m-radio-input",
 			span: "m-radio-span",
-			radioSpanTag: "m-radio-radio-span",
 		},
-		radioText: "m-checkbox-radio-text",
-		self: "m-checkbox-radio-self",
+		disabled: "m-checkbox-radio-disabled",
 	},
 	checkboxRadioGroup: {
 		checkbox: {
