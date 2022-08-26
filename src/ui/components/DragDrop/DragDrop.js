@@ -26,11 +26,9 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				const tagConfig = {
-					class: m_props.css.imgDropIcon,
-					attr: { src: m_props.baseUrl + m_props.imgDropIcon },
-				};
-				let imgTag = ui.d.createTag("img", tagConfig);
+				const tagConfig = { class: m_props.css.dropIcon };
+				let imgTag = ui.d.createTag("i", tagConfig);
+
 				let textTag = ui.d.createTag(m_props.tags.dropText, {
 					class: m_props.css.dropText,
 					text: m_props.dropText,
@@ -131,10 +129,8 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
-					imgDropIcon: "drop icon",
 					dropText: "Drop Here",
 					hidden: false,
-					baseUrl: "",
 					maxFileCount: null,
 					tag: "default",
 					theme: "default",

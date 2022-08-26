@@ -155,7 +155,7 @@ ui.defaultTheme = {
 	},
 	dragDrop: {
 		dropText: "m-drag-drop-text",
-		imgDropIcon: "m-drag-drop-icon",
+		dropIcon: "m-drag-drop-icon fa-regular fa-file",
 		self: "m-drag-drop-self",
 	},
 	draggable: {

@@ -1,7 +1,7 @@
 function storyDragDrop(selectedStory) {
 	let props = {
 		parentTag: selectedStory.parentTag,
-		dropText: "Drop files here.",
+		dropText: "Drop files here",
 		allowKind: ["text/plain"],
 		fnDrop: handleDropEvent,
 	};
