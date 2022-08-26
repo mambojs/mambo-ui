@@ -1,5 +1,5 @@
 .m-buttonsvg-button {
-  color: var(--m-color);
+  color: var(--m-text-color);
   font-size: var(--m-font-size);
   padding: var(--m-padding-s);
   background: var(--m-background-color);

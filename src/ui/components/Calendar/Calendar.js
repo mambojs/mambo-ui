@@ -448,7 +448,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function buttonClick(context, buttonGroup) {
 			selectValue(context.Button, context.ev);
-			if (buttonGroup.fnClick) {
+			if (buttonGroup?.fnClick) {
 				buttonGroup.fnClick(context);
 			}
 		}

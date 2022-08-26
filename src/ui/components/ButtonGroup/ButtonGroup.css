@@ -3,7 +3,7 @@
 }
 
 .m-button-group-button {
-  color: var(--m-color);
+  color: var(--m-text-color);
   font-size: var(--m-font-size);
   padding: var(--m-padding-s);
   margin: 0 0.2em;

@@ -131,7 +131,7 @@ ui.defaultTheme = {
 		},
 		dropdown: {
 			button: {
-				button: "m-date-picker-button",
+				button: "m-date-picker-button fa-regular fa-calendar-days",
 			},
 			container: "m-date-picker-dropdown-container",
 			self: "m-date-picker-dropdown-parent",

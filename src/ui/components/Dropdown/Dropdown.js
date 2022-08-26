@@ -48,7 +48,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 					} else {
 						openAnimation();
 					}
-					if (m_props.button.fnClick) {
+					if (m_props.button?.fnClick) {
 						m_props.button.fnClick(context);
 					}
 				};
@@ -122,9 +122,6 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					button: {
-						text: "Open Dropdown",
-					},
 					fnClose: (context) => {
 						// Nothing executes by default
 					},

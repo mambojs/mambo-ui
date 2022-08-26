@@ -59,12 +59,12 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 				dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
 
 				dropdown.fnBeforeClose = (context) => {
-					const result = m_props.dropdown.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
+					const result = m_props.dropdown?.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
 					return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
 				};
 				dropdown.fnComplete = (context) => {
 					installCalendar(context.Dropdown);
-					if (m_props.dropdown.fnComplete) {
+					if (m_props.dropdown?.fnComplete) {
 						m_props.dropdown.fnComplete(context);
 					}
 				};
@@ -160,11 +160,6 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 								},
 							},
 						],
-					},
-					dropdown: {
-						button: {
-							text: "calIcon",
-						},
 					},
 					calendar: {},
 					format: "M/D/YYYY",
