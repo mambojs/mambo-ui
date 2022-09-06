@@ -8,6 +8,9 @@
     <base href="/" />
     <title>Mambo UI Storyboard</title>
     <link rel="icon" href="src/img/mambo/mambo-m.ico" />
+    <!-- Mapbox Dependencies -->
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css"/>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" />
     <!-- Scotti Dependencies -->
     <link rel="stylesheet" href="https://www.scotti.tech/lib/fonts/ubuntu/ubuntu.css" />
     <!-- Style Dependencies -->
@@ -30,6 +33,7 @@
     <link rel="stylesheet" href="src/ui/components/FileChooser/FileChooser.css" />
     <link rel="stylesheet" href="src/ui/components/Grid/Grid.css" />
     <link rel="stylesheet" href="src/ui/components/Input/Input.css" />
+    <link rel="stylesheet" href="src/ui/components/MapBox/MapBox.css" />
     <link rel="stylesheet" href="src/ui/components/Percentage/Percentage.css" />
     <link rel="stylesheet" href="src/ui/components/Player/Player.css" />
     <link rel="stylesheet" href="src/ui/components/Rating/Rating.css" />
@@ -45,6 +49,8 @@
     <link rel="stylesheet" href="src/components/storyboard/storyboard.css" />
     <link rel="stylesheet" href="src/css/index.css" />
     <!-- Load JavaScripts Dependencies -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <script src="https://dom.domjs.dev/dist/domjs-latest.js"></script>
     <script src="https://tools.mambojs.dev/dist/mambo-tools-latest.js"></script>
     <script src="src/lib/run_prettify.js"></script>
@@ -87,6 +93,8 @@
     <script src="src/ui/components/Grid/story/grid.js"></script>
     <script src="src/ui/components/Input/Input.js"></script>
     <script src="src/ui/components/Input/story/input.js"></script>
+    <script src="src/ui/components/MapBox/MapBox.js"></script>
+    <script src="src/ui/components/MapBox/story/mapbox.js"></script>
     <script src="src/ui/components/Percentage/Percentage.js"></script>
     <script src="src/ui/components/Percentage/story/percentage.js"></script>
     <script src="src/ui/components/Player/Player.js"></script>

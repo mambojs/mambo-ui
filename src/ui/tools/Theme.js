@@ -211,6 +211,12 @@ ui.defaultTheme = {
 		label: "m-input-label",
 		self: "m-input-self",
 	},
+	mapbox: {
+		container: "m-mapbox-container",
+		currentPoint: "m-mapbox-current-point",
+		hidewait: "m-mapbox-hide-wait",
+		self: "m-mapbox-self",
+	},
 	percentage: {
 		bar: "m-percentage-bar",
 		self: "m-percentage-self",
