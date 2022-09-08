@@ -56,6 +56,10 @@ ui.defaultTags = {
 	input: {
 		input: "input",
 	},
+	mapbox: {
+		container: "div",
+		currentPoint: "m-mapbox-current-point"
+	},
 	percentage: {
 		bar: "m-percentage-bar",
 		text: "m-percentage-text",

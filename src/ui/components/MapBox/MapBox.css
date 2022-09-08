@@ -1,0 +1,33 @@
+.m-mapbox-container {
+  aspect-ratio: 16/9;
+  background-color: #f2f2f2;
+  position: relative;
+  width: 100%;
+}
+.m-mapbox-container::after {
+  content: "Please wait...";
+  position: absolute;
+  z-index: 10;
+  padding: 1rem;
+  background-color: rgba(255,255,255,.9);
+  left: 50%;
+  top: 50%;
+  border-radius: 0.5rem;
+  transform: translate(-50%, -50%);
+  animation: pulse 1s alternate infinite;
+}
+.m-mapbox-container.m-mapbox-hide-wait::after {
+  display: none;
+}
+.m-mapbox-current-point {
+  background-color: #4d7ee8;
+  box-shadow: 0px 0px 46px 35px #fff, 0px 0px 0px 10px #4d7ee8;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+@keyframes pulse {
+  0% { opacity: .1;}
+  100% { opacity: 1;}
+}
