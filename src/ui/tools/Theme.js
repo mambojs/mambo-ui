@@ -211,6 +211,11 @@ ui.defaultTheme = {
 		label: "m-input-label",
 		self: "m-input-self",
 	},
+	listbox: {
+		container: "m-listbox-container",
+		item: "m-listbox-item",
+		self: "m-listbox-self"
+	},
 	mapbox: {
 		container: "m-mapbox-container",
 		currentPoint: "m-mapbox-current-point",

@@ -56,6 +56,10 @@ ui.defaultTags = {
 	input: {
 		input: "input",
 	},
+	listbox: {
+		container: "m-listbox-container",
+		item: "m-listbox-item",
+	},
 	mapbox: {
 		container: "div",
 		currentPoint: "m-mapbox-current-point"
