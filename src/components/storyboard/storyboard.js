@@ -26,6 +26,7 @@ function installStoryboard() {
 			{ text: "File Chooser" },
 			{ text: "Grid" },
 			{ text: "Input" },
+			{ text: "Listbox" },
 			{ text: "MapBox" },
 			{ text: "Percentage" },
 			{ text: "Rating" },

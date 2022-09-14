@@ -1,0 +1,7 @@
+.m-listbox-container {
+  display: flex;
+  flex-direction: column;
+}
+.m-listbox-item {
+  padding: .3rem 0;
+}
