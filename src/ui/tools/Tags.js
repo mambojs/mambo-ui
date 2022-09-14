@@ -90,6 +90,10 @@ ui.defaultTags = {
 		selected: { name: "m-rating-selected" },
 		selectedStar: { name: "m-rating-selected-star" },
 	},
+	search: {
+		inputContainer: { name: "m-search-input-container" },
+		wrapper: { name: "m-search-wrapper" },
+	},
 	slideout: {
 		body: { name: "m-slideout-body" },
 		header: { name: "m-slideout-header" },

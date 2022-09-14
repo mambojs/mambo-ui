@@ -68,7 +68,16 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 			return new Promise((resolve) => {
 				m_dropdownContainerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.appendChild(m_dropdownContainerTag);
-				resolve();
+
+				if (m_props.positionTag) {
+					ui.d.computeTagHeight(m_props.positionTag)
+						.then(tagHeight => {
+							m_dropdownContainerTag.style.top = `${tagHeight+1}px`;
+							resolve();
+						 });
+				} else {
+					resolve();
+				}
 			});
 		}
 

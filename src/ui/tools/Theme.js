@@ -267,6 +267,28 @@ ui.defaultTheme = {
 		selectedStar: "m-rating-selected-star",
 		self: "m-rating-self",
 	},
+	search: {
+		dropdown: {
+			button: {
+				button: "m-search-button fa-solid fa-magnifying-glass",
+			},
+			container: "m-search-dropdown-container",
+			self: "m-search-dropdown-parent",
+		},
+		inputContainer: "m-search-input-container",
+		wrapper: "m-dropdown-wrapper",
+		input: {
+			input: "m-search-input-input",
+			inputWrapper: "m-search-input-wrapper",
+		},
+		listbox: {
+			item: "m-search-listbox-item",
+		},
+		searchButton: {
+			button: "m-search-button fa-solid fa-magnifying-glass",
+		},
+		self: "m-search-self",
+	},
 	slideout: {
 		body: "m-slideout-body",
 		header: "m-slideout-header",
