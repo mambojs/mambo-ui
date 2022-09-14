@@ -38,23 +38,29 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 		function setupOpenButton() {
 			return new Promise((resolve) => {
+				if (m_props.disableButton) {
+					resolve();
+					return;
+				}
+
 				let button = ui.utils.extend(true, {}, m_props.button);
 				button.css = ui.utils.extend(true, m_props.css.button, button.css);
 				button.parentTag = self;
+				button.fnComplete = resolve;
 
 				button.fnClick = (context) => {
-					if (m_open) {
-						closeAnimation(context.ev);
-					} else {
-						openAnimation();
-					}
 					if (m_props.button?.fnClick) {
 						m_props.button.fnClick(context);
+					} else {
+						if (m_open) {
+							closeAnimation(context.ev);
+						} else {
+							openAnimation();
+						}
 					}
 				};
 
 				ui.button(button);
-				resolve();
 			});
 		}
 
@@ -102,6 +108,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 			m_dropdownContainerTag.classList.remove(m_props.css.open);
 			m_open = false;
+
 			if (m_props.fnClose) {
 				m_props.fnClose({ dropdown: self });
 			}
@@ -122,12 +129,6 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					fnClose: (context) => {
-						// Nothing executes by default
-					},
-					fnOpen: (context) => {
-						// Nothing executes by default
-					},
 					fnBeforeClose: (context) => {
 						return true;
 					},
