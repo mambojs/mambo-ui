@@ -35,29 +35,28 @@ ui.class.Input = class Input extends HTMLElement {
 				self.classList.add(m_props.css.self);
 
 				const tagConfig = {
+					...m_props.tags.input,
 					class: m_props.css.input,
-					prop: m_props.prop,
-					attr: m_props.attr,
 					text: m_props.value,
 					event: {
 						blur: handleOnBlur,
 					},
 				};
 
-				m_inputTag = ui.d.createTag(m_props.tags.input, tagConfig);
+				tagConfig.attr.name = m_props.name;
+				m_inputTag = ui.d.createTag(tagConfig);
 
 				if (m_props.hidden) {
 					self.style.display = "none";
 				} else if (typeof m_props.labelText === "string") {
 					const labelTagConfig = {
+						name: "label",
 						class: m_props.css.label,
 						prop: m_props.prop,
-						attr: {
-							for: m_props.attr.name,
-						},
+						attr: { for: m_props.name },
 						text: m_props.labelText,
 					};
-					m_labelTag = ui.d.createTag("label", labelTagConfig);
+					m_labelTag = ui.d.createTag(labelTagConfig);
 					self.appendChild(m_labelTag);
 				}
 
@@ -133,15 +132,19 @@ ui.class.Input = class Input extends HTMLElement {
 				ui.button(componentConfig);
 			} else {
 				componentConfig = item.img;
+
 				if (!componentConfig.css) {
 					componentConfig.css = m_props.css.img;
 				}
+
 				const tagConfig = {
+					name: "img",
 					class: componentConfig.css,
 					prop: componentConfig.prop,
 					attr: componentConfig.attr,
 				};
-				let component = ui.d.createTag("img", tagConfig);
+
+				let component = ui.d.createTag(tagConfig);
 				self.appendChild(component);
 			}
 		}
@@ -217,12 +220,9 @@ ui.class.Input = class Input extends HTMLElement {
 							//Used for configuring field validations
 						},
 					],
-					attr: {
-						type: "text",
-						name: Math.random().toString(36).slice(2),
-					},
 					maxLenWidthAdj: 1,
 					maxLenWidthUnit: "ch",
+					name: Math.random().toString(36).slice(2),
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);

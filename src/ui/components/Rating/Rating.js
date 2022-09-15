@@ -40,18 +40,9 @@ ui.class.Rating = class Rating extends HTMLElement {
 
 		function installLayers() {
 			return new Promise((resolve) => {
-				m_ratingEmptyTag = ui.d.createTag(m_props.tags.empty, {
-					class: m_props.css.empty,
-				});
-
-				m_ratingSelectedTag = ui.d.createTag(m_props.tags.selected, {
-					class: m_props.css.selected,
-				});
-
-				m_ratingHoverTag = ui.d.createTag(m_props.tags.hover, {
-					class: m_props.css.hover,
-				});
-
+				m_ratingEmptyTag = ui.d.createTag({ ...m_props.tags.empty, class: m_props.css.empty });
+				m_ratingSelectedTag = ui.d.createTag({ ...m_props.tags.selected, class: m_props.css.selected });
+				m_ratingHoverTag = ui.d.createTag({ ...m_props.tags.hover, class: m_props.css.hover });
 				self.appendChild(m_ratingEmptyTag);
 				self.appendChild(m_ratingSelectedTag);
 				self.appendChild(m_ratingHoverTag);
@@ -62,18 +53,9 @@ ui.class.Rating = class Rating extends HTMLElement {
 		function installStars() {
 			return new Promise((resolve) => {
 				for (let i = 0; i < m_props.max; i++) {
-					let emptyStarTag = ui.d.createTag(m_props.tags.emptyStar, {
-						class: m_props.css.emptyStar,
-					});
-
-					let selectedStarTag = ui.d.createTag(m_props.tags.selectedStar, {
-						class: m_props.css.selectedStar,
-					});
-
-					let hoverStarTag = ui.d.createTag(m_props.tags.hoverStar, {
-						class: m_props.css.hoverStar,
-					});
-
+					let emptyStarTag = ui.d.createTag({ ...m_props.tags.emptyStar, class: m_props.css.emptyStar });
+					let selectedStarTag = ui.d.createTag({ ...m_props.tags.selectedStar, class: m_props.css.selectedStar });
+					let hoverStarTag = ui.d.createTag({ ...m_props.tags.hoverStar, class: m_props.css.hoverStar });
 					m_ratingEmptyTag.appendChild(emptyStarTag);
 					m_ratingSelectedTag.appendChild(selectedStarTag);
 					m_ratingHoverTag.appendChild(hoverStarTag);

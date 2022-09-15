@@ -63,10 +63,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function setupTilesDOM() {
 			return new Promise((resolve) => {
-				m_tileParentTag = ui.d.createTag(m_props.tags.tiles, {
-					class: m_props.css.tiles,
-				});
-
+				m_tileParentTag = ui.d.createTag({ ...m_props.tags.tiles, class: m_props.css.tiles });
 				m_tileIndexAttrName = "data-grid-tile-index";
 				self.appendChild(m_tileParentTag);
 
@@ -85,10 +82,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function installTile(tileData, tileIndex) {
 			return new Promise((resolve) => {
-				let tileTag = ui.d.createTag(m_props.tags.tileItem, {
-					class: m_props.css.tileItem,
-					attr: { m_tileIndexAttrName: tileIndex },
-				});
+				const tileTagConfig = { ...m_props.tags.tileItem, class: m_props.css.tileItem };
+				tileTagConfig.attr[m_tileIndexAttrName] = tileIndex;
+				const tileTag = ui.d.createTag(tileTagConfig);
 
 				m_tileParentTag.appendChild(tileTag);
 				m_tileParentTags[tileIndex] = tileTag;
@@ -116,18 +112,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function setupGridDOM() {
 			return new Promise((resolve) => {
-				m_gridWrapperTag = ui.d.createTag(m_props.tags.grid, {
-					class: m_props.css.grid,
-				});
-
-				m_gridHdrTag = ui.d.createTag(m_props.tags.header, {
-					class: m_props.css.header,
-				});
-
-				m_gridBodyTag = ui.d.createTag(m_props.tags.body, {
-					class: m_props.css.body,
-				});
-
+				m_gridWrapperTag = ui.d.createTag({ ...m_props.tags.grid, class: m_props.css.grid });
+				m_gridHdrTag = ui.d.createTag({ ...m_props.tags.header, class: m_props.css.header });
+				m_gridBodyTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
 				m_gridBodyRowTagName = "data-grid-row";
 				m_rowIndexAttrName = "data-grid-row-index";
 				m_gridWrapperTag.appendChild(m_gridHdrTag);
@@ -141,12 +128,11 @@ ui.class.Grid = class Grid extends HTMLElement {
 			return new Promise((resolve) => {
 				const colPromises = m_props.columns.map((column) => {
 					return new Promise((resolve) => {
-						let parentTag = ui.d.createTag(m_props.tags.colCell, {
-							class: m_props.css.colCell,
-						});
+						let parentTag = ui.d.createTag({ ...m_props.tags.colCell, class: m_props.css.colCell });
 
 						applyColCellElStyles(column, parentTag).then(() => {
-							const txtEl = ui.d.createTag(m_props.tags.headerTitle, {
+							const txtEl = ui.d.createTag({
+								...m_props.tags.headerTitle,
 								text: column.title ? column.title : column.name,
 								css: m_props.css.headerTitle,
 							});
@@ -184,22 +170,16 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			function processRow(rowData, rowIndex) {
 				return new Promise((resolve) => {
-					// Create row parent tag
-					let rowTag = ui.d.createTag(m_props.tags.row, {
-						class: m_props.css.row,
-						attr: { m_rowIndexAttrName: rowIndex },
-					});
-
+					const rowTagConfig = { ...m_props.tags.row, class: m_props.css.row };
+					rowTagConfig.attr[m_rowIndexAttrName] = rowIndex;
+					let rowTag = ui.d.createTag(rowTagConfig);
 					m_gridBodyTag.appendChild(rowTag);
 
 					// Loop through the header configuration
 					const rowPromises = m_props.columns.map((column, colIndex) => {
 						return new Promise((resolve) => {
 							// Create cell parent
-							const parentTag = ui.d.createTag(m_props.tags.colCell, {
-								class: m_props.css.colCell,
-							});
-
+							const parentTag = ui.d.createTag({ ...m_props.tags.colCell, class: m_props.css.colCell });
 							applyColCellElStyles(column, parentTag).then(installCell);
 
 							function installCell() {
@@ -297,12 +277,12 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installTextCell(context) {
 			const text = context.column.dataKey in context.rowData ? context.rowData[context.column.dataKey] : context.column.text;
 			const tagConfig = {
+				...m_props.tags.text,
 				class: m_props.css.text,
-				prop: context.column.prop,
-				attr: context.column.attr,
 				text,
 			};
-			const textTag = ui.d.createTag(m_props.tags.text, tagConfig);
+
+			const textTag = ui.d.createTag(tagConfig);
 			context.parentTag.appendChild(textTag);
 
 			addComponentToMap({
@@ -720,7 +700,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function setColsWidth() {
 			return new Promise((resolve) => {
 				m_colStylesId = ui.utils.getUniqueId();
-				let styleEl = ui.d.createTag("style", { attr: { id: m_colStylesId } });
+				const styleTagConfig = { name: "style", attr: { id: m_colStylesId } };
+				let styleEl = ui.d.createTag(styleTagConfig);
 
 				const colsPromises = m_colsMaxPxWidth.map((width, index) => {
 					return new Promise((resolve) => {

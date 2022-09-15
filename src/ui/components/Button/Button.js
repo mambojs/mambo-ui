@@ -34,25 +34,22 @@ ui.class.Button = class Button extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				const tagConfig = {
-					class: m_props.css.button,
-					prop: m_props.prop,
-					attr: m_props.attr,
-					text: m_props.text,
-					event: {
-						click: handleClick,
-						mouseenter: () => {
-							mouseEnterOverButton(m_buttonTag);
-							mouseEnterOverImage();
-						},
-						mouseleave: () => {
-							mouseLeaveOverButton(m_buttonTag);
-							mouseLeaveOverImage();
-						},
+				const tagConfig = { ...m_props.tags.button };
+				tagConfig.class = m_props.css.button;
+				tagConfig.text = m_props.text;
+				tagConfig.event = {
+					click: handleClick,
+					mouseenter: () => {
+						mouseEnterOverButton();
+						mouseEnterOverImage();
+					},
+					mouseleave: () => {
+						mouseLeaveOverButton();
+						mouseLeaveOverImage();
 					},
 				};
 
-				m_buttonTag = ui.d.createTag(m_props.tags.button, tagConfig);
+				m_buttonTag = ui.d.createTag(tagConfig);
 
 				if (m_props.img) {
 					insertGraphic(m_props.img);
@@ -146,14 +143,14 @@ ui.class.Button = class Button extends HTMLElement {
 			}
 		}
 
-		function mouseEnterOverButton(tag) {
-			if (!ui.d.hasClass(tag, m_props.css.selected)) {
-				tag.classList.add(m_props.css.hover);
+		function mouseEnterOverButton() {
+			if (!ui.d.hasClass(m_buttonTag, m_props.css.selected)) {
+				m_buttonTag.classList.add(m_props.css.hover);
 			}
 		}
 
-		function mouseLeaveOverButton(tag) {
-			tag.classList.remove(m_props.css.hover);
+		function mouseLeaveOverButton() {
+			m_buttonTag.classList.remove(m_props.css.hover);
 		}
 
 		function setSrcAttr(tag, src) {

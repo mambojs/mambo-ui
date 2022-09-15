@@ -30,24 +30,18 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				m_dialogBodyTag = ui.d.createTag(m_props.tags.body, {
-					class: m_props.css.body,
-				});
-
-				const dialogHdrLeft = ui.d.createTag(m_props.tags.headerLeft, {
-					class: m_props.css.headerLeft,
-				});
+				m_dialogBodyTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
+				const dialogHdrLeft = ui.d.createTag({ ...m_props.tags.headerLeft, class: m_props.css.headerLeft });
 
 				if (m_props.closeButton) {
 					installCloseButton(dialogHdrLeft);
 				}
 
-				const overlayHdrCenter = ui.d.createTag(m_props.tags.headerCenter, {
-					class: m_props.css.headerCenter,
-				});
+				const overlayHdrCenter = ui.d.createTag({ ...m_props.tags.headerCenter, class: m_props.css.headerCenter });
 
 				if (m_props.title) {
-					const h3Tag = ui.d.createTag(m_props.tags.headerTitle, {
+					const h3Tag = ui.d.createTag({
+						...m_props.tags.headerTitle,
 						class: m_props.css.headerTitle,
 						text: m_props.title,
 					});
@@ -56,14 +50,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 					overlayHdrCenter.appendChild(m_props.hdrHtml);
 				}
 
-				const overlayHdrRight = ui.d.createTag(m_props.tags.headerRight, {
-					class: m_props.css.headerRight,
-				});
-
-				m_dialogHdrTag = ui.d.createTag(m_props.tags.header, {
-					class: m_props.css.header,
-				});
-
+				const overlayHdrRight = ui.d.createTag({ ...m_props.tags.headerRight, class: m_props.css.headerRight });
+				m_dialogHdrTag = ui.d.createTag({ ...m_props.tags.header, class: m_props.css.header });
 				m_dialogHdrTag.appendChild(dialogHdrLeft);
 				m_dialogHdrTag.appendChild(overlayHdrCenter);
 				m_dialogHdrTag.appendChild(overlayHdrRight);

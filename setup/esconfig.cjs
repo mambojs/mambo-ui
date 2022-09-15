@@ -6,7 +6,7 @@ const LIB_FILE_NAME = `${LIB_NAME}-${LIB_VERSION}`;
 const LIB_FILE_NAME_MIN = `${LIB_NAME}-min-${LIB_VERSION}`;
 const LIB_FILE_CSS = `${LIB_FILE_NAME}.css`;
 const LIB_FILE_CSS_MIN = `${LIB_FILE_NAME_MIN}.css`;
-const SRC_UI = `${config.PUBLIC_DIR}/ui`;
+const SRC_UI = `${config.PUBLIC_DIR}/ui/components`;
 
 const COPYRIGHT = `/******************************************
 *  Copyright 2022 Alejandro Sebastian Scotti, Scotti Corp.
@@ -29,23 +29,23 @@ const COPYRIGHT = `/******************************************
 `;
 
 module.exports = {
-    LIB_DIR,
-    LIB_NAME,
-    LIB_VERSION,
-    LIB_FILE_NAME,
-    LIB_FILE_NAME_MIN,
-    LIB_FILE_CSS,
-    LIB_FILE_CSS_MIN,
-    SRC_UI,
-    COPYRIGHT
-}
+	LIB_DIR,
+	LIB_NAME,
+	LIB_VERSION,
+	LIB_FILE_NAME,
+	LIB_FILE_NAME_MIN,
+	LIB_FILE_CSS,
+	LIB_FILE_CSS_MIN,
+	SRC_UI,
+	COPYRIGHT,
+};
 
-function dateFormat () {
-    const date = new Date();
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth()+1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString().slice(-2);
-    const hour = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return [month,day,year,hour,minutes].join('-');
+function dateFormat() {
+	const date = new Date();
+	const day = date.getDate().toString().padStart(2, "0");
+	const month = (date.getMonth() + 1).toString().padStart(2, "0");
+	const year = date.getFullYear().toString().slice(-2);
+	const hour = date.getHours().toString().padStart(2, "0");
+	const minutes = date.getMinutes().toString().padStart(2, "0");
+	return [month, day, year, hour, minutes].join("-");
 }

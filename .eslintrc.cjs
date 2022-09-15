@@ -34,5 +34,7 @@ module.exports = {
 		m3u8Parser: true,
 		PR: true,
 		installStoryboard: true,
+		mapboxgl: true,
+		MapboxGeocoder: true,
 	},
 };

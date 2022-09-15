@@ -6,10 +6,14 @@ const config = require("./config.cjs");
 
 function buildLib() {
 	const libVersion = esconfig.LIB_VERSION;
-
 	console.log("Building library...");
 
-	const headerFn = "\nfunction mamboUI() { \nconst ui = { class: {} };\nconst dom = domJS();\n";
+	const headerFn = `function mamboUI(domJS) {
+	if (!domJS) {
+		throw 'mamboUI must be invoked with required argument domJS: mamboUI(domJS)';
+	}
+	const ui = { class: {}, d: domJS() };`;
+
 	const footerFn = "\nreturn ui;\n}";
 
 	// Bundle Native
@@ -50,9 +54,10 @@ function buildLib() {
 		compileCssLib("min", libVersion);
 	});
 
-	esbuild.build(optionsCssThemes).then(() => {
+	// Disable this optional Theme for now
+	/* esbuild.build(optionsCssThemes).then(() => {
 		console.log("Css Themes: Build complete!");
-	});
+	}); */
 }
 
 function compileCssLib(lib, version) {
@@ -73,11 +78,13 @@ function compileCssLib(lib, version) {
 
 function getLibFiles() {
 	const arrFiles = [
-		`${config.PUBLIC_DIR}/configs/Date/DateManager.js`,
-		`${config.PUBLIC_DIR}/configs/String/String.js`,
-		`${config.PUBLIC_DIR}/configs/Utils/Utilities.js`,
+		`${config.PUBLIC_DIR}/ui/tools/DateManager.js`,
+		`${config.PUBLIC_DIR}/ui/tools/String.js`,
+		`${config.PUBLIC_DIR}/ui/tools/Utilities.js`,
 	];
+
 	const files = fs.readdirSync(`${esconfig.SRC_UI}`);
+
 	files.forEach((file) => {
 		let component = `${esconfig.SRC_UI}/${file}`;
 		let componentName = file;

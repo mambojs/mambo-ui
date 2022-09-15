@@ -32,10 +32,11 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				m_slideoutHeaderTag = ui.d.createTag(m_props.tags.header, { class: m_props.css.header });
-				m_slideoutBodyTag = ui.d.createTag(m_props.tags.body, { class: m_props.css.body });
+				m_slideoutHeaderTag = ui.d.createTag({ ...m_props.tags.header, class: m_props.css.header });
+				m_slideoutBodyTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
 
-				m_slideoutOverlayTag = ui.d.createTag(m_props.tags.overlay, {
+				m_slideoutOverlayTag = ui.d.createTag({
+					...m_props.tags.overlay,
 					class: m_props.css.overlay,
 					event: {
 						click: closeAnimation,

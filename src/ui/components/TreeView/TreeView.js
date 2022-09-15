@@ -45,11 +45,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 
 		function processItem(itemData) {
 			return new Promise((resolve) => {
-				// Create item tag
-				let itemTag = ui.d.createTag(m_props.tags.item, {
-					class: m_props.css.item,
-				});
-
+				let itemTag = ui.d.createTag({ ...m_props.tags.item, class: m_props.css.item });
 				self.appendChild(itemTag);
 
 				let itemId = m_props.idField in itemData ? itemData[m_props.idField] : ui.utils.getUniqueId();
@@ -58,14 +54,17 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 				m_dataMapById[itemId] = ui.utils.clone(itemData);
 				delete m_dataMapById[itemId][m_props.itemsField];
 
-				const topTag = ui.d.createTag(m_props.tags.itemTop, {
-					class: m_props.css.top,
-				});
-				const inTag = ui.d.createTag(m_props.tags.itemIn, {
+				const topTag = ui.d.createTag({ ...m_props.tags.itemTop, class: m_props.css.top });
+
+				const itemInAttr = { ...m_props.tags.itemIn.attr, ...idAtt };
+				const itemInConfig = {
+					...m_props.tags.itemIn,
 					class: m_props.css.in,
-					attr: idAtt,
+					attr: itemInAttr,
 					text: itemData[m_props.textField],
-				});
+				};
+
+				const inTag = ui.d.createTag(itemInConfig);
 
 				topTag.appendChild(inTag);
 				itemTag.appendChild(topTag);
@@ -83,11 +82,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		}
 
 		function processGroup(groupData, parentTag) {
-			// Create group tag
-			let groupTag = ui.d.createTag(m_props.tags.group, {
-				class: m_props.css.group,
-			});
-
+			let groupTag = ui.d.createTag({ ...m_props.tags.group, class: m_props.css.group });
 			parentTag.appendChild(groupTag);
 			installItems(groupData, groupTag);
 			return groupTag;
@@ -96,7 +91,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		function installIcon(parentTag, groupTag, itemData) {
 			return new Promise((resolve) => {
 				const expanded = "expanded" in itemData ? itemData.expanded : m_props.expanded;
-				const iconTag = ui.d.createTag(m_props.tags.icon, { class: m_props.css.icon });
+				const iconTag = ui.d.createTag({ ...m_props.tags.icon, class: m_props.css.icon });
 				iconTag.classList.add(m_props.css.iconExpand);
 				ui.d.prepend(parentTag, iconTag);
 				setupIconEventListeners(groupTag, iconTag);

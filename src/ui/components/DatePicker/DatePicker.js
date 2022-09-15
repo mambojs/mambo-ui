@@ -50,10 +50,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 		function setupDropdown() {
 			return new Promise((resolve) => {
-				m_dropdownWrapperTag = ui.d.createTag(m_props.tags.wrapper, {
-					class: m_props.css.dropdownWrapper,
-				});
-
+				m_dropdownWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_props.css.dropdownWrapper });
 				self.appendChild(m_dropdownWrapperTag);
 				let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
 				dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);

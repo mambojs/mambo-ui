@@ -30,14 +30,8 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				m_percentageBarTag = ui.d.createTag(m_props.tags.bar, {
-					class: m_props.css.bar,
-				});
-
-				m_percentageTextTag = ui.d.createTag(m_props.tags.text, {
-					class: m_props.css.text,
-				});
-
+				m_percentageBarTag = ui.d.createTag({ ...m_props.tags.bar, class: m_props.css.bar });
+				m_percentageTextTag = ui.d.createTag({ ...m_props.tags.text, class: m_props.css.text });
 				m_percentageBarTag.appendChild(m_percentageTextTag);
 				setValue(m_value);
 				self.classList.add(m_props.css.self);

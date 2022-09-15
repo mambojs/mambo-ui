@@ -39,13 +39,7 @@ ui.class.Player = class Player extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				const tagConfig = {
-					class: m_props.css.player,
-					prop: m_props.prop,
-					attr: m_props.attr,
-				};
-
-				m_playerTag = ui.d.createTag(m_props.media, tagConfig);
+				m_playerTag = ui.d.createTag({ ...m_props.tags.player, class: m_props.css.player });
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_playerTag);
 				resolve();
@@ -138,10 +132,6 @@ ui.class.Player = class Player extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					media: "video",
-					attr: {
-						src: "",
-					},
 					progressBar: true,
 					controls: [
 						{

@@ -66,9 +66,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 		function setupContainer() {
 			return new Promise((resolve) => {
-				m_dropdownContainerTag = ui.d.createTag(m_props.tags.container, {
-					class: m_props.css.container,
-				});
+				m_dropdownContainerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.appendChild(m_dropdownContainerTag);
 				resolve();
 			});

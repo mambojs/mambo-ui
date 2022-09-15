@@ -38,11 +38,10 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				m_checkboxLabelParentTag = ui.d.createTag(m_props.tags.label, {
-					class: m_props.css.radioParent,
-				});
+				m_checkboxLabelParentTag = ui.d.createTag({ ...m_props.tags.label, class: m_props.css.radioParent });
 
-				let textTag = ui.d.createTag(m_props.tags.radioText, {
+				let textTag = ui.d.createTag({
+					...m_props.tags.radioText,
 					class: m_props.css.radioText,
 					text: m_props.text,
 				});
@@ -51,17 +50,17 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 				let css = m_type === 1 ? m_props.css.checkbox : m_props.css.radio;
 
 				const tagConfig = {
+					...m_props.tags.inputTag,
 					class: css.input,
-					prop: m_props.prop,
-					attr: m_props.attr,
 					text: m_props.value,
 					event: {
 						click: handleClick,
 					},
 				};
 
-				m_checkboxInputTag = ui.d.createTag(m_props.tags.inputTag, tagConfig);
-				m_checkboxRadioSpanTag = ui.d.createTag(m_props.tags.radioSpanTag, { class: css.span });
+				tagConfig.attr.name = Math.random().toString(36).slice(2);
+				m_checkboxInputTag = ui.d.createTag(tagConfig);
+				m_checkboxRadioSpanTag = ui.d.createTag({ ...m_props.tags.radioSpanTag, class: css.span });
 				m_checkboxLabelParentTag.appendChild(textTag);
 				m_checkboxLabelParentTag.appendChild(m_checkboxInputTag);
 				m_checkboxLabelParentTag.appendChild(m_checkboxRadioSpanTag);
@@ -159,10 +158,6 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 				tag: "default",
 				theme: "default",
 				enable: true,
-				attr: {
-					type: "checkbox",
-					name: Math.random().toString(36).slice(2),
-				},
 			};
 			m_props = ui.utils.extend(true, m_props, customProps);
 			m_parentTag = ui.d.getTag(m_props.parentTag);

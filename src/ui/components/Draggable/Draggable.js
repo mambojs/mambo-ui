@@ -36,13 +36,7 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				const tagConfig = {
-					class: m_props.css.draggable,
-					prop: m_props.prop,
-					attr: m_props.attr,
-				};
-
-				m_draggableTag = ui.d.createTag(m_props.tags.draggable, tagConfig);
+				m_draggableTag = ui.d.createTag({ ...m_props.tags.draggable, class: m_props.css.draggable });
 				setEnable(m_enable);
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_draggableTag);

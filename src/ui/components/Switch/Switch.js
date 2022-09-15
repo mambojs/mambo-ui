@@ -36,17 +36,14 @@ ui.class.Switch = class Switch extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				const tagConfig = {
+					name: "input",
 					class: m_props.css.input,
 					attr: { type: "checkbox" },
 					prop: { checked: m_checked },
 				};
 
-				m_inputTag = ui.d.createTag("input", tagConfig);
-
-				m_containerTag = ui.d.createTag(m_props.tags.container, {
-					class: m_props.css.container,
-				});
-
+				m_inputTag = ui.d.createTag(tagConfig);
+				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_inputTag);
 				self.appendChild(m_containerTag);
@@ -56,15 +53,20 @@ ui.class.Switch = class Switch extends HTMLElement {
 
 		function installLabels() {
 			return new Promise((resolve) => {
-				let onTag = ui.d.createTag(m_props.tags.on, {
+				const onTag = ui.d.createTag({
+					...m_props.tags.on,
 					class: m_props.css.on,
 					text: m_props.messages.checked,
 				});
-				let offTag = ui.d.createTag(m_props.tags.off, {
+
+				const offTag = ui.d.createTag({
+					...m_props.tags.off,
 					class: m_props.css.off,
 					text: m_props.messages.unchecked,
 				});
-				let handleTag = ui.d.createTag(m_props.tags.handle, {
+
+				const handleTag = ui.d.createTag({
+					...m_props.tags.handle,
 					class: m_props.css.handle,
 				});
 

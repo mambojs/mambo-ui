@@ -38,10 +38,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				m_sliderWrapperTag = ui.d.createTag(m_props.tags.wrapper, {
-					class: m_css.wrapper,
-				});
-
+				m_sliderWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_css.wrapper });
 				const domPromises = [];
 
 				if (m_props.showButtons) {
@@ -90,13 +87,9 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function installTrack() {
 			return new Promise((resolve) => {
-				m_trackTag = ui.d.createTag(m_props.tags.track, { class: m_css.track });
+				m_trackTag = ui.d.createTag({ ...m_props.tags.track, class: m_css.track });
 				m_sliderWrapperTag.appendChild(m_trackTag);
-
-				m_selectionTag = ui.d.createTag(m_props.tags.selection, {
-					class: m_css.selection,
-				});
-
+				m_selectionTag = ui.d.createTag({ ...m_props.tags.selection, class: m_css.selection });
 				m_sliderWrapperTag.appendChild(m_selectionTag);
 				resolve();
 			});
@@ -104,10 +97,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function installSteps() {
 			return new Promise((resolve) => {
-				let stepsTag = ui.d.createTag(m_props.tags.stepsContainer, {
-					class: m_css.stepsContainer,
-				});
-
+				let stepsTag = ui.d.createTag({ ...m_props.tags.stepsContainer, class: m_css.stepsContainer });
 				ui.d.prepend(m_sliderWrapperTag, stepsTag);
 				const trackLength = m_horizontal ? m_trackTag.clientWidth : m_trackTag.clientHeight;
 				const steps = Math.floor((m_props.max - m_props.min) / m_props.step);
@@ -140,13 +130,14 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installLargeStep(stepsTag, value) {
-			let stepTag = ui.d.createTag(m_props.tags.stepLarge, {
-				class: m_css.stepLarge,
-			});
-			let textTag = ui.d.createTag("span", {
+			let stepTag = ui.d.createTag({ ...m_props.tags.stepLarge, class: m_css.stepLarge });
+
+			let textTag = ui.d.createTag({
+				name: "span",
 				class: m_css.stepLargeSpan,
 				text: value.toString(),
 			});
+
 			stepTag.appendChild(textTag);
 
 			if (m_horizontal) {
@@ -161,7 +152,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function installSmallStep(stepsTag) {
-			let stepTag = ui.d.createTag(m_props.tags.step, { class: m_css.step });
+			let stepTag = ui.d.createTag({ ...m_props.tags.step, class: m_css.step });
 
 			if (m_horizontal) {
 				stepsTag.appendChild(stepTag);

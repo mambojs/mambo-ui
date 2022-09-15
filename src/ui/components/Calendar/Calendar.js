@@ -73,21 +73,12 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function setupBody() {
 			return new Promise((resolve) => {
-				m_bodyTag = ui.d.createTag(m_props.tags.body, {
-					class: m_props.css.body,
-				});
-
-				m_bodyHeaderTag = ui.d.createTag(m_props.tags.bodyHeader, {
-					class: m_props.css.bodyHeader,
-				});
-
-				m_bodyContentTag = ui.d.createTag(m_props.tags.bodyContent, {
-					class: m_props.css.bodyContent,
-				});
-
-				self.appendChild(m_bodyTag);
+				m_bodyTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
+				m_bodyHeaderTag = ui.d.createTag({ ...m_props.tags.bodyHeader, class: m_props.css.bodyHeader });
+				m_bodyContentTag = ui.d.createTag({ ...m_props.tags.bodyContent, class: m_props.css.bodyContent });
 				m_bodyTag.appendChild(m_bodyHeaderTag);
 				m_bodyTag.appendChild(m_bodyContentTag);
+				self.appendChild(m_bodyTag);
 				setupBodyContent().then(resolve);
 			});
 		}

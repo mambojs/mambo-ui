@@ -54,11 +54,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 		function setupDropdown() {
 			return new Promise((resolve) => {
-				m_dropdownWrapperTag = ui.d.createTag(m_props.tags.wrapper, {
-					class: m_props.css.wrapper,
-				});
+				m_dropdownWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_props.css.wrapper });
 				self.appendChild(m_dropdownWrapperTag);
-
 				let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
 				dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
 

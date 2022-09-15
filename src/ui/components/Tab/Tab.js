@@ -30,16 +30,8 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				const eleConfig = {
-					class: m_props.css.body,
-				};
-
-				m_contentTag = ui.d.createTag(m_props.tags.body, eleConfig);
-
-				m_tabsTag = ui.d.createTag(m_props.tags.tabs, {
-					class: m_props.css.tabs,
-				});
-
+				m_contentTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
+				m_tabsTag = ui.d.createTag({ ...m_props.tags.tabs, class: m_props.css.tabs });
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_tabsTag);
 				self.appendChild(m_contentTag);
@@ -61,9 +53,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 			return new Promise((resolve) => {
 				const tabPromises = m_props.tabs.buttons.map((button, index) => {
 					return new Promise((resolve) => {
-						const contentTag = ui.d.createTag(m_props.tags.content, {
-							class: m_props.css.content,
-						});
+						const contentTag = ui.d.createTag({ ...m_props.tags.content, class: m_props.css.content });
 
 						if (m_selectedId === button.id) {
 							// Set to show default selected Tab

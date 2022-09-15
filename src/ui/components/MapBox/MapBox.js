@@ -28,13 +28,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				const tagConfig = {
-					class: m_props.css.container,
-					attr: m_props.attr,
-					prop: m_props.prop,
-				};
-
-				m_containerTag = ui.d.createTag(m_props.tags.container, tagConfig);
+				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.classList.add(m_props.css.self);
 				ui.d.append(self, m_containerTag);
 				resolve();
@@ -43,24 +37,27 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 		function getUserLocation() {
 			return new Promise((resolve) => {
-				navigator.geolocation.getCurrentPosition(s => {
-					const lng = s.coords.longitude;
-					const lat = s.coords.latitude;
-					onMoveEnd(removeWait);
-					jumpTo(lng, lat);
-					addCurrentPositionMarked(lng, lat);
-					resolve();
-				}, () => {
-					geolocationError();
-					resolve();
-				});
+				navigator.geolocation.getCurrentPosition(
+					(s) => {
+						const lng = s.coords.longitude;
+						const lat = s.coords.latitude;
+						onMoveEnd(removeWait);
+						jumpTo(lng, lat);
+						addCurrentPositionMarked(lng, lat);
+						resolve();
+					},
+					() => {
+						geolocationError();
+						resolve();
+					}
+				);
 			});
 		}
 
 		function jumpTo(lng, lat) {
 			m_map.jumpTo({
 				center: [lng, lat],
-				zoom: m_props.zoom
+				zoom: m_props.zoom,
 			});
 		}
 
@@ -77,7 +74,6 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 				});
 
 				if (m_props.controls) {
-
 					if (m_props.controls.fullscreen) {
 						m_map.addControl(new mapboxgl.FullscreenControl(), m_props.controls.fullscreen.position || "top-right");
 					}
@@ -90,12 +86,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 						m_map.addControl(
 							new MapboxGeocoder({
 								accessToken: mapboxgl.accessToken,
-								mapboxgl: mapboxgl
+								mapboxgl: mapboxgl,
 							}),
 							m_props.controls.search.position || "top-left"
 						);
 					}
-
 				}
 
 				m_map.on("load", resolve);
@@ -103,16 +98,14 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		}
 
 		function addCurrentPositionMarked(lng, lat) {
-			const point = ui.d.createTag(m_props.tags.currentPoint, { class: m_props.css.currentPoint });
+			const point = ui.d.createTag({ ...m_props.tags.currentPoint, class: m_props.css.currentPoint });
 			setMarker([{ lng, lat }], point);
 		}
 
 		function setMarker(arrCoords, marker) {
 			arrCoords.forEach(({ lat, lng }) => {
 				let config = marker || m_props.marker;
-				new mapboxgl.Marker(config)
-					.setLngLat([lng, lat])
-					.addTo(m_map);
+				new mapboxgl.Marker(config).setLngLat([lng, lat]).addTo(m_map);
 			});
 		}
 
@@ -151,7 +144,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 					mapStyle: "mapbox://styles/mapbox/streets-v11",
 					tag: "default",
 					theme: "default",
-					zoom: 16
+					zoom: 16,
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				mapboxgl.accessToken = m_props.accessToken;
@@ -164,7 +157,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 			});
 		}
 	}
-}
+};
 
 ui.mapbox = (props) => new ui.class.Mapbox(props);
 customElements.define("mambo-mapbox", ui.class.Mapbox);

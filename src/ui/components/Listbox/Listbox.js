@@ -26,20 +26,13 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-
-				const tagContainerConfig = {
-					class: m_props.css.container,
-					prop: m_props.prop,
-				};
-
-				m_listboxContainerTag = ui.d.createTag(m_props.tags.container, tagContainerConfig);
+				m_listboxContainerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.classList.add(m_props.css.self);
 
 				installItems(m_listboxData).then(() => {
 					self.appendChild(m_listboxContainerTag);
 					resolve();
 				});
-
 			});
 		}
 
@@ -55,26 +48,26 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 		function processItem(itemData) {
 			return new Promise((resolve) => {
 				const itemConfig = {
+					...m_props.tags.item,
 					class: m_props.css.item,
-					text: itemData[m_props.displayKey]
-				}
+					text: itemData[m_props.displayKey],
+				};
 
-				let itemTag = ui.d.createTag(m_props.tags.item, itemConfig);
+				let itemTag = ui.d.createTag(itemConfig);
 				m_listboxContainerTag.appendChild(itemTag);
-
 				setupItemEventListeners(itemTag, itemData).then(resolve);
 			});
 		}
 
 		function setupItemEventListeners(item, data) {
 			return new Promise((resolve) => {
-				item.addEventListener("click", ev => {
+				item.addEventListener("click", (ev) => {
 					if (m_props.fnSelect) {
 						m_props.fnSelect({
 							ev,
 							data,
 							item,
-							Listbox: self
+							Listbox: self,
 						});
 					}
 				});
@@ -125,7 +118,7 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 			});
 		}
 	}
-}
+};
 
 ui.listbox = (props) => new ui.class.Listbox(props);
 customElements.define("mambo-listbox", ui.class.Listbox);
