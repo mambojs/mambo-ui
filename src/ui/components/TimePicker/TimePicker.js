@@ -36,7 +36,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 
 		function setupComboBox() {
 			return new Promise((resolve) => {
-				const combobox = ui.utils.extend(true, {}, m_props.combobox);
+				const comboboxCss = { ...m_props.css?.combobox };
+				const combobox = ui.utils.extend(true, { css: comboboxCss }, m_props.combobox);
 				combobox.parentTag = self;
 				combobox.data = createComboBoxData();
 
@@ -113,11 +114,6 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 					theme: "default",
 					combobox: {
 						filter: false,
-						dropdown: {
-							button: {
-								text: "watchIcon",
-							},
-						},
 					},
 					value: "",
 					interval: 30,

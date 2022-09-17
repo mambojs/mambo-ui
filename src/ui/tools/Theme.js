@@ -316,7 +316,7 @@ ui.defaultTheme = {
 		combobox: {
 			dropdown: {
 				button: {
-					button: "m-time-picker-combobox-button",
+					button: "m-time-picker-combobox-button fa-regular fa-clock",
 				},
 				container: "m-time-picker-dropdown-container",
 			},
