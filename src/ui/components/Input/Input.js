@@ -7,7 +7,7 @@ ui.class.Input = class Input extends HTMLElement {
 		let m_parentTag;
 		let m_inputTag;
 		let m_labelTag;
-
+		let m_button;
 		let m_props;
 		let m_dataChanged;
 
@@ -36,19 +36,22 @@ ui.class.Input = class Input extends HTMLElement {
 
 				const tagConfig = {
 					...m_props.tags.input,
+					attr: { name: m_props.name },
 					class: m_props.css.input,
 					text: m_props.value,
 					event: {
 						blur: handleOnBlur,
+						change: handleOnChange,
+						keyup: handleOnKeyup,
 					},
 				};
 
-				tagConfig.attr.name = m_props.name;
 				m_inputTag = ui.d.createTag(tagConfig);
+				self.appendChild(m_inputTag);
 
 				if (m_props.hidden) {
 					self.style.display = "none";
-				} else if (typeof m_props.labelText === "string") {
+				} else if (ui.utils.isString(m_props.labelText)) {
 					const labelTagConfig = {
 						name: "label",
 						class: m_props.css.label,
@@ -56,120 +59,101 @@ ui.class.Input = class Input extends HTMLElement {
 						attr: { for: m_props.name },
 						text: m_props.labelText,
 					};
+
 					m_labelTag = ui.d.createTag(labelTagConfig);
 					self.appendChild(m_labelTag);
 				}
 
-				//if leftSide and rigthSide are false we create a common input
-				if (!m_props.leftSide && !m_props.rightSide) {
-					appendInputElement(self);
-				} else {
-					//we check that we have components on the left side
-					if (m_props.leftSide) {
-						//if leftSide is an Array we iterate over all the elements and we then added to the wrapper
-						//if not then we install the object into the wrapper
-						if (Array.isArray(m_props.leftSide)) {
-							m_props.leftSide.forEach(installComponentInsideWrapper);
-						} else {
-							installComponentInsideWrapper(m_props.leftSide);
-						}
-					}
-					//appending the input component into the wrapper
-					appendInputElement(self);
-
-					//we check that we have component on the right side
-					if (m_props.rightSide) {
-						//if rigthSide is an Array we iterate over all the elements and we then added to the wrapper
-						//if not then we install the object into the wrapper
-						if (Array.isArray(m_props.rightSide)) {
-							m_props.rightSide.forEach(installComponentInsideWrapper);
-						} else {
-							installComponentInsideWrapper(m_props.rightSide);
-						}
-					}
-				}
-
-				if (m_props.validate.onStart) {
+				if (m_props?.validate?.onStart) {
 					validate();
 				}
-				resolve();
+
+				installClearInput().then(resolve);
 			});
 		}
 
-		function appendInputElement(parent) {
-			parent.appendChild(m_inputTag);
+		function installClearInput() {
+			return new Promise((resolve) => {
+				if (m_props.enableClear) {
+					const buttonConfig = {
+						...m_props.button,
+						css: m_props.css.button,
+						parentTag: self,
+						fnComplete: resolve,
+						fnClick: (context) => {
+							clearInput();
 
-			if (m_props.maxLenWidth && !m_props.leftSide && !m_props.rightSide) {
-				const width = `${m_props.attr.maxLength + m_props.maxLenWidthAdj}${m_props.maxLenWidthUnit}`;
-				m_inputTag.style.width = width;
-				m_inputTag.style.minWidth = width;
-				m_inputTag.style.maxWidth = width;
-			} else if (m_props.maxLenWidth) {
-				const width = `${m_props.attr.maxLength + m_props.maxLenWidthAdj}${m_props.maxLenWidthUnit}`;
-				self.style.width = width;
-				self.style.minWidth = width;
-				self.style.maxWidth = width;
-			}
-		}
+							if (m_props.fnClear) {
+								m_props.fnClear({
+									Input: self,
+									Button: context.Button,
+									ev: context.ev,
+								});
+							}
+						},
+					};
 
-		function installComponentInsideWrapper(item) {
-			let componentConfig;
-			if ("button" in item) {
-				componentConfig = item.button;
-				componentConfig.parentTag = self;
-				if (!componentConfig.css) {
-					componentConfig.css = m_props.css;
+					ui.button(buttonConfig);
 				}
-				componentConfig.fnClick = (context) => {
-					if (m_props.fnClick) {
-						m_props.fnClick({
-							Input: self,
-							Button: context.Button,
-							ev: context.ev,
-						});
-					}
-				};
-				ui.button(componentConfig);
-			} else {
-				componentConfig = item.img;
-
-				if (!componentConfig.css) {
-					componentConfig.css = m_props.css.img;
-				}
-
-				const tagConfig = {
-					name: "img",
-					class: componentConfig.css,
-					prop: componentConfig.prop,
-					attr: componentConfig.attr,
-				};
-
-				let component = ui.d.createTag(tagConfig);
-				self.appendChild(component);
-			}
+			});
 		}
 
 		function handleOnBlur(ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 			validate(ev);
+
+			if (m_props.fnBlur) {
+				m_props.fnBlur({
+					Input: self,
+					value: m_inputTag.value,
+					ev: ev,
+				});
+			}
+		}
+
+		function handleOnChange(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			validate(ev);
+
+			if (m_props.fnChange) {
+				m_props.fnChange({
+					Input: self,
+					value: m_inputTag.value,
+					ev: ev,
+				});
+			}
+		}
+
+		function handleOnKeyup(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+			validate(ev);
+
+			if (m_props.fnKeyup) {
+				m_props.fnKeyup({
+					Input: self,
+					value: m_inputTag.value,
+					Button: m_button,
+					ev: ev,
+				});
+			}
 		}
 
 		function validate(ev) {
-			if (!Array.isArray(m_props.validate.types)) {
-				return;
-			}
-
-			m_props.validate.types.forEach((validate) => {
-				const keys = Object.keys(validate);
-				keys.forEach((key) => {
-					switch (key) {
-						case "minLength":
-							validateMinLength(validate.minLength, ev);
-							break;
-					}
+			if (Array.isArray(m_props.validate?.types)) {
+				m_props.validate.types.forEach((validate) => {
+					const keys = Object.keys(validate);
+					keys.forEach((key) => {
+						switch (key) {
+							case "minLength":
+								validateMinLength(validate.minLength, ev);
+								break;
+						}
+					});
 				});
-			});
+			}
 		}
 
 		function validateMinLength(config, ev) {
@@ -214,15 +198,8 @@ ui.class.Input = class Input extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					value: "",
-					validate: [
-						{
-							//Used for configuring field validations
-						},
-					],
-					maxLenWidthAdj: 1,
-					maxLenWidthUnit: "ch",
 					name: Math.random().toString(36).slice(2),
+					button: { text: "" },
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);

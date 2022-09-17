@@ -1,14 +1,10 @@
 function storyDragDrop(selectedStory) {
 	let props = {
 		parentTag: selectedStory.parentTag,
-		dropText: "Drop files here",
-		allowKind: ["text/plain"],
-		fnDrop: handleDropEvent,
+		fnDrop: (context) => {
+			console.table(context?.dataTransfer?.files);
+		},
 	};
 
 	ui.dragDrop(props);
-
-	function handleDropEvent(context) {
-		console.table(context.dataTransfer.files);
-	}
 }

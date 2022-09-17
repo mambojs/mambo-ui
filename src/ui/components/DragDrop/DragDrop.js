@@ -3,9 +3,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 		super();
 		const self = this;
 
-		// HTML tag variables
 		let m_parentTag;
-
 		let m_props;
 
 		// Public methods
@@ -75,34 +73,29 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 			let items = ev.dataTransfer.items;
 
-			// Return if no items were dropped
 			if (!items || items.length === 0) {
 				m_props.fnDrop({ error: "No items dropped", dataTransfer: {} });
 				return;
 			}
 
-			// Return if drop count is larger than allowed
 			if (m_props.maxFileCount && items.length > m_props.maxFileCount) {
 				m_props.fnDrop({ error: "maxFileCount", dataTransfer: {} });
 				return;
 			}
 
-			// Check all file kinds are allowed
 			for (let i = 0; i < items.length; i++) {
 				if (!checkFileKindAllowed(items[i].type)) {
-					console.error("DragDrop: one or more file formats are not allowed.");
+					console.error("DragDrop() one or more file formats are not allowed.");
 					return;
 				}
 			}
 
-			// Return results
 			m_props.fnDrop({ dataTransfer: ev.dataTransfer, ev: ev });
 		}
 
 		function checkFileKindAllowed(type) {
 			let valid = true;
 
-			// Check property exists and it is an Array
 			if (m_props.allowKind && Array.isArray(m_props.allowKind)) {
 				m_props.allowKind.some((allowedKind) => {
 					// Check if file type is allowed
@@ -130,8 +123,6 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			return new Promise((resolve) => {
 				m_props = {
 					dropText: "Drop Here",
-					hidden: false,
-					maxFileCount: null,
 					tag: "default",
 					theme: "default",
 				};

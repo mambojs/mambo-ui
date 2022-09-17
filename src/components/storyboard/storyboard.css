@@ -90,3 +90,11 @@ mambo-tab-img .right {
 mambo-tab-img .middle {
   width: 100%;
 }
+
+story-input {
+  width: 15rem;
+}
+
+story-input mambo-input {
+  margin-bottom: 0.5rem;
+}

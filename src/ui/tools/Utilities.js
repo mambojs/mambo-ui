@@ -96,10 +96,10 @@ ui.class.Utilities = function Utilities() {
 	function installUIComponent({ self, m_parentTag, m_props }) {
 		return new Promise((resolve, reject) => {
 			if (!m_parentTag) {
-				console.error(`${self.constructor.name}() prop parentTag not passed in.`, m_props);
+				console.error(`${self?.constructor?.name}() prop parentTag not passed in.`, m_props);
 				reject();
 			} else {
-				ui.d.append(m_parentTag, self, m_props.installPrepend);
+				ui.d.append(m_parentTag, self, m_props?.installPrepend);
 				resolve();
 			}
 		});

@@ -63,8 +63,6 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 				m_xOffset = m_draggableTag.offsetLeft;
 				m_yOffset = m_draggableTag.offsetTop;
 
-				let m_initialCenter = [];
-
 				if (ev.type === "touchstart") {
 					m_initialX = ev.touches[0].clientX;
 					m_initialY = ev.touches[0].clientY;

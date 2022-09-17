@@ -45,31 +45,27 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			return new Promise((resolve) => {
 				installInput(true).then(() => {
 					const config = {
+						...m_props.button,
 						parentTag: self,
-						text: m_props.textButton,
 						fnClick: () => {
 							m_inputTag.getTag().click();
 						},
-						css: {
-							button: m_props.css.button,
-						},
+						css: m_props.css.button,
+						fnComplete: resolve,
 					};
 
 					ui.button(config);
-					resolve();
 				});
 			});
 		}
 
 		function installInput(hidden) {
 			return new Promise((resolve) => {
-				let inputConfig = {
+				const inputConfig = {
+					...m_props.input,
 					parentTag: self,
-					labelText: m_props.textLabel,
-					attr: m_props.attr,
-					css: {
-						self: m_props.css.wrapper,
-					},
+					labelText: m_props.labelText,
+					css: m_props.css.input,
 					events: [
 						{
 							name: "change",
@@ -83,11 +79,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 							},
 						},
 					],
-					fnComplete: () => {
-						if (m_props.fnComplete) {
-							m_props.fnComplete({ FileChooser: self });
-						}
-					},
+					fnComplete: resolve,
 				};
 
 				if (hidden) {
@@ -95,7 +87,6 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 				}
 
 				m_inputTag = ui.input(inputConfig);
-				resolve();
 			});
 		}
 
@@ -112,10 +103,18 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
-					textButton: "Button Only - Select File",
-					textLabel: "Choose files to upload",
-					attr: {
-						type: "file",
+					button: {
+						text: "Select File",
+					},
+					input: {
+						labelText: "Choose files to upload",
+						tags: {
+							input: {
+								attr: {
+									type: "file",
+								},
+							},
+						},
 					},
 					tag: "default",
 					theme: "default",

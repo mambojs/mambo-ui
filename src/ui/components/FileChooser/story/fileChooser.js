@@ -5,9 +5,13 @@ function storyFileChooser(selectedStory) {
 	function singleFile() {
 		const config = {
 			parentTag: selectedStory.parentTag,
-			textLabel: "Choose a single .txt file.",
-			attr: {
-				accept: ".txt",
+			button: {
+				text: "Choose a single .txt file.",
+			},
+			input: {
+				tags: {
+					input: { attr: { accept: ".txt" } },
+				},
 			},
 			fnUpload: handleFileSelection,
 		};
@@ -18,8 +22,10 @@ function storyFileChooser(selectedStory) {
 	function multipleFiles() {
 		const config = {
 			parentTag: selectedStory.parentTag,
-			attr: {
-				multiple: true,
+			input: {
+				tags: {
+					input: { attr: { multiple: true } },
+				},
 			},
 			fnUpload: handleFileSelection,
 		};

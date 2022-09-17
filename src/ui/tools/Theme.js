@@ -165,15 +165,22 @@ ui.defaultTheme = {
 	dropdown: {
 		button: {
 			button: "m-dropdown-button",
+			self: "m-dropdown-button-self",
 		},
 		container: "m-dropdown-container",
 		open: "m-open",
 		self: "m-dropdown-self",
 	},
 	fileChooser: {
-		button: "m-file-chooser-button",
-		input: "m-file-chooser-input",
-		label: "m-file-chooser-label",
+		button: {
+			button: "m-file-chooser-button",
+			self: "m-file-chooser-button-self",
+		},
+		input: {
+			input: "m-file-chooser-input",
+			label: "m-file-chooser-label",
+			self: "m-file-chooser-input-self",
+		},
 		self: "m-file-chooser-self",
 		wrapper: "m-file-chooser-input-wrapper",
 	},
@@ -205,8 +212,9 @@ ui.defaultTheme = {
 		treeViewParent: "m-grid-tree-view-parent",
 	},
 	input: {
-		button: "m-input-button",
-		img: "m-input-img",
+		button: {
+			button: "m-input-button fa-solid fa-xmark",
+		},
 		input: "m-input-input",
 		label: "m-input-label",
 		self: "m-input-self",
@@ -214,7 +222,7 @@ ui.defaultTheme = {
 	listbox: {
 		container: "m-listbox-container",
 		item: "m-listbox-item",
-		self: "m-listbox-self"
+		self: "m-listbox-self",
 	},
 	mapbox: {
 		container: "m-mapbox-container",
