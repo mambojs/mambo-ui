@@ -40,14 +40,14 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
 			return new Promise((resolve) => {
 				m_checkboxLabelParentTag = ui.d.createTag({ ...m_props.tags.label, class: m_props.css.radioParent });
 
-				let textTag = ui.d.createTag({
+				const textTag = ui.d.createTag({
 					...m_props.tags.radioText,
 					class: m_props.css.radioText,
 					text: m_props.text,
 				});
 
 				m_type = m_props.attr.type === "checkbox" ? 1 : 2;
-				let css = m_type === 1 ? m_props.css.checkbox : m_props.css.radio;
+				const css = m_type === 1 ? m_props.css.checkbox : m_props.css.radio;
 
 				const tagConfig = {
 					...m_props.tags.inputTag,

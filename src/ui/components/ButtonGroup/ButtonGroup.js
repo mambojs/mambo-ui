@@ -36,7 +36,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 				self.classList.add(m_props.css.self);
 				const buttonPromises = [];
 
-				m_props.buttons.forEach((button) => {
+				m_props.buttons.forEach((button, index) => {
+					button.id = button.id ? button.id : index;
 					buttonPromises.push(installButton(button));
 				});
 

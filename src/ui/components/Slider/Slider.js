@@ -107,8 +107,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 		function installTrack() {
 			return new Promise((resolve) => {
 				m_trackTag = ui.d.createTag({ ...m_props.tags.track, class: m_css.track });
-				m_wrapperTag.appendChild(m_trackTag);
 				m_selectionTag = ui.d.createTag({ ...m_props.tags.selection, class: m_css.selection });
+				m_wrapperTag.appendChild(m_trackTag);
 				m_wrapperTag.appendChild(m_selectionTag);
 				resolve();
 			});

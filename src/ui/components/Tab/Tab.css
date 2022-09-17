@@ -1,19 +1,18 @@
-.m-tab {
+.m-tabs {
   display: flex;
-  flex-direction: column;
 }
 
 .m-tab-body {
-  display: none;
+  display: flex;
+  width: 100%;
   border: 1px solid grey;
   padding: 0.5rem;
-  width: 100%;
 }
 
-.m-tab-body.m-selected {
-  display: flex;
+.m-tab-content {
+  display: none;
 }
 
-.m-tabs {
+.m-tab-content.m-selected {
   display: flex;
 }

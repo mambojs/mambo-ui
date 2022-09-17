@@ -1,6 +1,6 @@
 function storyTab(selectedStory) {
 	installWithFnCallback();
-	installWithContentProp();
+	//installWithContentProp();
 
 	function installWithFnCallback() {
 		let tabConfig = {
@@ -21,7 +21,7 @@ function storyTab(selectedStory) {
 				fnClick: (context) => {},
 			},
 			fnTabComplete: (contentTag, tab) => {
-				contentTag.appendChild(dom.createTag("div", { text: `Tab id: ${tab.id} name: ${tab.text}` }));
+				contentTag.appendChild(dom.createTag("div", { text: `Tab name: ${tab.text}` }));
 			},
 		};
 

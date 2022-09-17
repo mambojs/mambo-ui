@@ -54,6 +54,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 				const tabPromises = m_props.tabs.buttons.map((button, index) => {
 					return new Promise((resolve) => {
 						const contentTag = ui.d.createTag({ ...m_props.tags.content, class: m_props.css.content });
+						button.id = button.id ? button.id : index;
 
 						if (m_selectedId === button.id) {
 							// Set to show default selected Tab
