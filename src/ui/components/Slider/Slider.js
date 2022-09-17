@@ -5,10 +5,10 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		// HTML tag variables
 		let m_parentTag;
-		let m_sliderWrapperTag;
+		let m_wrapperTag;
 		let m_trackTag;
 		let m_selectionTag;
-		let m_handleTag;
+		let m_draggable;
 		let m_stepTags = [];
 
 		let m_props;
@@ -20,7 +20,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		// Configure public methods
 		this.destroy = destroySlider;
-		this.enable = enable;
+		this.enable = setEnable;
 		this.getParentTag = () => self;
 		this.setup = setup;
 		this.value = value;
@@ -33,54 +33,73 @@ ui.class.Slider = class Slider extends HTMLElement {
 			await configure(props);
 			await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			await setupDOM();
+			await continueSetupDOM();
 			setupComplete();
 		}
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-				m_sliderWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_css.wrapper });
-				const domPromises = [];
+				self.classList.add(m_props.css.self, m_props.orientation);
 
 				if (m_props.showButtons) {
 					if (m_horizontal) {
-						domPromises.push(installButton(m_props.increaseButton, m_css.increaseButton, increase));
+						installDecreaseButton().then(appendWrapper).then(installIncreaseButton).then(resolve);
 					} else {
-						domPromises.push(installButton(m_props.decreaseButton, m_css.decreaseButton, decrease));
+						installIncreaseButton().then(appendWrapper).then(installDecreaseButton).then(resolve);
 					}
+				} else {
+					appendWrapper().then(resolve);
 				}
 
-				self.classList.add(m_props.css.self);
-				self.appendChild(m_sliderWrapperTag);
-				domPromises.push(installTrack());
-				domPromises.push(installSteps());
-				domPromises.push(installHandle());
-				Promise.all(domPromises).then(() => {
-					setEnable(m_enable);
-					setValue(m_value);
-					resolve();
-				});
+				function appendWrapper() {
+					return new Promise((resolve) => {
+						m_wrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_css.wrapper });
+						self.appendChild(m_wrapperTag);
+						resolve();
+					});
+				}
 			});
+		}
+
+		function continueSetupDOM() {
+			return new Promise((resolve) => {
+				installTrack()
+					.then(installSteps)
+					.then(installHandle)
+					.then(() => {
+						setValue(m_value);
+						resolve();
+					});
+			});
+		}
+
+		function installDecreaseButton() {
+			return installButton(m_props.decreaseButton, m_css.decreaseButton, handleDecrease);
+		}
+
+		function installIncreaseButton() {
+			return installButton(m_props.increaseButton, m_css.increaseButton, handleIncrease);
 		}
 
 		function installButton(config, css, fnClick) {
 			return new Promise((resolve) => {
-				let button = ui.utils.extend(true, {}, config);
-				button.css = ui.utils.extend(true, css, button.css);
-				button.parentTag = self;
+				const buttonConfig = ui.utils.extend(true, {}, config);
+				buttonConfig.css = ui.utils.extend(true, css, buttonConfig.css);
+				buttonConfig.parentTag = self;
 
-				button.fnClick = (context) => {
+				buttonConfig.fnClick = (context) => {
 					fnClick();
 
 					if (m_props.fnSelect) {
 						m_props.fnSelect({ Slider: self, ev: context.ev });
 					}
 
-					if (config.fnClick) {
+					if (config?.fnClick) {
 						config.fnClick(context);
 					}
 				};
 
-				ui.button(button);
+				ui.button(buttonConfig);
 				resolve();
 			});
 		}
@@ -88,9 +107,9 @@ ui.class.Slider = class Slider extends HTMLElement {
 		function installTrack() {
 			return new Promise((resolve) => {
 				m_trackTag = ui.d.createTag({ ...m_props.tags.track, class: m_css.track });
-				m_sliderWrapperTag.appendChild(m_trackTag);
+				m_wrapperTag.appendChild(m_trackTag);
 				m_selectionTag = ui.d.createTag({ ...m_props.tags.selection, class: m_css.selection });
-				m_sliderWrapperTag.appendChild(m_selectionTag);
+				m_wrapperTag.appendChild(m_selectionTag);
 				resolve();
 			});
 		}
@@ -98,7 +117,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 		function installSteps() {
 			return new Promise((resolve) => {
 				let stepsTag = ui.d.createTag({ ...m_props.tags.stepsContainer, class: m_css.stepsContainer });
-				ui.d.prepend(m_sliderWrapperTag, stepsTag);
+				ui.d.prepend(m_wrapperTag, stepsTag);
 				const trackLength = m_horizontal ? m_trackTag.clientWidth : m_trackTag.clientHeight;
 				const steps = Math.floor((m_props.max - m_props.min) / m_props.step);
 				m_stepLength = trackLength / steps;
@@ -121,11 +140,11 @@ ui.class.Slider = class Slider extends HTMLElement {
 			});
 		}
 
-		function decrease() {
+		function handleDecrease() {
 			setValue(m_value - m_props.step);
 		}
 
-		function increase() {
+		function handleIncrease() {
 			setValue(m_value + m_props.step);
 		}
 
@@ -168,16 +187,14 @@ ui.class.Slider = class Slider extends HTMLElement {
 		function installHandle() {
 			return new Promise((resolve) => {
 				const config = {
-					parentTag: m_sliderWrapperTag,
-					containerTag: m_sliderWrapperTag,
+					parentTag: m_wrapperTag,
+					containerTag: m_wrapperTag,
 					css: {
 						draggable: m_css.handle,
 					},
+					tags: m_props.tags?.draggable?.tags,
 					axis: m_horizontal ? "x" : "y",
 					grid: m_horizontal ? [m_stepLength, 0] : [0, m_stepLength],
-					attr: {
-						title: m_props.handleTitle,
-					},
 					fnDragStart: (context) => {
 						if (m_props.fnSlideStart) {
 							m_props.fnSlideStart({ Slider: self, ev: context.ev });
@@ -185,10 +202,11 @@ ui.class.Slider = class Slider extends HTMLElement {
 					},
 					fnDragEnd: updateValue,
 					fnDrag: updateSelection,
+					fnComplete: resolve,
 				};
 
-				m_handleTag = ui.draggable(config);
-				resolve();
+				m_draggable = ui.draggable(config);
+				setEnable(m_enable);
 			});
 		}
 
@@ -211,11 +229,11 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function getSelectedIndex() {
 			let handleOffset = m_horizontal
-				? m_handleTag.getParentTag().offsetLeft
-				: m_sliderWrapperTag.clientHeight - m_handleTag.getParentTag().offsetTop;
+				? m_draggable.getParentTag().offsetLeft
+				: m_wrapperTag.clientHeight - m_draggable.getParentTag().offsetTop;
 
 			for (let i = 0; i < m_stepTags.length; i++) {
-				let stepOffset = m_horizontal ? m_stepTags[i].offsetLeft : m_sliderWrapperTag.clientHeight - m_stepTags[i].offsetTop;
+				let stepOffset = m_horizontal ? m_stepTags[i].offsetLeft : m_wrapperTag.clientHeight - m_stepTags[i].offsetTop;
 				if (handleOffset <= stepOffset) {
 					if (stepOffset - handleOffset > m_stepLength / 2 && i > 0) {
 						return i - 1;
@@ -227,14 +245,10 @@ ui.class.Slider = class Slider extends HTMLElement {
 			return 0;
 		}
 
-		function enable(enable) {
+		function setEnable(enable) {
 			m_enable = enable;
-			setEnable();
-		}
-
-		function setEnable() {
 			self.classList.toggle(m_props.css.disabled, !m_enable);
-			m_handleTag.enable(m_enable);
+			m_draggable.enable(m_enable);
 		}
 
 		function value(context = {}) {
@@ -252,15 +266,13 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		function setHandlePosition() {
 			let stepTag = m_stepTags.find((tag) => tag.id === m_value.toString());
-			let handleTag = m_handleTag.getParentTag();
+			let handleTag = m_draggable.getParentTag();
 
 			if (m_horizontal) {
-				const length =
-					stepTag.getBoundingClientRect().left - m_sliderWrapperTag.getBoundingClientRect().left - handleTag.clientWidth / 2;
+				const length = stepTag.getBoundingClientRect().left - m_wrapperTag.getBoundingClientRect().left - handleTag.clientWidth / 2;
 				handleTag.style.left = length + "px";
 			} else {
-				const length =
-					stepTag.getBoundingClientRect().top - m_sliderWrapperTag.getBoundingClientRect().top - handleTag.clientHeight / 2;
+				const length = stepTag.getBoundingClientRect().top - m_wrapperTag.getBoundingClientRect().top - handleTag.clientHeight / 2;
 				handleTag.style.top = length + "px";
 			}
 
@@ -268,12 +280,12 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function setSelectionPosition() {
-			let handleTag = m_handleTag.getParentTag();
+			const handleTag = m_draggable.getParentTag();
 
 			if (m_horizontal) {
 				m_selectionTag.style.width = handleTag.offsetLeft + "px";
 			} else {
-				const length = m_sliderWrapperTag.getBoundingClientRect().bottom - handleTag.getBoundingClientRect().bottom;
+				const length = m_wrapperTag.getBoundingClientRect().bottom - handleTag.getBoundingClientRect().bottom;
 				m_selectionTag.style.height = length + "px";
 			}
 		}
@@ -316,19 +328,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 					step: 1,
 					largeStep: 5,
 					orientation: "horizontal",
-					handleTitle: "drag",
 					enable: true,
 					showButtons: true,
-					decreaseButton: {
-						attr: {
-							title: "Decrease",
-						},
-					},
-					increaseButton: {
-						attr: {
-							title: "Increase",
-						},
-					},
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);

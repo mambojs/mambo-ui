@@ -1,10 +1,14 @@
 function storySlider(selectedStory) {
+	const horizontalParentTag = dom.createTag("slider-horizontal");
+	const verticalParentTag = dom.createTag("slider-vertical");
+	selectedStory.parentTag.appendChild(horizontalParentTag);
+	selectedStory.parentTag.appendChild(verticalParentTag);
 	defaultSlider();
 	verticalSlider();
 
 	function defaultSlider() {
 		const config = {
-			parentTag: selectedStory.parentTag,
+			parentTag: horizontalParentTag,
 			fnSelect: (context) => {},
 		};
 
@@ -13,7 +17,7 @@ function storySlider(selectedStory) {
 
 	function verticalSlider() {
 		const config = {
-			parentTag: selectedStory.parentTag,
+			parentTag: verticalParentTag,
 			orientation: "vertical",
 			fnSelect: (context) => {},
 		};

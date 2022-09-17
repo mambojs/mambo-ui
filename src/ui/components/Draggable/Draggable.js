@@ -19,8 +19,11 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 		// Configure public methods
 		this.destroy = destroyDraggable;
-		this.enable = enable;
+		this.enable = setEnable;
 		this.getParentTag = () => m_draggableTag;
+		this.getHandleWidth = () => m_draggableTag.clientWidth;
+		this.getHandleHeight = () => m_draggableTag.clientHeight;
+		this.setPosition = setPosition;
 		this.setup = setup;
 
 		if (props) {
@@ -37,7 +40,6 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_draggableTag = ui.d.createTag({ ...m_props.tags.draggable, class: m_props.css.draggable });
-				setEnable(m_enable);
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_draggableTag);
 				setupEventHandler().then(resolve);
@@ -144,13 +146,13 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		}
 
 		function setPosition(xPos, yPos) {
-			m_draggableTag.style.left = m_xOffset + xPos + "px";
-			m_draggableTag.style.top = m_yOffset + yPos + "px";
-		}
+			if (xPos) {
+				m_draggableTag.style.left = m_xOffset + xPos + "px";
+			}
 
-		function enable(enable) {
-			m_enable = enable;
-			setEnable();
+			if (yPos) {
+				m_draggableTag.style.top = m_yOffset + yPos + "px";
+			}
 		}
 
 		function setEnable(enable) {

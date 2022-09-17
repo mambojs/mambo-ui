@@ -262,11 +262,11 @@ ui.defaultTheme = {
 		disabled: "m-slider-disabled",
 		horizontal: {
 			decreaseButton: {
-				button: "m-slider-button-decrease-horizontal",
+				button: "m-slider-button-decrease-horizontal fa-solid fa-caret-left",
 			},
 			handle: "m-slider-handle-horizontal",
 			increaseButton: {
-				button: "m-slider-button-increase-horizontal",
+				button: "m-slider-button-increase-horizontal fa-solid fa-caret-right",
 			},
 			self: "m-slider-parent-horizontal",
 			selection: "m-slider-selection-horizontal",
@@ -280,11 +280,11 @@ ui.defaultTheme = {
 		self: "m-slider-self",
 		vertical: {
 			decreaseButton: {
-				button: "m-slider-button-decrease-vertical",
+				button: "m-slider-button-decrease-vertical fa-solid fa-caret-down",
 			},
 			handle: "m-slider-handle-vertical",
 			increaseButton: {
-				button: "m-slider-button-increase-vertical",
+				button: "m-slider-button-increase-vertical fa-solid fa-caret-up",
 			},
 			self: "m-slider-parent-vertical",
 			selection: "m-slider-selection-vertical",

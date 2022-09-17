@@ -98,3 +98,16 @@ story-input {
 story-input mambo-input {
   margin-bottom: 0.5rem;
 }
+
+slider-horizontal {
+  display: block;
+  width: 20rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+
+slider-vertical {
+  display: block;
+  width: 3rem;
+  height: 20rem;
+}
