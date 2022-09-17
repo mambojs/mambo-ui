@@ -1,12 +1,11 @@
 function storySlideout(selectedStory) {
 	let m_slideout;
-	installOpenButton();
 	installSlideout();
+	installOpenButton();
 
 	function installOpenButton() {
 		const buttonConfig = {
 			parentTag: selectedStory.parentTag,
-			id: 1,
 			text: "Open Slideout",
 			fnClick: () => {
 				m_slideout.open();

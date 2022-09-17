@@ -9,7 +9,7 @@
   z-index: 998;
 }
 
-.m-slideout-overlay.fade-in {
+.m-slideout-overlay.m-fade-in {
   display: block;
 }
 
@@ -21,7 +21,7 @@
   height: 100%;
   top: 0;
   left: -27rem;
-  box-shadow: 0.5rem 0 2rem 0 rgba(0 0 0 20%);
+  border-right: 1px solid #ccc;
   background: white;
   z-index: 999;
 }
@@ -59,4 +59,10 @@
   border-radius: 0;
   cursor: pointer;
   text-decoration: none;
+  font-size: 100%;
+  color: #ccc;
+}
+
+.m-slideout-close-button:hover {
+  color: black;
 }

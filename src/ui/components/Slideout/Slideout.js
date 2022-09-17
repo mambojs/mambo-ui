@@ -53,19 +53,19 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 
 		function installCloseButton() {
 			return new Promise((resolve) => {
-				if (m_props.closeButton) {
-					const config = m_props.closeButton;
-					config.parentTag = m_slideoutHeaderTag;
-					config.fnClick = closeAnimation;
-					ui.button(config);
+				if (m_props.enableCloseButton) {
+					const configButton = { css: m_props.css.button, ...m_props.closeButton };
+					configButton.parentTag = m_slideoutHeaderTag;
+					configButton.fnClick = closeAnimation;
+					ui.button(configButton);
 				}
 				resolve();
 			});
 		}
 
 		function openAnimation() {
-			self.classList.add("open");
-			m_slideoutOverlayTag.classList.add("fade-in");
+			self.classList.add(m_props.css.open);
+			m_slideoutOverlayTag.classList.add(m_props.css.openAnimation);
 			if (m_props.fnOpen) {
 				m_props.fnOpen({ slideout: self });
 			}
@@ -76,8 +76,8 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 		}
 
 		function closeAnimation() {
-			self.classList.remove("open");
-			m_slideoutOverlayTag.classList.remove("fade-in");
+			self.classList.remove(m_props.css.open);
+			m_slideoutOverlayTag.classList.remove(m_props.css.openAnimation);
 
 			if (m_props.fnClose) {
 				m_props.fnClose({ slideout: self });
@@ -97,15 +97,11 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
+					enableCloseButton: true,
 					tag: "default",
 					theme: "default",
-					closeButton: {
-						text: "X",
-						css: {
-							button: "slideout-close-button",
-						},
-					},
 				};
+
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
 				const tags = ui.tags.getTags({ name: m_props.tag, component: "slideout" });

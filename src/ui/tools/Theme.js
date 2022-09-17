@@ -252,8 +252,11 @@ ui.defaultTheme = {
 	slideout: {
 		body: "m-slideout-body",
 		header: "m-slideout-header",
+		open: "m-open",
+		openAnimation: "m-fade-in",
 		overlay: "m-slideout-overlay",
 		self: "m-slideout-self",
+		button: { button: "m-slideout-close-button fa-solid fa-xmark" },
 	},
 	slider: {
 		disabled: "m-slider-disabled",
