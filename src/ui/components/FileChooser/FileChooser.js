@@ -32,7 +32,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 				switch (m_props.buttonOnly) {
 					case true:
-						installButtonOnly().then(resolve);
+						installButton().then(resolve);
 						break;
 					default:
 						installInput().then(resolve);
@@ -41,7 +41,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 			});
 		}
 
-		function installButtonOnly() {
+		function installButton() {
 			return new Promise((resolve) => {
 				installInput(true).then(() => {
 					const config = {
@@ -64,7 +64,6 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 				const inputConfig = {
 					...m_props.input,
 					parentTag: self,
-					labelText: m_props.labelText,
 					css: m_props.css.input,
 					events: [
 						{

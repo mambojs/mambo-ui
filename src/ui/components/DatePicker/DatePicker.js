@@ -40,7 +40,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 		function setupInput() {
 			return new Promise((resolve) => {
-				let input = ui.utils.extend(true, {}, m_props.input);
+				const input = ui.utils.extend(true, {}, m_props.input);
 				input.css = ui.utils.extend(true, m_props.css.input, input.css);
 				input.parentTag = self;
 				m_input = ui.input(input);
@@ -52,29 +52,31 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			return new Promise((resolve) => {
 				m_dropdownWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_props.css.dropdownWrapper });
 				self.appendChild(m_dropdownWrapperTag);
-				let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
-				dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
+				const dropdownConfig = ui.utils.extend(true, {}, m_props.dropdown);
+				dropdownConfig.css = ui.utils.extend(true, m_props.css.dropdown, dropdownConfig.css);
 
-				dropdown.fnBeforeClose = (context) => {
+				dropdownConfig.fnBeforeClose = (context) => {
 					const result = m_props.dropdown?.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
 					return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
 				};
-				dropdown.fnComplete = (context) => {
+
+				dropdownConfig.fnComplete = (context) => {
 					installCalendar(context.Dropdown);
+					resolve();
 					if (m_props.dropdown?.fnComplete) {
 						m_props.dropdown.fnComplete(context);
 					}
 				};
-				dropdown.parentTag = m_dropdownWrapperTag;
-				m_dropdown = ui.dropdown(dropdown);
-				resolve();
+
+				dropdownConfig.parentTag = m_dropdownWrapperTag;
+				m_dropdown = ui.dropdown(dropdownConfig);
 			});
 		}
 
 		function installCalendar(dropdown) {
 			const contentTag = dropdown.getContentTag();
 			contentTag.innerHTML = null;
-			let calendar = ui.utils.extend(true, {}, m_props.calendar);
+			const calendar = ui.utils.extend(true, {}, m_props.calendar);
 			calendar.css = ui.utils.extend(true, m_props.css.calendar, calendar.css);
 			calendar.format = m_props.format;
 			calendar.footer = m_props.footer;
@@ -85,7 +87,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 			calendar.fnSelect = (context) => {
 				m_value = context.Calendar.value();
-				let text = ui.date.format(m_value, m_props.format);
+				const text = ui.date.format(m_value, m_props.format);
 				m_input.value({ value: text });
 				m_previous_text = text;
 				dropdown.close();
@@ -99,6 +101,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 			calendar.parentTag = contentTag;
 			m_calendar = ui.calendar(calendar);
+
 			if (m_props.value) {
 				setValue(m_props.value);
 			}
@@ -113,17 +116,17 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		}
 
 		function setValue(value) {
-			let date = ui.date.getDate(value, m_props.format);
+			const date = ui.date.getDate(value, m_props.format);
 			m_calendar.value({ value: date });
 
 			m_value = m_calendar.value();
-			let text = ui.date.format(m_value, m_props.format);
+			const text = ui.date.format(m_value, m_props.format);
 			m_input.value({ value: text });
 			m_previous_text = text;
 		}
 
 		function handleBlur(ev) {
-			let text = m_input.value();
+			const text = m_input.value();
 			if (m_previous_text !== text) {
 				setValue(text);
 

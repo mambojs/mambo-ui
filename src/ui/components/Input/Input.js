@@ -36,7 +36,6 @@ ui.class.Input = class Input extends HTMLElement {
 
 				const tagConfig = {
 					...m_props.tags.input,
-					attr: { name: m_props.name },
 					class: m_props.css.input,
 					text: m_props.value,
 					event: {
@@ -46,6 +45,7 @@ ui.class.Input = class Input extends HTMLElement {
 					},
 				};
 
+				tagConfig.attr.name = m_props.name;
 				m_inputTag = ui.d.createTag(tagConfig);
 				self.appendChild(m_inputTag);
 

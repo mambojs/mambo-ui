@@ -127,9 +127,6 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					button: {
-						text: "Open",
-					},
 					fnBeforeClose: (context) => {
 						return true;
 					},

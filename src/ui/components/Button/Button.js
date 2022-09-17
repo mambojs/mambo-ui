@@ -205,7 +205,6 @@ ui.class.Button = class Button extends HTMLElement {
 					enable: true,
 					preventDefault: true,
 					stopPropagation: true,
-					text: "Button",
 					tag: "default",
 					theme: "default",
 				};
