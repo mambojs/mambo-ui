@@ -7,7 +7,6 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		let m_parentTag;
 
 		let m_props;
-		let m_treeViewData = props.data;
 		const m_dataMapById = {};
 
 		// Configure public methods
@@ -30,23 +29,23 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				self.classList.add(m_props.css.self);
-				installItems(m_treeViewData).then(resolve);
+				processTreeData(props.data, self).then(resolve);
 			});
 		}
 
-		function installItems(groupData) {
+		function processTreeData(groupData, parentTag) {
 			return new Promise((resolve) => {
 				const itemPromises = groupData.map((itemData) => {
-					return processItem(itemData);
+					return processItem(itemData, parentTag);
 				});
 				Promise.all(itemPromises).then(resolve);
 			});
 		}
 
-		function processItem(itemData) {
+		function processItem(itemData, parentTag) {
 			return new Promise((resolve) => {
 				let itemTag = ui.d.createTag({ ...m_props.tags.item, class: m_props.css.item });
-				self.appendChild(itemTag);
+				parentTag.appendChild(itemTag);
 
 				let itemId = m_props.idField in itemData ? itemData[m_props.idField] : ui.utils.getUniqueId();
 				let idAtt = {};
@@ -54,7 +53,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 				m_dataMapById[itemId] = ui.utils.clone(itemData);
 				delete m_dataMapById[itemId][m_props.itemsField];
 
-				const topTag = ui.d.createTag({ ...m_props.tags.itemTop, class: m_props.css.top });
+				const topTag = ui.d.createTag({ ...m_props.tags.itemTop, class: m_props.css.itemTop });
 
 				const itemInAttr = { ...m_props.tags.itemIn.attr, ...idAtt };
 				const itemInConfig = {
@@ -84,17 +83,24 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		function processGroup(groupData, parentTag) {
 			let groupTag = ui.d.createTag({ ...m_props.tags.group, class: m_props.css.group });
 			parentTag.appendChild(groupTag);
-			installItems(groupData, groupTag);
+			processTreeData(groupData, groupTag);
 			return groupTag;
 		}
 
 		function installIcon(parentTag, groupTag, itemData) {
 			return new Promise((resolve) => {
 				const expanded = "expanded" in itemData ? itemData.expanded : m_props.expanded;
-				const iconTag = ui.d.createTag({ ...m_props.tags.icon, class: m_props.css.icon });
+				const iconTag = ui.d.createTag({
+					...m_props.tags.icon,
+					class: m_props.css.icon,
+					event: {
+						click: () => {
+							toggleExpand(groupTag, iconTag);
+						},
+					},
+				});
 				iconTag.classList.add(m_props.css.iconExpand);
 				ui.d.prepend(parentTag, iconTag);
-				setupIconEventListeners(groupTag, iconTag);
 
 				if (expanded) {
 					toggleExpand(groupTag, iconTag);
@@ -143,13 +149,6 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 			});
 		}
 
-		function setupIconEventListeners(groupTag, iconTag) {
-			iconTag.addEventListener("click", (ev) => {
-				let iconTag = ev.target;
-				toggleExpand(groupTag, iconTag);
-			});
-		}
-
 		function toggleExpand(groupTag, iconTag) {
 			groupTag.classList.toggle(m_props.css.expanded);
 			iconTag.classList.toggle(m_props.css.iconCollapse);
@@ -174,6 +173,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
+					data: [],
 					tag: "default",
 					theme: "default",
 					idField: "id",

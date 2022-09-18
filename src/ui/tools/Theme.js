@@ -335,7 +335,7 @@ ui.defaultTheme = {
 		item: "m-tree-view-item",
 		selected: "m-selected",
 		self: "m-tree-view-self",
-		top: "m-tree-view-item-top",
+		itemTop: "m-tree-view-item-top",
 	},
 	videoPlayer: {
 		self: "m-video-player-self",
