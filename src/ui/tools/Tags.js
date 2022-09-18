@@ -2,7 +2,6 @@ ui.defaultTags = {
 	button: {
 		button: { name: "button" },
 	},
-	buttonGroup: {},
 	buttonSVG: {
 		button: { name: "button" },
 	},

@@ -122,10 +122,9 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 					theme: "default",
 					fnGroupClick: handleGroupBtnClick,
 				};
+
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
-				const tags = ui.tags.getTags({ name: m_props.tag, component: "buttonGroup" });
-				m_props.tags = ui.utils.extend(true, tags, m_props.tags);
 				const css = ui.theme.getTheme({ name: m_props.theme, component: "buttonGroup" });
 				m_props.css = ui.utils.extend(true, css, m_props.css);
 				resolve();
