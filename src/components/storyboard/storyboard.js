@@ -30,6 +30,7 @@ function installStoryboard() {
 			{ text: "MapBox" },
 			{ text: "Percentage" },
 			{ text: "Radio" },
+			{ text: "Radio Group" },
 			{ text: "Rating" },
 			{ text: "Slideout" },
 			{ text: "Slider" },
@@ -39,6 +40,7 @@ function installStoryboard() {
 			{ text: "TreeView" },
 			{ text: "Video Player" },
 		];
+
 		// Add props to stories collection
 		stories.map((story) => {
 			story.id = story.text.replaceAll(" ", "-").toLowerCase();

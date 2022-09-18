@@ -45,7 +45,6 @@ ui.defaultTags = {
 	dropdown: {
 		container: { name: "m-dropdown-container" },
 	},
-	fileChooser: {},
 	grid: {
 		colCell: { name: "m-col-cell" },
 		body: { name: "m-grid-body" },

@@ -107,21 +107,13 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 					},
 					input: {
 						labelText: "Choose files to upload",
-						tags: {
-							input: {
-								attr: {
-									type: "file",
-								},
-							},
-						},
+						tags: { input: { attr: { type: "file" } } },
 					},
 					tag: "default",
 					theme: "default",
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
-				const tags = ui.tags.getTags({ name: m_props.tag, component: "fileChooser" });
-				m_props.tags = ui.utils.extend(true, tags, m_props.tags);
 				const css = ui.theme.getTheme({ name: m_props.theme, component: "fileChooser" });
 				m_props.css = ui.utils.extend(true, css, m_props.css);
 				resolve();

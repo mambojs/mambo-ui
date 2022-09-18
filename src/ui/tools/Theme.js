@@ -100,20 +100,6 @@ ui.defaultTheme = {
 		},
 		self: "m-checkbox-group-self",
 	},
-	checkboxRadioGroup: {
-		checkbox: {
-			checkbox: {
-				input: "m-checkbox-group-input",
-				span: "m-checkbox-group-span",
-			},
-			label: "m-checkbox-radio-group-radio-label",
-			radio: {
-				input: "m-radio-group-input",
-				span: "m-radio-group-span",
-			},
-		},
-		self: "m-checkbox-radio-group-self",
-	},
 	combobox: {
 		buttonGroup: {
 			button: {
@@ -262,6 +248,14 @@ ui.defaultTheme = {
 		span: "m-radio-span",
 		disabled: "m-radio-disabled",
 		self: "m-radio-self",
+	},
+	radioGroup: {
+		radio: {
+			input: "m-radio-group-input",
+			span: "m-radio-group-span",
+			label: "m-radio-group-label",
+		},
+		self: "m-radio-group-self",
 	},
 	rating: {
 		disabled: "m-rating-disabled",

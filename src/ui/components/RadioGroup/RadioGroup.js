@@ -1,8 +1,8 @@
-ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
+ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-		const m_checkboxList = [];
+		const m_radioList = [];
 
 		// HTML tag variables
 		let m_parentTag;
@@ -10,7 +10,7 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 
 		// Configure public methods
 		this.clear = clear;
-		this.destroy = destroyCheckboxGroup;
+		this.destroy = destroyRadioGroup;
 		this.getParentTag = () => self;
 		this.getTag = getTagById;
 		this.select = select;
@@ -30,60 +30,69 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				self.classList.add(m_props.css.self);
-				const checkboxPromises = [];
+				const radioPromises = [];
 
-				m_props.checkboxes.forEach((checkbox, index) => {
-					checkboxPromises.push(processCheckbox(checkbox, index));
+				m_props.radios.forEach((radio, index) => {
+					radioPromises.push(processRadio(radio, index));
 				});
 
-				Promise.all(checkboxPromises).then(resolve);
+				Promise.all(radioPromises).then(resolve);
 			});
 		}
 
-		function processCheckbox(checkbox, index) {
+		function processRadio(radio, index) {
 			return new Promise((resolve) => {
-				checkbox.id = checkbox.id ? checkbox.id : index;
+				radio.id = radio.id ? radio.id : index;
 
-				const checkboxConfig = {
-					...m_props.checkbox,
-					class: m_props.css.checkbox,
-					...checkbox,
+				const radioConfig = {
+					...m_props.radio,
+					class: m_props.css.radio,
+					...radio,
 					name: m_props.name,
 					parentTag: self,
 					fnGroupClick: handleGroupClick,
 					fnComplete: resolve,
 				};
 
-				m_checkboxList.push(ui.checkbox(checkboxConfig));
+				m_radioList.push(ui.radio(radioConfig));
 			});
 		}
 
 		function handleGroupClick(context) {
+			selectTag(context.Radio, true);
+
 			if (m_props.fnClick) {
 				m_props.fnClick(context);
 			}
 
 			if (m_props.fnGroupClick) {
 				m_props.fnGroupClick({
-					CheckboxGroup: self,
-					Checkbox: context.Checkbox,
+					RadioGroup: self,
+					Radio: context.Radio,
 					ev: context.ev,
 				});
 			}
 		}
 
 		function getTag(id) {
-			return m_checkboxList.find((tag) => tag.getId() === id);
+			return m_radioList.find((tag) => tag.getId() === id);
 		}
 
 		function getSelected() {
-			return m_checkboxList.filter((tag) => tag.select());
+			return m_radioList.filter((tag) => tag.select());
 		}
 
 		function selectTag(tag, notTrigger) {
 			if (tag) {
-				tag.select({ value: true, notTrigger: notTrigger });
+				deselectRadios();
+				tag.select({ value: true, notTrigger });
 			}
+		}
+
+		function deselectRadios() {
+			m_radioList.forEach((radio) => {
+				radio.select({ value: false, notTrigger: true });
+			});
 		}
 
 		function getTagById(context = {}) {
@@ -91,7 +100,7 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 		}
 
 		function clear() {
-			m_checkboxList.forEach((tag) => {
+			m_radioList.forEach((tag) => {
 				tag.select({ value: false, notTrigger: true });
 			});
 		}
@@ -110,7 +119,7 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 			}
 		}
 
-		function destroyCheckboxGroup() {
+		function destroyRadioGroup() {
 			ui.d.remove(self);
 		}
 
@@ -126,12 +135,12 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 					tag: "default",
 					theme: "default",
 					name: Math.random().toString(36).slice(2),
-					checkboxes: [],
+					radios: [],
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
-				const css = ui.theme.getTheme({ name: m_props.theme, component: "checkboxGroup" });
+				const css = ui.theme.getTheme({ name: m_props.theme, component: "radioGroup" });
 				m_props.css = ui.utils.extend(true, css, m_props.css);
 				resolve();
 			});
@@ -139,5 +148,5 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 	}
 };
 
-ui.checkboxGroup = (props) => new ui.class.CheckboxGroup(props);
-customElements.define("mambo-checkbox-group", ui.class.CheckboxGroup);
+ui.radioGroup = (props) => new ui.class.RadioGroup(props);
+customElements.define("mambo-radio-group", ui.class.RadioGroup);
