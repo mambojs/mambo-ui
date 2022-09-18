@@ -30,6 +30,7 @@ function installStoryboard() {
 			{ text: "Listbox" },
 			{ text: "MapBox" },
 			{ text: "Percentage" },
+			{ text: "Radio" },
 			{ text: "Rating" },
 			{ text: "Slideout" },
 			{ text: "Slider" },

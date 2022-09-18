@@ -7,6 +7,7 @@ function storyInput(selectedStory) {
 	ui.input(inputConfig);
 
 	inputConfig.enableClear = true;
+	inputConfig.value = "My value";
 
 	ui.input(inputConfig);
 }

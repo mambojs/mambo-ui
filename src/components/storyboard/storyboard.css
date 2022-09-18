@@ -33,12 +33,7 @@ storyboard-component {
   flex-direction: column;
   width: 100%;
   height: 100%;
-}
-
-story-tab {
-  display: block;
-  width: 100%;
-  height: 100%;
+  padding: 0 0 3rem 1rem;
 }
 
 .mambo-btn {
@@ -91,23 +86,10 @@ mambo-tab-img .middle {
   width: 100%;
 }
 
-story-input {
-  width: 15rem;
-}
-
-story-input mambo-input {
-  margin-bottom: 0.5rem;
-}
-
-slider-horizontal {
+storyboard-treeview {
   display: block;
-  width: 20rem;
-  height: 3rem;
-  margin-bottom: 1rem;
-}
-
-slider-vertical {
-  display: block;
-  width: 3rem;
-  height: 20rem;
+  min-width: 12rem;
+  border-right: 1px solid #ccc;
+  margin-bottom: 3rem;
+  padding-right: 0.5rem;
 }

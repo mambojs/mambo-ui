@@ -1,6 +1,6 @@
 function storyTab(selectedStory) {
 	installWithFnCallback();
-	//installWithContentProp();
+	installWithContentProp();
 
 	function installWithFnCallback() {
 		let tabConfig = {

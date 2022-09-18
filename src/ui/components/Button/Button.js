@@ -91,8 +91,6 @@ ui.class.Button = class Button extends HTMLElement {
 
 		function handleClick(ev) {
 			if (m_enable) {
-				selectBtn();
-
 				if (m_props.preventDefault) {
 					ev.preventDefault();
 				}

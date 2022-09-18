@@ -18,10 +18,10 @@ ui.defaultTags = {
 		radioSpanTag: { name: "span" },
 	},
 	checkbox: {
-		input: { name: "input", attr: { type: "checkbox" } },
 		container: { name: "label" },
-		text: { name: "span" },
+		input: { name: "input", attr: { type: "checkbox" } },
 		radioSpan: { name: "span" },
+		text: { name: "span" },
 	},
 	checkboxRadioGroup: {},
 	combobox: {
@@ -78,6 +78,12 @@ ui.defaultTags = {
 		controls: { name: "m-controls" },
 		time: { name: "m-time-stats" },
 		player: { name: "video" },
+	},
+	radio: {
+		container: { name: "label" },
+		input: { name: "input", attr: { type: "radio" } },
+		span: { name: "span" },
+		text: { name: "span" },
 	},
 	rating: {
 		empty: { name: "m-rating-empty" },
