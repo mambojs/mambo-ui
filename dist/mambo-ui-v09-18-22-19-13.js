@@ -14,13 +14,13 @@
 *  limitations under the License.
 
 *  @author Alejandro Sebastian Scotti
-*  @version v09-14-22-23-00
+*  @version v09-18-22-19-13
 *******************************************/
 function mamboUI(domJS) {
-		if (!domJS) {
-			throw 'mamboUI must be invoked with required argument domJS: mamboUI(domJS)';
-		}
-		const ui = { class: {}, d: domJS() };
+	if (!domJS) {
+		throw 'mamboUI must be invoked with required argument domJS: mamboUI(domJS)';
+	}
+	const ui = { class: {}, d: domJS() };
 ui.class.DateManager = function DateManager() {
   const self = this;
   const m_formatTokens = /(\[[^[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g;
@@ -540,10 +540,10 @@ ui.class.Utilities = function Utilities() {
   function installUIComponent({ self, m_parentTag, m_props }) {
     return new Promise((resolve, reject) => {
       if (!m_parentTag) {
-        console.error(`${self.constructor.name}() prop parentTag not passed in.`, m_props);
+        console.error(`${self?.constructor?.name}() prop parentTag not passed in.`, m_props);
         reject();
       } else {
-        ui.d.append(m_parentTag, self, m_props.installPrepend);
+        ui.d.append(m_parentTag, self, m_props?.installPrepend);
         resolve();
       }
     });
@@ -630,7 +630,6 @@ ui.class.Button = class Button extends HTMLElement {
     }
     function handleClick(ev) {
       if (m_enable) {
-        selectBtn();
         if (m_props.preventDefault) {
           ev.preventDefault();
         }
@@ -772,7 +771,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
       return new Promise((resolve) => {
         self.classList.add(m_props.css.self);
         const buttonPromises = [];
-        m_props.buttons.forEach((button) => {
+        m_props.buttons.forEach((button, index) => {
+          button.id = button.id ? button.id : index;
           buttonPromises.push(installButton(button));
         });
         Promise.all(buttonPromises).then(resolve);
@@ -841,8 +841,6 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
-        const tags = ui.tags.getTags({ name: m_props.tag, component: "buttonGroup" });
-        m_props.tags = ui.utils.extend(true, tags, m_props.tags);
         const css = ui.theme.getTheme({ name: m_props.theme, component: "buttonGroup" });
         m_props.css = ui.utils.extend(true, css, m_props.css);
         resolve();
@@ -1596,24 +1594,21 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 };
 ui.calendar = (props) => new ui.class.Calendar(props);
 customElements.define("mambo-calendar", ui.class.Calendar);
-ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
+ui.class.Checkbox = class Checkbox extends HTMLElement {
   constructor(props) {
     super();
     const self = this;
     let m_parentTag;
-    let m_checkboxLabelParentTag;
-    let m_checkboxInputTag;
-    let m_checkboxRadioSpanTag;
+    let m_containerTag;
+    let m_inputTag;
+    let m_spanTag;
     let m_props;
-    let m_type = 1;
-    let m_enable = true;
-    let m_checked = false;
-    this.destroy = destroyCheckboxRadio;
+    let m_enabled;
+    let m_checked;
+    this.destroy = destroyCheckbox;
     this.enable = enable;
     this.getId = () => m_props.id;
-    this.getParentTag = () => m_checkboxLabelParentTag;
-    this.isCheckbox = isCheckbox;
-    this.isRadio = isRadio;
+    this.getParentTag = () => m_containerTag;
     this.select = select;
     this.setup = setup;
     this.value = value;
@@ -1628,50 +1623,39 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
     }
     function setupDOM() {
       return new Promise((resolve) => {
-        m_checkboxLabelParentTag = ui.d.createTag({ ...m_props.tags.label, class: m_props.css.radioParent });
-        let textTag = ui.d.createTag({
-          ...m_props.tags.radioText,
-          class: m_props.css.radioText,
+        m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+        self.classList.add(m_props.css.self);
+        self.appendChild(m_containerTag);
+        const textTag = ui.d.createTag({
+          ...m_props.tags.text,
+          class: m_props.css.text,
           text: m_props.text
         });
-        m_type = m_props.attr.type === "checkbox" ? 1 : 2;
-        let css = m_type === 1 ? m_props.css.checkbox : m_props.css.radio;
-        const tagConfig = {
-          ...m_props.tags.inputTag,
-          class: css.input,
+        const inputConfig = {
+          ...m_props.tags.input,
+          class: m_props.css.input,
           text: m_props.value,
-          event: {
-            click: handleClick
-          }
+          prop: { checked: m_props.checked },
+          event: { click: handleClick }
         };
-        tagConfig.attr.name = Math.random().toString(36).slice(2);
-        m_checkboxInputTag = ui.d.createTag(tagConfig);
-        m_checkboxRadioSpanTag = ui.d.createTag({ ...m_props.tags.radioSpanTag, class: css.span });
-        m_checkboxLabelParentTag.appendChild(textTag);
-        m_checkboxLabelParentTag.appendChild(m_checkboxInputTag);
-        m_checkboxLabelParentTag.appendChild(m_checkboxRadioSpanTag);
-        m_checked = m_props.prop?.checked;
+        inputConfig.attr.name = m_props.name;
+        m_inputTag = ui.d.createTag(inputConfig);
+        m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
+        m_containerTag.appendChild(textTag);
+        m_containerTag.appendChild(m_inputTag);
+        m_containerTag.appendChild(m_spanTag);
         setEnable();
-        self.classList.add(m_props.css.self);
-        self.appendChild(m_checkboxLabelParentTag);
         resolve();
       });
     }
     function handleClick(ev) {
-      if (m_enable) {
-        switch (m_type) {
-          case 1:
-            m_checked = !m_checked;
-            break;
-          case 2:
-            m_checked = true;
-            break;
-        }
+      if (m_enabled) {
+        m_checked = !m_checked;
         if (m_props.fnClick) {
-          m_props.fnClick({ CheckboxRadio: self, ev });
+          m_props.fnClick({ Checkbox: self, ev });
         }
         if (m_props.fnGroupClick) {
-          m_props.fnGroupClick({ CheckboxRadio: self, ev });
+          m_props.fnGroupClick({ Checkbox: self, ev });
         }
       } else {
         ev.preventDefault();
@@ -1685,74 +1669,67 @@ ui.class.CheckboxRadio = class CheckboxRadio extends HTMLElement {
       }
     }
     function checkInput(value2, notTrigger) {
-      if (m_enable) {
-        if (notTrigger || m_type === 2) {
-          m_checked = value2;
-          ui.d.setProps(m_checkboxInputTag, { checked: m_checked });
-        } else {
-          m_checkboxInputTag.click();
+      if (m_enabled) {
+        if (notTrigger) {
+          m_inputTag.click();
         }
       }
     }
     function enable({ enable: enable2 }) {
       if (!enable2) {
-        return m_enable;
+        return m_enabled;
       } else {
-        m_enable = enable2;
+        m_enabled = enable2;
         setEnable();
       }
     }
     function setEnable() {
-      m_checkboxLabelParentTag.classList.toggle(m_props.css.disabled, !m_enable);
+      m_containerTag.classList.toggle(m_props.css.disabled, !m_enabled);
     }
     function value(context = {}) {
       if (typeof context.value === "undefined") {
-        return m_checkboxInputTag.value;
+        return m_inputTag.value;
       } else {
-        m_checkboxInputTag.value = context.value;
+        m_inputTag.value = context.value;
       }
     }
-    function isCheckbox() {
-      return m_type === 1;
-    }
-    function isRadio() {
-      return m_type === 2;
-    }
-    function destroyCheckboxRadio() {
-      ui.d.remove(m_checkboxLabelParentTag);
+    function destroyCheckbox() {
+      ui.d.remove(m_containerTag);
     }
     function setupComplete() {
       if (m_props.fnComplete) {
-        m_props.fnComplete({ CheckboxRadio: self });
+        m_props.fnComplete({ Checkbox: self });
       }
     }
     function configure(customProps = {}) {
       m_props = {
+        enable: true,
+        name: Math.random().toString(36).slice(2),
         tag: "default",
-        theme: "default",
-        enable: true
+        theme: "default"
       };
       m_props = ui.utils.extend(true, m_props, customProps);
       m_parentTag = ui.d.getTag(m_props.parentTag);
-      m_enable = m_props.enable;
-      const tags = ui.tags.getTags({ name: m_props.tag, component: "checkboxRadio" });
+      m_checked = m_props.checked;
+      m_enabled = m_props.enable;
+      const tags = ui.tags.getTags({ name: m_props.tag, component: "checkbox" });
       m_props.tags = ui.utils.extend(true, tags, m_props.tags);
-      const css = ui.theme.getTheme({ name: m_props.theme, component: "checkboxRadio" });
+      const css = ui.theme.getTheme({ name: m_props.theme, component: "checkbox" });
       m_props.css = ui.utils.extend(true, css, m_props.css);
     }
   }
 };
-ui.checkboxRadio = (props) => new ui.class.CheckboxRadio(props);
-customElements.define("mambo-checkbox-radio", ui.class.CheckboxRadio);
-ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
+ui.checkbox = (props) => new ui.class.Checkbox(props);
+customElements.define("mambo-checkbox", ui.class.Checkbox);
+ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
   constructor(props) {
     super();
     const self = this;
-    const m_checkboxRadiosList = [];
+    const m_checkboxList = [];
     let m_parentTag;
     let m_props;
     this.clear = clear;
-    this.destroy = destroyCheckboxRadioGroup;
+    this.destroy = destroyCheckboxGroup;
     this.getParentTag = () => self;
     this.getTag = getTagById;
     this.select = select;
@@ -1769,76 +1746,56 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
     function setupDOM() {
       return new Promise((resolve) => {
         self.classList.add(m_props.css.self);
-        if (m_props.checkboxes) {
-          m_props.checkboxes.forEach(setupCheckbox);
-        }
-        if (m_props.radios) {
-          m_props.radios.forEach(setupRadio);
-        }
-        resolve();
+        const checkboxPromises = [];
+        m_props.checkboxes.forEach((checkbox, index) => {
+          checkboxPromises.push(processCheckbox(checkbox, index));
+        });
+        Promise.all(checkboxPromises).then(resolve);
       });
     }
-    function setupCheckbox(checkbox) {
-      setupTag(checkbox, "checkbox");
-    }
-    function setupRadio(radio) {
-      setupTag(radio, "radio");
-    }
-    function setupTag(tag, type) {
-      const attr = {
-        type,
-        name: m_props.name
-      };
-      tag.css = ui.utils.extend(true, m_props.css[type], tag.css);
-      tag.attr = ui.utils.extend(true, attr, tag.attr);
-      tag.fnGroupClick = handleGroupClick;
-      tag.parentTag = self;
-      m_checkboxRadiosList.push(ui.checkboxRadio(tag));
+    function processCheckbox(checkbox, index) {
+      return new Promise((resolve) => {
+        checkbox.id = checkbox.id ? checkbox.id : index;
+        const checkboxConfig = {
+          ...m_props.checkbox,
+          class: m_props.css.checkbox,
+          ...checkbox,
+          name: m_props.name,
+          parentTag: self,
+          fnGroupClick: handleGroupClick,
+          fnComplete: resolve
+        };
+        m_checkboxList.push(ui.checkbox(checkboxConfig));
+      });
     }
     function handleGroupClick(context) {
-      if (context.CheckboxRadio.isRadio()) {
-        selectTag(context.CheckboxRadio, true);
-      }
       if (m_props.fnClick) {
         m_props.fnClick(context);
       }
       if (m_props.fnGroupClick) {
         m_props.fnGroupClick({
-          CheckboxRadioGroup: self,
-          CheckboxRadio: context.CheckboxRadio,
+          CheckboxGroup: self,
+          Checkbox: context.Checkbox,
           ev: context.ev
         });
       }
     }
     function getTag(id) {
-      return m_checkboxRadiosList.find((tag) => tag.getId() === id);
+      return m_checkboxList.find((tag) => tag.getId() === id);
     }
     function getSelected() {
-      return m_checkboxRadiosList.filter((tag) => tag.select());
+      return m_checkboxList.filter((tag) => tag.select());
     }
     function selectTag(tag, notTrigger) {
       if (tag) {
-        if (tag.isCheckbox()) {
-          tag.select({ value: true, notTrigger });
-        }
-        if (tag.isRadio()) {
-          deselectRadios();
-          tag.select({ value: true, notTrigger });
-        }
+        tag.select({ value: true, notTrigger });
       }
-    }
-    function deselectRadios() {
-      m_checkboxRadiosList.forEach((tag) => {
-        if (tag.isRadio()) {
-          tag.select({ value: false, notTrigger: true });
-        }
-      });
     }
     function getTagById(context = {}) {
       return getTag(context.id);
     }
     function clear() {
-      m_checkboxRadiosList.forEach((tag) => {
+      m_checkboxList.forEach((tag) => {
         tag.select({ value: false, notTrigger: true });
       });
     }
@@ -1855,7 +1812,7 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
         }
       }
     }
-    function destroyCheckboxRadioGroup() {
+    function destroyCheckboxGroup() {
       ui.d.remove(self);
     }
     function setupComplete() {
@@ -1869,22 +1826,19 @@ ui.class.CheckboxRadioGroup = class CheckboxRadioGroup extends HTMLElement {
           tag: "default",
           theme: "default",
           name: Math.random().toString(36).slice(2),
-          checkboxes: [],
-          radios: []
+          checkboxes: []
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
-        const tags = ui.tags.getTags({ name: m_props.tag, component: "checkboxRadioGroup" });
-        m_props.tags = ui.utils.extend(true, tags, m_props.tags);
-        const css = ui.theme.getTheme({ name: m_props.theme, component: "checkboxRadioGroup" });
+        const css = ui.theme.getTheme({ name: m_props.theme, component: "checkboxGroup" });
         m_props.css = ui.utils.extend(true, css, m_props.css);
         resolve();
       });
     }
   }
 };
-ui.checkboxRadioGroup = (props) => new ui.class.CheckboxRadioGroup(props);
-customElements.define("mambo-checkbox-radio-group", ui.class.CheckboxRadioGroup);
+ui.checkboxGroup = (props) => new ui.class.CheckboxGroup(props);
+customElements.define("mambo-checkbox-group", ui.class.CheckboxGroup);
 ui.class.Combobox = class Combobox extends HTMLElement {
   constructor(props) {
     super();
@@ -2114,7 +2068,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
     }
     function setupInput() {
       return new Promise((resolve) => {
-        let input = ui.utils.extend(true, {}, m_props.input);
+        const input = ui.utils.extend(true, {}, m_props.input);
         input.css = ui.utils.extend(true, m_props.css.input, input.css);
         input.parentTag = self;
         m_input = ui.input(input);
@@ -2125,27 +2079,27 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
       return new Promise((resolve) => {
         m_dropdownWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_props.css.dropdownWrapper });
         self.appendChild(m_dropdownWrapperTag);
-        let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
-        dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
-        dropdown.fnBeforeClose = (context) => {
+        const dropdownConfig = ui.utils.extend(true, {}, m_props.dropdown);
+        dropdownConfig.css = ui.utils.extend(true, m_props.css.dropdown, dropdownConfig.css);
+        dropdownConfig.fnBeforeClose = (context) => {
           const result = m_props.dropdown?.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
           return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
         };
-        dropdown.fnComplete = (context) => {
+        dropdownConfig.fnComplete = (context) => {
           installCalendar(context.Dropdown);
+          resolve();
           if (m_props.dropdown?.fnComplete) {
             m_props.dropdown.fnComplete(context);
           }
         };
-        dropdown.parentTag = m_dropdownWrapperTag;
-        m_dropdown = ui.dropdown(dropdown);
-        resolve();
+        dropdownConfig.parentTag = m_dropdownWrapperTag;
+        m_dropdown = ui.dropdown(dropdownConfig);
       });
     }
     function installCalendar(dropdown) {
       const contentTag = dropdown.getContentTag();
       contentTag.innerHTML = null;
-      let calendar = ui.utils.extend(true, {}, m_props.calendar);
+      const calendar = ui.utils.extend(true, {}, m_props.calendar);
       calendar.css = ui.utils.extend(true, m_props.css.calendar, calendar.css);
       calendar.format = m_props.format;
       calendar.footer = m_props.footer;
@@ -2155,7 +2109,7 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
       calendar.max = m_props.max;
       calendar.fnSelect = (context) => {
         m_value = context.Calendar.value();
-        let text = ui.date.format(m_value, m_props.format);
+        const text = ui.date.format(m_value, m_props.format);
         m_input.value({ value: text });
         m_previous_text = text;
         dropdown.close();
@@ -2180,15 +2134,15 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
       }
     }
     function setValue(value2) {
-      let date = ui.date.getDate(value2, m_props.format);
+      const date = ui.date.getDate(value2, m_props.format);
       m_calendar.value({ value: date });
       m_value = m_calendar.value();
-      let text = ui.date.format(m_value, m_props.format);
+      const text = ui.date.format(m_value, m_props.format);
       m_input.value({ value: text });
       m_previous_text = text;
     }
     function handleBlur(ev) {
-      let text = m_input.value();
+      const text = m_input.value();
       if (m_previous_text !== text) {
         setValue(text);
         if (m_props.fnSelect) {
@@ -2414,7 +2368,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
       }
       for (let i = 0; i < items.length; i++) {
         if (!checkFileKindAllowed(items[i].type)) {
-          console.error("DragDrop: one or more file formats are not allowed.");
+          console.error("DragDrop() one or more file formats are not allowed.");
           return;
         }
       }
@@ -2444,8 +2398,6 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
       return new Promise((resolve) => {
         m_props = {
           dropText: "Drop Here",
-          hidden: false,
-          maxFileCount: null,
           tag: "default",
           theme: "default"
         };
@@ -2478,8 +2430,11 @@ ui.class.Draggable = class Draggable extends HTMLElement {
     let m_yOffset;
     let m_bounding = null;
     this.destroy = destroyDraggable;
-    this.enable = enable;
+    this.enable = setEnable;
     this.getParentTag = () => m_draggableTag;
+    this.getHandleWidth = () => m_draggableTag.clientWidth;
+    this.getHandleHeight = () => m_draggableTag.clientHeight;
+    this.setPosition = setPosition;
     this.setup = setup;
     if (props) {
       setup(props);
@@ -2493,7 +2448,6 @@ ui.class.Draggable = class Draggable extends HTMLElement {
     function setupDOM() {
       return new Promise((resolve) => {
         m_draggableTag = ui.d.createTag({ ...m_props.tags.draggable, class: m_props.css.draggable });
-        setEnable(m_enable);
         self.classList.add(m_props.css.self);
         self.appendChild(m_draggableTag);
         setupEventHandler().then(resolve);
@@ -2516,7 +2470,6 @@ ui.class.Draggable = class Draggable extends HTMLElement {
         m_bounding = boundingTag ? boundingTag.getBoundingClientRect() : null;
         m_xOffset = m_draggableTag.offsetLeft;
         m_yOffset = m_draggableTag.offsetTop;
-        let m_initialCenter = [];
         if (ev.type === "touchstart") {
           m_initialX = ev.touches[0].clientX;
           m_initialY = ev.touches[0].clientY;
@@ -2584,15 +2537,15 @@ ui.class.Draggable = class Draggable extends HTMLElement {
       }
     }
     function setPosition(xPos, yPos) {
-      m_draggableTag.style.left = m_xOffset + xPos + "px";
-      m_draggableTag.style.top = m_yOffset + yPos + "px";
+      if (xPos) {
+        m_draggableTag.style.left = m_xOffset + xPos + "px";
+      }
+      if (yPos) {
+        m_draggableTag.style.top = m_yOffset + yPos + "px";
+      }
     }
-    function enable(enable2) {
-      m_enable = enable2;
-      setEnable();
-    }
-    function setEnable(enable2) {
-      m_enable = enable2;
+    function setEnable(enable) {
+      m_enable = enable;
     }
     function destroyDraggable() {
       ui.d.remove(m_draggableTag);
@@ -2746,7 +2699,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
   }
 };
 ui.dropdown = (props) => new ui.class.Dropdown(props);
-customElements.define("dropdown-combobox", ui.class.Dropdown);
+customElements.define("mambo-dropdown", ui.class.Dropdown);
 ui.class.FileChooser = class FileChooser extends HTMLElement {
   constructor(props) {
     super();
@@ -2772,7 +2725,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
         self.classList.add(m_props.css.self);
         switch (m_props.buttonOnly) {
           case true:
-            installButtonOnly().then(resolve);
+            installButton().then(resolve);
             break;
           default:
             installInput().then(resolve);
@@ -2780,33 +2733,28 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
         }
       });
     }
-    function installButtonOnly() {
+    function installButton() {
       return new Promise((resolve) => {
         installInput(true).then(() => {
           const config = {
+            ...m_props.button,
             parentTag: self,
-            text: m_props.textButton,
             fnClick: () => {
               m_inputTag.getTag().click();
             },
-            css: {
-              button: m_props.css.button
-            }
+            css: m_props.css.button,
+            fnComplete: resolve
           };
           ui.button(config);
-          resolve();
         });
       });
     }
     function installInput(hidden) {
       return new Promise((resolve) => {
-        let inputConfig = {
+        const inputConfig = {
+          ...m_props.input,
           parentTag: self,
-          labelText: m_props.textLabel,
-          attr: m_props.attr,
-          css: {
-            self: m_props.css.wrapper
-          },
+          css: m_props.css.input,
           events: [
             {
               name: "change",
@@ -2820,17 +2768,12 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
               }
             }
           ],
-          fnComplete: () => {
-            if (m_props.fnComplete) {
-              m_props.fnComplete({ FileChooser: self });
-            }
-          }
+          fnComplete: resolve
         };
         if (hidden) {
           inputConfig.hidden = true;
         }
         m_inputTag = ui.input(inputConfig);
-        resolve();
       });
     }
     function destroyFileChooser() {
@@ -2844,18 +2787,18 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
     function configure(customProps = {}) {
       return new Promise((resolve) => {
         m_props = {
-          textButton: "Button Only - Select File",
-          textLabel: "Choose files to upload",
-          attr: {
-            type: "file"
+          button: {
+            text: "Select File"
+          },
+          input: {
+            labelText: "Choose files to upload",
+            tags: { input: { attr: { type: "file" } } }
           },
           tag: "default",
           theme: "default"
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
-        const tags = ui.tags.getTags({ name: m_props.tag, component: "fileChooser" });
-        m_props.tags = ui.utils.extend(true, tags, m_props.tags);
         const css = ui.theme.getTheme({ name: m_props.theme, component: "fileChooser" });
         m_props.css = ui.utils.extend(true, css, m_props.css);
         resolve();
@@ -3559,6 +3502,7 @@ ui.class.Input = class Input extends HTMLElement {
     let m_parentTag;
     let m_inputTag;
     let m_labelTag;
+    let m_button;
     let m_props;
     let m_dataChanged;
     this.clear = clearInput;
@@ -3584,14 +3528,17 @@ ui.class.Input = class Input extends HTMLElement {
           class: m_props.css.input,
           text: m_props.value,
           event: {
-            blur: handleOnBlur
+            blur: handleOnBlur,
+            change: handleOnChange,
+            keyup: handleOnKeyup
           }
         };
         tagConfig.attr.name = m_props.name;
         m_inputTag = ui.d.createTag(tagConfig);
+        self.appendChild(m_inputTag);
         if (m_props.hidden) {
           self.style.display = "none";
-        } else if (typeof m_props.labelText === "string") {
+        } else if (ui.utils.isString(m_props.labelText)) {
           const labelTagConfig = {
             name: "label",
             class: m_props.css.label,
@@ -3602,97 +3549,85 @@ ui.class.Input = class Input extends HTMLElement {
           m_labelTag = ui.d.createTag(labelTagConfig);
           self.appendChild(m_labelTag);
         }
-        if (!m_props.leftSide && !m_props.rightSide) {
-          appendInputElement(self);
-        } else {
-          if (m_props.leftSide) {
-            if (Array.isArray(m_props.leftSide)) {
-              m_props.leftSide.forEach(installComponentInsideWrapper);
-            } else {
-              installComponentInsideWrapper(m_props.leftSide);
-            }
-          }
-          appendInputElement(self);
-          if (m_props.rightSide) {
-            if (Array.isArray(m_props.rightSide)) {
-              m_props.rightSide.forEach(installComponentInsideWrapper);
-            } else {
-              installComponentInsideWrapper(m_props.rightSide);
-            }
-          }
-        }
-        if (m_props.validate.onStart) {
+        if (m_props?.validate?.onStart) {
           validate();
         }
-        resolve();
+        installClearInput().then(resolve);
       });
     }
-    function appendInputElement(parent) {
-      parent.appendChild(m_inputTag);
-      if (m_props.maxLenWidth && !m_props.leftSide && !m_props.rightSide) {
-        const width = `${m_props.attr.maxLength + m_props.maxLenWidthAdj}${m_props.maxLenWidthUnit}`;
-        m_inputTag.style.width = width;
-        m_inputTag.style.minWidth = width;
-        m_inputTag.style.maxWidth = width;
-      } else if (m_props.maxLenWidth) {
-        const width = `${m_props.attr.maxLength + m_props.maxLenWidthAdj}${m_props.maxLenWidthUnit}`;
-        self.style.width = width;
-        self.style.minWidth = width;
-        self.style.maxWidth = width;
-      }
-    }
-    function installComponentInsideWrapper(item) {
-      let componentConfig;
-      if ("button" in item) {
-        componentConfig = item.button;
-        componentConfig.parentTag = self;
-        if (!componentConfig.css) {
-          componentConfig.css = m_props.css;
+    function installClearInput() {
+      return new Promise((resolve) => {
+        if (m_props.enableClear) {
+          const buttonConfig = {
+            ...m_props.button,
+            css: m_props.css.button,
+            parentTag: self,
+            fnComplete: resolve,
+            fnClick: (context) => {
+              clearInput();
+              if (m_props.fnClear) {
+                m_props.fnClear({
+                  Input: self,
+                  Button: context.Button,
+                  ev: context.ev
+                });
+              }
+            }
+          };
+          ui.button(buttonConfig);
         }
-        componentConfig.fnClick = (context) => {
-          if (m_props.fnClick) {
-            m_props.fnClick({
-              Input: self,
-              Button: context.Button,
-              ev: context.ev
-            });
-          }
-        };
-        ui.button(componentConfig);
-      } else {
-        componentConfig = item.img;
-        if (!componentConfig.css) {
-          componentConfig.css = m_props.css.img;
-        }
-        const tagConfig = {
-          name: "img",
-          class: componentConfig.css,
-          prop: componentConfig.prop,
-          attr: componentConfig.attr
-        };
-        let component = ui.d.createTag(tagConfig);
-        self.appendChild(component);
-      }
+      });
     }
     function handleOnBlur(ev) {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
+      if (m_props.fnBlur) {
+        m_props.fnBlur({
+          Input: self,
+          value: m_inputTag.value,
+          ev
+        });
+      }
+    }
+    function handleOnChange(ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      validate(ev);
+      if (m_props.fnChange) {
+        m_props.fnChange({
+          Input: self,
+          value: m_inputTag.value,
+          ev
+        });
+      }
+    }
+    function handleOnKeyup(ev) {
+      ev.stopPropagation();
+      ev.preventDefault();
+      validate(ev);
+      if (m_props.fnKeyup) {
+        m_props.fnKeyup({
+          Input: self,
+          value: m_inputTag.value,
+          Button: m_button,
+          ev
+        });
+      }
     }
     function validate(ev) {
-      if (!Array.isArray(m_props.validate.types)) {
-        return;
-      }
-      m_props.validate.types.forEach((validate2) => {
-        const keys = Object.keys(validate2);
-        keys.forEach((key) => {
-          switch (key) {
-            case "minLength":
-              validateMinLength(validate2.minLength, ev);
-              break;
-          }
+      if (Array.isArray(m_props.validate?.types)) {
+        m_props.validate.types.forEach((validate2) => {
+          const keys = Object.keys(validate2);
+          keys.forEach((key) => {
+            switch (key) {
+              case "minLength":
+                validateMinLength(validate2.minLength, ev);
+                break;
+            }
+          });
         });
-      });
+      }
     }
     function validateMinLength(config, ev) {
       const curLen = m_inputTag.value.length;
@@ -3731,13 +3666,8 @@ ui.class.Input = class Input extends HTMLElement {
         m_props = {
           tag: "default",
           theme: "default",
-          value: "",
-          validate: [
-            {}
-          ],
-          maxLenWidthAdj: 1,
-          maxLenWidthUnit: "ch",
-          name: Math.random().toString(36).slice(2)
+          name: Math.random().toString(36).slice(2),
+          button: { text: "" }
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -4236,6 +4166,259 @@ ui.class.Player = class Player extends HTMLElement {
 };
 ui.player = (props) => new ui.class.Player(props);
 customElements.define("mambo-player", ui.class.Player);
+ui.class.Radio = class Radio extends HTMLElement {
+  constructor(props) {
+    super();
+    const self = this;
+    let m_parentTag;
+    let m_labelTag;
+    let m_inputTag;
+    let m_spanTag;
+    let m_props;
+    let m_enable = true;
+    let m_checked = false;
+    this.destroy = destroyRadio;
+    this.enable = enable;
+    this.getId = () => m_props.id;
+    this.getParentTag = () => m_labelTag;
+    this.select = select;
+    this.setup = setup;
+    this.value = value;
+    if (props) {
+      setup(props);
+    }
+    async function setup(props2) {
+      await configure(props2);
+      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      await setupDOM();
+      setupComplete();
+    }
+    function setupDOM() {
+      return new Promise((resolve) => {
+        m_labelTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+        const textTag = ui.d.createTag({
+          ...m_props.tags.text,
+          class: m_props.css.text,
+          text: m_props.text
+        });
+        const tagConfig = {
+          ...m_props.tags.input,
+          class: m_props.css.input,
+          text: m_props.value,
+          event: {
+            click: handleClick
+          }
+        };
+        tagConfig.attr.name = Math.random().toString(36).slice(2);
+        m_inputTag = ui.d.createTag(tagConfig);
+        m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
+        m_labelTag.appendChild(textTag);
+        m_labelTag.appendChild(m_inputTag);
+        m_labelTag.appendChild(m_spanTag);
+        m_checked = m_props.prop?.checked;
+        setEnable();
+        self.classList.add(m_props.css.self);
+        self.appendChild(m_labelTag);
+        resolve();
+      });
+    }
+    function handleClick(ev) {
+      if (m_enable) {
+        m_checked = true;
+        if (m_props.fnClick) {
+          m_props.fnClick({ Radio: self, ev });
+        }
+        if (m_props.fnGroupClick) {
+          m_props.fnGroupClick({ Radio: self, ev });
+        }
+      } else {
+        ev.preventDefault();
+      }
+    }
+    function select(context = {}) {
+      if (typeof context.value === "undefined") {
+        return m_checked;
+      } else {
+        checkInput(context.value, context.notTrigger);
+      }
+    }
+    function checkInput(value2, notTrigger) {
+      if (m_enable) {
+        if (notTrigger) {
+          m_checked = value2;
+          ui.d.setProps(m_inputTag, { checked: m_checked });
+        }
+      }
+    }
+    function enable({ enable: enable2 }) {
+      if (!enable2) {
+        return m_enable;
+      } else {
+        m_enable = enable2;
+        setEnable();
+      }
+    }
+    function setEnable() {
+      m_labelTag.classList.toggle(m_props.css.disabled, !m_enable);
+    }
+    function value(context = {}) {
+      if (typeof context.value === "undefined") {
+        return m_inputTag.value;
+      } else {
+        m_inputTag.value = context.value;
+      }
+    }
+    function destroyRadio() {
+      ui.d.remove(m_labelTag);
+    }
+    function setupComplete() {
+      if (m_props.fnComplete) {
+        m_props.fnComplete({ Radio: self });
+      }
+    }
+    function configure(customProps = {}) {
+      m_props = {
+        tag: "default",
+        theme: "default",
+        enable: true
+      };
+      m_props = ui.utils.extend(true, m_props, customProps);
+      m_parentTag = ui.d.getTag(m_props.parentTag);
+      m_enable = m_props.enable;
+      const tags = ui.tags.getTags({ name: m_props.tag, component: "radio" });
+      m_props.tags = ui.utils.extend(true, tags, m_props.tags);
+      const css = ui.theme.getTheme({ name: m_props.theme, component: "radio" });
+      m_props.css = ui.utils.extend(true, css, m_props.css);
+    }
+  }
+};
+ui.radio = (props) => new ui.class.Radio(props);
+customElements.define("mambo-radio", ui.class.Radio);
+ui.class.RadioGroup = class RadioGroup extends HTMLElement {
+  constructor(props) {
+    super();
+    const self = this;
+    const m_radioList = [];
+    let m_parentTag;
+    let m_props;
+    this.clear = clear;
+    this.destroy = destroyRadioGroup;
+    this.getParentTag = () => self;
+    this.getTag = getTagById;
+    this.select = select;
+    this.setup = setup;
+    if (props) {
+      setup(props);
+    }
+    async function setup(props2) {
+      await configure(props2);
+      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      await setupDOM();
+      setupComplete();
+    }
+    function setupDOM() {
+      return new Promise((resolve) => {
+        self.classList.add(m_props.css.self);
+        const radioPromises = [];
+        m_props.radios.forEach((radio, index) => {
+          radioPromises.push(processRadio(radio, index));
+        });
+        Promise.all(radioPromises).then(resolve);
+      });
+    }
+    function processRadio(radio, index) {
+      return new Promise((resolve) => {
+        radio.id = radio.id ? radio.id : index;
+        const radioConfig = {
+          ...m_props.radio,
+          class: m_props.css.radio,
+          ...radio,
+          name: m_props.name,
+          parentTag: self,
+          fnGroupClick: handleGroupClick,
+          fnComplete: resolve
+        };
+        m_radioList.push(ui.radio(radioConfig));
+      });
+    }
+    function handleGroupClick(context) {
+      selectTag(context.Radio, true);
+      if (m_props.fnClick) {
+        m_props.fnClick(context);
+      }
+      if (m_props.fnGroupClick) {
+        m_props.fnGroupClick({
+          RadioGroup: self,
+          Radio: context.Radio,
+          ev: context.ev
+        });
+      }
+    }
+    function getTag(id) {
+      return m_radioList.find((tag) => tag.getId() === id);
+    }
+    function getSelected() {
+      return m_radioList.filter((tag) => tag.select());
+    }
+    function selectTag(tag, notTrigger) {
+      if (tag) {
+        deselectRadios();
+        tag.select({ value: true, notTrigger });
+      }
+    }
+    function deselectRadios() {
+      m_radioList.forEach((radio) => {
+        radio.select({ value: false, notTrigger: true });
+      });
+    }
+    function getTagById(context = {}) {
+      return getTag(context.id);
+    }
+    function clear() {
+      m_radioList.forEach((tag) => {
+        tag.select({ value: false, notTrigger: true });
+      });
+    }
+    function select(context = {}) {
+      if (!context.id) {
+        return getSelected();
+      } else {
+        if (Array.isArray(context.id)) {
+          context.id.forEach((id) => {
+            selectTag(getTag(id), context.notTrigger);
+          });
+        } else {
+          selectTag(getTag(context.id), context.notTrigger);
+        }
+      }
+    }
+    function destroyRadioGroup() {
+      ui.d.remove(self);
+    }
+    function setupComplete() {
+      if (m_props.fnComplete) {
+        m_props.fnComplete({ CheckboxRadioGroup: self });
+      }
+    }
+    function configure(customProps = {}) {
+      return new Promise((resolve) => {
+        m_props = {
+          tag: "default",
+          theme: "default",
+          name: Math.random().toString(36).slice(2),
+          radios: []
+        };
+        m_props = ui.utils.extend(true, m_props, customProps);
+        m_parentTag = ui.d.getTag(m_props.parentTag);
+        const css = ui.theme.getTheme({ name: m_props.theme, component: "radioGroup" });
+        m_props.css = ui.utils.extend(true, css, m_props.css);
+        resolve();
+      });
+    }
+  }
+};
+ui.radioGroup = (props) => new ui.class.RadioGroup(props);
+customElements.define("mambo-radio-group", ui.class.RadioGroup);
 ui.class.Rating = class Rating extends HTMLElement {
   constructor(props) {
     super();
@@ -4427,18 +4610,18 @@ ui.class.Slideout = class Slideout extends HTMLElement {
     }
     function installCloseButton() {
       return new Promise((resolve) => {
-        if (m_props.closeButton) {
-          const config = m_props.closeButton;
-          config.parentTag = m_slideoutHeaderTag;
-          config.fnClick = closeAnimation;
-          ui.button(config);
+        if (m_props.enableCloseButton) {
+          const configButton = { css: m_props.css.button, ...m_props.closeButton };
+          configButton.parentTag = m_slideoutHeaderTag;
+          configButton.fnClick = closeAnimation;
+          ui.button(configButton);
         }
         resolve();
       });
     }
     function openAnimation() {
-      self.classList.add("open");
-      m_slideoutOverlayTag.classList.add("fade-in");
+      self.classList.add(m_props.css.open);
+      m_slideoutOverlayTag.classList.add(m_props.css.openAnimation);
       if (m_props.fnOpen) {
         m_props.fnOpen({ slideout: self });
       }
@@ -4447,8 +4630,8 @@ ui.class.Slideout = class Slideout extends HTMLElement {
       closeAnimation();
     }
     function closeAnimation() {
-      self.classList.remove("open");
-      m_slideoutOverlayTag.classList.remove("fade-in");
+      self.classList.remove(m_props.css.open);
+      m_slideoutOverlayTag.classList.remove(m_props.css.openAnimation);
       if (m_props.fnClose) {
         m_props.fnClose({ slideout: self });
       }
@@ -4464,14 +4647,9 @@ ui.class.Slideout = class Slideout extends HTMLElement {
     function configure(customProps = {}) {
       return new Promise((resolve) => {
         m_props = {
+          enableCloseButton: true,
           tag: "default",
-          theme: "default",
-          closeButton: {
-            text: "X",
-            css: {
-              button: "slideout-close-button"
-            }
-          }
+          theme: "default"
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -4491,10 +4669,10 @@ ui.class.Slider = class Slider extends HTMLElement {
     super();
     const self = this;
     let m_parentTag;
-    let m_sliderWrapperTag;
+    let m_wrapperTag;
     let m_trackTag;
     let m_selectionTag;
-    let m_handleTag;
+    let m_draggable;
     let m_stepTags = [];
     let m_props;
     let m_horizontal = true;
@@ -4503,7 +4681,7 @@ ui.class.Slider = class Slider extends HTMLElement {
     let m_value = 0;
     let m_stepLength;
     this.destroy = destroySlider;
-    this.enable = enable;
+    this.enable = setEnable;
     this.getParentTag = () => self;
     this.setup = setup;
     this.value = value;
@@ -4514,62 +4692,75 @@ ui.class.Slider = class Slider extends HTMLElement {
       await configure(props2);
       await ui.utils.installUIComponent({ self, m_parentTag, m_props });
       await setupDOM();
+      await continueSetupDOM();
       setupComplete();
     }
     function setupDOM() {
       return new Promise((resolve) => {
-        m_sliderWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_css.wrapper });
-        const domPromises = [];
+        self.classList.add(m_props.css.self, m_props.orientation);
         if (m_props.showButtons) {
           if (m_horizontal) {
-            domPromises.push(installButton(m_props.increaseButton, m_css.increaseButton, increase));
+            installDecreaseButton().then(appendWrapper).then(installIncreaseButton).then(resolve);
           } else {
-            domPromises.push(installButton(m_props.decreaseButton, m_css.decreaseButton, decrease));
+            installIncreaseButton().then(appendWrapper).then(installDecreaseButton).then(resolve);
           }
+        } else {
+          appendWrapper().then(resolve);
         }
-        self.classList.add(m_props.css.self);
-        self.appendChild(m_sliderWrapperTag);
-        domPromises.push(installTrack());
-        domPromises.push(installSteps());
-        domPromises.push(installHandle());
-        Promise.all(domPromises).then(() => {
-          setEnable(m_enable);
+        function appendWrapper() {
+          return new Promise((resolve2) => {
+            m_wrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_css.wrapper });
+            self.appendChild(m_wrapperTag);
+            resolve2();
+          });
+        }
+      });
+    }
+    function continueSetupDOM() {
+      return new Promise((resolve) => {
+        installTrack().then(installSteps).then(installHandle).then(() => {
           setValue(m_value);
           resolve();
         });
       });
     }
+    function installDecreaseButton() {
+      return installButton(m_props.decreaseButton, m_css.decreaseButton, handleDecrease);
+    }
+    function installIncreaseButton() {
+      return installButton(m_props.increaseButton, m_css.increaseButton, handleIncrease);
+    }
     function installButton(config, css, fnClick) {
       return new Promise((resolve) => {
-        let button = ui.utils.extend(true, {}, config);
-        button.css = ui.utils.extend(true, css, button.css);
-        button.parentTag = self;
-        button.fnClick = (context) => {
+        const buttonConfig = ui.utils.extend(true, {}, config);
+        buttonConfig.css = ui.utils.extend(true, css, buttonConfig.css);
+        buttonConfig.parentTag = self;
+        buttonConfig.fnClick = (context) => {
           fnClick();
           if (m_props.fnSelect) {
             m_props.fnSelect({ Slider: self, ev: context.ev });
           }
-          if (config.fnClick) {
+          if (config?.fnClick) {
             config.fnClick(context);
           }
         };
-        ui.button(button);
+        ui.button(buttonConfig);
         resolve();
       });
     }
     function installTrack() {
       return new Promise((resolve) => {
         m_trackTag = ui.d.createTag({ ...m_props.tags.track, class: m_css.track });
-        m_sliderWrapperTag.appendChild(m_trackTag);
         m_selectionTag = ui.d.createTag({ ...m_props.tags.selection, class: m_css.selection });
-        m_sliderWrapperTag.appendChild(m_selectionTag);
+        m_wrapperTag.appendChild(m_trackTag);
+        m_wrapperTag.appendChild(m_selectionTag);
         resolve();
       });
     }
     function installSteps() {
       return new Promise((resolve) => {
         let stepsTag = ui.d.createTag({ ...m_props.tags.stepsContainer, class: m_css.stepsContainer });
-        ui.d.prepend(m_sliderWrapperTag, stepsTag);
+        ui.d.prepend(m_wrapperTag, stepsTag);
         const trackLength = m_horizontal ? m_trackTag.clientWidth : m_trackTag.clientHeight;
         const steps = Math.floor((m_props.max - m_props.min) / m_props.step);
         m_stepLength = trackLength / steps;
@@ -4587,10 +4778,10 @@ ui.class.Slider = class Slider extends HTMLElement {
         resolve();
       });
     }
-    function decrease() {
+    function handleDecrease() {
       setValue(m_value - m_props.step);
     }
-    function increase() {
+    function handleIncrease() {
       setValue(m_value + m_props.step);
     }
     function installLargeStep(stepsTag, value2) {
@@ -4624,26 +4815,25 @@ ui.class.Slider = class Slider extends HTMLElement {
     function installHandle() {
       return new Promise((resolve) => {
         const config = {
-          parentTag: m_sliderWrapperTag,
-          containerTag: m_sliderWrapperTag,
+          parentTag: m_wrapperTag,
+          containerTag: m_wrapperTag,
           css: {
             draggable: m_css.handle
           },
+          tags: m_props.tags?.draggable?.tags,
           axis: m_horizontal ? "x" : "y",
           grid: m_horizontal ? [m_stepLength, 0] : [0, m_stepLength],
-          attr: {
-            title: m_props.handleTitle
-          },
           fnDragStart: (context) => {
             if (m_props.fnSlideStart) {
               m_props.fnSlideStart({ Slider: self, ev: context.ev });
             }
           },
           fnDragEnd: updateValue,
-          fnDrag: updateSelection
+          fnDrag: updateSelection,
+          fnComplete: resolve
         };
-        m_handleTag = ui.draggable(config);
-        resolve();
+        m_draggable = ui.draggable(config);
+        setEnable(m_enable);
       });
     }
     function updateValue(context) {
@@ -4660,9 +4850,9 @@ ui.class.Slider = class Slider extends HTMLElement {
       }
     }
     function getSelectedIndex() {
-      let handleOffset = m_horizontal ? m_handleTag.getParentTag().offsetLeft : m_sliderWrapperTag.clientHeight - m_handleTag.getParentTag().offsetTop;
+      let handleOffset = m_horizontal ? m_draggable.getParentTag().offsetLeft : m_wrapperTag.clientHeight - m_draggable.getParentTag().offsetTop;
       for (let i = 0; i < m_stepTags.length; i++) {
-        let stepOffset = m_horizontal ? m_stepTags[i].offsetLeft : m_sliderWrapperTag.clientHeight - m_stepTags[i].offsetTop;
+        let stepOffset = m_horizontal ? m_stepTags[i].offsetLeft : m_wrapperTag.clientHeight - m_stepTags[i].offsetTop;
         if (handleOffset <= stepOffset) {
           if (stepOffset - handleOffset > m_stepLength / 2 && i > 0) {
             return i - 1;
@@ -4672,13 +4862,10 @@ ui.class.Slider = class Slider extends HTMLElement {
       }
       return 0;
     }
-    function enable(enable2) {
-      m_enable = enable2;
-      setEnable();
-    }
-    function setEnable() {
+    function setEnable(enable) {
+      m_enable = enable;
       self.classList.toggle(m_props.css.disabled, !m_enable);
-      m_handleTag.enable(m_enable);
+      m_draggable.enable(m_enable);
     }
     function value(context = {}) {
       if (typeof context.value === "undefined") {
@@ -4693,22 +4880,22 @@ ui.class.Slider = class Slider extends HTMLElement {
     }
     function setHandlePosition() {
       let stepTag = m_stepTags.find((tag) => tag.id === m_value.toString());
-      let handleTag = m_handleTag.getParentTag();
+      let handleTag = m_draggable.getParentTag();
       if (m_horizontal) {
-        const length = stepTag.getBoundingClientRect().left - m_sliderWrapperTag.getBoundingClientRect().left - handleTag.clientWidth / 2;
+        const length = stepTag.getBoundingClientRect().left - m_wrapperTag.getBoundingClientRect().left - handleTag.clientWidth / 2;
         handleTag.style.left = length + "px";
       } else {
-        const length = stepTag.getBoundingClientRect().top - m_sliderWrapperTag.getBoundingClientRect().top - handleTag.clientHeight / 2;
+        const length = stepTag.getBoundingClientRect().top - m_wrapperTag.getBoundingClientRect().top - handleTag.clientHeight / 2;
         handleTag.style.top = length + "px";
       }
       setSelectionPosition();
     }
     function setSelectionPosition() {
-      let handleTag = m_handleTag.getParentTag();
+      const handleTag = m_draggable.getParentTag();
       if (m_horizontal) {
         m_selectionTag.style.width = handleTag.offsetLeft + "px";
       } else {
-        const length = m_sliderWrapperTag.getBoundingClientRect().bottom - handleTag.getBoundingClientRect().bottom;
+        const length = m_wrapperTag.getBoundingClientRect().bottom - handleTag.getBoundingClientRect().bottom;
         m_selectionTag.style.height = length + "px";
       }
     }
@@ -4744,19 +4931,8 @@ ui.class.Slider = class Slider extends HTMLElement {
           step: 1,
           largeStep: 5,
           orientation: "horizontal",
-          handleTitle: "drag",
           enable: true,
-          showButtons: true,
-          decreaseButton: {
-            attr: {
-              title: "Decrease"
-            }
-          },
-          increaseButton: {
-            attr: {
-              title: "Increase"
-            }
-          }
+          showButtons: true
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -4960,6 +5136,7 @@ ui.class.Tab = class Tab extends HTMLElement {
         const tabPromises = m_props.tabs.buttons.map((button, index) => {
           return new Promise((resolve2) => {
             const contentTag = ui.d.createTag({ ...m_props.tags.content, class: m_props.css.content });
+            button.id = button.id ? button.id : index;
             if (m_selectedId === button.id) {
               contentTag.classList.add(m_props.css.selectedTab);
             } else if (!m_selectedId && index === 0) {
@@ -5042,7 +5219,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
     }
     function setupComboBox() {
       return new Promise((resolve) => {
-        const combobox = ui.utils.extend(true, {}, m_props.combobox);
+        const comboboxCss = { ...m_props.css?.combobox };
+        const combobox = ui.utils.extend(true, { css: comboboxCss }, m_props.combobox);
         combobox.parentTag = self;
         combobox.data = createComboBoxData();
         if (m_props.value) {
@@ -5105,12 +5283,7 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
           tag: "default",
           theme: "default",
           combobox: {
-            filter: false,
-            dropdown: {
-              button: {
-                text: "watchIcon"
-              }
-            }
+            filter: false
           },
           value: "",
           interval: 30,
@@ -5137,7 +5310,6 @@ ui.class.TreeView = class TreeView extends HTMLElement {
     const self = this;
     let m_parentTag;
     let m_props;
-    let m_treeViewData = props.data;
     const m_dataMapById = {};
     this.destroy = destroyTreeView;
     this.getItemData = getItemData;
@@ -5155,27 +5327,27 @@ ui.class.TreeView = class TreeView extends HTMLElement {
     function setupDOM() {
       return new Promise((resolve) => {
         self.classList.add(m_props.css.self);
-        installItems(m_treeViewData).then(resolve);
+        processTreeData(props.data, self).then(resolve);
       });
     }
-    function installItems(groupData) {
+    function processTreeData(groupData, parentTag) {
       return new Promise((resolve) => {
         const itemPromises = groupData.map((itemData) => {
-          return processItem(itemData);
+          return processItem(itemData, parentTag);
         });
         Promise.all(itemPromises).then(resolve);
       });
     }
-    function processItem(itemData) {
+    function processItem(itemData, parentTag) {
       return new Promise((resolve) => {
         let itemTag = ui.d.createTag({ ...m_props.tags.item, class: m_props.css.item });
-        self.appendChild(itemTag);
+        parentTag.appendChild(itemTag);
         let itemId = m_props.idField in itemData ? itemData[m_props.idField] : ui.utils.getUniqueId();
         let idAtt = {};
         idAtt[m_props.itemIdAttrName] = itemId;
         m_dataMapById[itemId] = ui.utils.clone(itemData);
         delete m_dataMapById[itemId][m_props.itemsField];
-        const topTag = ui.d.createTag({ ...m_props.tags.itemTop, class: m_props.css.top });
+        const topTag = ui.d.createTag({ ...m_props.tags.itemTop, class: m_props.css.itemTop });
         const itemInAttr = { ...m_props.tags.itemIn.attr, ...idAtt };
         const itemInConfig = {
           ...m_props.tags.itemIn,
@@ -5200,16 +5372,23 @@ ui.class.TreeView = class TreeView extends HTMLElement {
     function processGroup(groupData, parentTag) {
       let groupTag = ui.d.createTag({ ...m_props.tags.group, class: m_props.css.group });
       parentTag.appendChild(groupTag);
-      installItems(groupData, groupTag);
+      processTreeData(groupData, groupTag);
       return groupTag;
     }
     function installIcon(parentTag, groupTag, itemData) {
       return new Promise((resolve) => {
         const expanded = "expanded" in itemData ? itemData.expanded : m_props.expanded;
-        const iconTag = ui.d.createTag({ ...m_props.tags.icon, class: m_props.css.icon });
+        const iconTag = ui.d.createTag({
+          ...m_props.tags.icon,
+          class: m_props.css.icon,
+          event: {
+            click: () => {
+              toggleExpand(groupTag, iconTag);
+            }
+          }
+        });
         iconTag.classList.add(m_props.css.iconExpand);
         ui.d.prepend(parentTag, iconTag);
-        setupIconEventListeners(groupTag, iconTag);
         if (expanded) {
           toggleExpand(groupTag, iconTag);
         }
@@ -5251,12 +5430,6 @@ ui.class.TreeView = class TreeView extends HTMLElement {
         resolve();
       });
     }
-    function setupIconEventListeners(groupTag, iconTag) {
-      iconTag.addEventListener("click", (ev) => {
-        let iconTag2 = ev.target;
-        toggleExpand(groupTag, iconTag2);
-      });
-    }
     function toggleExpand(groupTag, iconTag) {
       groupTag.classList.toggle(m_props.css.expanded);
       iconTag.classList.toggle(m_props.css.iconCollapse);
@@ -5277,6 +5450,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
     function configure(customProps = {}) {
       return new Promise((resolve) => {
         m_props = {
+          data: [],
           tag: "default",
           theme: "default",
           idField: "id",
