@@ -10,7 +10,7 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 		let m_spanTag;
 
 		let m_props;
-		let m_enable;
+		let m_enabled;
 		let m_checked;
 
 		// Configure public methods
@@ -45,37 +45,35 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 					text: m_props.text,
 				});
 
-				const tagConfig = {
+				const inputConfig = {
 					...m_props.tags.input,
 					class: m_props.css.input,
 					text: m_props.value,
-					event: {
-						click: handleClick,
-					},
+					prop: { checked: m_props.checked },
+					event: { click: handleClick },
 				};
 
-				tagConfig.attr.name = Math.random().toString(36).slice(2);
-				m_inputTag = ui.d.createTag(tagConfig);
-				m_spanTag = ui.d.createTag({ ...m_props.tags.radioSpan, class: m_props.css.radioSpan });
+				inputConfig.attr.name = m_props.name;
+				m_inputTag = ui.d.createTag(inputConfig);
+				m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
 				m_containerTag.appendChild(textTag);
 				m_containerTag.appendChild(m_inputTag);
 				m_containerTag.appendChild(m_spanTag);
-				m_checked = m_props.prop?.checked;
 				setEnable();
 				resolve();
 			});
 		}
 
 		function handleClick(ev) {
-			if (m_enable) {
+			if (m_enabled) {
 				m_checked = !m_checked;
 
 				if (m_props.fnClick) {
-					m_props.fnClick({ Checkbox: self, ev: ev });
+					m_props.fnClick({ Checkbox: self, ev });
 				}
 
 				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({ Checkbox: self, ev: ev });
+					m_props.fnGroupClick({ Checkbox: self, ev });
 				}
 			} else {
 				ev.preventDefault();
@@ -91,7 +89,7 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 		}
 
 		function checkInput(value, notTrigger) {
-			if (m_enable) {
+			if (m_enabled) {
 				if (notTrigger) {
 					m_inputTag.click();
 				}
@@ -100,15 +98,15 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 
 		function enable({ enable }) {
 			if (!enable) {
-				return m_enable;
+				return m_enabled;
 			} else {
-				m_enable = enable;
+				m_enabled = enable;
 				setEnable();
 			}
 		}
 
 		function setEnable() {
-			m_containerTag.classList.toggle(m_props.css.disabled, !m_enable);
+			m_containerTag.classList.toggle(m_props.css.disabled, !m_enabled);
 		}
 
 		function value(context = {}) {
@@ -131,13 +129,16 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 
 		function configure(customProps = {}) {
 			m_props = {
+				enable: true,
+				name: Math.random().toString(36).slice(2),
 				tag: "default",
 				theme: "default",
-				enable: true,
 			};
+
 			m_props = ui.utils.extend(true, m_props, customProps);
 			m_parentTag = ui.d.getTag(m_props.parentTag);
-			m_enable = m_props.enable;
+			m_checked = m_props.checked;
+			m_enabled = m_props.enable;
 			const tags = ui.tags.getTags({ name: m_props.tag, component: "checkbox" });
 			m_props.tags = ui.utils.extend(true, tags, m_props.tags);
 			const css = ui.theme.getTheme({ name: m_props.theme, component: "checkbox" });

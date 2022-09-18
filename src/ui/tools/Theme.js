@@ -88,9 +88,17 @@ ui.defaultTheme = {
 		container: "m-checkbox-container",
 		text: "m-checkbox-text-span",
 		input: "m-checkbox-input",
-		radioSpan: "m-checkbox-span",
+		span: "m-checkbox-span",
 		disabled: "m-checkbox-disabled",
 		self: "m-checkbox-self",
+	},
+	checkboxGroup: {
+		checkbox: {
+			input: "m-checkbox-group-input",
+			span: "m-checkbox-group-span",
+			label: "m-checkbox-group-label",
+		},
+		self: "m-checkbox-group-self",
 	},
 	checkboxRadioGroup: {
 		checkbox: {
