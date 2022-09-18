@@ -17,6 +17,12 @@ ui.defaultTags = {
 		radioText: { name: "span" },
 		radioSpanTag: { name: "span" },
 	},
+	checkbox: {
+		input: { name: "input", attr: { type: "checkbox" } },
+		container: { name: "label" },
+		text: { name: "span" },
+		radioSpan: { name: "span" },
+	},
 	checkboxRadioGroup: {},
 	combobox: {
 		wrapper: { name: "m-combobox-wrapper" },

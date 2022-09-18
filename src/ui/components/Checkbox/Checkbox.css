@@ -1,0 +1,50 @@
+.m-checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.m-checkbox-text-span {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.m-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+.m-checkbox-span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #eee;
+}
+
+.m-checkbox-input:checked ~ .m-checkbox-span {
+  background-color: #000;
+}
+
+.m-checkbox-span::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.m-checkbox-input:checked ~ .m-checkbox-span::after {
+  display: block;
+}

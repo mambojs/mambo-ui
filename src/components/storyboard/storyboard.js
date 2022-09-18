@@ -15,6 +15,7 @@ function installStoryboard() {
 			{ text: "Button SVG" },
 			{ text: "Button Group" },
 			{ text: "Calendar" },
+			{ text: "Checkbox" },
 			{ text: "Checkbox Radio" },
 			{ text: "Checkbox Radio Group" },
 			{ text: "Combobox" },
