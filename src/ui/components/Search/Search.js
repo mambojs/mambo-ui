@@ -48,10 +48,14 @@ ui.class.Search = class Search extends HTMLElement {
 				let input = ui.utils.extend(true, {}, m_props.input);
 				input.css = ui.utils.extend(true, m_props.css.input, input.css);
 				input.parentTag = m_inputContainer;
+
 				input.fnClear = (context) => {
 					m_value = "";
-					if (m_dropdown) m_dropdown.close();
+					if (m_dropdown) {
+						m_dropdown.close();
+					}
 				}
+
 				input.fnKeyup = (context) => {
 					if (m_props.input?.fnKeyup) {
 						m_value = context.value;
@@ -59,13 +63,16 @@ ui.class.Search = class Search extends HTMLElement {
 						if (m_value.length >= m_props.firedIn) {
 							m_props.input.fnKeyup(m_value);
 						} else {
-							if (m_dropdown) m_dropdown.close();
+							if (m_dropdown) {
+								m_dropdown.close();
+							}
 						}
 					}
 				}
 
+				input.fnComplete = resolve;
 				m_input = ui.input(input);
-				resolve();
+
 			});
 		}
 
@@ -96,6 +103,7 @@ ui.class.Search = class Search extends HTMLElement {
 
 					dropdown.fnComplete = (context) => {
 						installListbox(context.Dropdown);
+						resolve();
 					}
 
 					dropdown.disableButton = true;
@@ -114,8 +122,8 @@ ui.class.Search = class Search extends HTMLElement {
 				let contentTag = dropdown.getContentTag();
 				listbox.parentTag = contentTag;
 				listbox.data = [];
+				listbox.fnComplete = resolve;
 				m_listbox = ui.listbox(listbox);
-				resolve();
 			});
 		}
 

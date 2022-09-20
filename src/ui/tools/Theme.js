@@ -275,12 +275,11 @@ ui.defaultTheme = {
 			container: "m-search-dropdown-container",
 			self: "m-search-dropdown-parent",
 		},
-		inputContainer: "m-search-input-container",
-		wrapper: "m-dropdown-wrapper",
 		input: {
 			input: "m-search-input-input",
 			inputWrapper: "m-search-input-wrapper",
 		},
+		inputContainer: "m-search-input-container",
 		listbox: {
 			item: "m-search-listbox-item",
 		},
@@ -288,6 +287,7 @@ ui.defaultTheme = {
 			button: "m-search-button fa-solid fa-magnifying-glass",
 		},
 		self: "m-search-self",
+		wrapper: "m-search-dropdown-wrapper",
 	},
 	slideout: {
 		body: "m-slideout-body",

@@ -72,7 +72,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				if (m_props.positionTag) {
 					ui.d.computeTagHeight(m_props.positionTag)
 						.then(tagHeight => {
-							m_dropdownContainerTag.style.top = `${tagHeight+1}px`;
+							m_dropdownContainerTag.style.top = `${tagHeight}px`;
 							resolve();
 						 });
 				} else {
