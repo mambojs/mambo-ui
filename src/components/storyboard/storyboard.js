@@ -32,6 +32,7 @@ function installStoryboard() {
 			{ text: "Radio" },
 			{ text: "Radio Group" },
 			{ text: "Rating" },
+			{ text: "Search" },
 			{ text: "Slideout" },
 			{ text: "Slider" },
 			{ text: "Switch" },
