@@ -37,6 +37,7 @@ function installStoryboard() {
 			{ text: "Slider" },
 			{ text: "Switch" },
 			{ text: "Tab" },
+			{ text: "Textarea" },
 			{ text: "Time Picker" },
 			{ text: "TreeView" },
 			{ text: "Video Player" },

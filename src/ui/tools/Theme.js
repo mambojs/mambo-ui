@@ -352,6 +352,14 @@ ui.defaultTheme = {
 		self: "m-tab-self",
 		tabs: "m-tabs",
 	},
+	textarea: {
+		button: {
+			button: "m-textarea-button fa-solid fa-xmark",
+		},
+		textarea: "m-textarea-textarea",
+		label: "m-textarea-label",
+		self: "m-textarea-self",
+	},
 	timePicker: {
 		combobox: {
 			dropdown: {
