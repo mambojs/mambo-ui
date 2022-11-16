@@ -1,0 +1,21 @@
+.m-textarea-self {
+  display: flex;
+}
+
+.m-textarea-textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.m-input-button {
+  background: none;
+  cursor: pointer;
+  color: #ccc;
+  border: none;
+  padding: 0.25rem;
+  font-size: 100%;
+}
+
+.m-input-button:hover {
+  color: black;
+}

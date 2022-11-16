@@ -119,6 +119,9 @@ ui.defaultTags = {
 		body: { name: "m-tab-body" },
 		tabs: { name: "m-tabs" },
 	},
+	textarea: {
+		textarea: { name: "textarea", attr: {} },
+	},
 	timePicker: {},
 	treeView: {
 		group: { name: "m-tree-view-group" },
