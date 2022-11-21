@@ -68,7 +68,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		function renderMap() {
 			return new Promise((resolve) => {
 				m_map = new mapboxgl.Map({
-					container: m_props.prop.id,
+					container: m_props.tags.container.attr.id,
 					style: m_props.mapStyle,
 					zoom: 0.01,
 				});
