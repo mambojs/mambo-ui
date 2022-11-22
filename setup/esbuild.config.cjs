@@ -45,12 +45,12 @@ function buildLib() {
 	};
 
 	esbuild.build(optionsBundle).then(() => {
-		console.log("Bundle JS Lib: Build complete!");
+		console.log("Bundle Lib: Build complete!");
 		compileCssLib("bundle", libVersion);
 	});
 
 	esbuild.build(optionsMinifyMap).then(() => {
-		console.log("JS Lib Minify mapped: Build complete!");
+		console.log("Lib Minify mapped: Build complete!");
 		compileCssLib("min", libVersion);
 	});
 
@@ -80,6 +80,8 @@ function getLibFiles() {
 	const arrFiles = [
 		`${config.PUBLIC_DIR}/ui/tools/DateManager.js`,
 		`${config.PUBLIC_DIR}/ui/tools/String.js`,
+		`${config.PUBLIC_DIR}/ui/tools/Tags.js`,
+		`${config.PUBLIC_DIR}/ui/tools/Theme.js`,
 		`${config.PUBLIC_DIR}/ui/tools/Utilities.js`,
 	];
 
