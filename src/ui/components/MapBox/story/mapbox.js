@@ -8,8 +8,12 @@ function storyMapBox(selectedStory) {
 		const config = {
 			accessToken: token,
 			parentTag: selectedStory.parentTag,
-			prop: {
-				id: "simplemap",
+			tags: {
+				container: {
+					attr: {
+						id: "simplemap",
+					}
+				}
 			}
 		};
 		ui.mapbox(config);
@@ -25,8 +29,12 @@ function storyMapBox(selectedStory) {
 			},
 			marker: { color: "#E50087" },
 			parentTag: selectedStory.parentTag,
-			prop: {
-				id: "searcheventsmap",
+			tags: {
+				container: {
+					attr: {
+						id: "searcheventsmap",
+					}
+				}
 			},
 			fnComplete: (component) => addPoints(component)
 		};
