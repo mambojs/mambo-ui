@@ -10,6 +10,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		let m_map;
 
 		this.addPoints = addPoints;
+		this.jumpTo = jumpTo;
 		this.setup = setup;
 
 		if (props) {
