@@ -81,7 +81,7 @@ ui.class.Search = class Search extends HTMLElement {
 				let button = ui.utils.extend(true, {}, m_props.button);
 				button.css = ui.utils.extend(true, m_props.css.searchButton, button.css);
 				button.parentTag = self;
-				button.fnComplete = resolve;
+				button.fnComplete = resolve();
 
 				button.fnClick = (context) => {
 					if (m_props.button?.fnClick && m_value?.length >= m_props.firedIn) {
@@ -122,7 +122,7 @@ ui.class.Search = class Search extends HTMLElement {
 				let contentTag = dropdown.getContentTag();
 				listbox.parentTag = contentTag;
 				listbox.data = [];
-				listbox.fnComplete = resolve;
+				listbox.fnComplete = resolve();
 				m_listbox = ui.listbox(listbox);
 			});
 		}
