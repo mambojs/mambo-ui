@@ -50,10 +50,23 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 				const itemConfig = {
 					...m_props.tags.item,
 					class: m_props.css.item,
-					text: itemData[m_props.displayKey],
 				};
 
 				let itemTag = ui.d.createTag(itemConfig);
+				const constructorName = itemData[m_props.displayKey].constructor.name;
+
+				if (constructorName === "DocumentFragment") {
+					itemTag.appendChild(itemData[m_props.displayKey].firstChild);
+				}
+
+				if (constructorName === "String") {
+					itemTag.innerHTML = itemData[m_props.displayKey];
+				}
+
+				if (ui.d.utils.isNode(itemData[m_props.displayKey])) {
+					itemTag.appendChild(itemData[m_props.displayKey]);
+				}
+
 				m_listboxContainerTag.appendChild(itemTag);
 				setupItemEventListeners(itemTag, itemData).then(resolve);
 			});
@@ -61,16 +74,22 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 
 		function setupItemEventListeners(item, data) {
 			return new Promise((resolve) => {
-				item.addEventListener("click", (ev) => {
-					if (m_props.fnSelect) {
-						m_props.fnSelect({
-							ev,
-							data,
-							item,
-							Listbox: self,
-						});
-					}
-				});
+				const listeners = [
+					{ type: "click", fn: "fnSelect" },
+					{ type: "mouseover", fn: "fnHover" }
+				];
+				listeners.forEach(listener => {
+					item.addEventListener(listener.type, (ev) => {
+						if (m_props[listener.fn]) {
+							m_props[listener.fn]({
+								ev,
+								data,
+								item,
+								Listbox: self,
+							});
+						}
+					});
+				})
 				resolve();
 			});
 		}
