@@ -76,7 +76,8 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 			return new Promise((resolve) => {
 				const listeners = [
 					{ type: "click", fn: "fnSelect" },
-					{ type: "mouseover", fn: "fnHover" }
+					{ type: "mouseover", fn: "fnHover" },
+					{ type: "mouseleave", fn: "fnLeave" },
 				];
 				listeners.forEach(listener => {
 					item.addEventListener(listener.type, (ev) => {
