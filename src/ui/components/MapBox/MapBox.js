@@ -8,8 +8,12 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 		let m_props;
 		let m_map;
+		let m_markers = [];
 
 		this.addPoints = addPoints;
+		this.fitBounds = fitBounds;
+		this.getMarker = getMarker;
+		this.getMarkers = getMarkers;
 		this.jumpTo = jumpTo;
 		this.setup = setup;
 
@@ -62,6 +66,17 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 			});
 		}
 
+		function fitBounds(props) {
+			let config = {
+				padding: 30,
+				maxZoom: 13,
+			};
+			if (props.config) {
+				config = ui.utils.extend(true, config, props);
+			}
+			m_map.fitBounds([props.southwestern, props.northeastern], config);
+		}
+
 		function geolocationError(e) {
 			removeWait();
 		}
@@ -106,8 +121,16 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		function setMarker(arrCoords, marker) {
 			arrCoords.forEach(({ lat, lng }) => {
 				let config = marker || m_props.marker;
-				new mapboxgl.Marker(config).setLngLat([lng, lat]).addTo(m_map);
+				m_markers.push(new mapboxgl.Marker(config).setLngLat([lng, lat]).addTo(m_map));
 			});
+		}
+
+		function getMarker(coords) {
+			return m_markers.find((marker) => marker._lngLat.lng === coords.lng && marker._lngLat.lat === coords.lat);
+		}
+
+		function getMarkers() {
+			return m_markers;
 		}
 
 		function onMoveEnd(done) {
