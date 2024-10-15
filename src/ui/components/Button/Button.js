@@ -3,6 +3,7 @@ ui.class.Button = class Button extends HTMLElement {
 		super();
 		const self = this;
 		const m_imageList = [];
+		const m_iconList = [];
 
 		let m_parentTag;
 		let m_props;
@@ -15,6 +16,7 @@ ui.class.Button = class Button extends HTMLElement {
 		this.getConfig = () => m_props;
 		this.getId = () => m_props.id;
 		this.getImageTagById = getImageTagById;
+		this.getIconTagById = getIconTagById;
 		this.getParentTag = () => m_parentTag;
 		this.getTag = () => m_buttonTag;
 		this.text = text;
@@ -52,7 +54,11 @@ ui.class.Button = class Button extends HTMLElement {
 				m_buttonTag = ui.d.createTag(tagConfig);
 
 				if (m_props.img) {
-					insertGraphic(m_props.img);
+					insertGraphic();
+				}
+
+				if (m_props.icon) {
+					insertIcon();
 				}
 
 				self.classList.add(m_props.css.self);
@@ -85,8 +91,33 @@ ui.class.Button = class Button extends HTMLElement {
 			}
 		}
 
+		function insertIcon() {
+			if (Array.isArray(m_props.icon)) {
+				m_props.icon.forEach((icon) => {
+					addIcon(icon);
+				});
+			} else {
+				addIcon(m_props.icon);
+			}
+
+			function addIcon(icon) {
+				icon.css = icon.attr.class ? icon.attr.class + " " + m_props.css.icon : m_props.css.icon;
+				const tagConfig = {
+					class: icon.css,
+					prop: icon.prop,
+					attr: icon.attr,
+				};
+				let iconTag = ui.d.createTag("i", tagConfig);
+				m_iconList.push(iconTag);
+				m_buttonTag.appendChild(iconTag);
+			}
+		}
+
 		function getImageTagById(id) {
 			return m_imageList.find((img) => img.id === id);
+		}
+		function getIconTagById(id) {
+			return m_iconList.find((icon) => icon.id === id);
 		}
 
 		function handleClick(ev) {
@@ -200,6 +231,7 @@ ui.class.Button = class Button extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
+					text: "Mambo Button",
 					enable: true,
 					preventDefault: true,
 					stopPropagation: true,
