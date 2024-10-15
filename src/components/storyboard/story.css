@@ -48,8 +48,17 @@ story-tab mambo-tab:nth-child(1) {
   margin-bottom: 3rem;
 }
 
-story-button mambo-button:nth-child(1),
-story-button mambo-button:nth-child(2) {
+story-button > mambo-button {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+story-button-svg > mambo-button {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+story-button-group > mambo-button-group {
   display: block;
   margin-bottom: 1rem;
 }
