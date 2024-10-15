@@ -4,6 +4,7 @@ ui.defaultTheme = {
 		disabled: "m-button-disabled",
 		hover: "m-hover",
 		img: "m-button-img",
+		icon: "m-button-icon",
 		selected: "m-selected",
 		self: "m-button-self",
 	},

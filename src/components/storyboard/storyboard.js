@@ -75,6 +75,8 @@ function installStoryboard() {
 		const selectedStory = stories.find((story) => story.id === itemData.id);
 		selectedStory.parentTag.innerHTML = null;
 		storyParentTag.innerHTML = null;
+		
+
 		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.text }));
 		storyParentTag.appendChild(selectedStory.parentTag);
 

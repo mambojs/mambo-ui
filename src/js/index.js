@@ -10,3 +10,23 @@ const dom = domJS();
 
 // Begin Storyboard development installation
 installStoryboard();
+
+const observer = new MutationObserver((mutationsList, observer) => {
+	for (const mutation of mutationsList) {
+		if (mutation.type === "childList") {
+			mutation.addedNodes.forEach((node) => {
+				if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toUpperCase() === "BUTTON") {
+					const icon = node.querySelector("i");
+					if (icon) {
+						feather.replace();
+					}
+				}
+			});
+		}
+	}
+});
+
+observer.observe(document.body, {
+	childList: true,
+	subtree: true,
+});
