@@ -25,6 +25,7 @@ module.exports = {
 	globals: {
 		mamboTools: true,
 		domJS: true,
+		marked: true,
 		router: true,
 		object: true,
 		dom: true,

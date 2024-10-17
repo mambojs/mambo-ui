@@ -85,7 +85,8 @@ function installStoryboard() {
 		const storyFnContent = window[fnName].toString();
 
 		installTab();
-
+		console.log(selectedStory.text);
+		outputDescription(selectedStory.text);
 		//outputCode(selectedStory.name);
 	}
 
@@ -120,6 +121,14 @@ function installStoryboard() {
 	async function outputCode(storyName) {
 		const file = await fetch(`getStoryCodeExample?name=${storyName}`).then((resp) => resp.text());
 		const codeEle = dom.createTag("code", { class: "prettyprint lang-basic", text: file });
+		storyParentTag.appendChild(codeEle);
+		PR.prettyPrint();
+	}
+
+	async function outputDescription(storyName) {
+		const file = await fetch(`getStoryDescriptionExample?name=${storyName}`).then((resp) => resp.text());
+		const codeEle = dom.createTag("documentation", { class: "storyboard-documentation", text: file });
+		codeEle.innerHTML = marked.parse(file);
 		storyParentTag.appendChild(codeEle);
 		PR.prettyPrint();
 	}

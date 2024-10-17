@@ -3,6 +3,7 @@ ui.class.Button = class Button extends HTMLElement {
 		super();
 		const self = this;
 		const m_imageList = [];
+		const m_iconList = [];
 
 		let m_parentTag;
 		let m_props;
