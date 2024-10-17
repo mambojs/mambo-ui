@@ -40,7 +40,21 @@ app.get("/getStoryCodeExample", (req, res) => {
 	const s = separator;
 	const n = req.query.name.replaceAll(" ", "");
 	const fileName = `${n[0].toLowerCase()}${n.slice(1)}.js`;
-	const filePath = `src${s}ui${s}${n}${s}story${s}${fileName}`;
+	const filePath = `src${s}ui${s}components${s}${n}${s}story${s}${fileName}`;
+	const myPath = path.join(`${__dirname}${s}${filePath}`);
+
+	fs.readFile(myPath, "utf8", (err, file) => {
+		if (err) return res.send(err);
+		res.send(file);
+	});
+});
+
+// Fetch a file
+app.get("/getStoryDescriptionExample", (req, res) => {
+	const s = separator;
+	const n = req.query.name.replaceAll(" ", "");
+	const fileName = `${n[0].toLowerCase()}${n.slice(1)}.js`;
+	const filePath = "documentation/documentation.md";
 	const myPath = path.join(`${__dirname}${s}${filePath}`);
 
 	fs.readFile(myPath, "utf8", (err, file) => {

@@ -29,11 +29,13 @@ card-body {
 }
 
 storyboard-component {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 4rem 1fr;
+  padding: 1rem;
   width: 100%;
-  height: 100%;
-  padding: 0 0 3rem 1rem;
+  margin-bottom: 3rem;
+  overflow: auto;
 }
 
 .mambo-btn {
@@ -92,4 +94,26 @@ storyboard-treeview {
   border-right: 1px solid #ccc;
   margin-bottom: 3rem;
   padding-right: 0.5rem;
+}
+
+.documentation-container {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.code-container {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+pre.prettyprint {
+  border: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+m-tab-self {
+  overflow: auto;
 }
