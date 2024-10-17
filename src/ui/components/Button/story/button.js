@@ -2,12 +2,13 @@ function storyButton(selectedStory) {
 	textOnly();
 	textImage();
 	buttonImgWithHover();
+	textIcon();
 
 	function textOnly() {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			id: 1,
-			text: "Single button",
+			text: "Single Button",
 			fnClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
@@ -78,7 +79,30 @@ function storyButton(selectedStory) {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
+		ui.button(config);
+	}
 
+	function textIcon() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			id: 3,
+			text: "Icon Button",
+			icon: [
+				{
+					attr: {
+						class: "fa-solid fa-star",
+					},
+				},
+				{
+					attr: {
+						"data-feather": "circle",
+					},
+				},
+			],
+			fnClick: (context) => {
+				console.log(`${context.Button.text()} clicked.`);
+			},
+		};
 		ui.button(config);
 	}
 }

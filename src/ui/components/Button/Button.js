@@ -3,6 +3,7 @@ ui.class.Button = class Button extends HTMLElement {
 		super();
 		const self = this;
 		const m_imageList = [];
+		const m_iconList = [];
 
 		let m_parentTag;
 		let m_props;
@@ -52,7 +53,11 @@ ui.class.Button = class Button extends HTMLElement {
 				m_buttonTag = ui.d.createTag(tagConfig);
 
 				if (m_props.img) {
-					insertGraphic(m_props.img);
+					insertGraphic();
+				}
+
+				if (m_props.icon) {
+					insertIcon();
 				}
 
 				self.classList.add(m_props.css.self);
@@ -82,6 +87,28 @@ ui.class.Button = class Button extends HTMLElement {
 				let imgTag = ui.d.createTag("img", tagConfig);
 				m_imageList.push(imgTag);
 				m_buttonTag.appendChild(imgTag);
+			}
+		}
+
+		function insertIcon() {
+			if (Array.isArray(m_props.icon)) {
+				m_props.icon.forEach((icon) => {
+					addIcon(icon);
+				});
+			} else {
+				addIcon(m_props.icon);
+			}
+
+			function addIcon(icon) {
+				icon.css = icon.attr.class ? icon.attr.class + " " + m_props.css.icon : m_props.css.icon;
+				const tagConfig = {
+					class: icon.css,
+					prop: icon.prop,
+					attr: icon.attr,
+				};
+				let iconTag = ui.d.createTag("i", tagConfig);
+				m_iconList.push(iconTag);
+				m_buttonTag.appendChild(iconTag);
 			}
 		}
 
@@ -200,6 +227,7 @@ ui.class.Button = class Button extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
+					text: "Mambo Button",
 					enable: true,
 					preventDefault: true,
 					stopPropagation: true,

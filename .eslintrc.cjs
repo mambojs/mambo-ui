@@ -23,6 +23,7 @@ module.exports = {
 		semi: ["error", "always"],
 	},
 	globals: {
+		feather: true,
 		mamboTools: true,
 		domJS: true,
 		router: true,
