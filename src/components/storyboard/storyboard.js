@@ -1,6 +1,10 @@
 function installStoryboard() {
-	const storyParentTag = dom.getTag("storyboard-component");
+	const storyParentTag = dom.getTag("story-tab");
+
 	let stories;
+	let selectedStory = null;
+	let documentations = {};
+
 	setup();
 
 	function setup() {
@@ -66,19 +70,18 @@ function installStoryboard() {
 		ui.treeView(treeViewConfig);
 	}
 
-	function loadComponent({ itemData }) {
+	async function loadComponent({ itemData }) {
 		if (!itemData.id) {
 			// User clicked the main Tree
 			return;
 		}
 
-		const selectedStory = stories.find((story) => story.id === itemData.id);
+		selectedStory = stories.find((story) => story.id === itemData.id);
 		selectedStory.parentTag.innerHTML = null;
 		storyParentTag.innerHTML = null;
 		
 
 		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.text }));
-		storyParentTag.appendChild(selectedStory.parentTag);
 
 		// Invoke story function from the global scope
 		const fnName = `story${selectedStory.text.replaceAll(" ", "")}`;
@@ -87,8 +90,8 @@ function installStoryboard() {
 		const storyFnContent = window[fnName].toString();
 
 		installTab();
-
-		//outputCode(selectedStory.name);
+		outputCode(selectedStory.text);
+		createDocumentation(selectedStory.text);
 	}
 
 	function installTab() {
@@ -97,32 +100,91 @@ function installStoryboard() {
 			tabs: {
 				buttons: [
 					{
-						text: "Tab 1",
-						fnClick: (context) => {
-							// You can declare individual event handlers for tab clicks
+						id: 0,
+						text: "Demo",
+						fnClick: (context) => {},
+					},
+					{
+						id: 1,
+						text: "Code",
+					},
+					{
+						id: 2,
+						text: "Documentation",
+						fnClick: async (context) => {
+							outputDocumentation(selectedStory.text);
 						},
 					},
-					{
-						text: "Tab 2",
-					},
-					{
-						text: "Tab 3",
-					},
 				],
-				fnClick: (buttonContext) => {
-					// You can declare a single event handler for all tab clicks
-				},
+				fnClick: (buttonContext) => {},
 			},
-			fnTabReady: (contentTag, tab) => {},
+			fnTabComplete: (contentTag, tab) => {
+				const storyContainer = dom.getTag("story-container");
+				storyContainer.appendChild(selectedStory.parentTag);
+			},
+			contents: [
+				dom.createTag("story-container"),
+				dom.createTag("code-container", { class: "code-container" }),
+				dom.createTag("documentation-container", { class: "documentation-container" }),
+			],
 		};
 
-		//ui.tab(tabConfig);
+		ui.tab(tabConfig);
 	}
 
 	async function outputCode(storyName) {
 		const file = await fetch(`getStoryCodeExample?name=${storyName}`).then((resp) => resp.text());
-		const codeEle = dom.createTag("code", { class: "prettyprint lang-basic", text: file });
-		storyParentTag.appendChild(codeEle);
+		const codeElement = dom.createTag("pre", { class: "prettyprint lang-basic", text: file });
+		const codeContainer = dom.getTag("code-container");
+		codeContainer.appendChild(codeElement);
 		PR.prettyPrint();
+	}
+
+	async function createDocumentation(storyName) {
+		const file = await fetch(`getStoryDescriptionExample?name=${storyName}`).then((resp) => resp.text());
+		const descriptionElement = dom.createTag("description-element");
+		const documentationContainer = dom.getTag("documentation-container");
+		descriptionElement.innerHTML = addIdsToHeadings(marked.parse(file));
+		documentationContainer.appendChild(descriptionElement);
+	}
+
+	function slugify(text) {
+		return text
+			.toString()
+			.toLowerCase()
+			.trim()
+			.replace(/[\s]+/g, " ")
+			.replace(/[^\w-]+/g, "");
+	}
+
+	function addIdsToHeadings(htmlContent) {
+		const tempDiv = document.createElement("div");
+		tempDiv.innerHTML = htmlContent;
+		const headings = tempDiv.querySelectorAll("h2");
+		documentations = {};
+
+		headings.forEach((heading, index) => {
+			const headingId = slugify(heading.textContent);
+			heading.setAttribute("id", headingId);
+
+			let sectionContent = `<h2 id="${headingId}">${heading.textContent}</h2>`;
+			let nextElement = heading.nextElementSibling;
+			while (nextElement && nextElement.tagName !== "H2") {
+				sectionContent += nextElement.outerHTML;
+				nextElement = nextElement.nextElementSibling;
+			}
+
+			documentations[headingId] = sectionContent;
+		});
+
+		return tempDiv.innerHTML;
+	}
+
+	function outputDocumentation(storyName) {
+		const sectionId = slugify(storyName);
+		const documentationContainer = dom.getTag("documentation-container");
+		if (documentations[sectionId]) {
+			documentationContainer.innerHTML = documentations[sectionId];
+		}
 	}
 }

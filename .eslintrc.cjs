@@ -26,6 +26,7 @@ module.exports = {
 		feather: true,
 		mamboTools: true,
 		domJS: true,
+		marked: true,
 		router: true,
 		object: true,
 		dom: true,
