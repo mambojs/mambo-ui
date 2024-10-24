@@ -15,10 +15,14 @@ const observer = new MutationObserver((mutationsList, observer) => {
 	for (const mutation of mutationsList) {
 		if (mutation.type === "childList") {
 			mutation.addedNodes.forEach((node) => {
-				if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toUpperCase() === "BUTTON") {
-					const icon = node.querySelector("i");
-					if (icon) {
-						feather.replace();
+				if (node.nodeType === Node.ELEMENT_NODE && node.tagName.toUpperCase() === "I") {
+					feather.replace();
+				} else if (node.nodeType === Node.ELEMENT_NODE) {
+					const icons = node.querySelectorAll("i");
+					if (icons.length > 0) {
+						icons.forEach((icon) => {
+							feather.replace();
+						});
 					}
 				}
 			});
