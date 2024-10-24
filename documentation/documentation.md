@@ -1,7 +1,3 @@
-# MAMBO.JS - UI Components Documentation - Version 0.0.1
-
-### Table of Contents
-
 1. [Button](#button)
 2. [ButtonSVG](#buttonsvg)
 3. [ButtonGroup](#buttongroup)
