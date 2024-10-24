@@ -1,4 +1,24 @@
-# MAMBO.JS - UI Components Documentation
+<!--
+******************************************
+*  Copyright 2024 Alejandro Sebastian Scotti, Scotti Corp.
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*  @version 0.0.1
+******************************************
+-->
+
+# MAMBO.JS - UI Components Documentation - Version 0.0.1
 
 ### Table of Contents
 
@@ -24,14 +44,15 @@
 20. [Radio](#radio)
 21. [RadioGroup](#radiogroup)
 22. [Rating](#rating)
-23. [Slideout](#slideout)
-24. [Slider](#slider)
-25. [Switch](#switch)
-26. [Tab](#tab)
-27. [Textarea](#textarea)
-28. [TimePicker](#timepicker)
-29. [TreeView](#treeview)
-30. [VideoPlayer](#videoplayer)
+23. [Search](#search)
+24. [Slideout](#slideout)
+25. [Slider](#slider)
+26. [Switch](#switch)
+27. [Tab](#tab)
+28. [Textarea](#textarea)
+29. [TimePicker](#timepicker)
+30. [TreeView](#treeview)
+31. [VideoPlayer](#videoplayer)
 
 ## Button
 
@@ -1079,7 +1100,7 @@ The `m_props` object contains the following default properties:
 
 Additional properties can be added or overridden when instantiating the Draggable class.
 
-## 11. Dropdown
+## Dropdown
 
 ### Properties (m_props)
 
@@ -1121,7 +1142,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `closeAnimation(ev)`: Handles the animation and logic for closing the dropdown. `ev` is the event that triggered the close.
 - `setupComplete()`: Calls the completion callback function.
 
-## 12. FileChooser
+## FileChooser
 
 ### Properties (m_props)
 
@@ -1154,7 +1175,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `installInput(hidden)`: Creates and configures the file input element. If `hidden` is true, the input is hidden.
 - `setupComplete()`: Calls the completion callback function.
 
-## 13. Grid
+## Grid
 
 ### Properties (m_props)
 
@@ -1221,7 +1242,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `validateGridData()`: Validates the grid data.
 - `setupComplete()`: Calls the completion callback function.
 
-## 14. Input
+## Input
 
 ### Properties (m_props)
 
@@ -1272,7 +1293,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `validateMinLength(config, ev)`: Validates minimum length of input.
 - `setupComplete()`: Calls the completion callback function.
 
-## 15. Listbox
+## Listbox
 
 ### Properties (m_props)
 
@@ -1310,7 +1331,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `clearData()`: Clears all items from the listbox.
 - `setupComplete()`: Calls the completion callback function.
 
-## 16. MapBox
+## MapBox
 
 ### Properties (m_props)
 
@@ -1354,7 +1375,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `checkMapboxLibraries()`: Checks if required Mapbox libraries are loaded.
 - `setupComplete()`: Calls the completion callback function.
 
-## 17. Percentage
+## Percentage
 
 ### Properties (m_props)
 
@@ -1398,7 +1419,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setEnable()`: Applies or removes the disabled CSS class based on the enabled state.
 - `setupComplete()`: Calls the completion callback function.
 
-## 18. Player
+## Player
 
 ### Properties (m_props)
 
@@ -1429,7 +1450,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupDOM()`: Sets up the DOM structure for the player.
 - `setupComplete()`: Calls the completion callback function.
 
-## 19. Radio
+## Radio
 
 ### Properties (m_props)
 
@@ -1474,7 +1495,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setEnable()`: Applies or removes the disabled CSS class based on the enabled state.
 - `setupComplete()`: Calls the completion callback function.
 
-## 20. RadioGroup
+## RadioGroup
 
 ### Properties (m_props)
 
@@ -1514,7 +1535,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `deselectRadios()`: Deselects all radio buttons in the group.
 - `setupComplete()`: Calls the completion callback function.
 
-## 21. Rating
+## Rating
 
 ### Properties (m_props)
 
@@ -1562,7 +1583,54 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setEnable()`: Applies or removes the disabled CSS class based on the enabled state.
 - `setupComplete()`: Calls the completion callback function.
 
-## 23. Slideout
+Here's the formatted markdown for the Search component, following the style of the other components in documentation.md:
+
+## Search
+
+### Properties (m_props)
+
+- `tag` (string): Specifies the tag name for HTML elements.
+- `theme` (string): Specifies the theme name for styling.
+- `firedIn` (number): Minimum number of characters required to trigger search.
+- `input` (object): Configuration for the input element.
+- `tags` (object): HTML tag configurations for the input.
+- `fnKeyup` (function): Callback function for keyup event.
+- `fnClear` (function): Callback function for clearing the input.
+- `button` (object): Configuration for the search button.
+- `fnClick` (function): Callback function for button click event.
+- `suggest` (object): Configuration for suggestion functionality.
+- `dropdown` (object): Configuration for dropdown functionality.
+- `fnComplete` (function): Callback function called when setup is complete.
+
+### Private Properties
+
+- `m_parentTag` (HTMLElement): Parent element for the search component.
+- `m_inputContainer` (HTMLElement): Container for the input element.
+- `m_input` (HTMLElement): Input element for search queries.
+- `m_dropdownWrapperTag` (HTMLElement): Wrapper for the dropdown element.
+- `m_dropdown` (object): Dropdown component instance.
+- `m_listbox` (object): Listbox component instance.
+- `m_searchButton` (object): Button component instance.
+- `m_value` (string): Current value of the search input.
+
+### Public Methods
+
+- `destroy()`: Removes the search component from the DOM.
+- `setup(props)`: Initializes the search component with the given properties.
+- `suggest(data)`: Updates the suggestion list with the provided data.
+
+### Private Functions
+
+- `setup(props)`: Configures and sets up the search component.
+- `setupDOM()`: Creates and appends the main DOM elements for the search component.
+- `setupInput()`: Configures and sets up the input element.
+- `setupButton()`: Configures and sets up the search button.
+- `setupDropdown()`: Configures and sets up the dropdown component.
+- `installListbox(dropdown)`: Installs the listbox component within the dropdown.
+- `setupComplete()`: Calls the completion callback function.
+- `configure(customProps)`: Merges default and custom properties for the component.
+
+## Slideout
 
 ### Properties (m_props)
 
@@ -1604,7 +1672,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the slideout properties.
 
-## 24. Slider
+## Slider
 
 ### Properties (m_props)
 
@@ -1671,7 +1739,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the slider properties.
 
-## 25. Switch
+## Switch
 
 ### Properties (m_props)
 
@@ -1719,7 +1787,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the switch properties.
 
-## 26. Tab
+## Tab
 
 ### Properties (m_props)
 
@@ -1755,7 +1823,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the tab component properties.
 
-## 27. Textarea
+## Textarea
 
 ### Properties (m_props)
 
@@ -1808,7 +1876,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the textarea properties.
 
-## 28. TimePicker
+## TimePicker
 
 ### Properties (m_props)
 
@@ -1849,7 +1917,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the time picker properties.
 
-## 29. TreeView
+## TreeView
 
 ### Properties (m_props)
 
@@ -1892,7 +1960,7 @@ Additional properties can be added or overridden when instantiating the Draggabl
 - `setupComplete()`: Calls the completion callback function.
 - `configure(customProps)`: Configures the tree view properties.
 
-## 30. VideoPlayer
+## VideoPlayer
 
 ### Properties (m_props)
 

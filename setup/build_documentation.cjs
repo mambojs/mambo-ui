@@ -1,41 +1,61 @@
 const fs = require("fs");
 const path = require("path");
-
-const { version } = require("../package.json");
+const version = require("../package.json").version;
 
 const documentationDir = path.join(__dirname, "../documentation");
 const archivedDir = path.join(documentationDir, "archived");
-const buildDir = path.join(__dirname, "../build");
+const distDir = path.join(__dirname, "../dist");
+const buildDir = path.join(__dirname, `../build/${version}`);
 const currentFileName = path.join(documentationDir, "documentation.md");
-const newFileName = path.join(documentationDir, "documentation-latest.md");
 const archivedFileName = path.join(archivedDir, `documentation-${version}.md`);
 const buildFileName = path.join(buildDir, "documentation.md");
+
+const COPYRIGHT_AND_TITLE = `<!--
+******************************************
+*  Copyright 2024 Alejandro Sebastian Scotti, Scotti Corp.
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*  @version ${version}
+******************************************
+-->
+
+# MAMBO.JS - UI Components Documentation - Version ${version}
+
+### Table of Contents
+`;
 
 if (!fs.existsSync(documentationDir)) {
 	fs.mkdirSync(documentationDir);
 }
 
 if (!fs.existsSync(archivedDir)) {
-	fs.mkdirSync(archivedDir);
+	fs.mkdirSync(archivedDir, { recursive: true });
 }
 
-if (fs.existsSync(currentFileName) && fs.existsSync(newFileName)) {
-	if (fs.existsSync(archivedFileName)) {
-		process.exit(1);
+if (fs.existsSync(currentFileName)) {
+	const documentationContent = fs.readFileSync(currentFileName, "utf-8");
+
+	const documentationWithHeaderAndTitle = COPYRIGHT_AND_TITLE + "\n" + documentationContent;
+
+	fs.writeFileSync(archivedFileName, documentationWithHeaderAndTitle);
+
+	if (!fs.existsSync(buildDir)) {
+		fs.mkdirSync(buildDir, { recursive: true });
 	}
 
-	fs.copyFileSync(currentFileName, archivedFileName);
+	fs.writeFileSync(buildFileName, documentationWithHeaderAndTitle);
 
-	const newDocumentationContent = fs.readFileSync(newFileName, "utf-8");
-	fs.writeFileSync(currentFileName, newDocumentationContent);
-
-	fs.writeFileSync(newFileName, "");
-
-	if (fs.existsSync(buildDir)) {
-		fs.copyFileSync(currentFileName, buildFileName);
-	} else {
-		process.exit(1);
-	}
 } else {
 	process.exit(1);
 }

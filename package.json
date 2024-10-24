@@ -15,7 +15,7 @@
 		"precommit": "npm run validate",
 		"prepush": "npm run validate",
 		"build": "node ./setup/esbuild.config.cjs buildLib",
-		"build-new-documentation": "node ./setup/build_documentation.cjs"
+		"build-documentation": "npm run build && node ./setup/build_documentation.cjs"
 	},
 	"dependencies": {
 		"express": "^4.17.1",
