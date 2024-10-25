@@ -7,6 +7,7 @@ ui.defaultTheme = {
 		icon: "m-button-icon",
 		selected: "m-selected",
 		self: "m-button-self",
+		pressed: "m-pressed",
 	},
 	buttonGroup: {
 		button: {
