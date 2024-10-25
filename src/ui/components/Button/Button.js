@@ -37,10 +37,23 @@ ui.class.Button = class Button extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				const tagConfig = { ...m_props.tags.button };
-				tagConfig.class = m_props.css.button;
+				let buttonClasses = [m_props.css.button];
+
+				if (m_props.size) {
+					buttonClasses.push(m_props.size);
+				}
+				if (!m_props.text) {
+					buttonClasses.push("notext");
+				}
+				if (m_props.type) {
+					buttonClasses.push(m_props.type);
+				}
+				tagConfig.class = buttonClasses.join(" ");
 				tagConfig.text = m_props.text;
 				tagConfig.event = {
 					click: handleClick,
+					mousedown: handleMouseDown,
+					mouseup: handleMouseUp,
 					mouseenter: () => {
 						mouseEnterOverButton();
 						mouseEnterOverImage();
@@ -87,7 +100,11 @@ ui.class.Button = class Button extends HTMLElement {
 				};
 				let imgTag = ui.d.createTag("img", tagConfig);
 				m_imageList.push(imgTag);
-				m_buttonTag.appendChild(imgTag);
+				if (img.position === "left") {
+					m_buttonTag.insertBefore(imgTag, m_buttonTag.firstChild);
+				} else {
+					m_buttonTag.appendChild(imgTag);
+				}
 			}
 		}
 
@@ -101,15 +118,20 @@ ui.class.Button = class Button extends HTMLElement {
 			}
 
 			function addIcon(icon) {
-				icon.css = icon.attr.class ? icon.attr.class + " " + m_props.css.icon : m_props.css.icon;
+				const cssClasses = [m_props.css.icon, icon.attr.class, icon.size].filter(Boolean).join(" ");
+
 				const tagConfig = {
-					class: icon.css,
+					class: cssClasses,
 					prop: icon.prop,
 					attr: icon.attr,
 				};
 				let iconTag = ui.d.createTag("i", tagConfig);
 				m_iconList.push(iconTag);
-				m_buttonTag.appendChild(iconTag);
+				if (icon.position === "left") {
+					m_buttonTag.insertBefore(iconTag, m_buttonTag.firstChild);
+				} else {
+					m_buttonTag.appendChild(iconTag);
+				}
 			}
 		}
 
@@ -145,6 +167,18 @@ ui.class.Button = class Button extends HTMLElement {
 						ev: ev,
 					});
 				}
+			}
+		}
+
+		function handleMouseDown(ev) {
+			if (m_enable) {
+				m_buttonTag.classList.add(m_props.css.pressed);
+			}
+		}
+
+		function handleMouseUp(ev) {
+			if (m_enable) {
+				m_buttonTag.classList.remove(m_props.css.pressed);
 			}
 		}
 
