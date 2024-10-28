@@ -24,7 +24,9 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
-			await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			if (!self.isConnected) {
+				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			}
 			await setupDOM();
 			setupComplete();
 		}
@@ -70,11 +72,10 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				self.appendChild(m_dropdownContainerTag);
 
 				if (m_props.positionTag) {
-					ui.d.computeTagHeight(m_props.positionTag)
-						.then(tagHeight => {
-							m_dropdownContainerTag.style.top = `${tagHeight}px`;
-							resolve();
-						 });
+					ui.d.computeTagHeight(m_props.positionTag).then((tagHeight) => {
+						m_dropdownContainerTag.style.top = `${tagHeight}px`;
+						resolve();
+					});
 				} else {
 					resolve();
 				}

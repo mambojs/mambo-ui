@@ -24,7 +24,9 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		async function setup(props) {
 			checkMapboxLibraries();
 			await configure(props);
-			await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			if (!self.isConnected) {
+				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			}
 			await setupDOM();
 			await renderMap();
 			await getUserLocation();

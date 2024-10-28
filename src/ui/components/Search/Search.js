@@ -26,7 +26,9 @@ ui.class.Search = class Search extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
-			await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			if (!self.isConnected) {
+				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			}
 			await setupDOM();
 			await setupInput();
 			await setupButton();
@@ -54,7 +56,7 @@ ui.class.Search = class Search extends HTMLElement {
 					if (m_dropdown) {
 						m_dropdown.close();
 					}
-				}
+				};
 
 				input.fnKeyup = (context) => {
 					if (m_props.input?.fnKeyup) {
@@ -68,11 +70,10 @@ ui.class.Search = class Search extends HTMLElement {
 							}
 						}
 					}
-				}
+				};
 
 				input.fnComplete = resolve;
 				m_input = ui.input(input);
-
 			});
 		}
 
@@ -87,7 +88,7 @@ ui.class.Search = class Search extends HTMLElement {
 					if (m_props.button?.fnClick && m_value?.length >= m_props.firedIn) {
 						m_props.button.fnClick(m_value);
 					}
-				}
+				};
 
 				m_searchButton = ui.button(button);
 			});
@@ -104,7 +105,7 @@ ui.class.Search = class Search extends HTMLElement {
 					dropdown.fnComplete = (context) => {
 						installListbox(context.Dropdown);
 						resolve();
-					}
+					};
 
 					dropdown.disableButton = true;
 					dropdown.positionTag = m_input;
@@ -154,7 +155,7 @@ ui.class.Search = class Search extends HTMLElement {
 						tags: {
 							input: {
 								prop: {
-									placeholder: "Search"
+									placeholder: "Search",
 								},
 							},
 						},
