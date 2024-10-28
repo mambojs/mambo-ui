@@ -22,7 +22,9 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
-			await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			if (!self.isConnected) {
+				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			}
 			await setupDOM();
 			setupComplete();
 		}

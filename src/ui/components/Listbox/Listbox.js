@@ -19,7 +19,9 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
-			await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			if (!self.isConnected) {
+				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+			}
 			await setupDOM();
 			setupComplete();
 		}
@@ -79,7 +81,7 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 					{ type: "mouseover", fn: "fnHover" },
 					{ type: "mouseleave", fn: "fnLeave" },
 				];
-				listeners.forEach(listener => {
+				listeners.forEach((listener) => {
 					item.addEventListener(listener.type, (ev) => {
 						if (m_props[listener.fn]) {
 							m_props[listener.fn]({
@@ -90,7 +92,7 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 							});
 						}
 					});
-				})
+				});
 				resolve();
 			});
 		}

@@ -79,9 +79,10 @@ function installStoryboard() {
 		selectedStory = stories.find((story) => story.id === itemData.id);
 		selectedStory.parentTag.innerHTML = null;
 		storyParentTag.innerHTML = null;
-		
 
 		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.text }));
+
+		storyParentTag.appendChild(dom.createTag("mambo-button", { attr: { id: "mamboButton" } }));
 
 		// Invoke story function from the global scope
 		const fnName = `story${selectedStory.text.replaceAll(" ", "")}`;
