@@ -50,10 +50,21 @@ app.get("/getStoryCodeExample", (req, res) => {
 });
 
 // Fetch a file
-app.get("/getStoryDescriptionExample", (req, res) => {
+app.get("/getStoryDocumentation", (req, res) => {
 	const s = separator;
 	const n = req.query.name.replaceAll(" ", "");
 	const fileName = `${n[0].toLowerCase()}${n.slice(1)}.js`;
+	const filePath = "documentation/documentation.md";
+	const myPath = path.join(`${__dirname}${s}${filePath}`);
+
+	fs.readFile(myPath, "utf8", (err, file) => {
+		if (err) return res.send(err);
+		res.send(file);
+	});
+});
+
+app.get("/getDocumentation", (req, res) => {
+	const s = separator;
 	const filePath = "documentation/documentation.md";
 	const myPath = path.join(`${__dirname}${s}${filePath}`);
 

@@ -11,6 +11,7 @@ function storyButton(selectedStory) {
 	secondarySmall();
 	primaryDisabled();
 	secondaryDisabled();
+	buttonImgWithHover();
 
 	function testButton() {
 		const button = dom.getTag("#mamboButton");

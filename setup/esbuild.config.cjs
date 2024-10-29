@@ -63,7 +63,7 @@ function buildLib() {
 function compileCssLib(lib, version) {
 	console.log(`Compiling ${lib} CSS...`);
 
-	exec(`gulp -f ./setup/gulpfile.js cssLibFiles --build ${lib} --mversion ${version}`, (err, stdout, stderr) => {
+	exec(`gulp -f ./setup/gulpfile.js cssLibFiles cssOrangeLibFiles --build ${lib} --mversion ${version}`, (err, stdout, stderr) => {
 		if (err) {
 			console.log(`error: ${err.message}`);
 			return;
