@@ -38,6 +38,7 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+				m_containerTag.setAttribute("data-position", m_props.position);
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_containerTag);
 
@@ -58,9 +59,17 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 				inputConfig.attr.name = m_props.name;
 				m_inputTag = ui.d.createTag(inputConfig);
 				m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
-				m_containerTag.appendChild(textTag);
-				m_containerTag.appendChild(m_inputTag);
-				m_containerTag.appendChild(m_spanTag);
+
+				if (m_props.position === "right") {
+					m_containerTag.appendChild(textTag);
+					m_containerTag.appendChild(m_inputTag);
+					m_containerTag.appendChild(m_spanTag);
+				} else {
+					m_containerTag.appendChild(m_inputTag);
+					m_containerTag.appendChild(m_spanTag);
+					m_containerTag.appendChild(textTag);
+				}
+
 				setEnable();
 				resolve();
 			});
@@ -135,6 +144,7 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 				name: Math.random().toString(36).slice(2),
 				tag: "default",
 				theme: "default",
+				position: "left",
 			};
 
 			m_props = ui.utils.extend(true, m_props, customProps);

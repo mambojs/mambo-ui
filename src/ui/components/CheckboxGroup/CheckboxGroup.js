@@ -54,6 +54,7 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 					parentTag: self,
 					fnGroupClick: handleGroupClick,
 					fnComplete: resolve,
+					position: checkbox.position || m_props.position,
 				};
 
 				m_checkboxList.push(ui.checkbox(checkboxConfig));
@@ -129,6 +130,7 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 					theme: "default",
 					name: Math.random().toString(36).slice(2),
 					checkboxes: [],
+					position: "right",
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);

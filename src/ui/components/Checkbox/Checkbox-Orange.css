@@ -58,3 +58,9 @@
 .m-checkbox-input:checked ~ .m-checkbox-span::after {
   display: block;
 }
+
+.m-checkbox-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}

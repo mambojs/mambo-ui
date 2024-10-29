@@ -1,13 +1,16 @@
 function storyCheckboxGroup(selectedStory) {
 	const config = {
 		parentTag: selectedStory.parentTag,
-		checkbox: {}, // Configuration that applies to all checkbox instances
+		checkbox: {
+			position: "right",
+		}, // Configuration that applies to all checkbox instances
 		checkboxes: [
 			// List of checkbox configurations
 			{
 				text: "Checkbox One",
 				checked: true,
 				fnClick: (context) => {},
+				position: "left",
 			},
 			{
 				text: "Checkbox Two",
@@ -16,6 +19,7 @@ function storyCheckboxGroup(selectedStory) {
 			{
 				text: "Checkbox Three",
 				checked: false,
+				position: "right",
 			},
 		],
 		fnClick: (context) => {},
