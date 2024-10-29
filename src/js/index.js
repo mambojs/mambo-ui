@@ -21,8 +21,6 @@ const themeConfig = {
 	components: {
 		common: [
 			"Components/Calendar/Calendar.css",
-			"Components/Checkbox/Checkbox.css",
-			"Components/CheckboxGroup/CheckboxGroup.css",
 			"Components/Combobox/Combobox.css",
 			"Components/DatePicker/DatePicker.css",
 			"Components/Dialog/Dialog.css",
@@ -54,12 +52,16 @@ const themeConfig = {
 			"Components/Button/Button.css",
 			"Components/ButtonSVG/ButtonSVG.css",
 			"Components/ButtonGroup/ButtonGroup.css",
+			"Components/Checkbox/Checkbox.css",
+			"Components/CheckboxGroup/CheckboxGroup.css",
 		],
 		orange: [
 			"themes/m-default-orange.css",
 			"Components/Button/Button-Orange.css",
 			"Components/ButtonSVG/ButtonSVG.css",
 			"Components/ButtonGroup/ButtonGroup-Orange.css",
+			"Components/Checkbox/Checkbox-Orange.css",
+			"Components/CheckboxGroup/CheckboxGroup-Orange.css",
 		],
 	},
 };
