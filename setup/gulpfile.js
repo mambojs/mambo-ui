@@ -31,7 +31,7 @@ function cssLibFiles() {
 			break;
 	}
 
-	return src(["../src/ui/**/*.css", "!../src/ui/**/demo/*.css"])
+	return src(["../src/ui/**/*.css", "!../src/ui/**/demo/*.css", "!../src/ui/**/*-Orange.css"])
 		.pipe(mapInit)
 		.pipe(concat(`${libName}`))
 		.pipe(stripCssComments())
@@ -41,4 +41,44 @@ function cssLibFiles() {
 		.pipe(dest(`../${config.LIB_DIR}/${version}`));
 }
 
-export { cssLibFiles };
+function cssOrangeLibFiles() {
+	const type = process.argv.slice(-3)[0];
+	const version = process.argv.slice(-1)[0];
+
+	let libName = config.LIB_FILE_CSS.replace(".css", "-orange.css");
+	let cleanCss = cleanCSS();
+	let mapInit = sourcemaps.init();
+	let mapWrite = sourcemaps.write(".");
+
+	// Check config.COPYRIGHT and remove lines with /* * */
+	let copyright = config.COPYRIGHT.replace(/.+\*\/|\/\*+|\*/gm, "");
+
+	switch (type) {
+		case "bundle":
+			mapInit = empty();
+			mapWrite = empty();
+			cleanCss = empty();
+			break;
+		case "min":
+			libName = config.LIB_FILE_CSS_MIN.replace(".css", "-orange.css");
+			break;
+	}
+
+	return src([
+		"../src/ui/**/*.css",
+		"!../src/ui/**/demo/*.css",
+		"!../src/ui/**/Button.css",
+		"!../src/ui/**/ButtonGroup.css",
+		"../src/ui/**/Button-Orange.css",
+		"../src/ui/**/ButtonGroup-Orange.css",
+	])
+		.pipe(mapInit)
+		.pipe(concat(`${libName}`))
+		.pipe(stripCssComments())
+		.pipe(cleanCss)
+		.pipe(headerComment(copyright))
+		.pipe(mapWrite)
+		.pipe(dest(`../${config.LIB_DIR}/${version}`));
+}
+
+export { cssLibFiles, cssOrangeLibFiles };

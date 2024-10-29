@@ -141,7 +141,10 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 			const item = ui.string.findInArray(m_comboBoxData, value, getItemDataText, "equals");
 
 			if (item) {
-				m_buttonGroup.getTag({ id: getItemDataId(item) }).select();
+				const button = m_buttonGroup.getTag({ id: getItemDataId(item) });
+				if (button) {
+					button.select();
+				}
 			} else {
 				m_previous_text = value;
 				m_value = value;
@@ -215,7 +218,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
-				m_comboBoxData = props.data;
+				m_comboBoxData = m_props.data;
 				const tags = ui.tags.getTags({ name: m_props.tag, component: "combobox" });
 				m_props.tags = ui.utils.extend(true, tags, m_props.tags);
 				const css = ui.theme.getTheme({ name: m_props.theme, component: "combobox" });

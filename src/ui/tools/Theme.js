@@ -391,12 +391,45 @@ ui.defaultTheme = {
 		self: "m-video-player-self",
 	},
 };
-
 ui.class.Theme = class Theme {
 	constructor() {
 		this.m_themes = {
 			default: ui.defaultTheme,
 		};
+	}
+
+	setup(config) {
+		this.config = config;
+		this.stylesheetClass = Object.values(config.stylesheetClasses);
+		this.isCombinedCSS = config.combinedPaths && Object.keys(config.combinedPaths).length > 0;
+		this.combinedPaths = config.combinedPaths || {};
+	}
+
+	loadStylesheets(context) {
+		if (this.isCombinedCSS) {
+			const combinedPath = this.combinedPaths[context.theme] || this.combinedPaths.default;
+			const link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.href = combinedPath;
+			link.className = context.linkClass;
+			document.head.appendChild(link);
+			return;
+		}
+
+		context.components.forEach((href) => {
+			const link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.href = context.hrefs + href;
+			link.className = context.linkClass;
+			document.head.appendChild(link);
+		});
+	}
+
+	reloadStylesheets(context) {
+		this.stylesheetClass.forEach((linkClass) => {
+			document.querySelectorAll("link." + linkClass).forEach((link) => link.remove());
+		});
+		this.loadStylesheets(context);
 	}
 
 	getTheme(context) {
@@ -418,6 +451,24 @@ ui.class.Theme = class Theme {
 
 		this.m_themes[context.name] = context.theme;
 	}
+
+	getThemeStylesheets(theme) {
+		let components = [...this.config.components.common];
+		let linkClass = this.config.stylesheetClasses[theme] || this.config.stylesheetClasses.default;
+		let hrefs = this.config.hrefs;
+
+		if (!this.isCombinedCSS && theme in this.config.components) {
+			components = [...components, ...this.config.components[theme]];
+		}
+
+		return {
+			linkClass: linkClass,
+			hrefs: hrefs,
+			components: components,
+			theme: theme,
+		};
+	}
 };
 
+// Initialize theme with config
 ui.theme = new ui.class.Theme();

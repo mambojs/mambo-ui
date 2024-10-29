@@ -10,6 +10,9 @@ function installStoryboard() {
 	function setup() {
 		configureStoriesData();
 		installComponentTreeView();
+		setupHomeButton();
+		setupThemeCombobox();
+		loadDocumentation();
 	}
 
 	function configureStoriesData() {
@@ -81,7 +84,6 @@ function installStoryboard() {
 		storyParentTag.innerHTML = null;
 
 		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.text }));
-
 		storyParentTag.appendChild(dom.createTag("mambo-button", { attr: { id: "mamboButton" } }));
 
 		// Invoke story function from the global scope
@@ -89,10 +91,9 @@ function installStoryboard() {
 		const storyFn = window[fnName];
 		storyFn(selectedStory);
 		const storyFnContent = window[fnName].toString();
-
 		installTab();
 		outputCode(selectedStory.text);
-		createDocumentation(selectedStory.text);
+		loadStoryDocumentation(selectedStory.text);
 	}
 
 	function installTab() {
@@ -141,12 +142,19 @@ function installStoryboard() {
 		PR.prettyPrint();
 	}
 
-	async function createDocumentation(storyName) {
-		const file = await fetch(`getStoryDescriptionExample?name=${storyName}`).then((resp) => resp.text());
+	async function loadStoryDocumentation(storyName) {
+		const file = await fetch(`getStoryDocumentation?name=${storyName}`).then((resp) => resp.text());
 		const descriptionElement = dom.createTag("description-element");
 		const documentationContainer = dom.getTag("documentation-container");
 		descriptionElement.innerHTML = addIdsToHeadings(marked.parse(file));
 		documentationContainer.appendChild(descriptionElement);
+	}
+
+	async function loadDocumentation() {
+		const file = await fetch("getDocumentation").then((resp) => resp.text());
+		const descriptionElement = dom.createTag("description-element");
+		descriptionElement.innerHTML = addIdsToHeadings(marked.parse(file));
+		storyParentTag.appendChild(descriptionElement);
 	}
 
 	function slugify(text) {
@@ -187,5 +195,44 @@ function installStoryboard() {
 		if (documentations[sectionId]) {
 			documentationContainer.innerHTML = documentations[sectionId];
 		}
+	}
+
+	function setupHomeButton() {
+		const homeButton = dom.getTag("#homeButton");
+		homeButton.setup({
+			id: "homeButton",
+			text: "Home",
+			size: "medium",
+			fnClick: () => {
+				storyParentTag.innerHTML = null;
+				loadDocumentation();
+			},
+		});
+	}
+
+	function setupThemeCombobox() {
+		const combobox = dom.getTag("#themeCombobox");
+		combobox.setup({
+			data: [
+				{ id: 1, text: "Default Theme" },
+				{ id: 2, text: "Orange Theme" },
+			],
+			value: "Default Theme",
+			input: {
+				placeholder: "Select theme",
+			},
+			dropdown: {
+				button: {
+					text: "",
+				},
+			},
+			fnSelect: ({ Combobox }) => {
+				if (Combobox.value() === 1) {
+					ui.theme.reloadStylesheets(ui.theme.getThemeStylesheets("default"));
+				} else {
+					ui.theme.reloadStylesheets(ui.theme.getThemeStylesheets("orange"));
+				}
+			},
+		});
 	}
 }
