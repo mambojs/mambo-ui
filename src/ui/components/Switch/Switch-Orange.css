@@ -1,0 +1,73 @@
+.m-switch-self {
+  display: flex;
+  flex-direction: row;
+  width: 4rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.m-switch-input {
+  display: none;
+}
+
+.m-switch-container {
+  position: relative;
+  flex: 1 0 auto;
+  color: #000;
+  background-color: #fff;
+  border-radius: 4rem;
+  border: 1px solid #a9a9a9;
+  pointer-events: none;
+}
+
+.m-switch-label-on {
+  display: none;
+  position: absolute;
+  font-size: 0.7rem;
+  left: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.m-switch-label-off {
+  position: absolute;
+  font-size: 0.7rem;
+  right: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.m-switch-handle {
+  display: inline-block;
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(0 0 0 15%);
+  border-radius: 4rem;
+  vertical-align: middle;
+  background-color: #f2f2f2;
+}
+
+.m-switch-input:checked ~ .m-switch-container {
+  color: #fff;
+  background-color: #000;
+}
+
+.m-switch-input:checked ~ .m-switch-container .m-switch-label-off {
+  display: none;
+}
+
+.m-switch-input:checked ~ .m-switch-container .m-switch-label-on {
+  display: block;
+}
+
+.m-switch-input:checked ~ .m-switch-container .m-switch-handle {
+  left: calc(100% - 2rem);
+}
+
+.m-switch-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}

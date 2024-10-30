@@ -1,0 +1,56 @@
+.m-radio-container {
+  display: block;
+  position: relative;
+  padding-left: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.m-radio-text {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.m-radio-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+.m-radio-span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.m-radio-input:checked ~ .m-radio-span {
+  background-color: #000;
+}
+
+.m-radio-span::after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: white;
+}
+
+.m-radio-input:checked ~ .m-radio-span::after {
+  display: block;
+}
+
+.m-radio-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}

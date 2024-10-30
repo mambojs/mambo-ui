@@ -398,7 +398,6 @@ ui.class.Theme = class Theme {
 		};
 
 		this.linkClass = "mambo-stylesheet";
-		this.previousLinkClass = "";
 	}
 
 	loadStylesheets(context) {
@@ -408,15 +407,16 @@ ui.class.Theme = class Theme {
 			link.href = href;
 			link.className = context.linkClass || this.linkClass;
 			document.head.appendChild(link);
-			this.previousLinkClass = context.linkClass || this.linkClass;
 		});
 	}
 
 	reloadStylesheets(context) {
-		const links = document.querySelectorAll(`link.${this.previousLinkClass}`);
+		const links = document.querySelectorAll(`link.${context.linkClass || this.linkClass}`);
+
 		if (links?.length > 0) {
 			links.forEach((link) => link.remove());
 		}
+
 		this.loadStylesheets(context);
 	}
 
