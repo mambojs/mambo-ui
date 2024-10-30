@@ -1,0 +1,97 @@
+.m-combobox-self {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.m-combobox-input-wrapper {
+  display: flex;
+  flex-grow: 1;
+  border: 1px solid #a9a9a9;
+}
+
+.m-combobox-input-input {
+  width: 100%;
+  border: none;
+  padding: 0.4rem;
+}
+
+.m-combobox-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  background: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.m-combobox-button.m-hover {
+  background: #444;
+}
+
+.m-combobox-button.m-selected {
+  background: #444;
+}
+
+.m-combobox-button::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid #fff;
+}
+
+.m-combobox-dropdown-container {
+  display: none;
+  position: absolute;
+  width: 25rem;
+  height: 15rem;
+  background-color: #f8f8f8;
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0/15%);
+  overflow: auto;
+  z-index: 999;
+  left: 0;
+}
+
+.m-combobox-dropdown-container.m-open {
+  display: block;
+}
+
+.m-combobox-button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.m-combobox-button-group-button {
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #000;
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  background-color: #f8f8f8;
+}
+
+.m-combobox-button-group-button:hover {
+  background-color: #ccc;
+}
+
+.m-combobox-button-group-button.m-selected {
+  background-color: #ccc;
+}

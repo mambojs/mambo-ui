@@ -1,0 +1,18 @@
+.m-tabs {
+  display: flex;
+}
+
+.m-tab-body {
+  display: flex;
+  width: 100%;
+  border: 1px solid grey;
+  padding: 0.5rem;
+}
+
+.m-tab-content {
+  display: none;
+}
+
+.m-tab-content.m-selected {
+  display: flex;
+}
