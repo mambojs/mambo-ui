@@ -7,17 +7,17 @@ function storyCheckboxGroup(selectedStory) {
 		checkboxes: [
 			// List of checkbox configurations
 			{
-				text: "Checkbox One",
+				text: "",
 				checked: true,
 				fnClick: (context) => {},
-				position: "left",
+				position: "right",
 			},
 			{
-				text: "Checkbox Two",
+				text: "CheckBox 1",
 				checked: true,
 			},
 			{
-				text: "Checkbox Three",
+				text: "CheckBox 2",
 				checked: false,
 				position: "right",
 			},

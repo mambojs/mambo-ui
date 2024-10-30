@@ -1,0 +1,11 @@
+.m-file-chooser-self {
+  display: block;
+}
+
+.m-file-chooser-input {
+  margin-top: 0.5rem;
+}
+
+.m-file-chooser-input-wrapper {
+  display: flex;
+}

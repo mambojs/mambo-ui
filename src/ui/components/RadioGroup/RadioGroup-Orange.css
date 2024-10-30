@@ -1,24 +1,20 @@
-.m-checkbox-container {
+.m-radio-group-self .m-radio-self {
+  padding: 0.125rem;
+  display: block;
+}
+
+.m-radio-group-label {
   display: block;
   position: relative;
   padding-left: 2rem;
   cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  margin-right: 1rem;
   user-select: none;
 }
 
-.m-checkbox-container.right {
-  padding-left: 0;
-  padding-right: 2rem;
-}
-
-.m-checkbox-text-span {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  display: inline-block;
-  min-height: 1.5rem;
-}
-
-.m-checkbox-input {
+.m-radio-group-input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -26,7 +22,7 @@
   height: 0;
 }
 
-.m-checkbox-span {
+.m-radio-group-span {
   position: absolute;
   top: 0;
   left: 0;
@@ -35,16 +31,11 @@
   background-color: #eee;
 }
 
-.m-checkbox-container.right .m-checkbox-span {
-  left: auto;
-  right: 0;
-}
-
-.m-checkbox-input:checked ~ .m-checkbox-span {
+.m-radio-group-input:checked ~ .m-radio-group-span {
   background-color: #000;
 }
 
-.m-checkbox-span::after {
+.m-radio-group-span::after {
   content: "";
   position: absolute;
   display: none;
@@ -57,6 +48,6 @@
   transform: rotate(45deg);
 }
 
-.m-checkbox-input:checked ~ .m-checkbox-span::after {
+.m-radio-group-input:checked ~ .m-radio-group-span::after {
   display: block;
 }

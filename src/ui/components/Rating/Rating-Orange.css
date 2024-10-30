@@ -1,0 +1,46 @@
+.m-rating-self {
+  position: relative;
+  display: flex;
+  font-size: 2rem;
+}
+
+.m-rating-empty {
+  display: flex;
+  flex-direction: row;
+}
+
+.m-rating-selected {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.m-rating-hover {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.m-rating-empty-star::after {
+  content: "☆";
+}
+
+.m-rating-selected-star::after {
+  content: "★";
+}
+
+.m-rating-hover-star::after {
+  content: "★";
+}
+
+.m-rating-disabled {
+  pointer-events: none;
+}
