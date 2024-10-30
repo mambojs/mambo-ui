@@ -8,69 +8,85 @@ object.save(tools.router({ historyManager: object.get("history") }), "router");
 object.save(tools.api(), "api");
 const dom = domJS();
 
-const themeConfig = {
-	stylesheetClasses: {
-		default: "mambo-stylesheet",
-		orange: "orange-stylesheet",
-	},
-	combinedPaths: {
-		// default: "src/css/mambo-ui-0.0.1.css",
-		// orange: "src/css/mambo-ui-0.0.1-orange.css",
-	},
-	hrefs: "src/ui/", // "src/css/",
-	components: {
-		common: [
-			"Components/Calendar/Calendar.css",
-			"Components/Combobox/Combobox.css",
-			"Components/DatePicker/DatePicker.css",
-			"Components/Dialog/Dialog.css",
-			"Components/DragDrop/DragDrop.css",
-			"Components/Draggable/Draggable.css",
-			"Components/Dropdown/Dropdown.css",
-			"Components/FileChooser/FileChooser.css",
-			"Components/Grid/Grid.css",
-			"Components/Input/Input.css",
-			"Components/Listbox/Listbox.css",
-			"Components/MapBox/MapBox.css",
-			"Components/Percentage/Percentage.css",
-			"Components/Player/Player.css",
-			"Components/Radio/Radio.css",
-			"Components/RadioGroup/RadioGroup.css",
-			"Components/Rating/Rating.css",
-			"Components/Search/Search.css",
-			"Components/SlideOut/Slideout.css",
-			"Components/Slider/Slider.css",
-			"Components/Switch/Switch.css",
-			"Components/Tab/Tab.css",
-			"Components/Textarea/Textarea.css",
-			"Components/TimePicker/TimePicker.css",
-			"Components/TreeView/TreeView.css",
-			"Components/VideoPlayer/VideoPlayer.css",
-		],
-		default: [
-			"themes/m-default.css",
-			"Components/Button/Button.css",
-			"Components/ButtonSVG/ButtonSVG.css",
-			"Components/ButtonGroup/ButtonGroup.css",
-			"Components/Checkbox/Checkbox.css",
-			"Components/CheckboxGroup/CheckboxGroup.css",
-		],
-		orange: [
-			"themes/m-default-orange.css",
-			"Components/Button/Button-Orange.css",
-			"Components/ButtonSVG/ButtonSVG.css",
-			"Components/ButtonGroup/ButtonGroup-Orange.css",
-			"Components/Checkbox/Checkbox-Orange.css",
-			"Components/CheckboxGroup/CheckboxGroup-Orange.css",
-		],
-	},
-};
-ui.theme.setup(themeConfig);
-const theme = ui.theme.getThemeStylesheets("default");
-ui.theme.loadStylesheets(theme);
+// Use alpha characters and spaces only, any other char will break
+const components = [
+	{ text: "Button" },
+	{ text: "Button SVG" },
+	{ text: "Button Group" },
+	{ text: "Calendar" },
+	{ text: "Checkbox" },
+	{ text: "Checkbox Group" },
+	{ text: "Combobox" },
+	{ text: "Date Picker" },
+	{ text: "Dialog" },
+	{ text: "Drag Drop" },
+	{ text: "Draggable" },
+	{ text: "Dropdown" },
+	{ text: "File Chooser" },
+	{ text: "Grid" },
+	{ text: "Input" },
+	{ text: "Listbox" },
+	{ text: "MapBox" },
+	{ text: "Percentage" },
+	{ text: "Radio" },
+	{ text: "Radio Group" },
+	{ text: "Rating" },
+	{ text: "Search" },
+	{ text: "Slideout" },
+	{ text: "Slider" },
+	{ text: "Switch" },
+	{ text: "Tab" },
+	{ text: "Textarea" },
+	{ text: "Time Picker" },
+	{ text: "TreeView" },
+	{ text: "Video Player" },
+];
+
+const path = "src/ui/";
+
+const defaultCompStylesheets = components.map((component) => {
+	const name = component.text.replaceAll(" ", "");
+	return `${path}components/${name}/${name}.css`;
+});
+
+const orangeCompStylesheets = components.map((component) => {
+	const name = component.text.replaceAll(" ", "");
+	return `${path}components/${name}/${name}-Orange.css`;
+});
+
+const defaultStylesheets = { stylesheets: [...defaultCompStylesheets, ...[`${path}themes/m-default.css`]] };
+const orangeStylesheets = { stylesheets: [...orangeCompStylesheets, ...[`${path}themes/m-default-orange.css`]] };
+ui.theme.loadStylesheets(defaultStylesheets);
 
 // Begin Storyboard development installation
-installStoryboard();
+installStoryboard({ components });
+setupThemeCombobox();
+
+function setupThemeCombobox() {
+	const combobox = dom.getTag("#themeCombobox");
+	combobox.setup({
+		data: [
+			{ id: 1, text: "Default Theme" },
+			{ id: 2, text: "Orange Theme" },
+		],
+		value: "Default Theme",
+		input: {
+			placeholder: "Select theme",
+		},
+		dropdown: {
+			button: {
+				text: "",
+			},
+		},
+		fnSelect: ({ Combobox }) => {
+			if (Combobox.value() === 1) {
+				ui.theme.reloadStylesheets(defaultStylesheets);
+			} else {
+				ui.theme.reloadStylesheets(orangeStylesheets);
+			}
+		},
+	});
+}
 
 const observer = new MutationObserver((mutationsList, observer) => {
 	for (const mutation of mutationsList) {

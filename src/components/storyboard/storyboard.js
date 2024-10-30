@@ -1,7 +1,7 @@
-function installStoryboard() {
+function installStoryboard(props) {
 	const storyParentTag = dom.getTag("story-tab");
 
-	let stories;
+	let stories = props.components;
 	let selectedStory = null;
 	let documentations = {};
 
@@ -11,45 +11,10 @@ function installStoryboard() {
 		configureStoriesData();
 		installComponentTreeView();
 		setupHomeButton();
-		setupThemeCombobox();
 		loadDocumentation();
 	}
 
 	function configureStoriesData() {
-		// Use alpha characters and spaces only, any other char will break
-		stories = [
-			{ text: "Button" },
-			{ text: "Button SVG" },
-			{ text: "Button Group" },
-			{ text: "Calendar" },
-			{ text: "Checkbox" },
-			{ text: "Checkbox Group" },
-			{ text: "Combobox" },
-			{ text: "Date Picker" },
-			{ text: "Dialog" },
-			{ text: "Drag Drop" },
-			{ text: "Draggable" },
-			{ text: "Dropdown" },
-			{ text: "File Chooser" },
-			{ text: "Grid" },
-			{ text: "Input" },
-			{ text: "Listbox" },
-			{ text: "MapBox" },
-			{ text: "Percentage" },
-			{ text: "Radio" },
-			{ text: "Radio Group" },
-			{ text: "Rating" },
-			{ text: "Search" },
-			{ text: "Slideout" },
-			{ text: "Slider" },
-			{ text: "Switch" },
-			{ text: "Tab" },
-			{ text: "Textarea" },
-			{ text: "Time Picker" },
-			{ text: "TreeView" },
-			{ text: "Video Player" },
-		];
-
 		// Add props to stories collection
 		stories.map((story) => {
 			story.id = story.text.replaceAll(" ", "-").toLowerCase();
@@ -206,32 +171,6 @@ function installStoryboard() {
 			fnClick: () => {
 				storyParentTag.innerHTML = null;
 				loadDocumentation();
-			},
-		});
-	}
-
-	function setupThemeCombobox() {
-		const combobox = dom.getTag("#themeCombobox");
-		combobox.setup({
-			data: [
-				{ id: 1, text: "Default Theme" },
-				{ id: 2, text: "Orange Theme" },
-			],
-			value: "Default Theme",
-			input: {
-				placeholder: "Select theme",
-			},
-			dropdown: {
-				button: {
-					text: "",
-				},
-			},
-			fnSelect: ({ Combobox }) => {
-				if (Combobox.value() === 1) {
-					ui.theme.reloadStylesheets(ui.theme.getThemeStylesheets("default"));
-				} else {
-					ui.theme.reloadStylesheets(ui.theme.getThemeStylesheets("orange"));
-				}
 			},
 		});
 	}
