@@ -1,0 +1,50 @@
+.m-tree-view-self {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  line-height: 1rem;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.m-tree-view-group {
+  display: none;
+  position: relative;
+}
+
+.m-tree-view-group.m-expanded {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-tree-view-item {
+  padding: 0 0 0 1rem;
+}
+
+.m-tree-view-item-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.m-tree-view-item-in {
+  padding: 0.25rem 0.5rem;
+  cursor: default;
+}
+
+.m-tree-view-item-in.m-hover {
+  background-color: #ddd;
+}
+
+.m-tree-view-item-in.m-selected {
+  color: #fff;
+  background-color: #000;
+}
+
+.m-tree-view-item-icon {
+  position: relative;
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+}

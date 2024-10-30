@@ -38,7 +38,9 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
-				m_containerTag.setAttribute("data-position", m_props.position);
+				if (m_props.position === "right") {
+					m_containerTag.classList.add("right");
+				}
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_containerTag);
 

@@ -1,0 +1,22 @@
+.m-input-self {
+  display: flex;
+  border: 1px solid #ccc;
+}
+
+.m-input-input {
+  width: 100%;
+  border: none;
+}
+
+.m-input-button {
+  background: none;
+  cursor: pointer;
+  color: #ccc;
+  border: none;
+  padding: 0.25rem;
+  font-size: 100%;
+}
+
+.m-input-button:hover {
+  color: black;
+}

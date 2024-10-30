@@ -54,8 +54,8 @@ const orangeCompStylesheets = components.map((component) => {
 	return `${path}components/${name}/${name}-Orange.css`;
 });
 
-const defaultStylesheets = { stylesheets: [...defaultCompStylesheets, ...[`${path}themes/m-default.css`]] };
-const orangeStylesheets = { stylesheets: [...orangeCompStylesheets, ...[`${path}themes/m-default-orange.css`]] };
+const defaultStylesheets = { linkClass: "mambo-stylesheet", stylesheets: [...defaultCompStylesheets, ...[`${path}themes/m-default.css`]] };
+const orangeStylesheets = { linkClass: "orange-stylesheet", stylesheets: [...orangeCompStylesheets, ...[`${path}themes/m-default-orange.css`]] };
 ui.theme.loadStylesheets(defaultStylesheets);
 
 // Begin Storyboard development installation
