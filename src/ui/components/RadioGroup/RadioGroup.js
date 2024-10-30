@@ -54,6 +54,7 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 					parentTag: self,
 					fnGroupClick: handleGroupClick,
 					fnComplete: resolve,
+					position: radio.position || m_props.radio.position || "left",
 				};
 
 				m_radioList.push(ui.radio(radioConfig));

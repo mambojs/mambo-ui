@@ -1,14 +1,22 @@
 .m-radio-container {
   display: block;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 2.5rem;
   cursor: pointer;
   user-select: none;
 }
 
+.m-radio-container.right {
+  padding-left: 0;
+  padding-right: 2.5rem;
+}
+
 .m-radio-text {
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.5rem;
+  display: inline-block;
+  color: var(--m-body-color);
+  font-weight: var(--m-font-weight);
 }
 
 .m-radio-input {
@@ -29,18 +37,23 @@
   border-radius: 50%;
 }
 
+.m-radio-container.right .m-radio-span {
+  left: auto;
+  right: 0;
+}
+
 .m-radio-input:checked ~ .m-radio-span {
-  background-color: #000;
+  background-color: var(--m-accent-color);
 }
 
 .m-radio-span::after {
   content: "";
   position: absolute;
   display: none;
-  top: 0.5rem;
-  left: 0.5rem;
-  width: 0.5rem;
-  height: 0.5rem;
+  top: 0.375rem;
+  left: 0.375rem;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
   background: white;
 }

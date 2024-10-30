@@ -38,6 +38,9 @@ ui.class.Radio = class Radio extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_labelTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+				if (m_props.position === "right") {
+					m_labelTag.classList.add("right");
+				}
 
 				const textTag = ui.d.createTag({
 					...m_props.tags.text,
@@ -57,9 +60,17 @@ ui.class.Radio = class Radio extends HTMLElement {
 				tagConfig.attr.name = Math.random().toString(36).slice(2);
 				m_inputTag = ui.d.createTag(tagConfig);
 				m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
-				m_labelTag.appendChild(textTag);
-				m_labelTag.appendChild(m_inputTag);
-				m_labelTag.appendChild(m_spanTag);
+
+				if (m_props.position === "right") {
+					m_labelTag.appendChild(textTag);
+					m_labelTag.appendChild(m_inputTag);
+					m_labelTag.appendChild(m_spanTag);
+				} else {
+					m_labelTag.appendChild(m_inputTag);
+					m_labelTag.appendChild(m_spanTag);
+					m_labelTag.appendChild(textTag);
+				}
+
 				m_checked = m_props.prop?.checked;
 				setEnable();
 				self.classList.add(m_props.css.self);
@@ -137,6 +148,7 @@ ui.class.Radio = class Radio extends HTMLElement {
 				tag: "default",
 				theme: "default",
 				enable: true,
+				position: "left",
 			};
 			m_props = ui.utils.extend(true, m_props, customProps);
 			m_parentTag = ui.d.getTag(m_props.parentTag);

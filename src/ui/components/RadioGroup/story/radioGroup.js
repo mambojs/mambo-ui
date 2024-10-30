@@ -1,7 +1,7 @@
 function storyRadioGroup(selectedStory) {
 	const config = {
 		parentTag: selectedStory.parentTag,
-		radio: {}, // Configuration that applies to all radio instances
+		radio: { position: "left" }, // Configuration that applies to all radio instances
 		radios: [
 			// List of Radio configurations
 			{
@@ -12,10 +12,12 @@ function storyRadioGroup(selectedStory) {
 			{
 				text: "Radio Two",
 				checked: true,
+				fnClick: (context) => {},
 			},
 			{
 				text: "Radio Three",
 				checked: false,
+				fnClick: (context) => {},
 			},
 		],
 		fnClick: (context) => {},

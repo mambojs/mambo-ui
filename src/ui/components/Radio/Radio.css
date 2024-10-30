@@ -6,9 +6,16 @@
   user-select: none;
 }
 
+.m-radio-container.right {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
 .m-radio-text {
   font-size: 1.2rem;
   line-height: 1.5rem;
+  display: inline-block;
+  min-height: 1.5rem;
 }
 
 .m-radio-input {
@@ -27,6 +34,11 @@
   height: 1.5rem;
   background-color: #eee;
   border-radius: 50%;
+}
+
+.m-radio-container.right .m-radio-span {
+  left: auto;
+  right: 0;
 }
 
 .m-radio-input:checked ~ .m-radio-span {
