@@ -62,3 +62,13 @@ story-button-group > mambo-button-group {
   display: block;
   margin-bottom: 1rem;
 }
+
+story-checkbox > mambo-checkbox {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+story-radio > mambo-radio {
+  display: block;
+  margin-bottom: 0.5rem;
+}

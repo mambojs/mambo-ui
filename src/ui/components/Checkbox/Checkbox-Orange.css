@@ -1,21 +1,25 @@
 .m-checkbox-container {
   display: block;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 2.5rem;
   cursor: pointer;
   user-select: none;
+  width: auto;
 }
 
 .m-checkbox-container.right {
   padding-left: 0;
-  padding-right: 2rem;
+  padding-right: 2.5rem;
 }
 
 .m-checkbox-text-span {
   font-size: 1rem;
+  font-weight: var(--m-font-weight);
+  font-style: normal;
   line-height: 1.5rem;
   display: inline-block;
   min-height: 1.5rem;
+  color: var(--m-body-color);
 }
 
 .m-checkbox-input {
