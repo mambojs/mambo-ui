@@ -31,7 +31,13 @@ function cssLibFiles() {
 			break;
 	}
 
-	return src(["../src/ui/**/*.css", "!../src/ui/**/demo/*.css", "!../src/ui/**/*-Orange.css"])
+	return src([
+		"../src/ui/**/*.css",
+		"../src/ui/themes/m-default.css",
+		"!../src/ui/**/demo/*.css",
+		"!../src/ui/**/*-Orange.css",
+		"!../src/ui/themes/m-orange.css"
+	])
 		.pipe(mapInit)
 		.pipe(concat(`${libName}`))
 		.pipe(stripCssComments())
@@ -66,11 +72,11 @@ function cssOrangeLibFiles() {
 
 	return src([
 		"../src/ui/**/*.css",
+		"../src/ui/themes/m-orange.css",
+		"../src/components/**/*-Orange.css",
 		"!../src/ui/**/demo/*.css",
-		"!../src/ui/**/Button.css",
-		"!../src/ui/**/ButtonGroup.css",
-		"../src/ui/**/Button-Orange.css",
-		"../src/ui/**/ButtonGroup-Orange.css",
+		"!../src/components/**/*.css",
+		"!../src/ui/themes/m-default.css"
 	])
 		.pipe(mapInit)
 		.pipe(concat(`${libName}`))

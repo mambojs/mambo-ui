@@ -19,6 +19,108 @@
 
 * {
   
+  --m-hover-background-color: #555;
+  --m-hover-color: white;
+  --m-selected-background-color: #e4e4e4;
+  --m-selected-color: black;
+  --m-border: none;
+  --m-border-radius: 0;
+  --m-border-radius-primary: 0.5rem;
+  --m-border-radius-secondary: 0.5rem;
+  --m-text-color: white;
+  --m-background-color: black;
+  --m-pressed-background-color: #555;
+
+  
+  --m-font-family: "Proxima Nova", "Ubuntu Light", sans-serif;
+  --m-font-size: 1rem;
+  --m-font-size-s: 0.833rem;
+  --m-font-size-m: 1rem;
+  --m-font-size-lg: 1.2rem;
+  --m-font-weight-light: 300;
+  --m-font-weight: 400;
+  --m-font-weight-medium: 500;
+  --m-font-weight-bold: 700;
+  --m-font-weight-black: 900;
+  --m-line-height: 1.5rem;
+  --m-line-height-s: 1.20rem;
+  --m-line-height-m: 1.25rem;
+  --m-line-height-lg: 1.5rem;
+  --m-box-shadow-primary: 0 2.145px 4.29px 0 rgba(173 175 187 / 30%);
+  --m-box-shadow-secondary: 0 2.145px 4.29px 0 rgba(173 175 187 / 30%);
+  --m-box-shadow-primary-hover: none;
+  --m-box-shadow-primary-pressed: none;
+  --m-box-shadow-primary-active: none;
+  --m-box-shadow-primary-disabled: none;
+  --m-box-shadow-primary-selected: none;
+  --m-box-shadow-secondary-hover: 0 2.145px 4.29px 0 rgb(173 175 187 / 30%);
+  --m-box-shadow-secondary-pressed: 0 2.145px 4.29px 0 rgb(173 175 187 / 30%);
+  --m-box-shadow-secondary-active: 0 2.145px 4.29px 0 rgb(173 175 187 / 30%);
+  --m-box-shadow-secondary-selected: 0 2.145px 4.29px 0 rgb(173 175 187 / 30%);
+  --m-box-shadow-secondary-disabled: 0 2.145px 4.29px 0 rgb(173 175 187 / 30%);
+
+  
+  --m-accent-color: #e66423;
+  --m-secondary-color: #edF4FF;
+  --m-main-color: #fbfbfb;
+
+  
+  --m-heading-color: rgb(20 24 31);
+  --m-body-color: rgb(65 71 80);
+  --m-disabled-text-color: rgb(86 94 105);
+  --m-placeholder-color: rgb(139 147 159);
+  --m-informative-color: rgb(28 81 164);
+  --m-success-color: rgb(88 121 12);
+  --m-warning-color: rgb(130 98 15);
+  --m-error-color: rgb(171 40 22);
+
+  
+  --m-informative-stroke-color: rgb(44 104 198);
+  --m-success-stroke-color: rgb(152 199 41);
+  --m-warning-stroke-color: rgb(232 185 63);
+  --m-error-stroke-color: rgb(221 51 29);
+
+  
+  --m-primary-background-color: rgb(237 244 255);
+  --m-disabled-background-color: rgb(224 226 229);
+  --m-success-background-color: rgb(243 255 214);
+  --m-warning-background-color: rgb(255 246 224);
+  --m-error-background-color: rgb(253 231 229);
+
+  
+  --m-accent-primary-color: var(--m-accent-color);
+  --m-accent-secondary-color: var(--m-white-color);
+  --m-active-primary-background-color: calc((var(--m-accent-primary-color) + var(--m-selected-primary-background-color)) / 2);
+  --m-active-secondary-background-color: calc((var(--m-accent-secondary-color) + var(--m-selected-secondary-background-color)) / 2);
+  --m-selected-primary-background-color: rgb(249 128 67);
+  --m-selected-secondary-background-color: rgb(255 240 233);
+  --m-pressed-primary-background-color: rgb(216 72 0);
+  --m-pressed-secondary-background-color: rgb(255 220 203);
+  --m-hover-primary-background-color: rgb(249 128 67);
+  --m-hover-secondary-background-color: rgb(255 240 233);
+
+  
+  --m-white-color: rgb(255 255 255);
+  --m-gray-100: rgb(243 244 245);
+  --m-gray-200: rgb(208 212 217);
+  --m-gray-300: rgb(174 179 188);
+  --m-gray-400: rgb(123 132 147);
+  --m-gray-500: rgb(77 84 94);
+  --m-gray-600: rgb(42 46 52);
+
+  
+  --m-padding-xs: 0.125rem;
+  --m-padding-s: 0.25rem;
+  --m-padding-m: 0.5rem;
+  --m-padding-lg: 0.75rem;
+  --m-padding-xl: 0.875rem;
+  --m-padding-xxl: 1rem;
+  --m-padding-xxxl: 1.25rem;
+  --m-padding-xxxxl: 1.5rem;
+}
+
+* {
+  
   --m-font-family: "Ubuntu Light", sans-serif;
   --m-font-size: 1rem;
 
@@ -474,9 +576,16 @@
   user-select: none;
 }
 
+.m-checkbox-container.right {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
 .m-checkbox-text-span {
   font-size: 1rem;
   line-height: 1.5rem;
+  display: inline-block;
+  min-height: 1.5rem;
 }
 
 .m-checkbox-input {
@@ -494,6 +603,11 @@
   width: 1.5rem;
   height: 1.5rem;
   background-color: #eee;
+}
+
+.m-checkbox-container.right .m-checkbox-span {
+  left: auto;
+  right: 0;
 }
 
 .m-checkbox-input:checked ~ .m-checkbox-span {
@@ -515,12 +629,6 @@
 
 .m-checkbox-input:checked ~ .m-checkbox-span::after {
   display: block;
-}
-
-.m-checkbox-disabled {
-  opacity: 0.6;
-  cursor: default;
-  pointer-events: none;
 }
 
 .m-checkbox-group-self .m-checkbox-self {
@@ -1169,6 +1277,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .m-listbox-item {
   padding: .3rem 0;
 }
@@ -1179,32 +1288,41 @@
   position: relative;
   width: 100%;
 }
+
 .m-mapbox-container::after {
   content: "Please wait...";
   position: absolute;
   z-index: 10;
   padding: 1rem;
-  background-color: rgba(255,255,255,.9);
+  background-color: rgb(255 255 255 / 90%);
   left: 50%;
   top: 50%;
   border-radius: 0.5rem;
   transform: translate(-50%, -50%);
   animation: pulse 1s alternate infinite;
 }
+
 .m-mapbox-container.m-mapbox-hide-wait::after {
   display: none;
 }
+
 .m-mapbox-current-point {
   background-color: #4d7ee8;
-  box-shadow: 0px 0px 46px 35px #fff, 0px 0px 0px 10px #4d7ee8;
+  box-shadow: 0 0 46px 35px #fff, 0 0 0 10px #4d7ee8;
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
   cursor: pointer;
 }
+
 @keyframes pulse {
-  0% { opacity: .1;}
-  100% { opacity: 1;}
+  0% {
+    opacity: .1;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .m-percentage-self {
@@ -1245,9 +1363,16 @@
   user-select: none;
 }
 
+.m-radio-container.right {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
 .m-radio-text {
   font-size: 1.2rem;
   line-height: 1.5rem;
+  display: inline-block;
+  min-height: 1.5rem;
 }
 
 .m-radio-input {
@@ -1266,6 +1391,11 @@
   height: 1.5rem;
   background-color: #eee;
   border-radius: 50%;
+}
+
+.m-radio-container.right .m-radio-span {
+  left: auto;
+  right: 0;
 }
 
 .m-radio-input:checked ~ .m-radio-span {

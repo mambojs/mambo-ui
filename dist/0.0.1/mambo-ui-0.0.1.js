@@ -627,7 +627,8 @@ ui.defaultTheme = {
     img: "m-button-img",
     icon: "m-button-icon",
     selected: "m-selected",
-    self: "m-button-self"
+    self: "m-button-self",
+    pressed: "m-pressed"
   },
   buttonGroup: {
     button: {
@@ -1016,6 +1017,23 @@ ui.class.Theme = class Theme {
     this.m_themes = {
       default: ui.defaultTheme
     };
+    this.linkClass = "mambo-stylesheet";
+  }
+  loadStylesheets(context) {
+    context?.stylesheets?.forEach((href) => {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.className = context.linkClass || this.linkClass;
+      document.head.appendChild(link);
+    });
+  }
+  reloadStylesheets(context) {
+    const links = document.querySelectorAll(`link.${context.linkClass || this.linkClass}`);
+    if (links?.length > 0) {
+      links.forEach((link) => link.remove());
+    }
+    this.loadStylesheets(context);
   }
   getTheme(context) {
     if (context && context.name && context.component) {
@@ -1150,17 +1168,31 @@ ui.class.Button = class Button extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
     function setupDOM() {
       return new Promise((resolve) => {
         const tagConfig = { ...m_props.tags.button };
-        tagConfig.class = m_props.css.button;
+        let buttonClasses = [m_props.css.button];
+        if (m_props.size) {
+          buttonClasses.push(m_props.size);
+        }
+        if (!m_props.text) {
+          buttonClasses.push("notext");
+        }
+        if (m_props.type) {
+          buttonClasses.push(m_props.type);
+        }
+        tagConfig.class = buttonClasses.join(" ");
         tagConfig.text = m_props.text;
         tagConfig.event = {
           click: handleClick,
+          mousedown: handleMouseDown,
+          mouseup: handleMouseUp,
           mouseenter: () => {
             mouseEnterOverButton();
             mouseEnterOverImage();
@@ -1200,7 +1232,11 @@ ui.class.Button = class Button extends HTMLElement {
         };
         let imgTag = ui.d.createTag("img", tagConfig);
         m_imageList.push(imgTag);
-        m_buttonTag.appendChild(imgTag);
+        if (img.position === "left") {
+          m_buttonTag.insertBefore(imgTag, m_buttonTag.firstChild);
+        } else {
+          m_buttonTag.appendChild(imgTag);
+        }
       }
     }
     function insertIcon() {
@@ -1212,15 +1248,19 @@ ui.class.Button = class Button extends HTMLElement {
         addIcon(m_props.icon);
       }
       function addIcon(icon) {
-        icon.css = icon.attr.class ? icon.attr.class + " " + m_props.css.icon : m_props.css.icon;
+        const cssClasses = [m_props.css.icon, icon.attr.class, icon.size].filter(Boolean).join(" ");
         const tagConfig = {
-          class: icon.css,
+          class: cssClasses,
           prop: icon.prop,
           attr: icon.attr
         };
         let iconTag = ui.d.createTag("i", tagConfig);
         m_iconList.push(iconTag);
-        m_buttonTag.appendChild(iconTag);
+        if (icon.position === "left") {
+          m_buttonTag.insertBefore(iconTag, m_buttonTag.firstChild);
+        } else {
+          m_buttonTag.appendChild(iconTag);
+        }
       }
     }
     function getImageTagById(id) {
@@ -1249,6 +1289,16 @@ ui.class.Button = class Button extends HTMLElement {
             ev
           });
         }
+      }
+    }
+    function handleMouseDown(ev) {
+      if (m_enable) {
+        m_buttonTag.classList.add(m_props.css.pressed);
+      }
+    }
+    function handleMouseUp(ev) {
+      if (m_enable) {
+        m_buttonTag.classList.remove(m_props.css.pressed);
       }
     }
     function mouseEnterOverImage() {
@@ -1365,7 +1415,9 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -1477,7 +1529,9 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -1697,7 +1751,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -2219,13 +2275,18 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
     function setupDOM() {
       return new Promise((resolve) => {
         m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+        if (m_props.position === "right") {
+          m_containerTag.classList.add("right");
+        }
         self.classList.add(m_props.css.self);
         self.appendChild(m_containerTag);
         const textTag = ui.d.createTag({
@@ -2243,9 +2304,15 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
         inputConfig.attr.name = m_props.name;
         m_inputTag = ui.d.createTag(inputConfig);
         m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
-        m_containerTag.appendChild(textTag);
-        m_containerTag.appendChild(m_inputTag);
-        m_containerTag.appendChild(m_spanTag);
+        if (m_props.position === "right") {
+          m_containerTag.appendChild(textTag);
+          m_containerTag.appendChild(m_inputTag);
+          m_containerTag.appendChild(m_spanTag);
+        } else {
+          m_containerTag.appendChild(m_inputTag);
+          m_containerTag.appendChild(m_spanTag);
+          m_containerTag.appendChild(textTag);
+        }
         setEnable();
         resolve();
       });
@@ -2308,7 +2375,8 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
         enable: true,
         name: Math.random().toString(36).slice(2),
         tag: "default",
-        theme: "default"
+        theme: "default",
+        position: "left"
       };
       m_props = ui.utils.extend(true, m_props, customProps);
       m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -2341,7 +2409,9 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -2365,7 +2435,8 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
           name: m_props.name,
           parentTag: self,
           fnGroupClick: handleGroupClick,
-          fnComplete: resolve
+          fnComplete: resolve,
+          position: checkbox.position || m_props.position
         };
         m_checkboxList.push(ui.checkbox(checkboxConfig));
       });
@@ -2428,7 +2499,8 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
           tag: "default",
           theme: "default",
           name: Math.random().toString(36).slice(2),
-          checkboxes: []
+          checkboxes: [],
+          position: "right"
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -2464,7 +2536,9 @@ ui.class.Combobox = class Combobox extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       await setupInput();
       await setupDropdown();
@@ -2558,7 +2632,10 @@ ui.class.Combobox = class Combobox extends HTMLElement {
       m_input.value({ value: value2 });
       const item = ui.string.findInArray(m_comboBoxData, value2, getItemDataText, "equals");
       if (item) {
-        m_buttonGroup.getTag({ id: getItemDataId(item) }).select();
+        const button = m_buttonGroup.getTag({ id: getItemDataId(item) });
+        if (button) {
+          button.select();
+        }
       } else {
         m_previous_text = value2;
         m_value = value2;
@@ -2625,7 +2702,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
-        m_comboBoxData = props.data;
+        m_comboBoxData = m_props.data;
         const tags = ui.tags.getTags({ name: m_props.tag, component: "combobox" });
         m_props.tags = ui.utils.extend(true, tags, m_props.tags);
         const css = ui.theme.getTheme({ name: m_props.theme, component: "combobox" });
@@ -2658,7 +2735,9 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -2815,7 +2894,9 @@ ui.class.Dialog = class Dialog extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -2915,7 +2996,9 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -3043,7 +3126,9 @@ ui.class.Draggable = class Draggable extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -3198,7 +3283,9 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -3325,7 +3412,9 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -3453,7 +3542,9 @@ ui.class.Grid = class Grid extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -4125,7 +4216,9 @@ ui.class.Input = class Input extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -4308,7 +4401,9 @@ ui.class.Listbox = class Listbox extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -4435,7 +4530,9 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
     async function setup(props2) {
       checkMapboxLibraries();
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       await renderMap();
       await getUserLocation();
@@ -4586,7 +4683,9 @@ ui.class.Percentage = class Percentage extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -4697,7 +4796,9 @@ ui.class.Player = class Player extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -4835,13 +4936,18 @@ ui.class.Radio = class Radio extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
     function setupDOM() {
       return new Promise((resolve) => {
         m_labelTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+        if (m_props.position === "right") {
+          m_labelTag.classList.add("right");
+        }
         const textTag = ui.d.createTag({
           ...m_props.tags.text,
           class: m_props.css.text,
@@ -4858,9 +4964,15 @@ ui.class.Radio = class Radio extends HTMLElement {
         tagConfig.attr.name = Math.random().toString(36).slice(2);
         m_inputTag = ui.d.createTag(tagConfig);
         m_spanTag = ui.d.createTag({ ...m_props.tags.span, class: m_props.css.span });
-        m_labelTag.appendChild(textTag);
-        m_labelTag.appendChild(m_inputTag);
-        m_labelTag.appendChild(m_spanTag);
+        if (m_props.position === "right") {
+          m_labelTag.appendChild(textTag);
+          m_labelTag.appendChild(m_inputTag);
+          m_labelTag.appendChild(m_spanTag);
+        } else {
+          m_labelTag.appendChild(m_inputTag);
+          m_labelTag.appendChild(m_spanTag);
+          m_labelTag.appendChild(textTag);
+        }
         m_checked = m_props.prop?.checked;
         setEnable();
         self.classList.add(m_props.css.self);
@@ -4926,7 +5038,8 @@ ui.class.Radio = class Radio extends HTMLElement {
       m_props = {
         tag: "default",
         theme: "default",
-        enable: true
+        enable: true,
+        position: "left"
       };
       m_props = ui.utils.extend(true, m_props, customProps);
       m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -4958,7 +5071,9 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -4982,7 +5097,8 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
           name: m_props.name,
           parentTag: self,
           fnGroupClick: handleGroupClick,
-          fnComplete: resolve
+          fnComplete: resolve,
+          position: radio.position || m_props.radio.position || "left"
         };
         m_radioList.push(ui.radio(radioConfig));
       });
@@ -5086,7 +5202,9 @@ ui.class.Rating = class Rating extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -5232,7 +5350,9 @@ ui.class.Search = class Search extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       await setupInput();
       await setupButton();
@@ -5382,7 +5502,9 @@ ui.class.Slideout = class Slideout extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -5486,7 +5608,9 @@ ui.class.Slider = class Slider extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       await continueSetupDOM();
       setupComplete();
@@ -5770,7 +5894,9 @@ ui.class.Switch = class Switch extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -5904,7 +6030,9 @@ ui.class.Tab = class Tab extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -6007,7 +6135,9 @@ ui.class.Textarea = class Textarea extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -6190,7 +6320,9 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -6303,7 +6435,9 @@ ui.class.TreeView = class TreeView extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -6466,7 +6600,9 @@ var Template = class extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
@@ -6513,7 +6649,9 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
     }
     async function setup(props2) {
       await configure(props2);
-      await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
       await setupDOM();
       setupComplete();
     }
