@@ -14,26 +14,26 @@
 .m-switch-container {
   position: relative;
   flex: 1 0 auto;
-  color: #000;
-  background-color: #fff;
+  color: var(--m-black-color);
+  background-color: var(--m-white-color);
   border-radius: 4rem;
-  border: 1px solid #a9a9a9;
+  border: 1px solid var(--m-gray-400);
   pointer-events: none;
 }
 
 .m-switch-label-on {
   display: none;
   position: absolute;
-  font-size: 0.7rem;
-  left: 0.3rem;
+  font-size: var(--m-font-size-s);
+  left: var(--m-padding-s);
   top: 50%;
   transform: translateY(-50%);
 }
 
 .m-switch-label-off {
   position: absolute;
-  font-size: 0.7rem;
-  right: 0.3rem;
+  font-size: var(--m-font-size-s);
+  right: var(--m-padding-s);
   top: 50%;
   transform: translateY(-50%);
 }
@@ -43,15 +43,15 @@
   position: relative;
   width: 2rem;
   height: 2rem;
-  border: 1px solid rgba(0 0 0 15%);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4rem;
   vertical-align: middle;
-  background-color: #f2f2f2;
+  background-color: var(--m-gray-100);
 }
 
 .m-switch-input:checked ~ .m-switch-container {
-  color: #fff;
-  background-color: #000;
+  color: var(--m-white-color);
+  background-color: var(--m-black-color);
 }
 
 .m-switch-input:checked ~ .m-switch-container .m-switch-label-off {

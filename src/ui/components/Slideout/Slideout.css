@@ -21,8 +21,8 @@
   height: 100%;
   top: 0;
   left: -27rem;
-  border-right: 1px solid #ccc;
-  background: white;
+  border-right: 1px solid var(--m-gray-100);
+  background: var(--m-white-color);
   z-index: 999;
 }
 
@@ -38,8 +38,8 @@
   height: 4rem;
   min-height: 4rem;
   max-height: 0;
-  border-bottom: 1px solid #ccc;
-  padding: 1rem;
+  border-bottom: 1px solid var(--m-gray-100);
+  padding: var(--m-padding-xxl);
 }
 
 .m-slideout-body {
@@ -60,7 +60,7 @@
   cursor: pointer;
   text-decoration: none;
   font-size: 100%;
-  color: #ccc;
+  color: var(--m-gray-100);
 }
 
 .m-slideout-close-button:hover {

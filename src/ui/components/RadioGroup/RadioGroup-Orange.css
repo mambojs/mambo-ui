@@ -1,16 +1,16 @@
 .m-radio-group-self .m-radio-self {
-  padding: 0.125rem;
+  padding: var(--m-padding-xs);
   display: block;
 }
 
 .m-radio-group-label {
   display: block;
   position: relative;
-  padding-left: 2rem;
+  padding-left: var(--m-padding-l);
   cursor: pointer;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  margin-right: 1rem;
+  font-size: var(--m-font-size-lg);
+  line-height: var(--m-line-height-m);
+  margin-right: var(--m-margin-m);
   user-select: none;
 }
 
@@ -28,11 +28,11 @@
   left: 0;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: #eee;
+  background-color: var(--m-gray-100);
 }
 
 .m-radio-group-input:checked ~ .m-radio-group-span {
-  background-color: #000;
+  background-color: var(--m-black-color);
 }
 
 .m-radio-group-span::after {
@@ -43,7 +43,7 @@
   top: 5px;
   width: 5px;
   height: 10px;
-  border: solid white;
+  border: solid var(--m-white-color);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }

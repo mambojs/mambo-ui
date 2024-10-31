@@ -1,8 +1,8 @@
 .m-dropdown-button {
-  color: white;
-  font-size: 1.2rem;
-  padding: 0.5rem 1rem;
-  background: black;
+  color: var(--m-white-color);
+  font-size: var(--m-font-size-lg);
+  padding: var(--m-padding-m) var(--m-padding-xxl);
+  background: var(--m-background-color);
   border: none;
   border-radius: 0;
   cursor: pointer;
@@ -13,7 +13,7 @@
 }
 
 .m-dropdown-button.m-hover {
-  background: #444;
+  background: var(--m-hover-background-color);
 }
 
 .m-dropdown-button.m-selected {

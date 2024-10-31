@@ -2,12 +2,22 @@
   /* Fonts */
   --m-font-family: "Ubuntu Light", sans-serif;
   --m-font-size: 1rem;
+  --m-font-size-m: 1rem;
+  --m-font-size-lg: 1.2rem;
 
   /* Colors */
   --m-text-color: white;
   --m-disabled-text-color: #ccc;
   --m-background-color: black;
   --m-error-color: red;
+  --m-black-color: rgb(0 0 0);
+  --m-white-color: rgb(255 255 255);
+  --m-gray-100: rgb(243 244 245);
+  --m-gray-200: rgb(208 212 217);
+  --m-gray-300: rgb(174 179 188);
+  --m-gray-400: rgb(123 132 147);
+  --m-gray-500: rgb(77 84 94);
+  --m-gray-600: rgb(42 46 52);
 
   /* Paddings */
   --m-padding-xs: 0.125rem;
@@ -16,6 +26,18 @@
   --m-padding-lg: 0.75rem;
   --m-padding-xl: 0.875rem;
   --m-padding-xxl: 1rem;
+  --m-padding-xxxl: 1.25rem;
+  --m-padding-xxxxl: 1.5rem;
+
+  /* Margins */
+  --m-margin-xs: 0.125rem;
+  --m-margin-s: 0.25rem;
+  --m-margin-m: 0.5rem;
+  --m-margin-lg: 0.75rem;
+  --m-margin-xl: 0.875rem;
+  --m-margin-xxl: 1rem;
+  --m-margin-xxxl: 1.25rem;
+  --m-margin-xxxxl: 1.5rem;
 
   /* Borders */
   --m-border: none;

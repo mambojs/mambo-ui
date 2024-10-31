@@ -49,7 +49,6 @@ function installStoryboard(props) {
 		storyParentTag.innerHTML = null;
 
 		storyParentTag.appendChild(dom.createTag("h4", { text: selectedStory.text }));
-		storyParentTag.appendChild(dom.createTag("mambo-button", { attr: { id: "mamboButton" } }));
 
 		// Invoke story function from the global scope
 		const fnName = `story${selectedStory.text.replaceAll(" ", "")}`;
@@ -167,7 +166,7 @@ function installStoryboard(props) {
 		homeButton.setup({
 			id: "homeButton",
 			text: "Home",
-			size: "medium",
+			size: "small",
 			fnClick: () => {
 				storyParentTag.innerHTML = null;
 				loadDocumentation();

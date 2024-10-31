@@ -12,7 +12,7 @@
   cursor: pointer;
   color: #ccc;
   border: none;
-  padding: 0.25rem;
+  padding: var(--m-padding-s);
   font-size: 100%;
 }
 

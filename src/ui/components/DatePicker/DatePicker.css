@@ -14,14 +14,14 @@
 .m-date-picker-input-input {
   width: 100%;
   border: none;
-  padding: 0.25rem;
+  padding: var(--m-padding-xs);
 }
 
 .m-date-picker-button {
   height: 100%;
   color: white;
   font-size: 1rem;
-  padding: 0.25rem 0.5rem;
+  padding: var(--m-padding-xs) var(--m-padding-m);
   background: black;
   border: none;
   border-radius: 0;
