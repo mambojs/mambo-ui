@@ -1,7 +1,7 @@
 .m-rating-self {
   position: relative;
   display: flex;
-  font-size: 2rem;
+  font-size: var(--m-font-size-lg);
 }
 
 .m-rating-empty {

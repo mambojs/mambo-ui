@@ -1,6 +1,5 @@
-
 .m-checkbox-group-self .m-checkbox-self {
-  padding: 0.125rem;
+  padding: var(--m-padding-xs);
   display: block;
 }
 

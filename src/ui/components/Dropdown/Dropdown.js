@@ -48,6 +48,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				let button = ui.utils.extend(true, {}, m_props.button);
 				button.css = ui.utils.extend(true, m_props.css.button, button.css);
 				button.parentTag = self;
+				button.text = button.text || "";
 				button.fnComplete = resolve;
 
 				button.fnClick = (context) => {

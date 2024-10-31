@@ -1,5 +1,5 @@
 .m-drag-drop-self {
-  padding: 1rem;
+  padding: var(--m-padding-xxl);
   border: 1px dashed #ccc;
   border-radius: 1rem;
   display: flex;
@@ -16,6 +16,6 @@
 }
 
 .m-drag-drop-icon {
-  margin-bottom: 1rem;
+  margin-bottom: var(--m-margin-xxl);
   font-size: 3rem;
 }

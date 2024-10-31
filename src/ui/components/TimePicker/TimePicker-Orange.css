@@ -8,10 +8,10 @@
 .m-time-picker-combobox-button {
   position: relative;
   height: 100%;
-  color: white;
+  color: var(--m-color-white);
   font-size: 100%;
   padding: var(--m-padding-xs) var(--m-padding-m);
-  background: black;
+  background: var(--m-color-black);
   border: none;
   border-radius: 0;
   cursor: pointer;
@@ -22,7 +22,7 @@
 }
 
 .m-time-picker-combobox-button.m-hover {
-  background: #444;
+  background: var(--m-color-gray-dark);
 }
 
 .m-time-picker-dropdown-container {
@@ -30,7 +30,7 @@
   position: absolute;
   width: 10rem;
   height: 15rem;
-  background-color: #f8f8f8;
+  background-color: var(--m-color-gray-lightest);
   box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 15%);
   overflow: auto;
   z-index: 999;

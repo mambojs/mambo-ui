@@ -1,7 +1,6 @@
 function storyButton(selectedStory) {
 	singleButton();
 	textIcon();
-	testButton();
 	textImage();
 	primaryLarge();
 	primaryMedium();
@@ -12,11 +11,6 @@ function storyButton(selectedStory) {
 	primaryDisabled();
 	secondaryDisabled();
 	buttonImgWithHover();
-
-	function testButton() {
-		const button = dom.getTag("#mamboButton");
-		button.setup({ text: "Test Button" });
-	}
 
 	function singleButton() {
 		const config = {

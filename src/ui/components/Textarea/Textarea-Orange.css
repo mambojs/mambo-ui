@@ -4,18 +4,23 @@
 
 .m-textarea-textarea {
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--m-gray-200);
+  border-radius: var(--m-border-radius-primary);
+  padding: var(--m-padding-m);
+  font-family: var(--m-font-family);
+  font-size: var(--m-font-size-m);
+  color: var(--m-body-color);
 }
 
 .m-input-button {
   background: none;
   cursor: pointer;
-  color: #ccc;
-  border: none;
-  padding: 0.25rem;
-  font-size: 100%;
+  color: var(--m-gray-300);
+  border: var(--m-border);
+  padding: var(--m-padding-s);
+  font-size: var(--m-font-size-m);
 }
 
 .m-input-button:hover {
-  color: black;
+  color: var(--m-heading-color);
 }

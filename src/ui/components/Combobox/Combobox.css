@@ -14,7 +14,7 @@
 .m-combobox-input-input {
   width: 100%;
   border: none;
-  padding: 0.4rem;
+  padding: var(--m-padding-m);
 }
 
 .m-combobox-button {
@@ -25,7 +25,7 @@
   height: 100%;
   color: white;
   font-size: 1.2rem;
-  padding: 0.5rem 1rem;
+  padding: var(--m-padding-m) var(--m-padding-xxl);
   background: black;
   border: none;
   border-radius: 0;
@@ -84,7 +84,7 @@
   justify-content: flex-start;
   color: #000;
   font-size: 0.85rem;
-  padding: 0.5rem;
+  padding: var(--m-padding-m);
   background-color: #f8f8f8;
 }
 

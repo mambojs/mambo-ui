@@ -62,7 +62,6 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				buttonGroup.buttons.forEach((button, index) => {
 					button.fnComplete = (context) => {
 						m_headerButtonsList[index] = context.Button;
-
 						if (m_props.headerButtonGroup.buttons[index].fnComplete) {
 							m_props.headerButtonGroup.buttons[index].fnComplete(context);
 						}
@@ -546,6 +545,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					headerButtonGroup: {
 						buttons: [
 							{
+								text: "",
 								css: {
 									button: "m-prev-button",
 									disabled: "m-calendar-header-button-disabled",
@@ -563,6 +563,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 								fnDynamicHeaderText: getDepthButtonText,
 							},
 							{
+								text: "",
 								css: {
 									button: "m-next-button",
 									disabled: "m-calendar-header-button-disabled",

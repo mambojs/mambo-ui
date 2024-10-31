@@ -1,6 +1,6 @@
 function storySearch(selectedStory) {
 	const config = {
-		button: { fnClick: value => toMap(apiSearch(value)) },
+		button: { text: "", fnClick: value => toMap(apiSearch(value)) },
 		input: {
 			fnKeyup: value => handleKeyUp(value),
 			enableClear: true,

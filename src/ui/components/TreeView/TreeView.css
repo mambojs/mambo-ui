@@ -19,7 +19,7 @@
 }
 
 .m-tree-view-item {
-  padding: 0 0 0 1rem;
+  padding: 0 0 0 var(--m-padding-m);
 }
 
 .m-tree-view-item-top {
@@ -29,17 +29,17 @@
 }
 
 .m-tree-view-item-in {
-  padding: 0.25rem 0.5rem;
+  padding: var(--m-padding-xs) var(--m-padding-m);
   cursor: default;
 }
 
 .m-tree-view-item-in.m-hover {
-  background-color: #ddd;
+  background-color: var(--m-gray-100);
 }
 
 .m-tree-view-item-in.m-selected {
-  color: #fff;
-  background-color: #000;
+  color: var(--m-white-color);
+  background-color: var(--m-background-color);
 }
 
 .m-tree-view-item-icon {

@@ -2,19 +2,24 @@
   display: flex;
 }
 
+.m-button-group-img {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 var(--m-margin-m);
+}
+
 .m-button-group-button {
   color: var(--m-text-color);
-  font-size: var(--m-font-size);
+  font-size: var(--m-font-size-m);
   padding: var(--m-padding-s);
-  margin: 0 0.2em;
+  margin: 0 var(--m-margin-s);
   background: var(--m-background-color);
-  border: var(--m-border);
-  border-radius: var(--m-border-radius);
   cursor: pointer;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
 }
 
 .m-button-group-button:hover {
@@ -24,10 +29,4 @@
 .m-button-group-button.m-selected {
   color: var(--m-selected-color);
   background: var(--m-selected-background-color);
-}
-
-.m-button-group-img {
-  width: 1rem;
-  height: 1rem;
-  margin: 0 0.5rem;
 }

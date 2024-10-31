@@ -1,6 +1,6 @@
 .m-button-button {
   color: var(--m-text-color);
-  font-size: var(--m-font-size);
+  font-size: var(--m-font-size-m);
   padding: var(--m-padding-s);
   background: var(--m-background-color);
   border: var(--m-border);
@@ -22,12 +22,12 @@
 
 .m-button-img {
   height: 1.25em;
-  margin: 0 0.5rem;
+  margin: 0 var(--m-margin-m);
 }
 
 .m-button-icon {
   height: 1.25em;
-  margin: 0 0.5rem;
+  margin: 0 var(--m-margin-m);
   align-content: center;
 }
 
