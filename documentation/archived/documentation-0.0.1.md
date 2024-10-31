@@ -26,9 +26,9 @@
 2. [ButtonSVG](#buttonsvg)
 3. [ButtonGroup](#buttongroup)
 4. [Calendar](#calendar)
-5. [CheckboxGroup](#checkboxgroup)
-6. [Combobox](#combobox)
-7. [Checkbox](#checkbox)
+5. [Combobox](#combobox)
+6. [Checkbox](#checkbox)
+7. [CheckboxGroup](#checkboxgroup)
 8. [DatePicker](#datepicker)
 9. [Dialog](#dialog)
 10. [DragDrop](#dragdrop)
@@ -56,1937 +56,1243 @@
 
 ## Button
 
-### Public Properties
-
-- `deselect`: Function to deselect the button
-- `enable`: Function to enable or disable the button
-- `getConfig`: Function to get the button configuration
-- `getId`: Function to get the button ID
-- `getImageTagById`: Function to get an image tag by ID
-- `getParentTag`: Function to get the parent tag
-- `getTag`: Function to get the button tag
-- `text`: Function to get or set the button text
-- `select`: Function to select the button
-- `setup`: Function to set up the button
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the button with the given properties.
-- `props`: Object containing button configuration
-
-#### deselect()
-Deselects the button.
-
-#### enable(enable)
-Enables or disables the button.
-- `enable`: Boolean indicating whether to enable or disable the button
-
-#### getConfig()
-Returns the button configuration.
-
-#### getId()
-Returns the button ID.
-
-#### getImageTagById(id)
-Returns an image tag by ID.
-- `id`: String representing the image ID
-
-#### getParentTag()
-Returns the parent tag of the button.
-
-#### getTag()
-Returns the button tag.
-
-#### text(context)
-Gets or sets the button text.
-- `context`: Object containing the text to set (optional)
-  - `text`: String representing the new button text
-
-#### select(context)
-Selects the button.
-- `context`: Object containing selection options
-  - `notTrigger`: Boolean indicating whether to trigger the click event
+### Public Properties (m_props)
+- `text` (string): Default "Mambo Button". The button's display text
+- `enable` (boolean): Default `true`. Controls button interactivity
+- `preventDefault` (boolean): Default `true`. Prevents default event behavior
+- `stopPropagation` (boolean): Default `true`. Stops event bubbling
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `css` (object): CSS class names for styling
+  - `button` (string): Main button class
+  - `pressed` (string): Class when button is pressed
+  - `selected` (string): Class when button is selected
+  - `hover` (string): Class when button is hovered
+  - `disabled` (string): Class when button is disabled
+- `img` (object|array): Optional image configuration(s)
+  - `css` (string): Image CSS class
+  - `prop` (object): HTML properties
+  - `attr` (object): HTML attributes
+  - `hover` (string): Hover state image URL
+  - `position` (string): Image position ("left"|"right")
+- `icon` (object|array): Optional icon configuration(s)
+  - `attr` (object): Icon attributes including class
+  - `size` (string): Icon size class
+  - `position` (string): Icon position ("left"|"right")
 
 ### Private Properties
+- `m_imageList` (array): Stores image tag references
+- `m_iconList` (array): Stores icon tag references
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_buttonTag` (HTMLElement): Main button element reference
+- `m_text` (string): Current button text
+- `m_enable` (boolean): Current enabled state
 
-- `m_imageList`: Array of image tags
-- `m_parentTag`: Parent tag of the button
-- `m_props`: Button configuration properties
-- `m_buttonTag`: Button tag
-- `m_text`: Button text
-- `m_enable`: Boolean indicating if the button is enabled
+### Public Methods
+- `deselect()`: Removes selected state from button
+- `enable(enable: boolean)`: Sets button enabled state
+- `getConfig()`: Returns m_props configuration object
+- `getId()`: Returns button ID from m_props
+- `getImageTagById(id: string)`: Returns image tag by ID
+- `getIconTagById(id: string)`: Returns icon tag by ID
+- `getParentTag()`: Returns parent element
+- `getTag()`: Returns button element
+- `text(text: string)`: Gets/sets button text
+- `select(context: object)`: Handles external selection
+  - `context.notTrigger` (boolean): If true, only updates visual state
+- `setup(props: object)`: Initializes button with configuration
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the button with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the button.
-
-#### insertGraphic(graphic, func)
-Inserts a graphic (image or SVG) into the button.
-- `graphic`: Object or array of objects representing the graphic(s) to insert
-- `func`: Function to add the graphic (addImg or addSVG)
-
-#### addImg(img)
-Adds an image to the button.
-- `img`: Object containing image properties
-
-#### addSVG(svg)
-Adds an SVG to the button.
-- `svg`: Object containing SVG properties
-
-#### handleClick(ev)
-Handles the click event on the button.
-- `ev`: Click event object
-
-#### mouseEnterOverImage()
-Handles mouse enter event for images.
-
-#### mouseLeaveOverImage()
-Handles mouse leave event for images.
-
-#### mouseEnterOverButton()
-Handles mouse enter event for the button.
-
-#### mouseLeaveOverButton()
-Handles mouse leave event for the button.
-
-#### setSrcAttr(tag, src)
-Sets the src attribute of an image tag.
-- `tag`: Image tag to update
-- `src`: New source URL for the image
-
-#### handleExternalSelect(context)
-Handles external selection of the button.
-- `context`: Object containing selection options
-  - `notTrigger`: Boolean indicating whether to trigger the click event
-
-#### selectBtn()
-Selects the button.
-
-#### deselectBtn()
-Deselects the button.
-
-#### setEnable()
-Sets the enabled/disabled state of the button.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `enable`: Boolean, default `true`
-- `preventDefault`: Boolean, default `true`
-- `stopPropagation`: Boolean, default `true`
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-
-Additional properties can be added or overridden when instantiating the Button class.
-
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `insertGraphic()`: Handles image insertion
+- `insertIcon()`: Handles icon insertion
+- `handleClick(ev: Event)`: Processes click events
+- `handleMouseDown(ev: Event)`: Handles mouse down state
+- `handleMouseUp(ev: Event)`: Handles mouse up state
+- `mouseEnterOverButton()`: Handles mouse enter on button
+- `mouseLeaveOverButton()`: Handles mouse leave on button
+- `mouseEnterOverImage()`: Handles mouse enter on image
+- `mouseLeaveOverImage()`: Handles mouse leave on image
+- `selectBtn()`: Applies selected state
+- `setEnable()`: Updates enabled/disabled state
 ## ButtonSVG
 
-The ButtonSVG class extends the functionality of the Button class to specifically handle SVG buttons. It inherits all properties and methods from the Button class and adds or modifies the following:
-
-### Public Properties
-
-Inherits all public properties from Button class.
-
-### Public Methods (API)
-
-Inherits all public methods from Button class.
+### Public Properties (m_props)
+- `enable` (boolean): Default `true`. Controls button interactivity
+- `preventDefault` (boolean): Default `true`. Prevents default event behavior
+- `stopPropagation` (boolean): Default `true`. Stops event bubbling
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `css` (object): CSS class names for styling
+  - `button` (string): Main button class
+  - `selected` (string): Class when button is selected
+  - `hover` (string): Class when button is hovered
+  - `disabled` (string): Class when button is disabled
+  - `img` (object): Image-specific CSS classes
+- `img` (object|array): Optional image configuration(s)
+  - `css` (string): Image CSS class
+  - `prop` (object): HTML properties
+  - `attr` (object): HTML attributes
+  - `hover` (string): Hover state image URL
+- `svg` (object|array): Optional SVG configuration(s)
+  - `element` (object): SVG element configuration
+    - `attr` (object): SVG attributes
+    - `paths` (array): Array of SVG path data
+  - `prop` (object): SVG properties
+  - `attr` (object): SVG attributes
 
 ### Private Properties
+- `m_imageList` (array): Stores image tag references
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_buttonTag` (HTMLElement): Main button element reference
+- `m_text` (string): Current button text
+- `m_enable` (boolean): Current enabled state
 
-Inherits all private properties from Button class, with the addition of:
-
-- `m_imageList`: Array of image tags for SVG elements
+### Public Methods
+- `deselect()`: Removes selected state from button
+- `enable(enable: boolean)`: Sets button enabled state
+- `getConfig()`: Returns m_props configuration object
+- `getId()`: Returns button ID from m_props
+- `getImageTagById(id: string)`: Returns image tag by ID
+- `getParentTag()`: Returns parent element
+- `getTag()`: Returns button element
+- `text(context: object)`: Gets/sets button text
+  - `context.text` (string): New text to set
+- `select(context: object)`: Handles external selection
+  - `context.notTrigger` (boolean): If true, only updates visual state
+- `setup(props: object)`: Initializes button with configuration
 
 ### Private Functions
-
-Inherits all private functions from Button class, with the addition of:
-
-#### addSVG(svg)
-Adds an SVG element to the button.
-- `svg`: Object containing SVG properties and paths
-
-### m_props Configuration
-
-Inherits the same default configuration as the Button class, with potential additional SVG-specific properties that can be added when instantiating the ButtonSVG class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `insertGraphic(graphic: object|array, func: Function)`: Generic graphic insertion handler
+- `addImg(img: object)`: Handles image element creation
+- `addSVG(svg: object)`: Handles SVG element creation
+- `handleClick(ev: Event)`: Processes click events
+- `mouseEnterOverButton()`: Handles mouse enter on button
+- `mouseLeaveOverButton()`: Handles mouse leave on button
+- `mouseEnterOverImage()`: Handles mouse enter on image
+- `mouseLeaveOverImage()`: Handles mouse leave on image
+- `selectBtn()`: Applies selected state
+- `setEnable()`: Updates enabled/disabled state
 
 ## ButtonGroup
 
-### Public Properties
-
-- `deselect`: Function to deselect all buttons in the group
-- `destroy`: Function to destroy the button group
-- `getConfigById`: Function to get a button configuration by ID
-- `getParentTag`: Function to get the parent tag of the button group
-- `getSelected`: Function to get the selected button
-- `getTag`: Function to get a button tag by ID
-- `select`: Function to select a button in the group
-- `setup`: Function to set up the button group
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the button group with the given properties.
-- `props`: Object containing button group configuration
-
-#### deselect()
-Deselects all buttons in the group.
-
-#### destroy()
-Destroys the button group and removes it from the DOM.
-
-#### getConfigById(context)
-Returns the configuration of a button by its ID.
-- `context`: Object containing the button ID
-  - `id`: String representing the button ID
-
-#### getParentTag()
-Returns the parent tag of the button group.
-
-#### getSelected()
-Returns the currently selected button.
-
-#### getTag(context)
-Returns a button tag by its ID.
-- `context`: Object containing the button ID
-  - `id`: String representing the button ID
-
-#### select(context)
-Selects a button in the group.
-- `context`: Object containing selection options
-  - `id`: String or Array of strings representing button ID(s) to select
-  - `notTrigger`: Boolean indicating whether to trigger the click event
+### Public Properties (m_props)
+- `buttons` (array): Default `[]`. Array of button configurations
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `fnGroupClick` (Function): Default handler for group button clicks
+- `css` (object): CSS class names for styling
+  - `self` (string): Container class
+  - `button` (object): Button-specific CSS classes
 
 ### Private Properties
+- `m_buttonsList` (array): Stores button component references
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_selectedButtonTag` (HTMLElement): Currently selected button reference
 
-- `m_buttonsList`: Array of button instances in the group
-- `m_parentTag`: Parent tag of the button group
-- `m_props`: Button group configuration properties
-- `m_selectedButtonTag`: Currently selected button tag
+### Public Methods
+- `deselect()`: Deselects all buttons in group
+- `destroy()`: Removes button group from DOM
+- `getConfigById(context: object)`: Returns button config by ID
+  - `context.id` (string): Button ID to find
+- `getParentTag()`: Returns group container element
+- `getSelected()`: Returns currently selected button
+- `getTag(context: object)`: Returns button element by ID
+  - `context.id` (string): Button ID to find
+- `select(context: object)`: Selects button by ID
+  - `context.id` (string): Button ID to select
+  - `context.notTrigger` (boolean): If true, only updates visual state
+- `setup(props: object)`: Initializes button group with configuration
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the button group with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the button group.
-
-#### installButton(button)
-Installs a button in the group.
-- `button`: Object containing button configuration
-
-#### handleGroupBtnClick(context)
-Handles the click event for buttons in the group.
-- `context`: Object containing click event details
-
-#### getTag(id)
-Returns a button tag by its ID.
-- `id`: String representing the button ID
-
-#### destroyButtonGroup()
-Destroys the button group and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `buttons`: Array of button configurations, default `[]`
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-- `fnGroupClick`: Function, default handler for group button clicks
-
-Additional properties can be added or overridden when instantiating the ButtonGroup class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `installButton(button: object)`: Creates individual button components
+- `handleGroupBtnClick(context: object)`: Handles button click within group
+  - `context.Button` (object): Clicked button reference
+  - `context.ev` (Event): Click event object
+- `deselectBtns()`: Deselects all buttons in group
+- `getTag(id: string)`: Internal helper to find button by ID
 
 ## Calendar
 
-### Public Properties
-
-- `destroy`: Function to destroy the calendar
-- `getParentTag`: Function to get the parent tag of the calendar
-- `navigateToFuture`: Function to navigate to the future
-- `navigateToPast`: Function to navigate to the past
-- `navigateUp`: Function to navigate up in the calendar view
-- `setup`: Function to set up the calendar
-- `value`: Function to get or set the calendar value
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the calendar with the given properties.
-- `props`: Object containing calendar configuration
-
-#### destroy()
-Destroys the calendar and removes it from the DOM.
-
-#### getParentTag()
-Returns the parent tag of the calendar.
-
-#### navigateToFuture()
-Navigates to the future in the calendar view.
-
-#### navigateToPast()
-Navigates to the past in the calendar view.
-
-#### navigateUp()
-Navigates up in the calendar view (e.g., from days to months).
-
-#### value(context)
-Gets or sets the calendar value.
-- `context`: Object containing the value to set (optional)
-  - `value`: Date object or string representing the new calendar value
+### Public Properties (m_props)
+- `theme` (string): Default "default". Theme configuration name
+- `tag` (string): Default "default". Template tag configuration name
+- `headerButtonGroup` (object): Configuration for header navigation buttons
+  - `buttons` (array): Array of button configs for prev, title, next buttons
+- `datesHeader` (object): Configuration for weekday headers
+  - `layout` (string): Default "tile". Layout type
+  - `tileHTML` (string): Template for header tiles
+- `format` (string): Default "M/D/YYYY". Date format pattern
+- `footer` (string): Default "dddd, MMMM D, YYYY". Footer date format
+- `start` (string): Default "month". Initial view ("month"|"year"|"decade"|"century")
+- `depth` (string): Default "month". Minimum navigation depth
+- `min` (Date): Default 1900/1/1. Minimum selectable date
+- `max` (Date): Default 2099/12/31. Maximum selectable date
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_headerButtonGroup` (ButtonGroup): Header navigation buttons component
+- `m_headerButtonsList` (array): References to header buttons
+- `m_bodyTag` (HTMLElement): Calendar body container
+- `m_bodyHeaderTag` (HTMLElement): Calendar header container
+- `m_bodyContentTag` (HTMLElement): Calendar content container
+- `m_datesHeaderGrid` (Grid): Weekday headers grid component
+- `m_datesButtonGroup` (ButtonGroup): Date buttons component
+- `m_value` (Date): Currently selected date
+- `m_viewDate` (Date): Currently displayed month/year
+- `m_depths` (object): Depth level mappings
+- `m_depth` (number): Current navigation depth
+- `m_minDepth` (number): Minimum allowed depth
+- `m_minDate` (Date): Minimum date boundary
+- `m_maxDate` (Date): Maximum date boundary
 
-- `m_parentTag`: Parent tag of the calendar
-- `m_headerButtonGroup`: Button group for the calendar header
-- `m_headerButtonsList`: List of header buttons
-- `m_bodyTag`: Body tag of the calendar
-- `m_bodyHeaderTag`: Header tag of the calendar body
-- `m_bodyContentTag`: Content tag of the calendar body
-- `m_datesHeaderGrid`: Grid for date headers
-- `m_datesButtonGroup`: Button group for dates
-- `m_props`: Calendar configuration properties
-- `m_value`: Current calendar value
-- `m_viewDate`: Current view date
-- `m_depth`: Current depth of the calendar view
-- `m_minDepth`: Minimum depth of the calendar view
-- `m_minDate`: Minimum selectable date
-- `m_maxDate`: Maximum selectable date
+### Public Methods
+- `destroy()`: Removes calendar from DOM
+- `getParentTag()`: Returns calendar container element
+- `navigateToFuture()`: Moves view forward one period
+- `navigateToPast()`: Moves view back one period
+- `navigateUp()`: Moves to higher view level (month->year->decade->century)
+- `setup(props: object)`: Initializes calendar with configuration
+- `value(context: object)`: Gets/sets selected date
+  - `context.value` (Date|string): Date to set
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the calendar with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the calendar.
-
-#### setupHeader()
-Sets up the calendar header.
-
-#### setupBody()
-Sets up the calendar body.
-
-#### setupFooter()
-Sets up the calendar footer.
-
-#### navigate(number)
-Navigates the calendar by a specified number of units.
-- `number`: Number of units to navigate
-
-#### setupBodyContent()
-Sets up the content of the calendar body based on the current view.
-
-#### setHeaderButtonsEnabled()
-Sets the enabled state of header buttons.
-
-#### setHeaderButtonsText()
-Sets the text of header buttons.
-
-#### installDatesHeader()
-Installs the header for dates view.
-
-#### installDates()
-Installs the dates in the calendar view.
-
-#### generateDates(buttonGroup)
-Generates date buttons for the calendar.
-- `buttonGroup`: Button group configuration for dates
-
-#### installMonths()
-Installs the months in the calendar view.
-
-#### generateMonths(buttonGroup)
-Generates month buttons for the calendar.
-- `buttonGroup`: Button group configuration for months
-
-#### installYears()
-Installs the years in the calendar view.
-
-#### generateYears(buttonGroup)
-Generates year buttons for the calendar.
-- `buttonGroup`: Button group configuration for years
-
-#### installDecades()
-Installs the decades in the calendar view.
-
-#### generateDecades(buttonGroup)
-Generates decade buttons for the calendar.
-- `buttonGroup`: Button group configuration for decades
-
-#### isValidButton(value)
-Checks if a date button is valid based on min and max dates.
-- `value`: Date to check
-
-#### buttonClick(context, buttonGroup)
-Handles button clicks in the calendar.
-- `context`: Click event context
-- `buttonGroup`: Button group configuration
-
-#### selectValue(button, ev)
-Selects a value in the calendar.
-- `button`: Selected button
-- `ev`: Click event object
-
-#### getDefaultValue()
-Gets the default value for the calendar.
-
-#### getInRangeDate(value)
-Gets a date within the allowed range.
-- `value`: Date to check and adjust if necessary
-
-#### setValue(value)
-Sets the calendar value.
-- `value`: New calendar value
-
-#### setViewDate(value)
-Sets the view date of the calendar.
-- `value`: New view date
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-- `headerButtonGroup`: Object, configuration for header buttons
-- `datesHeader`: Object, configuration for dates header
-- `format`: String, default `"M/D/YYYY"`
-- `footer`: String, default `"dddd, MMMM D, YYYY"`
-- `start`: String, default `"month"`
-- `depth`: String, default `"month"`
-- `min`: Date object, default `new Date(1900, 0, 1)`
-- `max`: Date object, default `new Date(2099, 11, 31)`
-
-Additional properties can be added or overridden when instantiating the Calendar class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `setupHeader()`: Creates navigation header
+- `setupBody()`: Creates calendar body structure
+- `setupFooter()`: Creates footer (today button)
+- `setupBodyContent()`: Updates calendar content based on current view
+- `installDatesHeader()`: Creates weekday header grid
+- `installDates()`: Creates date buttons for month view
+- `installMonths()`: Creates month buttons for year view
+- `installYears()`: Creates year buttons for decade view
+- `installDecades()`: Creates decade buttons for century view
+- `navigate(number: number)`: Handles navigation between periods
+- `selectValue(button: Button, ev: Event)`: Handles date selection
+- `setValue(value: Date)`: Updates selected date
+- `setViewDate(value: Date)`: Updates displayed period
+- `isValidButton(value: Date)`: Checks if date is within bounds
+- `getDefaultValue()`: Gets initial date value
+- `getInRangeDate(value: Date)`: Ensures date is within bounds
 
 ## CheckboxGroup
 
-### Public Properties
-
-- `clear`: Function to clear all checkbox selections
-- `destroy`: Function to destroy the checkbox group
-- `getParentTag`: Function to get the parent tag of the checkbox group
-- `getTag`: Function to get a checkbox tag by ID
-- `select`: Function to select checkboxes
-- `setup`: Function to set up the checkbox group
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the checkbox group with the given properties.
-- `props`: Object containing checkbox group configuration
-
-#### clear()
-Clears all checkbox selections in the group.
-
-#### destroy()
-Destroys the checkbox group and removes it from the DOM.
-
-#### getParentTag()
-Returns the parent tag of the checkbox group.
-
-#### getTag(context)
-Returns a checkbox tag by its ID.
-- `context`: Object containing the checkbox ID
-  - `id`: String representing the checkbox ID
-
-#### select(context)
-Selects or gets selected checkboxes in the group.
-- `context`: Object containing selection options
-  - `id`: String or Array of strings representing checkbox ID(s) to select (optional)
-  - `notTrigger`: Boolean indicating whether to trigger the click event (optional)
+### Public Properties (m_props)
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `name` (string): Default random string. Input group name
+- `checkboxes` (array): Default `[]`. Array of checkbox configurations
+- `position` (string): Default "right". Label position ("left"|"right")
+- `css` (object): CSS class names for styling
+  - `self` (string): Container class
+  - `checkbox` (object): Checkbox-specific CSS classes
 
 ### Private Properties
+- `m_checkboxList` (array): Stores checkbox component references
+- `m_parentTag` (HTMLElement): Parent element reference
 
-- `m_checkboxList`: Array of checkbox instances in the group
-- `m_parentTag`: Parent tag of the checkbox group
-- `m_props`: Checkbox group configuration properties
+### Public Methods
+- `clear()`: Deselects all checkboxes
+- `destroy()`: Removes checkbox group from DOM
+- `getParentTag()`: Returns group container element
+- `getTag(context: object)`: Returns checkbox by ID
+  - `context.id` (string): Checkbox ID to find
+- `select(context: object)`: Selects checkbox(es) by ID
+  - `context.id` (string|array): ID(s) to select
+  - `context.notTrigger` (boolean): If true, only updates visual state
+- `setup(props: object)`: Initializes checkbox group with configuration
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the checkbox group with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the checkbox group.
-
-#### processCheckbox(checkbox, index)
-Processes and installs a checkbox in the group.
-- `checkbox`: Object containing checkbox configuration
-- `index`: Index of the checkbox in the group
-
-#### handleGroupClick(context)
-Handles the click event for checkboxes in the group.
-- `context`: Object containing click event details
-
-#### getTag(id)
-Returns a checkbox tag by its ID.
-- `id`: String representing the checkbox ID
-
-#### getSelected()
-Returns an array of selected checkboxes.
-
-#### selectTag(tag, notTrigger)
-Selects a checkbox tag.
-- `tag`: Checkbox tag to select
-- `notTrigger`: Boolean indicating whether to trigger the click event
-
-#### destroyCheckboxGroup()
-Destroys the checkbox group and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-- `name`: String, default randomly generated
-- `checkboxes`: Array of checkbox configurations, default `[]`
-
-Additional properties can be added or overridden when instantiating the CheckboxGroup class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `processCheckbox(checkbox: object, index: number)`: Creates individual checkboxes
+- `handleGroupClick(context: object)`: Handles checkbox clicks within group
+  - `context.Checkbox` (object): Clicked checkbox reference
+  - `context.ev` (Event): Click event object
+- `getTag(id: string)`: Internal helper to find checkbox by ID
+- `getSelected()`: Returns array of selected checkboxes
+- `selectTag(tag: Checkbox, notTrigger: boolean)`: Selects individual checkbox
 
 ## Combobox
 
-### Public Properties
-
-- `destroy`: Function to destroy the combobox
-- `getParentTag`: Function to get the parent tag of the combobox
-- `getSelected`: Function to get the selected item
-- `setup`: Function to set up the combobox
-- `value`: Function to get or set the combobox value
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the combobox with the given properties.
-- `props`: Object containing combobox configuration
-
-#### destroy()
-Destroys the combobox and removes it from the DOM.
-
-#### getParentTag()
-Returns the parent tag of the combobox.
-
-#### getSelected()
-Returns the selected item in the combobox.
-
-#### value(context)
-Gets or sets the combobox value.
-- `context`: Object containing the value to set (optional)
-  - `value`: String representing the new combobox value
+### Public Properties (m_props)
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `input` (object): Input field configuration
+  - `events` (array): Input event handlers
+- `dropdown` (object): Dropdown menu configuration
+  - `button` (object): Dropdown button configuration
+    - `text` (string): Button text
+- `buttonGroup` (object): Button group configuration for dropdown items
+- `idField` (string): Default "id". Field name for item IDs
+- `textField` (string): Default "text". Field name for item display text
+- `filter` (boolean): Default `true`. Enable filtering
+- `value` (string): Default "". Initial value
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_input` (Input): Input component reference
+- `m_dropdownWrapperTag` (HTMLElement): Dropdown container
+- `m_dropdown` (Dropdown): Dropdown component reference
+- `m_buttonGroup` (ButtonGroup): Button group for options
+- `m_comboBoxData` (array): Data items for dropdown
+- `m_value` (string): Current selected value
+- `m_previous_text` (string): Previous input text value
 
-- `m_parentTag`: Parent tag of the combobox
-- `m_input`: Input component of the combobox
-- `m_dropdownWrapperTag`: Wrapper tag for the dropdown
-- `m_dropdown`: Dropdown component of the combobox
-- `m_buttonGroup`: Button group for dropdown items
-- `m_props`: Combobox configuration properties
-- `m_comboBoxData`: Data for combobox items
-- `m_value`: Current combobox value
-- `m_previous_text`: Previous input text
+### Public Methods
+- `destroy()`: Removes combobox from DOM
+- `getParentTag()`: Returns combobox container
+- `getSelected()`: Returns selected button from dropdown
+- `setup(props: object)`: Initializes combobox with configuration
+- `value(context: object)`: Gets/sets current value
+  - `context.value` (string): Value to set
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the combobox with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the combobox.
-
-#### setupInput()
-Sets up the input component of the combobox.
-
-#### setupDropdown()
-Sets up the dropdown component of the combobox.
-
-#### installButtonGroup(dropdown, data)
-Installs the button group for dropdown items.
-- `dropdown`: Dropdown component
-- `data`: Array of combobox item data
-
-#### processItemData(itemData)
-Processes item data for the button group.
-- `itemData`: Object or string representing an item
-
-#### filterItems()
-Filters combobox items based on input value.
-
-#### setValue(value, ev)
-Sets the combobox value.
-- `value`: New combobox value
-- `ev`: Event object (optional)
-
-#### getItemDataId(itemData)
-Gets the ID of an item from its data.
-- `itemData`: Object or string representing an item
-
-#### getItemDataText(itemData)
-Gets the text of an item from its data.
-- `itemData`: Object or string representing an item
-
-#### handleKeyUp()
-Handles key up event on the input.
-
-#### handleBlur(ev)
-Handles blur event on the input.
-- `ev`: Blur event object
-
-#### destroyComboBox()
-Destroys the combobox and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-- `input`: Object, configuration for input component
-- `dropdown`: Object, configuration for dropdown component
-- `buttonGroup`: Object, configuration for button group
-- `idField`: String, default `"id"`
-- `textField`: String, default `"text"`
-- `filter`: Boolean, default `true`
-- `value`: String, default `""`
-
-Additional properties can be added or overridden when instantiating the Combobox class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates main structure
+- `setupInput()`: Creates input component
+- `setupDropdown()`: Creates dropdown component
+- `installButtonGroup(dropdown: Dropdown, data: array)`: Creates option buttons
+- `processItemData(itemData: object)`: Formats data item for button
+- `filterItems()`: Filters dropdown options based on input
+- `setValue(value: string, ev: Event)`: Updates selected value
+- `getItemDataId(itemData: object)`: Extracts item ID
+- `getItemDataText(itemData: object)`: Extracts item display text
+- `handleKeyUp()`: Handles input key events
+- `handleBlur(ev: Event)`: Handles input blur events
 
 ## Checkbox
 
-### Public Properties
-
-- `destroy`: Function to destroy the checkbox
-- `enable`: Function to enable or disable the checkbox
-- `getId`: Function to get the checkbox ID
-- `getParentTag`: Function to get the parent tag of the checkbox
-- `select`: Function to select or deselect the checkbox
-- `setup`: Function to set up the checkbox
-- `value`: Function to get or set the checkbox value
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the checkbox with the given properties.
-- `props`: Object containing checkbox configuration
-
-#### destroy()
-Destroys the checkbox and removes it from the DOM.
-
-#### enable(context)
-Enables or disables the checkbox.
-- `context`: Object containing enable options
-  - `enable`: Boolean indicating whether to enable or disable the checkbox
-
-#### getId()
-Returns the checkbox ID.
-
-#### getParentTag()
-Returns the parent tag of the checkbox.
-
-#### select(context)
-Selects or deselects the checkbox, or gets the current selection state.
-- `context`: Object containing selection options (optional)
-  - `value`: Boolean indicating whether to select or deselect the checkbox
-  - `notTrigger`: Boolean indicating whether to trigger the click event
-
-#### value(context)
-Gets or sets the checkbox value.
-- `context`: Object containing the value to set (optional)
-  - `value`: String representing the new checkbox value
+### Public Properties (m_props)
+- `enable` (boolean): Default `true`. Controls checkbox interactivity
+- `name` (string): Default random string. Input name attribute
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `position` (string): Default "left". Label position ("left"|"right")
+- `text` (string): Checkbox label text
+- `checked` (boolean): Initial checked state
+- `css` (object): CSS class names for styling
+  - `container` (string): Container class
+  - `self` (string): Component root class
+  - `text` (string): Label text class
+  - `input` (string): Input element class
+  - `span` (string): Custom checkbox class
+  - `disabled` (string): Disabled state class
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_containerTag` (HTMLElement): Container element reference
+- `m_inputTag` (HTMLElement): Input element reference
+- `m_spanTag` (HTMLElement): Custom checkbox element reference
+- `m_enabled` (boolean): Current enabled state
+- `m_checked` (boolean): Current checked state
 
-- `m_parentTag`: Parent tag of the checkbox
-- `m_containerTag`: Container tag for the checkbox
-- `m_inputTag`: Input tag of the checkbox
-- `m_spanTag`: Span tag for the checkbox style
-- `m_props`: Checkbox configuration properties
-- `m_enabled`: Boolean indicating if the checkbox is enabled
-- `m_checked`: Boolean indicating if the checkbox is checked
+### Public Methods
+- `destroy()`: Removes checkbox from DOM
+- `enable(context)`: Sets enabled state
+  - `context.enable` (boolean): Enable/disable checkbox
+- `getId()`: Returns checkbox ID from m_props
+- `getParentTag()`: Returns container element
+- `select(context)`: Gets/sets checked state
+  - `context.value` (boolean): Checked state to set
+  - `context.notTrigger` (boolean): If true, only updates visual state
+- `setup(props)`: Initializes checkbox with configuration
+- `value(context)`: Gets/sets input value
+  - `context.value` (string): Value to set
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+  - `customProps` (object): Custom configuration to merge
+- `setupDOM()`: Creates and configures DOM elements
+- `handleClick(ev)`: Processes click events
+  - `ev` (Event): Click event object
+- `checkInput(value, notTrigger)`: Updates checked state
+  - `value` (boolean): New checked state
+  - `notTrigger` (boolean): If true, only updates visual state
+- `setEnable()`: Updates enabled/disabled state
 
-#### configure(customProps)
-Configures the checkbox with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
 
-#### setupDOM()
-Sets up the DOM structure for the checkbox.
-
-#### handleClick(ev)
-Handles the click event on the checkbox.
-- `ev`: Click event object
-
-#### checkInput(value, notTrigger)
-Checks or unchecks the checkbox input.
-- `value`: Boolean indicating whether to check or uncheck
-- `notTrigger`: Boolean indicating whether to trigger the click event
-
-#### setEnable()
-Sets the enabled/disabled state of the checkbox.
-
-#### destroyCheckbox()
-Destroys the checkbox and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `enable`: Boolean, default `true`
-- `name`: String, default randomly generated
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-
-Additional properties can be added or overridden when instantiating the Checkbox class.
 
 ## DatePicker
 
-### Public Properties
-
-- `destroy`: Function to destroy the date picker
-- `getParentTag`: Function to get the parent tag of the date picker
-- `setup`: Function to set up the date picker
-- `value`: Function to get or set the date picker value
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the date picker with the given properties.
-- `props`: Object containing date picker configuration
-
-#### destroy()
-Destroys the date picker and removes it from the DOM.
-
-#### getParentTag()
-Returns the parent tag of the date picker.
-
-#### value(context)
-Gets or sets the date picker value.
-- `context`: Object containing the value to set (optional)
-  - `value`: Date object or string representing the new date picker value
+### Public Properties (m_props)
+- `theme` (string): Default "default". Theme configuration name
+- `tag` (string): Default "default". Template tag configuration name
+- `input` (object): Input field configuration
+  - `events` (array): Input event handlers
+- `calendar` (object): Calendar component configuration
+- `format` (string): Default "M/D/YYYY". Date format pattern
+- `value` (Date|null): Default `null`. Initial date value
+- `footer` (string): Default "dddd, MMMM D, YYYY". Calendar footer format
+- `start` (string): Default "month". Initial calendar view
+- `depth` (string): Default "month". Minimum calendar depth
+- `min` (Date): Default 1900/1/1. Minimum date
+- `max` (Date): Default 2099/12/31. Maximum date
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_input` (Input): Input component reference
+- `m_dropdownWrapperTag` (HTMLElement): Dropdown container
+- `m_dropdown` (Dropdown): Dropdown component reference
+- `m_calendar` (Calendar): Calendar component reference
+- `m_value` (Date|null): Current selected date
+- `m_previous_text` (string): Previous input text value
 
-- `m_parentTag`: Parent tag of the date picker
-- `m_input`: Input component of the date picker
-- `m_dropdownWrapperTag`: Wrapper tag for the dropdown
-- `m_dropdown`: Dropdown component of the date picker
-- `m_calendar`: Calendar component of the date picker
-- `m_props`: Date picker configuration properties
-- `m_value`: Current date picker value
-- `m_previous_text`: Previous input text
+### Public Methods
+- `destroy()`: Removes datepicker from DOM
+- `getParentTag()`: Returns datepicker container
+- `setup(props: object)`: Initializes datepicker with configuration
+- `value(context: object)`: Gets/sets current date
+  - `context.value` (Date|string): Date to set
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the date picker with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the date picker.
-
-#### setupInput()
-Sets up the input component of the date picker.
-
-#### setupDropdown()
-Sets up the dropdown component of the date picker.
-
-#### installCalendar(dropdown)
-Installs the calendar component in the dropdown.
-- `dropdown`: Dropdown component
-
-#### setValue(value)
-Sets the date picker value.
-- `value`: New date picker value
-
-#### handleBlur(ev)
-Handles blur event on the input.
-- `ev`: Blur event object
-
-#### destroyDatePicker()
-Destroys the date picker and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `theme`: String, default `"default"`
-- `tag`: String, default `"default"`
-- `input`: Object, configuration for input component
-- `calendar`: Object, configuration for calendar component
-- `format`: String, default `"M/D/YYYY"`
-- `value`: Date object or null, default `null`
-- `footer`: String, default `"dddd, MMMM D, YYYY"`
-- `start`: String, default `"month"`
-- `depth`: String, default `"month"`
-- `min`: Date object, default `new Date(1900, 0, 1)`
-- `max`: Date object, default `new Date(2099, 11, 31)`
-
-Additional properties can be added or overridden when instantiating the DatePicker class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates main structure
+- `setupInput()`: Creates input component
+- `setupDropdown()`: Creates dropdown component
+- `installCalendar(dropdown: Dropdown)`: Creates calendar component
+- `setValue(value: Date|string)`: Updates selected date
+- `handleBlur(ev: Event)`: Handles input blur events
 
 ## Dialog
 
-### Public Properties
-
-- `close`: Function to close the dialog
-- `getParentTag`: Function to get the parent tag of the dialog
-- `getBodyTag`: Function to get the body tag of the dialog
-- `getHeaderTag`: Function to get the header tag of the dialog
-- `setup`: Function to set up the dialog
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the dialog with the given properties.
-- `props`: Object containing dialog configuration
-
-#### close()
-Closes the dialog and removes it from the DOM.
-
-#### getParentTag()
-Returns the parent tag of the dialog.
-
-#### getBodyTag()
-Returns the body tag of the dialog.
-
-#### getHeaderTag()
-Returns the header tag of the dialog.
+### Public Properties (m_props)
+- `parentTag` (string): Default "body". Parent element selector
+- `closeButton` (boolean): Default `true`. Show close button
+- `closeText` (string): Default "close". Close button text
+- `theme` (string): Default "default". Theme configuration name
+- `tag` (string): Default "default". Template tag configuration name
+- `title` (string): Dialog title text
+- `hdrHtml` (HTMLElement): Optional custom header content
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_dialogHdrTag` (HTMLElement): Dialog header container
+- `m_dialogBodyTag` (HTMLElement): Dialog body container
 
-- `m_props`: Dialog configuration properties
-- `m_parentTag`: Parent tag of the dialog
-- `m_dialogHdrTag`: Header tag of the dialog
-- `m_dialogBodyTag`: Body tag of the dialog
+### Public Methods
+- `close()`: Closes and removes dialog
+- `getParentTag()`: Returns dialog container
+- `getBodyTag()`: Returns dialog body element
+- `getHeaderTag()`: Returns dialog header element
+- `setup(props: object)`: Initializes dialog with configuration
 
 ### Private Functions
-
-#### configure(customProps)
-Configures the dialog with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
-
-#### setupDOM()
-Sets up the DOM structure for the dialog.
-
-#### installCloseButton(headerLeftTag)
-Installs the close button in the dialog header.
-- `headerLeftTag`: Left section of the header tag
-
-#### closeDialog()
-Closes the dialog.
-
-#### close()
-Removes the dialog from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `parentTag`: String, default `"body"`
-- `closeButton`: Boolean, default `true`
-- `closeText`: String, default `"close"`
-- `theme`: String, default `"default"`
-- `tag`: String, default `"default"`
-
-Additional properties can be added or overridden when instantiating the Dialog class.
+- `configure(customProps: object)`: Merges default and custom properties
+- `setupDOM()`: Creates dialog structure
+- `installCloseButton(headerLeftTag: HTMLElement)`: Creates close button
+- `closeDialog()`: Internal close handler
+- `setPosition(xPos: number, yPos: number)`: Updates element position
 
 ## DragDrop
 
-### Public Properties
-
-- `destroy`: Function to destroy the drag and drop component
-- `getParentTag`: Function to get the parent tag of the component
-- `setup`: Function to set up the drag and drop component
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the drag and drop component with the given properties.
-- `props`: Object containing drag and drop configuration
-
-#### destroy()
-Destroys the drag and drop component and removes it from the DOM.
-
-#### getParentTag()
-Returns the parent tag of the drag and drop component.
+### Public Properties (m_props)
+- `dropText` (string): Default "Drop Here". Displayed text
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `maxFileCount` (number): Maximum allowed files
+- `allowKind` (array): Allowed file types
+- `css` (object): CSS class names for styling
+  - `self` (string): Component root class
+  - `dropIcon` (string): Drop icon class
+  - `dropText` (string): Text class
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_props` (object): Component configuration
 
-- `m_parentTag`: Parent tag of the drag and drop component
-- `m_props`: Drag and drop configuration properties
+### Public Methods
+- `destroy()`: Removes component from DOM
+- `getParentTag()`: Returns component root element
+- `setup(props)`: Initializes component with configuration
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+  - `customProps` (object): Custom configuration to merge
+- `setupDOM()`: Creates and configures DOM elements
+- `setupEventListener()`: Sets up drag and drop events
+- `handleMouseEnterLeave(ev)`: Handles mouse enter/leave events
+  - `ev` (Event): Mouse event object
+- `handleDragover(ev)`: Handles dragover events
+  - `ev` (Event): Dragover event object
+- `handleDrop(ev)`: Handles drop events
+  - `ev` (Event): Drop event object
+- `checkFileKindAllowed(type)`: Validates file type
+  - `type` (string): File MIME type
 
-#### configure(customProps)
-Configures the drag and drop component with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
 
-#### setupDOM()
-Sets up the DOM structure for the drag and drop component.
-
-#### setupEventListener()
-Sets up event listeners for drag and drop functionality.
-
-#### handleMouseEnterLeave(ev)
-Handles mouse enter and leave events.
-- `ev`: Mouse event object
-
-#### handleDragover(ev)
-Handles dragover event.
-- `ev`: Dragover event object
-
-#### handleDrop(ev)
-Handles drop event.
-- `ev`: Drop event object
-
-#### checkFileKindAllowed(type)
-Checks if a file type is allowed for dropping.
-- `type`: String representing the file type
-
-#### destroyDragDrop()
-Destroys the drag and drop component and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `dropText`: String, default `"Drop Here"`
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-
-Additional properties can be added or overridden when instantiating the DragDrop class.
 
 ## Draggable
 
-### Public Properties
-
-- `destroy`: Function to destroy the draggable component
-- `enable`: Function to enable or disable dragging
-- `getParentTag`: Function to get the parent tag of the component
-- `getHandleWidth`: Function to get the width of the draggable handle
-- `getHandleHeight`: Function to get the height of the draggable handle
-- `setPosition`: Function to set the position of the draggable element
-- `setup`: Function to set up the draggable component
-
-### Public Methods (API)
-
-#### setup(props)
-Sets up the draggable component with the given properties.
-- `props`: Object containing draggable configuration
-
-#### destroy()
-Destroys the draggable component and removes it from the DOM.
-
-#### enable(enable)
-Enables or disables dragging.
-- `enable`: Boolean indicating whether to enable or disable dragging
-
-#### getParentTag()
-Returns the parent tag of the draggable component.
-
-#### getHandleWidth()
-Returns the width of the draggable handle.
-
-#### getHandleHeight()
-Returns the height of the draggable handle.
-
-#### setPosition(xPos, yPos)
-Sets the position of the draggable element.
-- `xPos`: Number representing the x-position
-- `yPos`: Number representing the y-position
+### Public Properties (m_props)
+- `tag` (string): Default "default". Template tag configuration name
+- `theme` (string): Default "default". Theme configuration name
+- `enable` (boolean): Default `true`. Controls draggable state
+- `axis` (string): Constrains movement ("x"|"y"|null)
+- `grid` (array): Snap to grid [x, y] increments
+- `containerTag` (string): Bounding container selector
+- `css` (object): CSS class names for styling
+  - `self` (string): Component root class
+  - `draggable` (string): Draggable element class
 
 ### Private Properties
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_draggableTag` (HTMLElement): Draggable element reference
+- `m_enable` (boolean): Current enabled state
+- `m_active` (boolean): Currently dragging state
+- `m_axis` (number): Movement constraint (0: x, 1: y, null: none)
+- `m_initialX` (number): Initial X position
+- `m_initialY` (number): Initial Y position
+- `m_xOffset` (number): Current X offset
+- `m_yOffset` (number): Current Y offset
+- `m_bounding` (DOMRect): Bounding container dimensions
 
-- `m_parentTag`: Parent tag of the draggable component
-- `m_draggableTag`: Draggable element tag
-- `m_props`: Draggable configuration properties
-- `m_enable`: Boolean indicating if dragging is enabled
-- `m_active`: Boolean indicating if dragging is active
-- `m_axis`: Number indicating the drag axis (null: no axis, 0: x, 1: y)
-- `m_initialX`: Initial x-position of the drag
-- `m_initialY`: Initial y-position of the drag
-- `m_xOffset`: X-offset of the draggable element
-- `m_yOffset`: Y-offset of the draggable element
-- `m_bounding`: Bounding rectangle for containment
+### Public Methods
+- `destroy()`: Removes component from DOM
+- `enable(enable)`: Sets enabled state
+  - `enable` (boolean): Enable/disable dragging
+- `getParentTag()`: Returns draggable element
+- `getHandleWidth()`: Returns handle width
+- `getHandleHeight()`: Returns handle height
+- `setPosition(xPos, yPos)`: Sets element position
+  - `xPos` (number): X position
+  - `yPos` (number): Y position
+- `setup(props)`: Initializes component with configuration
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+  - `customProps` (object): Custom configuration to merge
+- `setupDOM()`: Creates and configures DOM elements
+- `setupEventHandler()`: Sets up drag events
+- `dragStart(ev)`: Handles drag start
+  - `ev` (Event): Mouse/touch event
+- `drag(ev)`: Handles dragging
+  - `ev` (Event): Mouse/touch event
+- `dragEnd(ev)`: Handles drag end
+  - `ev` (Event): Mouse/touch event
+- `getAxisStep(current, step, min, max)`: Calculates grid snap position
+  - `current` (number): Current position
+  - `step` (number): Grid increment
+  - `min` (number): Minimum bound
+  - `max` (number): Maximum bound
 
-#### configure(customProps)
-Configures the draggable component with default and custom properties.
-- `customProps`: Object containing custom properties to override defaults
 
-#### setupDOM()
-Sets up the DOM structure for the draggable component.
-
-#### setupEventHandler()
-Sets up event handlers for dragging functionality.
-
-#### dragStart(ev)
-Handles the start of a drag operation.
-- `ev`: Mouse or touch event object
-
-#### dragEnd(ev)
-Handles the end of a drag operation.
-- `ev`: Mouse or touch event object
-
-#### drag(ev)
-Handles the drag operation.
-- `ev`: Mouse or touch event object
-
-#### getAxisStep(current, step, min, max)
-Calculates the step for grid-based dragging.
-- `current`: Current position
-- `step`: Step size
-- `min`: Minimum allowed position
-- `max`: Maximum allowed position
-
-#### setEnable(enable)
-Sets the enabled state of the draggable component.
-- `enable`: Boolean indicating whether to enable or disable dragging
-
-#### destroyDraggable()
-Destroys the draggable component and removes it from the DOM.
-
-#### setupComplete()
-Calls the completion callback after setup is finished.
-
-### m_props Configuration
-
-The `m_props` object contains the following default properties:
-
-- `tag`: String, default `"default"`
-- `theme`: String, default `"default"`
-- `enable`: Boolean, default `true`
-
-Additional properties can be added or overridden when instantiating the Draggable class.
 
 ## Dropdown
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `button` (object): Configuration for the dropdown button.
-- `disableButton` (boolean): If true, disables the dropdown button.
-- `positionTag` (HTMLElement): Reference to a tag used for positioning the dropdown.
-- `fnOpen` (function): Callback function called when the dropdown is opened.
-- `fnBeforeClose` (function): Callback function called before the dropdown is closed.
-- `fnClose` (function): Callback function called when the dropdown is closed.
-- `fnComplete` (function): Callback function called when the dropdown setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Defines the component tag template. Default: "default"
+- `theme` (string): Defines the component theme template. Default: "default"
+- `fnBeforeClose` (function): Callback before dropdown closes. Returns boolean. Default: returns true
+- `button` (object): Button configuration
+  - `text` (string): Button text
+  - `css` (object): Button CSS classes
+  - `fnClick` (function): Button click handler
+- `css` (object): Component CSS classes merged with theme
+- `tags` (object): Component HTML tags merged with template
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_dropdownContainerTag` (HTMLElement): Reference to the dropdown container element.
-- `m_open` (boolean): Indicates whether the dropdown is open or closed.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_dropdownContainerTag` (HTMLElement): Dropdown container element
+- `m_props` (object): Component configuration
+- `m_open` (boolean): Dropdown open state
 
 ### Public Methods
-
-- `close(context)`: Closes the dropdown. `context` is an optional object with an `ev` property for the event that triggered the close.
-- `destroy()`: Removes the dropdown from the DOM.
-- `getContentTag()`: Returns the dropdown container element.
-- `getParentTag()`: Returns the parent element of the dropdown.
-- `open()`: Opens the dropdown.
-- `setup(props)`: Initializes the dropdown with the given properties.
+- `close(context)`: Closes the dropdown
+  - `context.ev` (Event): Optional event object
+- `destroy()`: Removes dropdown from DOM
+- `getContentTag()`: Returns dropdown container element
+- `getParentTag()`: Returns component root element
+- `open()`: Opens the dropdown
+- `setup(props)`: Initializes the component with given properties
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `setupOpenButton()`: Creates and configures dropdown trigger button
+- `setupContainer()`: Creates dropdown content container
+- `setupEventHandler()`: Sets up click outside handler
+- `openAnimation()`: Shows dropdown and triggers open callback
+- `closeAnimation(ev)`: Hides dropdown and triggers close callback
+- `setupComplete()`: Triggers completion callback
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the dropdown.
-- `setupOpenButton()`: Creates and configures the dropdown button.
-- `setupContainer()`: Creates and configures the dropdown container.
-- `setupEventHandler()`: Sets up event listeners for closing the dropdown when clicking outside.
-- `openAnimation()`: Handles the animation and logic for opening the dropdown.
-- `closeAnimation(ev)`: Handles the animation and logic for closing the dropdown. `ev` is the event that triggered the close.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## FileChooser
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `button` (object): Configuration for the file chooser button.
-- `input` (object): Configuration for the file input element.
-- `buttonOnly` (boolean): If true, only shows a button instead of an input field.
-- `fnUpload` (function): Callback function called when files are selected.
-- `fnComplete` (function): Callback function called when the file chooser setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `button` (object): Button configuration
+  - `text` (string): Button text. Default: "Select File"
+- `input` (object): Input configuration
+  - `labelText` (string): Input label. Default: "Choose files to upload"
+  - `tags.input.attr.type` (string): Input type. Default: "file"
+- `buttonOnly` (boolean): Show only button interface
+- `fnUpload` (function): File selection callback
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_inputTag` (HTMLElement): Reference to the file input element.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_inputTag` (HTMLElement): File input element
+- `m_props` (object): Component configuration
 
 ### Public Methods
-
-- `destroy()`: Removes the file chooser from the DOM.
-- `getInputTag()`: Returns the file input element.
-- `getParentTag()`: Returns the parent element of the file chooser.
-- `setup(props)`: Initializes the file chooser with the given properties.
+- `destroy()`: Removes component from DOM
+- `getInputTag()`: Returns file input element
+- `getParentTag()`: Returns component root element
+- `setup(props)`: Initializes component with given properties
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `installButton()`: Creates button interface
+- `installInput(hidden)`: Creates file input element
+- `setupComplete()`: Triggers completion callback
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the file chooser.
-- `installButton()`: Creates and configures the file chooser button.
-- `installInput(hidden)`: Creates and configures the file input element. If `hidden` is true, the input is hidden.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Grid
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `id` (string): Unique identifier for the grid.
-- `data` (array): The data to be displayed in the grid.
-- `columns` (array): Configuration for grid columns.
-- `layout` (string): Specifies the grid layout ('grid' or 'tile').
-- `maxColWidth` (boolean): If true, sets a maximum width for columns.
-- `colWidthAdj` (number): Adjustment value for column widths.
-- `tileHTML` (string): HTML template for tile layout.
-- `fnPostRow` (function): Callback function called after each row is processed.
-- `fnPostTile` (function): Callback function called after each tile is processed.
-- `fnComplete` (function): Callback function called when the grid setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `layout` (string): Grid layout type. Default: "grid"
+- `columns` (array): Column configurations
+- `data` (array): Grid data
+- `maxColWidth` (boolean): Enable column width calculation
+- `colWidthAdj` (number): Column width adjustment
+- `fnPostRow` (function): Row creation callback
+- `fnPostTile` (function): Tile creation callback
 
 ### Private Properties
-
-- `m_colsMaxPxWidth` (array): Stores the maximum width for each column.
-- `m_componentsMapById` (object): Maps grid components by their IDs.
-- `m_componentsMapByColNbr` (array): Maps grid components by column number.
-- `m_gridWrapperTag` (HTMLElement): Reference to the grid wrapper element.
-- `m_gridHdrTag` (HTMLElement): Reference to the grid header element.
-- `m_gridBodyTag` (HTMLElement): Reference to the grid body element.
-- `m_gridBodyRowTagName` (string): Tag name for grid body rows.
-- `m_rowIndexAttrName` (string): Attribute name for row index.
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_tileParentTag` (HTMLElement): Reference to the parent element for tiles.
-- `m_tileParentTags` (array): Array of tile parent elements.
-- `m_gridData` (array): Stores the grid data.
-- `m_gridDataChanged` (boolean): Indicates if the grid data has changed.
-- `m_colStylesId` (string): ID for column styles.
-- `m_tileIndexAttrName` (string): Attribute name for tile index.
+- `m_colsMaxPxWidth` (array): Column maximum widths
+- `m_componentsMapById` (object): Components mapped by ID
+- `m_componentsMapByColNbr` (array): Components mapped by column number
+- `m_gridData` (array): Grid data reference
+- `m_gridDataChanged` (boolean): Data change flag
 
 ### Public Methods
-
-- `commitDataChange()`: Commits changes made to the grid data.
-- `dataChanged()`: Returns whether the grid data has changed.
-- `getCellComponentByIdByRow(context)`: Returns a cell component by ID and row. `context` is an object with `columnId` and `rowIndex` properties.
-- `getCellComponentsById()`: Returns all cell components mapped by their IDs.
-- `getCellComponentByColNbrByRow(context)`: Returns a cell component by column number and row. `context` is an object with `colNbr` and `rowIndex` properties.
-- `getCellComponentsByColNbr()`: Returns all cell components mapped by column number.
-- `getGridData()`: Returns the current grid data.
-- `getId()`: Returns the grid's ID.
-- `getRowIndex(context)`: Returns the row index for a given row element. `context` is an object with a `rowTag` property.
-- `removeColsStyles()`: Removes column styles from the DOM.
-- `setup(props)`: Initializes the grid with the given properties.
+- `commitDataChange()`: Commits data changes
+- `dataChanged()`: Returns data change state
+- `getCellComponentByIdByRow(context)`: Returns cell component by ID and row
+- `getCellComponentsById()`: Returns all components by ID
+- `getCellComponentByColNbrByRow(context)`: Returns cell component by column number and row
+- `getCellComponentsByColNbr()`: Returns all components by column number
+- `getGridData()`: Returns grid data
+- `getId()`: Returns grid ID
+- `getRowIndex(context)`: Returns row index
+- `removeColsStyles()`: Removes column styles
+- `setup(props)`: Initializes component
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `setupGridDOM()`: Creates grid layout
+- `setupTilesDOM()`: Creates tiles layout
+- `installHdr()`: Creates grid header
+- `installRows()`: Creates grid rows
+- `processRow(rowData, rowIndex)`: Processes single row
+- `installCell(context)`: Creates grid cell
+- Multiple cell type installation functions (text, button, input, etc.)
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the grid.
-- `setupTilesDOM()`: Sets up the DOM structure for tile layout.
-- `setupGridDOM()`: Sets up the DOM structure for grid layout.
-- `installHdr()`: Installs the grid header.
-- `installRows()`: Installs the grid rows.
-- `processRow(rowData, rowIndex)`: Processes a single row of data.
-- `installCell(context)`: Installs a cell based on its type. `context` is an object containing column and row information.
-- `addComponentToMap(context)`: Adds a component to the component maps. `context` is an object with `column`, `colIndex`, and `component` properties.
-- `saveCellTagWidth(context)`: Saves the width of a cell. `context` is an object with `colIndex`, `tag`, and `parentTag` properties.
-- `setColsWidth()`: Sets the width for all columns.
-- `validateGridData()`: Validates the grid data.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Input
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `name` (string): Name attribute for the input element.
-- `value` (string): Initial value of the input.
-- `labelText` (string): Text for the input label.
-- `hidden` (boolean): If true, hides the input.
-- `enableClear` (boolean): If true, adds a clear button to the input.
-- `button` (object): Configuration for the clear button.
-- `validate` (object): Configuration for input validation.
-- `fnBlur` (function): Callback function for blur event.
-- `fnChange` (function): Callback function for change event.
-- `fnKeyup` (function): Callback function for keyup event.
-- `fnClear` (function): Callback function for clear button click.
-- `fnDataValidationChange` (function): Callback function for data validation changes.
-- `fnComplete` (function): Callback function called when the input setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `name` (string): Input name attribute. Default: random string
+- `value` (string): Input value
+- `validate` (object): Validation configuration
+  - `onStart` (boolean): Validate on initialization
+  - `types` (array): Validation rules
+- `fnChange` (function): Change event callback
+- `fnBlur` (function): Blur event callback
+- `fnKeyup` (function): Keyup event callback
+- `fnDataValidationChange` (function): Validation change callback
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_inputTag` (HTMLElement): Reference to the input element.
-- `m_labelTag` (HTMLElement): Reference to the label element.
-- `m_button` (object): Reference to the clear button component.
-- `m_dataChanged` (boolean): Indicates if the input data has changed.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_inputTag` (HTMLElement): Input element
+- `m_labelTag` (HTMLElement): Label element
+- `m_props` (object): Component configuration
+- `m_dataChanged` (boolean): Data change flag
 
 ### Public Methods
-
-- `clear()`: Clears the input value.
-- `commitDataChange()`: Resets the data changed flag.
-- `dataChanged()`: Returns whether the input data has changed.
-- `getTag()`: Returns the input element.
-- `setup(props)`: Initializes the input with the given properties.
-- `value(context)`: Gets or sets the input value. If `context.value` is provided, it sets the value; otherwise, it returns the current value.
+- `clear()`: Clears input value
+- `commitDataChange()`: Commits data changes
+- `dataChanged()`: Returns data change state
+- `getTag()`: Returns input element
+- `setup(props)`: Initializes component
+- `value(context)`: Gets/sets input value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `handleOnBlur(ev)`: Blur event handler
+- `handleOnChange(ev)`: Change event handler
+- `handleOnKeyup(ev)`: Keyup event handler
+- `validate(ev)`: Validates input value
+- `validateMinLength(config, ev)`: Minimum length validation
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the input.
-- `installClearInput()`: Installs the clear button if enabled.
-- `handleOnBlur(ev)`: Handles the blur event.
-- `handleOnChange(ev)`: Handles the change event.
-- `handleOnKeyup(ev)`: Handles the keyup event.
-- `validate(ev)`: Performs input validation.
-- `validateMinLength(config, ev)`: Validates minimum length of input.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Listbox
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `displayKey` (string): Key to use for displaying item text.
-- `data` (array): Array of items to display in the listbox.
-- `fnSelect` (function): Callback function for item selection.
-- `fnHover` (function): Callback function for item hover.
-- `fnLeave` (function): Callback function for item leave.
-- `fnComplete` (function): Callback function called when the listbox setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `displayKey` (string): Data display property. Default: "displayName"
+- `data` (array): Listbox items
+- `fnSelect` (function): Item selection callback
+- `fnHover` (function): Item hover callback
+- `fnLeave` (function): Item leave callback
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_listboxContainerTag` (HTMLElement): Reference to the listbox container element.
-- `m_listboxData` (array): Stores the listbox data.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_listboxContainerTag` (HTMLElement): Container element
+- `m_props` (object): Component configuration
+- `m_listboxData` (array): Listbox data reference
 
 ### Public Methods
-
-- `addToList(data)`: Adds new items to the listbox.
-- `destroy()`: Removes the listbox from the DOM.
-- `replaceList(data)`: Replaces the entire list with new data.
-- `setup(props)`: Initializes the listbox with the given properties.
+- `addToList(data)`: Adds items to list
+- `destroy()`: Removes component from DOM
+- `replaceList(data)`: Replaces all items
+- `setup(props)`: Initializes component
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `installItems(data)`: Creates list items
+- `processItem(itemData)`: Creates single item
+- `setupItemEventListeners(item, data)`: Sets up item events
+- `clearData()`: Removes all items
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the listbox.
-- `installItems(data)`: Installs listbox items from the provided data.
-- `processItem(itemData)`: Processes a single item and adds it to the listbox.
-- `setupItemEventListeners(item, data)`: Sets up event listeners for a listbox item.
-- `clearData()`: Clears all items from the listbox.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## MapBox
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `accessToken` (string): Mapbox access token.
-- `mapStyle` (string): Mapbox map style URL.
-- `zoom` (number): Initial zoom level of the map.
-- `marker` (object): Configuration for map markers.
-- `controls` (object): Configuration for map controls (fullscreen, navigation, search).
-- `fnComplete` (function): Callback function called when the map setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `accessToken` (string): Mapbox access token
+- `mapStyle` (string): Map style URL. Default: "mapbox://styles/mapbox/streets-v11"
+- `zoom` (number): Default zoom level. Default: 16
+- `marker` (object): Default marker configuration
+  - `color` (string): Marker color. Default: "orange"
+- `controls` (object): Map controls configuration
+  - `fullscreen` (object): Fullscreen control
+  - `navigation` (object): Navigation control
+  - `search` (object): Search control
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_containerTag` (HTMLElement): Reference to the map container element.
-- `m_map` (object): Mapbox map instance.
-- `m_markers` (array): Array of map markers.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_containerTag` (HTMLElement): Map container element
+- `m_props` (object): Component configuration
+- `m_map` (object): Mapbox map instance
+- `m_markers` (array): Map markers
 
 ### Public Methods
-
-- `addPoints(points)`: Adds markers to the map. `points` is an array of coordinate objects.
-- `fitBounds(props)`: Fits the map view to the given bounds. `props` is an object with `southwestern` and `northeastern` coordinates.
-- `getMarker(coords)`: Returns a marker at the given coordinates.
-- `getMarkers()`: Returns all markers on the map.
-- `jumpTo(lng, lat)`: Moves the map to the specified coordinates.
-- `setup(props)`: Initializes the map with the given properties.
+- `addPoints(points)`: Adds markers to map
+- `fitBounds(props)`: Fits map to bounds
+- `getMarker(coords)`: Returns marker at coordinates
+- `getMarkers()`: Returns all markers
+- `jumpTo(lng, lat)`: Centers map on coordinates
+- `setup(props)`: Initializes component
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `renderMap()`: Creates map instance
+- `getUserLocation()`: Gets user location
+- `addCurrentPositionMarked(lng, lat)`: Adds user location marker
+- `setMarker(arrCoords, marker)`: Creates map markers
+- `checkMapboxLibraries()`: Validates required libraries
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the map.
-- `getUserLocation()`: Attempts to get the user's current location.
-- `renderMap()`: Creates and renders the Mapbox map.
-- `addCurrentPositionMarked(lng, lat)`: Adds a marker for the current position.
-- `setMarker(arrCoords, marker)`: Adds markers to the map.
-- `onMoveEnd(done)`: Sets up a callback for when the map stops moving.
-- `removeWait()`: Removes the waiting state from the map container.
-- `checkMapboxLibraries()`: Checks if required Mapbox libraries are loaded.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Percentage
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `value` (number): Initial percentage value.
-- `min` (number): Minimum value (default: 0).
-- `max` (number): Maximum value (default: 1).
-- `decimals` (number): Number of decimal places to display.
-- `ranges` (array): Array of range objects for styling based on value.
-- `fnComplete` (function): Callback function called when the percentage setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `value` (number): Initial value. Default: 0
+- `min` (number): Minimum value. Default: 0
+- `max` (number): Maximum value. Default: 1
+- `decimals` (number): Decimal places. Default: 0
+- `ranges` (array): Value ranges configuration
+  - `min` (number): Range minimum
+  - `max` (number): Range maximum
+  - `css` (string): Range CSS class
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_percentageBarTag` (HTMLElement): Reference to the percentage bar element.
-- `m_percentageTextTag` (HTMLElement): Reference to the percentage text element.
-- `m_value` (number): Current percentage value.
-- `m_enable` (boolean): Indicates if the percentage component is enabled.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_percentageBarTag` (HTMLElement): Progress bar element
+- `m_percentageTextTag` (HTMLElement): Text element
+- `m_props` (object): Component configuration
+- `m_value` (number): Current value
 
 ### Public Methods
-
-- `destroy()`: Removes the percentage component from the DOM.
-- `enable(enable)`: Enables or disables the percentage component.
-- `getParentTag()`: Returns the parent element of the percentage component.
-- `setup(props)`: Initializes the percentage component with the given properties.
-- `value(context)`: Gets or sets the percentage value. If `context.value` is provided, it sets the value; otherwise, it returns the current value.
+- `destroy()`: Removes component from DOM
+- `getParentTag()`: Returns component root element
+- `setup(props)`: Initializes component
+- `value(context)`: Gets/sets percentage value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `setValue(value)`: Updates percentage value
+- `setText()`: Updates percentage text
+- `setBarWidth()`: Updates progress bar width
+- `setRange()`: Applies range styling
+- `clearRangeClasses()`: Removes range styles
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the percentage component.
-- `installLayers()`: Creates and installs the different layers of the percentage component.
-- `setValue(value)`: Sets the percentage value and updates the display.
-- `setText()`: Updates the displayed percentage text.
-- `setBarWidth()`: Updates the width of the percentage bar.
-- `setRange()`: Applies CSS classes based on the current value and defined ranges.
-- `clearRangeClasses()`: Removes all range-related CSS classes.
-- `setEnable()`: Applies or removes the disabled CSS class based on the enabled state.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Player
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `progressBar` (boolean): If true, shows a progress bar.
-- `controls` (array): Configuration for player controls.
-- `fnComplete` (function): Callback function called when the player setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `progressBar` (boolean): Show progress bar. Default: true
+- `controls` (array): Player controls configuration
 
 ### Private Properties
-
-- `m_buttonGroups` (array): Array of button group components.
-- `m_timeInfo` (object): Stores time information for the player.
-- `m_progressBar` (object): Reference to the progress bar component.
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_playerTag` (HTMLElement): Reference to the player element.
+- `m_buttonGroups` (array): Control button groups
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_playerTag` (HTMLElement): Video player element
+- `m_props` (object): Component configuration
 
 ### Public Methods
-
-- `getTag()`: Returns the player element.
-- `setup(props)`: Initializes the player with the given properties.
+- `getTag()`: Returns player element
+- `setup(props)`: Initializes component
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `setSource(source)`: Sets video source
+- `installControls()`: Creates player controls
+- `installButtonGroup(buttons)`: Creates control buttons
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the player.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Radio
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `id` (string): Unique identifier for the radio button.
-- `name` (string): Name attribute for the radio input.
-- `text` (string): Label text for the radio button.
-- `value` (string): Value of the radio button.
-- `enable` (boolean): If true, the radio button is enabled.
-- `fnClick` (function): Callback function for click event.
-- `fnGroupClick` (function): Callback function for group click event.
-- `fnComplete` (function): Callback function called when the radio setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `enable` (boolean): Radio enabled state. Default: true
+- `position` (string): Label position. Default: "left"
+- `text` (string): Radio label text
+- `fnClick` (function): Click event callback
+- `fnGroupClick` (function): Group click callback
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_labelTag` (HTMLElement): Reference to the label element.
-- `m_inputTag` (HTMLElement): Reference to the input element.
-- `m_spanTag` (HTMLElement): Reference to the span element (for styling).
-- `m_enable` (boolean): Indicates if the radio button is enabled.
-- `m_checked` (boolean): Indicates if the radio button is checked.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_labelTag` (HTMLElement): Label element
+- `m_inputTag` (HTMLElement): Radio input element
+- `m_spanTag` (HTMLElement): Custom radio element
+- `m_props` (object): Component configuration
+- `m_enable` (boolean): Enabled state
+- `m_checked` (boolean): Checked state
 
 ### Public Methods
-
-- `destroy()`: Removes the radio button from the DOM.
-- `enable({ enable })`: Enables or disables the radio button.
-- `getId()`: Returns the radio button's ID.
-- `getParentTag()`: Returns the parent element of the radio button.
-- `select(context)`: Gets or sets the checked state of the radio button. If `context.value` is provided, it sets the state; otherwise, it returns the current state.
-- `setup(props)`: Initializes the radio button with the given properties.
-- `value(context)`: Gets or sets the radio button value. If `context.value` is provided, it sets the value; otherwise, it returns the current value.
+- `destroy()`: Removes component from DOM
+- `enable(context)`: Gets/sets enabled state
+- `getId()`: Returns radio ID
+- `getParentTag()`: Returns label element
+- `select(context)`: Gets/sets checked state
+- `setup(props)`: Initializes component
+- `value(context)`: Gets/sets radio value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `handleClick(ev)`: Click event handler
+- `checkInput(value, notTrigger)`: Updates checked state
+- `setEnable()`: Updates enabled state
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the radio button.
-- `handleClick(ev)`: Handles the click event on the radio button.
-- `checkInput(value, notTrigger)`: Updates the checked state of the radio button.
-- `setEnable()`: Applies or removes the disabled CSS class based on the enabled state.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## RadioGroup
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `name` (string): Name attribute for the radio group.
-- `radios` (array): Array of radio button configurations.
-- `radio` (object): Default configuration for radio buttons.
-- `fnClick` (function): Callback function for individual radio button clicks.
-- `fnGroupClick` (function): Callback function for group-level clicks.
-- `fnComplete` (function): Callback function called when the radio group setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `name` (string): Group name. Default: random string
+- `radios` (array): Radio button configurations
+- `fnClick` (function): Radio click callback
+- `fnGroupClick` (function): Group click callback
 
 ### Private Properties
-
-- `m_radioList` (array): Array of radio button components.
-- `m_parentTag` (HTMLElement): Reference to the parent element.
+- `m_radioList` (array): Radio button instances
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_props` (object): Component configuration
 
 ### Public Methods
-
-- `clear()`: Deselects all radio buttons in the group.
-- `destroy()`: Removes the radio group from the DOM.
-- `getParentTag()`: Returns the parent element of the radio group.
-- `getTag(context)`: Returns a radio button by ID. `context` is an object with an `id` property.
-- `select(context)`: Selects radio button(s) or returns the selected radio button(s). `context` can have `id` (string or array) and `notTrigger` (boolean) properties.
-- `setup(props)`: Initializes the radio group with the given properties.
+- `clear()`: Clears all selections
+- `destroy()`: Removes component from DOM
+- `getParentTag()`: Returns component root element
+- `getTag(context)`: Returns radio by ID
+- `select(context)`: Gets/sets radio selection
+- `setup(props)`: Initializes component
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `processRadio(radio, index)`: Creates radio button
+- `handleGroupClick(context)`: Group click handler
+- `selectTag(tag, notTrigger)`: Updates radio selection
+- `deselectRadios()`: Clears all selections
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the radio group.
-- `processRadio(radio, index)`: Processes and creates a single radio button.
-- `handleGroupClick(context)`: Handles clicks on individual radio buttons within the group.
-- `getTag(id)`: Returns a radio button component by ID.
-- `getSelected()`: Returns an array of selected radio buttons.
-- `selectTag(tag, notTrigger)`: Selects a specific radio button.
-- `deselectRadios()`: Deselects all radio buttons in the group.
-- `setupComplete()`: Calls the completion callback function.
+
 
 ## Rating
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag configuration to use.
-- `theme` (string): Specifies the theme configuration to use.
-- `css` (object): Contains CSS class names for various elements.
-- `tags` (object): Contains tag configurations for different elements.
-- `value` (number): Initial rating value.
-- `max` (number): Maximum rating value (number of stars).
-- `enable` (boolean): If true, the rating component is interactive.
-- `fnSelect` (function): Callback function when a rating is selected.
-- `fnComplete` (function): Callback function called when the rating setup is complete.
+### Public Properties (m_props)
+- `tag` (string): Component tag template. Default: "default"
+- `theme` (string): Component theme template. Default: "default"
+- `value` (number): Initial value. Default: 0
+- `max` (number): Maximum rating. Default: 5
+- `enable` (boolean): Rating enabled state. Default: true
+- `fnSelect` (function): Selection callback
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Reference to the parent element.
-- `m_ratingEmptyTag` (HTMLElement): Reference to the empty stars container.
-- `m_ratingSelectedTag` (HTMLElement): Reference to the selected stars container.
-- `m_ratingHoverTag` (HTMLElement): Reference to the hover stars container.
-- `m_value` (number): Current rating value.
-- `m_enable` (boolean): Indicates if the rating component is enabled.
+- `m_parentTag` (HTMLElement): Parent element reference
+- `m_ratingEmptyTag` (HTMLElement): Empty stars container
+- `m_ratingSelectedTag` (HTMLElement): Selected stars container
+- `m_ratingHoverTag` (HTMLElement): Hover stars container
+- `m_props` (object): Component configuration
+- `m_value` (number): Current value
+- `m_enable` (boolean): Enabled state
 
 ### Public Methods
-
-- `destroy()`: Removes the rating component from the DOM.
-- `enable(enable)`: Enables or disables the rating component.
-- `getParentTag()`: Returns the parent element of the rating component.
-- `setup(props)`: Initializes the rating component with the given properties.
-- `value(context)`: Gets or sets the rating value. If `context.value` is provided, it sets the value; otherwise, it returns the current value.
+- `destroy()`: Removes component from DOM
+- `enable(enable)`: Sets enabled state
+- `getParentTag()`: Returns component root element
+- `setup(props)`: Initializes component
+- `value(context)`: Gets/sets rating value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates and configures DOM elements
+- `installLayers()`: Creates rating layers
+- `installStars()`: Creates star elements
+- `setupEventListener()`: Sets up interactions
+- `selectValue(ev)`: Updates rating value
+- `setHoverValue(ev)`: Updates hover state
+- `hideHoverLayer(ev)`: Removes hover state
+- `setValue(value)`: Updates rating value
 
-- `configure(customProps)`: Merges default properties with custom properties.
-- `setupDOM()`: Sets up the DOM structure for the rating component.
-- `installLayers()`: Creates and installs the different layers of the rating component.
-- `installStars()`: Creates and installs individual star elements.
-- `setupEventListener()`: Sets up event listeners for the rating component.
-- `selectValue(ev)`: Handles the selection of a rating value.
-- `setHoverValue(ev)`: Handles the hover effect on the rating stars.
-- `hideHoverLayer(ev)`: Hides the hover layer when the mouse leaves the component.
-- `getStarWidth()`: Calculates the width of a single star.
-- `getLeftPosition(ev)`: Calculates the left position of the mouse relative to the component.
-- `getHoverValue(ev)`: Calculates the rating value based on the mouse position.
-- `setValue(value)`: Sets the rating value and updates the display.
-- `setEnable()`: Applies or removes the disabled CSS class based on the enabled state.
-- `setupComplete()`: Calls the completion callback function.
 
-Here's the formatted markdown for the Search component, following the style of the other components in documentation.md:
 
 ## Search
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for HTML elements.
-- `theme` (string): Specifies the theme name for styling.
-- `firedIn` (number): Minimum number of characters required to trigger search.
-- `input` (object): Configuration for the input element.
-- `tags` (object): HTML tag configurations for the input.
-- `fnKeyup` (function): Callback function for keyup event.
-- `fnClear` (function): Callback function for clearing the input.
-- `button` (object): Configuration for the search button.
-- `fnClick` (function): Callback function for button click event.
-- `suggest` (object): Configuration for suggestion functionality.
-- `dropdown` (object): Configuration for dropdown functionality.
-- `fnComplete` (function): Callback function called when setup is complete.
+### Public Properties (m_props)
+- `firedIn` (Number): Minimum number of characters required before triggering search. Default: 1
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `input` (Object): Configuration for the input element
+  - `tags` (Object): HTML tag configurations
+    - `input` (Object): Input element properties
+      - `prop` (Object): HTML properties
+        - `placeholder` (String): Input placeholder text. Default: "Search"
 
 ### Private Properties
-
-- `m_parentTag` (HTMLElement): Parent element for the search component.
-- `m_inputContainer` (HTMLElement): Container for the input element.
-- `m_input` (HTMLElement): Input element for search queries.
-- `m_dropdownWrapperTag` (HTMLElement): Wrapper for the dropdown element.
-- `m_dropdown` (object): Dropdown component instance.
-- `m_listbox` (object): Listbox component instance.
-- `m_searchButton` (object): Button component instance.
-- `m_value` (string): Current value of the search input.
+- `m_parentTag` (HTMLElement): Reference to parent container element
+- `m_inputContainer` (HTMLElement): Container for search input
+- `m_input` (HTMLElement): Search input element
+- `m_dropdownWrapperTag` (HTMLElement): Wrapper for dropdown suggestions
+- `m_dropdown` (Object): Dropdown component instance
+- `m_listbox` (Object): Listbox component instance
+- `m_searchButton` (Object): Search button component instance
+- `m_value` (String): Current search input value
 
 ### Public Methods
-
-- `destroy()`: Removes the search component from the DOM.
-- `setup(props)`: Initializes the search component with the given properties.
-- `suggest(data)`: Updates the suggestion list with the provided data.
+- `destroy()`: Removes the search component from DOM
+- `setup(props)`: Initializes the search component with given properties
+- `suggest(data)`: Updates suggestion list with provided data
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `setupInput()`: Configures input element and its events
+- `setupButton()`: Configures search button
+- `setupDropdown()`: Configures suggestion dropdown
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Configures and sets up the search component.
-- `setupDOM()`: Creates and appends the main DOM elements for the search component.
-- `setupInput()`: Configures and sets up the input element.
-- `setupButton()`: Configures and sets up the search button.
-- `setupDropdown()`: Configures and sets up the dropdown component.
-- `installListbox(dropdown)`: Installs the listbox component within the dropdown.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Merges default and custom properties for the component.
+
 
 ## Slideout
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `enableCloseButton` (boolean): Determines if a close button should be displayed.
-- `tags` (object): Contains tag configurations for various elements of the slideout.
-- `css` (object): Contains CSS class names for styling the slideout.
-- `closeButton` (object): Configuration for the close button.
-- `fnOpen` (function): Callback function called when the slideout is opened.
-- `fnClose` (function): Callback function called when the slideout is closed.
-- `fnComplete` (function): Callback function called when the slideout setup is complete.
+### Public Properties (m_props)
+- `enableCloseButton` (Boolean): Controls visibility of close button. Default: true
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the slideout.
-- `m_slideoutHeaderTag`: The header element of the slideout.
-- `m_slideoutBodyTag`: The body element of the slideout.
-- `m_slideoutOverlayTag`: The overlay element of the slideout.
+- `m_parentTag` (HTMLElement): Reference to parent container element
+- `m_slideoutHeaderTag` (HTMLElement): Header section of slideout
+- `m_slideoutBodyTag` (HTMLElement): Body section of slideout
+- `m_slideoutOverlayTag` (HTMLElement): Overlay element behind slideout
 
 ### Public Methods
-
-- `close()`: Closes the slideout.
-- `destroy()`: Removes the slideout from the DOM.
-- `getContentTag()`: Returns the slideout element.
-- `getHeaderTag()`: Returns the header element of the slideout.
-- `getBodyTag()`: Returns the body element of the slideout.
-- `open()`: Opens the slideout.
-- `setup(props)`: Sets up the slideout with the given properties.
+- `close()`: Closes the slideout
+- `destroy()`: Removes slideout from DOM
+- `getContentTag()`: Returns slideout element
+- `getHeaderTag()`: Returns header element
+- `getBodyTag()`: Returns body element
+- `open()`: Opens the slideout
+- `setup(props)`: Initializes slideout with given properties
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `installCloseButton()`: Adds close button if enabled
+- `openAnimation()`: Handles opening animation
+- `closeAnimation()`: Handles closing animation
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the slideout with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the slideout.
-- `installCloseButton()`: Installs the close button if enabled.
-- `openAnimation()`: Handles the opening animation of the slideout.
-- `closeAnimation()`: Handles the closing animation of the slideout.
-- `destroySlideout()`: Removes the slideout from the DOM.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the slideout properties.
+
 
 ## Slider
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `value` (number): The initial value of the slider.
-- `min` (number): The minimum value of the slider.
-- `max` (number): The maximum value of the slider.
-- `step` (number): The step size between values.
-- `largeStep` (number): The step size for large increments.
-- `orientation` (string): The orientation of the slider ("horizontal" or "vertical").
-- `enable` (boolean): Determines if the slider is enabled.
-- `showButtons` (boolean): Determines if increment/decrement buttons should be shown.
-- `tags` (object): Contains tag configurations for various elements of the slider.
-- `css` (object): Contains CSS class names for styling the slider.
-- `decreaseButton` (object): Configuration for the decrease button.
-- `increaseButton` (object): Configuration for the increase button.
-- `fnSelect` (function): Callback function called when a value is selected.
-- `fnSlideStart` (function): Callback function called when sliding starts.
-- `fnSlide` (function): Callback function called during sliding.
-- `fnComplete` (function): Callback function called when the slider setup is complete.
+### Public Properties (m_props)
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `value` (Number): Initial slider value. Default: 0
+- `min` (Number): Minimum value. Default: -10
+- `max` (Number): Maximum value. Default: 10
+- `step` (Number): Step increment. Default: 1
+- `largeStep` (Number): Large step increment. Default: 5
+- `orientation` (String): Slider orientation. Default: "horizontal"
+- `enable` (Boolean): Initial enabled state. Default: true
+- `showButtons` (Boolean): Show increment/decrement buttons. Default: true
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the slider.
-- `m_wrapperTag`: The wrapper element of the slider.
-- `m_trackTag`: The track element of the slider.
-- `m_selectionTag`: The selection element of the slider.
-- `m_draggable`: The draggable handle of the slider.
-- `m_stepTags`: An array of step elements.
-- `m_horizontal`: Boolean indicating if the slider is horizontal.
-- `m_css`: CSS classes for the current orientation.
-- `m_enable`: Boolean indicating if the slider is enabled.
-- `m_value`: The current value of the slider.
-- `m_stepLength`: The length of each step.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_wrapperTag` (HTMLElement): Wrapper element
+- `m_trackTag` (HTMLElement): Track element
+- `m_selectionTag` (HTMLElement): Selection indicator
+- `m_draggable` (Object): Draggable handle component
+- `m_stepTags` (Array): Collection of step elements
+- `m_horizontal` (Boolean): Orientation state
+- `m_enable` (Boolean): Enabled state
+- `m_value` (Number): Current value
+- `m_stepLength` (Number): Calculated step length
 
 ### Public Methods
-
-- `destroy()`: Removes the slider from the DOM.
-- `enable(context)`: Enables or disables the slider.
-- `getParentTag()`: Returns the slider element.
-- `setup(props)`: Sets up the slider with the given properties.
-- `value(context)`: Gets or sets the value of the slider.
+- `destroy()`: Removes slider from DOM
+- `enable(context)`: Sets enabled state
+- `getParentTag()`: Returns slider element
+- `setup(props)`: Initializes slider with properties
+- `value(context)`: Gets/sets slider value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `installTrack()`: Creates track elements
+- `installSteps()`: Creates step indicators
+- `installHandle()`: Creates draggable handle
+- `setValue(value)`: Updates slider value
+- `updateValue(context)`: Handles value updates
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the slider with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the slider.
-- `continueSetupDOM()`: Continues setting up the DOM structure.
-- `installDecreaseButton()`: Installs the decrease button.
-- `installIncreaseButton()`: Installs the increase button.
-- `installButton(config, css, fnClick)`: Installs a button with the given configuration.
-- `installTrack()`: Installs the track and selection elements.
-- `installSteps()`: Installs the step elements.
-- `installHandle()`: Installs the draggable handle.
-- `updateValue(context)`: Updates the slider value.
-- `updateSelection(context)`: Updates the selection position.
-- `getSelectedIndex()`: Gets the index of the currently selected step.
-- `setEnable(enable)`: Enables or disables the slider.
-- `setValue(value)`: Sets the value of the slider.
-- `setHandlePosition()`: Sets the position of the handle.
-- `setSelectionPosition()`: Sets the position of the selection.
-- `getValidValue(value)`: Gets a valid value within the slider's range.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the slider properties.
+
 
 ## Switch
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `enable` (boolean): Determines if the switch is enabled.
-- `checked` (boolean): Determines if the switch is checked.
-- `messages` (object): Contains text messages for the switch states.
-  - `checked` (string): Text for the checked state.
-  - `unchecked` (string): Text for the unchecked state.
-- `tags` (object): Contains tag configurations for various elements of the switch.
-- `css` (object): Contains CSS class names for styling the switch.
-- `fnChange` (function): Callback function called when the switch state changes.
-- `fnComplete` (function): Callback function called when the switch setup is complete.
+### Public Properties (m_props)
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `enable` (Boolean): Initial enabled state. Default: true
+- `messages` (Object): Switch text labels
+  - `checked` (String): Text for checked state. Default: "ON"
+  - `unchecked` (String): Text for unchecked state. Default: "OFF"
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the switch.
-- `m_inputTag`: The input element of the switch.
-- `m_containerTag`: The container element of the switch.
-- `m_enable`: Boolean indicating if the switch is enabled.
-- `m_checked`: Boolean indicating if the switch is checked.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_inputTag` (HTMLElement): Input element
+- `m_containerTag` (HTMLElement): Container element
+- `m_enable` (Boolean): Enabled state
+- `m_checked` (Boolean): Checked state
 
 ### Public Methods
-
-- `check(context)`: Checks or unchecks the switch.
-- `checked()`: Returns the current checked state of the switch.
-- `configure(customProps)`: Configures the switch properties.
-- `destroy()`: Removes the switch from the DOM.
-- `enable(context)`: Enables or disables the switch.
-- `getParentTag()`: Returns the switch element.
-- `setup(props)`: Sets up the switch with the given properties.
-- `toggle()`: Toggles the switch state.
+- `check(context)`: Sets checked state
+- `checked()`: Returns current checked state
+- `configure(props)`: Updates configuration
+- `destroy()`: Removes switch from DOM
+- `enable(context)`: Sets enabled state
+- `getParentTag()`: Returns switch element
+- `setup(props)`: Initializes switch
+- `toggle()`: Toggles checked state
 
 ### Private Functions
+- `setupDOM()`: Creates initial DOM structure
+- `installLabels()`: Creates label elements
+- `setupEventListener()`: Binds event handlers
+- `setEnable()`: Updates enabled state
+- `handleClick(ev)`: Handles click events
+- `toggleSwitch(ev)`: Toggles switch state
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the switch with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the switch.
-- `installLabels()`: Installs the labels for the switch states.
-- `setupEventListener()`: Sets up the click event listener.
-- `setEnable()`: Sets the enabled/disabled state of the switch.
-- `handleClick(ev)`: Handles the click event on the switch.
-- `toggleSwitch(ev)`: Toggles the switch state.
-- `setChecked(ev)`: Sets the checked state and triggers the change callback.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the switch properties.
+
 
 ## Tab
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `tabs` (object): Configuration for the tab buttons.
-- `contents` (array): Array of content elements for each tab.
-- `tags` (object): Contains tag configurations for various elements of the tab component.
-- `css` (object): Contains CSS class names for styling the tab component.
-- `fnTabComplete` (function): Callback function called when a tab is completed.
-- `fnComplete` (function): Callback function called when the tab setup is complete.
+### Public Properties (m_props)
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `contents` (Array): Tab content elements. Default: []
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the tab component.
-- `m_tabsTag`: The container element for the tab buttons.
-- `m_tabsGroup`: The button group for the tab buttons.
-- `m_contentTag`: The container element for the tab contents.
-- `m_contentTagsMap`: An object mapping tab IDs to their content elements.
-- `m_selectedId`: The ID of the currently selected tab.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_tabsTag` (HTMLElement): Tabs container element
+- `m_tabsGroup` (Object): Button group component
+- `m_contentTag` (HTMLElement): Content container element
+- `m_contentTagsMap` (Object): Map of content elements
+- `m_selectedId` (String): Currently selected tab ID
 
 ### Public Methods
-
-- `setup(props)`: Sets up the tab component with the given properties.
+- `setup(props)`: Initializes tab component with properties
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `installTabs()`: Creates tab buttons
+- `installContent()`: Creates content containers
+- `toggleTabContent(clickedBtn)`: Handles tab switching
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the tab component with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the tab component.
-- `installTabs()`: Installs the tab buttons.
-- `installContent()`: Installs the content for each tab.
-- `toggleTabContent(clickedBtn)`: Toggles the visibility of tab content when a tab is clicked.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the tab component properties.
+
 
 ## Textarea
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `name` (string): The name attribute for the textarea.
-- `value` (string): The initial value of the textarea.
-- `labelText` (string): The text for the label element.
-- `hidden` (boolean): Determines if the textarea should be hidden.
-- `enableClear` (boolean): Determines if a clear button should be shown.
-- `button` (object): Configuration for the clear button.
-- `validate` (object): Configuration for validation rules.
-- `tags` (object): Contains tag configurations for various elements of the textarea.
-- `css` (object): Contains CSS class names for styling the textarea.
-- `fnBlur` (function): Callback function called on blur event.
-- `fnChange` (function): Callback function called on change event.
-- `fnKeyup` (function): Callback function called on keyup event.
-- `fnClear` (function): Callback function called when the textarea is cleared.
-- `fnDataValidationChange` (function): Callback function called when data validation changes.
-- `fnComplete` (function): Callback function called when the textarea setup is complete.
+### Public Properties (m_props)
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `name` (String): Input name attribute. Default: Random string
+- `button` (Object): Clear button configuration. Default: { text: "" }
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the textarea.
-- `m_textareaTag`: The textarea element.
-- `m_labelTag`: The label element for the textarea.
-- `m_button`: The clear button element.
-- `m_dataChanged`: Boolean indicating if the data has changed due to validation.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_textareaTag` (HTMLElement): Textarea element
+- `m_labelTag` (HTMLElement): Label element
+- `m_button` (Object): Clear button component
+- `m_dataChanged` (Boolean): Data change flag
 
 ### Public Methods
-
-- `clear()`: Clears the textarea.
-- `commitDataChange()`: Resets the data changed flag.
-- `dataChanged()`: Returns whether the data has changed due to validation.
-- `getTag()`: Returns the textarea element.
-- `setup(props)`: Sets up the textarea with the given properties.
-- `value(context)`: Gets or sets the value of the textarea.
+- `clear()`: Clears textarea content
+- `commitDataChange()`: Resets data change flag
+- `dataChanged()`: Returns data change state
+- `getTag()`: Returns textarea element
+- `setup(props)`: Initializes textarea
+- `value(context)`: Gets/sets textarea value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `installClearTextarea()`: Adds clear button
+- `validate(ev)`: Validates input
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the textarea with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the textarea.
-- `installClearTextarea()`: Installs the clear button if enabled.
-- `handleOnBlur(ev)`: Handles the blur event.
-- `handleOnChange(ev)`: Handles the change event.
-- `handleOnKeyup(ev)`: Handles the keyup event.
-- `validate(ev)`: Performs validation on the textarea value.
-- `validateMinLength(config, ev)`: Validates the minimum length of the textarea value.
-- `clearTextarea()`: Clears the textarea value.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the textarea properties.
+
 
 ## TimePicker
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `combobox` (object): Configuration for the combobox component.
-- `value` (string): The initial value of the time picker.
-- `interval` (number): The interval between time options in minutes.
-- `format` (string): The format string for displaying time.
-- `min` (Date): The minimum selectable time.
-- `max` (Date): The maximum selectable time.
-- `tags` (object): Contains tag configurations for various elements of the time picker.
-- `css` (object): Contains CSS class names for styling the time picker.
-- `fnSelect` (function): Callback function called when a time is selected.
-- `fnComplete` (function): Callback function called when the time picker setup is complete.
+### Public Properties (m_props)
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `combobox` (Object): Combobox configuration. Default: { filter: false }
+- `value` (String): Initial time value. Default: ""
+- `interval` (Number): Time interval in minutes. Default: 30
+- `format` (String): Time format string. Default: "h:mm A"
+- `min` (Date): Minimum selectable time. Default: Today
+- `max` (Date): Maximum selectable time. Default: Today
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the time picker.
-- `m_comboBox`: The combobox component used for time selection.
-- `m_value`: The current selected time value.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_comboBox` (Object): Combobox component instance
+- `m_value` (Date): Current selected time
 
 ### Public Methods
-
-- `destroy()`: Removes the time picker from the DOM.
-- `getParentTag()`: Returns the time picker element.
-- `setup(props)`: Sets up the time picker with the given properties.
-- `value(context)`: Gets or sets the value of the time picker.
+- `destroy()`: Removes time picker from DOM
+- `getParentTag()`: Returns component element
+- `setup(props)`: Initializes time picker
+- `value(context)`: Gets/sets time value
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `setupComboBox()`: Configures combobox component
+- `createComboBoxData()`: Generates time options
+- `selectTime(context)`: Handles time selection
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the time picker with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the time picker.
-- `setupComboBox()`: Sets up the combobox component for time selection.
-- `createComboBoxData()`: Creates the data for the combobox options.
-- `selectTime(context)`: Handles the time selection.
-- `setValue(value)`: Sets the value of the time picker.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the time picker properties.
+
 
 ## TreeView
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `data` (array): The tree data structure.
-- `idField` (string): The field name for item IDs.
-- `textField` (string): The field name for item text.
-- `itemsField` (string): The field name for child items.
-- `itemIdAttrName` (string): The attribute name for storing item IDs in the DOM.
-- `expanded` (boolean): Determines if tree nodes should be expanded by default.
-- `tags` (object): Contains tag configurations for various elements of the tree view.
-- `css` (object): Contains CSS class names for styling the tree view.
-- `fnSelect` (function): Callback function called when an item is selected.
-- `fnComplete` (function): Callback function called when the tree view setup is complete.
+### Public Properties (m_props)
+- `data` (Array): Tree structure data. Default: []
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `idField` (String): ID field name in data. Default: "id"
+- `textField` (String): Text field name in data. Default: "text"
+- `itemsField` (String): Children field name in data. Default: "items"
+- `itemIdAttrName` (String): Item ID attribute name. Default: "data-tree-view-item-id"
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the tree view.
-- `m_dataMapById`: An object mapping item IDs to their data.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_dataMapById` (Object): Map of items by ID
 
 ### Public Methods
-
-- `destroy()`: Removes the tree view from the DOM.
-- `getItemData(tag)`: Returns the data for a given item tag.
-- `getParentTag()`: Returns the tree view element.
-- `setup(props)`: Sets up the tree view with the given properties.
+- `destroy()`: Removes tree view from DOM
+- `getItemData(tag)`: Returns item data by tag
+- `getParentTag()`: Returns component element
+- `setup(props)`: Initializes tree view
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `processTreeData(groupData, parentTag)`: Processes tree data
+- `processItem(itemData, parentTag)`: Creates tree items
+- `processGroup(groupData, parentTag)`: Creates item groups
+- `installIcon(parentTag, groupTag, itemData)`: Adds expand/collapse icons
+- `setupItemEventListeners(inTag, itemData)`: Binds item events
+- `toggleExpand(groupTag, iconTag)`: Handles expansion state
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the tree view with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the tree view.
-- `processTreeData(groupData, parentTag)`: Processes the tree data and creates the DOM structure.
-- `processItem(itemData, parentTag)`: Processes a single item and creates its DOM structure.
-- `processGroup(groupData, parentTag)`: Processes a group of items and creates its DOM structure.
-- `installIcon(parentTag, groupTag, itemData)`: Installs the expand/collapse icon for a group.
-- `clearSelected()`: Clears the selected state from all items.
-- `setupItemEventListeners(inTag, itemData)`: Sets up event listeners for an item.
-- `toggleExpand(groupTag, iconTag)`: Toggles the expanded state of a group.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the tree view properties.
+
 
 ## VideoPlayer
 
-### Properties (m_props)
-
-- `tag` (string): Specifies the tag name for the component.
-- `theme` (string): Specifies the theme name for the component.
-- `player` (object): Configuration for the video player.
-  - `attr` (object): Attributes for the video element.
-	- `controls` (boolean): Determines if player controls should be shown.
-- `tags` (object): Contains tag configurations for various elements of the video player.
-- `css` (object): Contains CSS class names for styling the video player.
-- `fnComplete` (function): Callback function called when the video player setup is complete.
+### Public Properties (m_props)
+- `tag` (String): Tag identifier for component styling. Default: "default"
+- `theme` (String): Theme identifier for component styling. Default: "default"
+- `player` (Object): Video player configuration
+  - `attr` (Object): Player attributes
+    - `controls` (Boolean): Show player controls. Default: true
 
 ### Private Properties
-
-- `m_parentTag`: The parent element of the video player.
-- `m_player`: The video player instance.
+- `m_parentTag` (HTMLElement): Reference to parent container
+- `m_player` (Object): Player component instance
 
 ### Public Methods
-
-- `getPlayer()`: Returns the video player instance.
-- `getPlayerTag()`: Returns the video element.
-- `setup(props)`: Sets up the video player with the given properties.
+- `getPlayer()`: Returns player instance
+- `getPlayerTag()`: Returns player element
+- `setup(props)`: Initializes video player
 
 ### Private Functions
+- `configure(customProps)`: Merges default and custom properties
+- `setupDOM()`: Creates initial DOM structure
+- `setupComplete()`: Executes completion callback
 
-- `setup(props)`: Initializes the video player with the given properties.
-- `setupDOM()`: Creates and sets up the DOM structure for the video player.
-- `setupComplete()`: Calls the completion callback function.
-- `configure(customProps)`: Configures the video player properties.
+
