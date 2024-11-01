@@ -13,7 +13,7 @@
   background: var(--m-accent-primary-color);
   font-style: normal;
   margin: 0 var(--m-margin-s);
-  font-weight: var(--m-font-weight);
+  font-weight: var(--m-font-weight-regular);
   line-height: var(--m-line-height);
   box-shadow: var(--m-box-shadow-primary);
   gap: 0.625rem;
@@ -29,7 +29,7 @@
   color: var(--m-white-color);
   background: var(--m-accent-primary-color);
   font-style: normal;
-  font-weight: var(--m-font-weight);
+  font-weight: var(--m-font-weight-regular);
   line-height: var(--m-line-height);
   box-shadow: var(--m-box-shadow-primary);
   border-radius: var(--m-border-radius-primary);

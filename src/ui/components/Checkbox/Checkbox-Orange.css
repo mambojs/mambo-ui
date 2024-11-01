@@ -14,7 +14,7 @@
 
 .m-checkbox-text-span {
   font-size: var(--m-font-size-m);
-  font-weight: var(--m-font-weight);
+  font-weight: var(--m-font-weight-regular);
   font-style: normal;
   line-height: 1.5rem;
   display: inline-block;

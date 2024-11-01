@@ -19,7 +19,7 @@
   --m-font-size-m: 1rem;
   --m-font-size-lg: 1.2rem;
   --m-font-weight-light: 300;
-  --m-font-weight: 400;
+  --m-font-weight-regular: 400;
   --m-font-weight-medium: 500;
   --m-font-weight-bold: 700;
   --m-font-weight-black: 900;
@@ -47,49 +47,49 @@
   --m-main-color: #fbfbfb;
 
   /* Typography */
-  --m-heading-color: rgb(20 24 31);
-  --m-body-color: rgb(65 71 80);
-  --m-disabled-text-color: rgb(86 94 105);
-  --m-placeholder-color: rgb(139 147 159);
-  --m-informative-color: rgb(28 81 164);
-  --m-success-color: rgb(88 121 12);
-  --m-warning-color: rgb(130 98 15);
-  --m-error-color: rgb(171 40 22);
+  --m-heading-color: #14181F;
+  --m-body-color: #414750;
+  --m-disabled-text-color: #565E69;
+  --m-placeholder-color: #8B939F;
+  --m-informative-color: #1C51A4;
+  --m-success-color: #58790C;
+  --m-warning-color: #82620F;
+  --m-error-color: #AB2816;
 
   /* Stroke / Fill */
-  --m-informative-stroke-color: rgb(44 104 198);
-  --m-success-stroke-color: rgb(152 199 41);
-  --m-warning-stroke-color: rgb(232 185 63);
-  --m-error-stroke-color: rgb(221 51 29);
+  --m-informative-stroke-color: #2C68C6;
+  --m-success-stroke-color: #98C729;
+  --m-warning-stroke-color: #E8B93F;
+  --m-error-stroke-color: #DD331D;
 
   /* Background */
-  --m-primary-background-color: rgb(237 244 255);
-  --m-disabled-background-color: rgb(224 226 229);
-  --m-success-background-color: rgb(243 255 214);
-  --m-warning-background-color: rgb(255 246 224);
-  --m-error-background-color: rgb(253 231 229);
+  --m-primary-background-color: #EDF4FF;
+  --m-disabled-background-color: #E0E2E5;
+  --m-success-background-color: #F3FFD6;
+  --m-warning-background-color: #FFF6E0;
+  --m-error-background-color: #FDE7E5;
 
   /* States */
   --m-accent-primary-color: var(--m-accent-color);
   --m-accent-secondary-color: var(--m-white-color);
   --m-active-primary-background-color: calc((var(--m-accent-primary-color) + var(--m-selected-primary-background-color)) / 2);
   --m-active-secondary-background-color: calc((var(--m-accent-secondary-color) + var(--m-selected-secondary-background-color)) / 2);
-  --m-selected-primary-background-color: rgb(249 128 67);
-  --m-selected-secondary-background-color: rgb(255 240 233);
-  --m-pressed-primary-background-color: rgb(216 72 0);
-  --m-pressed-secondary-background-color: rgb(255 220 203);
-  --m-hover-primary-background-color: rgb(249 128 67);
-  --m-hover-secondary-background-color: rgb(255 240 233);
+  --m-selected-primary-background-color: #F98043;
+  --m-selected-secondary-background-color: #FFF0E9;
+  --m-pressed-primary-background-color: #D84800;
+  --m-pressed-secondary-background-color: #FFDCCB;
+  --m-hover-primary-background-color: #F98043;
+  --m-hover-secondary-background-color: #FFF0E9;
 
   /* Gray Scale | White */
-  --m-black-color: rgb(0 0 0);
-  --m-white-color: rgb(255 255 255);
-  --m-gray-100: rgb(243 244 245);
-  --m-gray-200: rgb(208 212 217);
-  --m-gray-300: rgb(174 179 188);
-  --m-gray-400: rgb(123 132 147);
-  --m-gray-500: rgb(77 84 94);
-  --m-gray-600: rgb(42 46 52);
+  --m-black-color: #000;
+  --m-white-color: #FFF;
+  --m-gray-100: #F3F4F5;
+  --m-gray-200: #D0D4D9;
+  --m-gray-300: #AEB3BC;
+  --m-gray-400: #7B8493;
+  --m-gray-500: #4D545E;
+  --m-gray-600: #2A2E34;
 
   /* Paddings */
   --m-padding-xs: 0.125rem;
