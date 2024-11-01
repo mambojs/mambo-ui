@@ -1,6 +1,7 @@
 function storyCombobox(selectedStory) {
 	const config = {
 		parentTag: selectedStory.parentTag,
+		value: "mambo-combobox",
 		data: [
 			{ text: "Item 1", id: "1" },
 			{ text: "Item 2", id: "2" },

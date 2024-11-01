@@ -92,6 +92,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 				m_input.value({ value: text });
 				m_previous_text = text;
 				m_value = context.Button.getId();
+				m_input.getTag().classList.add("m-selected");
 				dropdown.close();
 
 				if (m_props.fnSelect) {

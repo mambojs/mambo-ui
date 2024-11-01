@@ -10,14 +10,14 @@
   --m-disabled-text-color: #ccc;
   --m-background-color: black;
   --m-error-color: red;
-  --m-black-color: rgb(0 0 0);
-  --m-white-color: rgb(255 255 255);
-  --m-gray-100: rgb(243 244 245);
-  --m-gray-200: rgb(208 212 217);
-  --m-gray-300: rgb(174 179 188);
-  --m-gray-400: rgb(123 132 147);
-  --m-gray-500: rgb(77 84 94);
-  --m-gray-600: rgb(42 46 52);
+  --m-black-color: #000;
+  --m-white-color: #FFF;
+  --m-gray-100: #F3F4F5;
+  --m-gray-200: #D0D4D9;
+  --m-gray-300: #AEB3BC;
+  --m-gray-400: #7B8493;
+  --m-gray-500: #4D545E;
+  --m-gray-600: #2A2E34;
 
   /* Paddings */
   --m-padding-xs: 0.125rem;

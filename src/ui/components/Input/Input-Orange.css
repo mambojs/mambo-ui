@@ -15,12 +15,17 @@
 }
 
 .m-input-self:focus-within {
-  border-color: var(--m-black-color);
+  border-color: var(--m-gray-500);
   overflow: hidden;
 }
 
 .m-input-self:active {
-  border-color: green;
+  border-color: var(--m-accent-color);
+  overflow: hidden;
+}
+
+.m-input-self:hover {
+  border-color: var(--m-accent-color);
   overflow: hidden;
 }
 

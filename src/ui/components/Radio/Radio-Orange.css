@@ -16,7 +16,7 @@
   line-height: 1.5rem;
   display: inline-block;
   color: var(--m-body-color);
-  font-weight: var(--m-font-weight);
+  font-weight: var(--m-font-weight-regular);
 }
 
 .m-radio-input {

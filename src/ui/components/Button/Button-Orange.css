@@ -8,7 +8,7 @@
   background: var(--m-accent-primary-color);
   font-style: normal;
   font-size: var(--m-font-size-m);
-  font-weight: var(--m-font-weight);
+  font-weight: var(--m-font-weight-regular);
   line-height: var(--m-line-height);
   box-shadow: var(--m-box-shadow-primary);
   border-radius: var(--m-border-radius-primary);
