@@ -401,23 +401,28 @@ ui.class.Theme = class Theme {
 	}
 
 	loadStylesheets(context) {
-		context?.stylesheets?.forEach((href) => {
-			const link = document.createElement("link");
-			link.rel = "stylesheet";
-			link.href = href;
-			link.className = context.linkClass || this.linkClass;
-			document.head.appendChild(link);
+		return new Promise((resolve) => {
+			context?.stylesheets?.forEach((href) => {
+				const link = document.createElement("link");
+				link.rel = "stylesheet";
+				link.href = href;
+				link.className = context.linkClass || this.linkClass;
+				document.head.appendChild(link);
+			});
+
+			resolve();
 		});
 	}
 
-	reloadStylesheets(context) {
+	async reloadStylesheets(context) {
 		const links = document.querySelectorAll(`link.${context.linkClass || this.linkClass}`);
+		await this.loadStylesheets(context);
 
-		if (links?.length > 0) {
-			links.forEach((link) => link.remove());
-		}
-
-		this.loadStylesheets(context);
+		setTimeout(() => {
+			if (links?.length > 0) {
+				links.forEach((link) => link.remove());
+			}
+		}, 100);
 	}
 
 	getTheme(context) {
