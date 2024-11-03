@@ -222,6 +222,7 @@ ui.defaultTheme = {
 		input: "m-input-input",
 		label: "m-input-label",
 		self: "m-input-self",
+		icon: "m-input-icon",
 	},
 	listbox: {
 		container: "m-listbox-container",

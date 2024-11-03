@@ -1,13 +1,59 @@
 function storyInput(selectedStory) {
-	const inputConfig = {
-		parentTag: selectedStory.parentTag,
-		enableClear: false,
-	};
+	inputWithoutClear();
+	inputWithClear();
+	inputWithIcon();
 
-	ui.input(inputConfig);
+	function inputWithoutClear() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			enableClear: false,
+			icon: [
+				{
+					attr: {
+						"data-feather": "search",
+					},
+					size: "small",
+					position: "left",
+				},
+			],
+		};
 
-	inputConfig.enableClear = true;
-	inputConfig.value = "My value";
+		ui.input(config);
+	}
 
-	ui.input(inputConfig);
+	function inputWithClear() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			value: "My value",
+			enableClear: true,
+			icon: [
+				{
+					attr: {
+						"data-feather": "star",
+					},
+					size: "small",
+					position: "left",
+				},
+			],
+		};
+
+		ui.input(config);
+	}
+
+	function inputWithIcon() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			icon: [
+				{
+					attr: {
+						"data-feather": "eye",
+					},
+					size: "small",
+					position: "right",
+				},
+			],
+		};
+
+		ui.input(config);
+	}
 }
