@@ -2,7 +2,7 @@ ui.class.Input = class Input extends HTMLElement {
 	constructor(props) {
 		super();
 		const self = this;
-
+		const m_iconList = [];
 		// HTML tag variables
 		let m_parentTag;
 		let m_inputTag;
@@ -16,6 +16,7 @@ ui.class.Input = class Input extends HTMLElement {
 		this.commitDataChange = () => (m_dataChanged = null);
 		this.dataChanged = () => m_dataChanged;
 		this.getTag = () => m_inputTag;
+		this.getIconTagById = getIconTagById;
 		this.setup = setup;
 		this.value = value;
 
@@ -48,8 +49,13 @@ ui.class.Input = class Input extends HTMLElement {
 				};
 
 				tagConfig.attr.name = m_props.name;
+				tagConfig.attr.id = m_props.name;
 				m_inputTag = ui.d.createTag(tagConfig);
 				self.appendChild(m_inputTag);
+
+				if (m_props.icon) {
+					insertIcon();
+				}
 
 				if (m_props.hidden) {
 					self.style.display = "none";
@@ -72,6 +78,35 @@ ui.class.Input = class Input extends HTMLElement {
 
 				installClearInput().then(resolve);
 			});
+		}
+
+		function insertIcon() {
+			if (Array.isArray(m_props.icon)) {
+				m_props.icon.forEach((icon) => {
+					addIcon(icon);
+				});
+			} else {
+				addIcon(m_props.icon);
+			}
+
+			function addIcon(icon) {
+				const cssClasses = [m_props.css.icon, icon.attr.class, icon.size].filter(Boolean).join(" ");
+
+				const tagConfig = {
+					class: cssClasses,
+					prop: icon.prop,
+					attr: icon.attr,
+				};
+				
+				let iconTag = ui.d.createTag("i", tagConfig);
+				m_iconList.push(iconTag);
+
+				if (icon.position === "right") {
+					self.appendChild(iconTag);
+				} else {
+					self.insertBefore(iconTag, m_inputTag);
+				}
+			}
 		}
 
 		function installClearInput() {
@@ -189,6 +224,10 @@ ui.class.Input = class Input extends HTMLElement {
 			}
 		}
 
+		function getIconTagById(id) {
+			return m_iconList.find((icon) => icon.id === id);
+		}
+
 		function setupComplete() {
 			if (m_props.fnComplete) {
 				m_props.fnComplete({ Input: self });
@@ -202,6 +241,7 @@ ui.class.Input = class Input extends HTMLElement {
 					theme: "default",
 					name: Math.random().toString(36).slice(2),
 					button: { text: "" },
+					icon: [],
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);
