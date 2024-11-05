@@ -8,6 +8,7 @@ ui.class.Input = class Input extends HTMLElement {
 		let m_inputTag;
 		let m_labelTag;
 		let m_button;
+		let m_leftButton;
 		let m_props;
 		let m_dataChanged;
 
@@ -19,6 +20,7 @@ ui.class.Input = class Input extends HTMLElement {
 		this.getIconTagById = getIconTagById;
 		this.setup = setup;
 		this.value = value;
+		this.setAttr = setAttribute;
 
 		if (props) {
 			setup(props);
@@ -47,7 +49,6 @@ ui.class.Input = class Input extends HTMLElement {
 						keyup: handleOnKeyup,
 					},
 				};
-
 				tagConfig.attr.name = m_props.name;
 				tagConfig.attr.id = m_props.name;
 				m_inputTag = ui.d.createTag(tagConfig);
@@ -76,8 +77,17 @@ ui.class.Input = class Input extends HTMLElement {
 					validate();
 				}
 
+				installLeftButton().then(resolve);
 				installClearInput().then(resolve);
 			});
+		}
+
+		function setAttribute(context) {
+			for (const attr in context) {
+				if (attr) {
+					m_inputTag.setAttribute(attr, context[attr]);
+				}
+			}
 		}
 
 		function insertIcon() {
@@ -97,7 +107,7 @@ ui.class.Input = class Input extends HTMLElement {
 					prop: icon.prop,
 					attr: icon.attr,
 				};
-				
+
 				let iconTag = ui.d.createTag("i", tagConfig);
 				m_iconList.push(iconTag);
 
@@ -113,8 +123,8 @@ ui.class.Input = class Input extends HTMLElement {
 			return new Promise((resolve) => {
 				if (m_props.enableClear) {
 					const buttonConfig = {
-						...m_props.button,
-						css: m_props.css.button,
+						...m_props.clearButton,
+						css: m_props.css.clearButton,
 						parentTag: self,
 						fnComplete: resolve,
 						fnClick: (context) => {
@@ -131,6 +141,38 @@ ui.class.Input = class Input extends HTMLElement {
 					};
 
 					ui.button(buttonConfig);
+				}
+			});
+		}
+
+		function installLeftButton() {
+			return new Promise((resolve) => {
+				if (m_props.enablePressButton) {
+					const buttonConfig = {
+						...m_props.leftButton,
+						css: m_props.css.leftButton,
+						parentTag: self,
+						fnComplete: resolve,
+						fnMouseDown: (context) => {
+							if (m_props.fnMouseDown) {
+								m_props.fnMouseDown({
+									Input: self,
+									Button: context.Button,
+									ev: context.ev,
+								});
+							}
+						},
+						fnMouseUp: (context) => {
+							if (m_props.fnMouseUp) {
+								m_props.fnMouseUp({
+									Input: self,
+									Button: context.Button,
+									ev: context.ev,
+								});
+							}
+						},
+					};
+					m_leftButton = ui.button(buttonConfig);
 				}
 			});
 		}
@@ -240,7 +282,8 @@ ui.class.Input = class Input extends HTMLElement {
 					tag: "default",
 					theme: "default",
 					name: Math.random().toString(36).slice(2),
-					button: { text: "" },
+					clearButton: { text: "" },
+					leftButton: { text: "" },
 					icon: [],
 				};
 

@@ -175,12 +175,29 @@ ui.class.Button = class Button extends HTMLElement {
 		function handleMouseDown(ev) {
 			if (m_enable) {
 				m_buttonTag.classList.add(m_props.css.pressed);
+
+				// Invoke callback for each button
+				if (m_props.fnMouseDown) {
+					m_props.fnMouseDown({
+						Button: self,
+						ev: ev,
+					});
+				}
+
 			}
 		}
 
 		function handleMouseUp(ev) {
 			if (m_enable) {
 				m_buttonTag.classList.remove(m_props.css.pressed);
+
+				// Invoke callback for each button
+				if (m_props.fnMouseUp) {
+					m_props.fnMouseUp({
+						Button: self,
+						ev: ev,
+					});
+				}
 			}
 		}
 

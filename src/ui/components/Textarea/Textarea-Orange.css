@@ -12,7 +12,7 @@
   color: var(--m-body-color);
 }
 
-.m-input-button {
+.m-textarea-textarea .m-input-button {
   background: none;
   cursor: pointer;
   color: var(--m-gray-300);
@@ -21,6 +21,6 @@
   font-size: var(--m-font-size-m);
 }
 
-.m-input-button:hover {
+.m-textarea-textarea .m-input-button:hover {
   color: var(--m-heading-color);
 }

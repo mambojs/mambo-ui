@@ -1,12 +1,13 @@
 function storyInput(selectedStory) {
-	inputWithoutClear();
-	inputWithClear();
+	inputWithClearButton();
+	inputWithLeftButton();
 	inputWithIcon();
 
-	function inputWithoutClear() {
+	function inputWithClearButton() {
 		const config = {
 			parentTag: selectedStory.parentTag,
-			enableClear: false,
+			value: "My value",
+			enableClear: true,
 			icon: [
 				{
 					attr: {
@@ -21,20 +22,25 @@ function storyInput(selectedStory) {
 		ui.input(config);
 	}
 
-	function inputWithClear() {
+	function inputWithLeftButton() {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			value: "My value",
-			enableClear: true,
-			icon: [
-				{
-					attr: {
-						"data-feather": "star",
-					},
-					size: "small",
-					position: "left",
-				},
-			],
+			enableClear: false,
+			enablePressButton: true,
+			fnMouseDown: (context) => {
+				context.Input.setAttr({ type: "text" });
+				context.Button.getTag().classList.toggle("fa-eye", true);
+				context.Button.getTag().classList.toggle("fa-eye-slash", false);
+			},
+			fnMouseUp: (context) => {
+				context.Input.setAttr({ type: "password" });
+				context.Button.getTag().classList.toggle("fa-eye-slash", true);
+				context.Button.getTag().classList.toggle("fa-eye", false);
+			},
+			fnComplete: (context) => {
+				context.Input.setAttr({ type: "password" });
+			},
 		};
 
 		ui.input(config);
