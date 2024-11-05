@@ -68,9 +68,9 @@
   cursor: pointer;
   border: none;
   padding: 0;
+  color: var(--m-accent-color);
 }
 
 .m-input-button:hover {
-  color: black;
   overflow: hidden;
 }

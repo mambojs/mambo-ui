@@ -216,8 +216,11 @@ ui.defaultTheme = {
 		treeViewParent: "m-grid-tree-view-parent",
 	},
 	input: {
-		button: {
+		clearButton: {
 			button: "m-input-button fa-solid fa-xmark",
+		},
+		leftButton: {
+			button: "m-input-button fa-solid fa-eye-slash",
 		},
 		input: "m-input-input",
 		label: "m-input-label",

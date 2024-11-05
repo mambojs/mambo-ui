@@ -214,8 +214,12 @@ function storyButton(selectedStory) {
 					},
 				},
 			],
-			fnClick: (context) => {
-				console.log(`${context.Button.text()} clicked.`);
+
+			fnMouseDown: (context) => {
+				console.log(`${context.Button.text()} Mouse Down.`);
+			},
+			fnMouseUp: (context) => {
+				console.log(`${context.Button.text()} Mouse Up.`);
 			},
 		};
 		ui.button(config);
