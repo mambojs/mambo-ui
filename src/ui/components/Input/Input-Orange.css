@@ -1,5 +1,11 @@
 .m-input-self {
   display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.m-input-container {
+  display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--m-gray-300);
@@ -8,51 +14,7 @@
   outline: none;
   background: var(--m-gray-100);
   padding: var(--m-padding-lg) var(--m-padding-lg);
-}
-
-.m-input-self .m-button-self .notext {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-}
-
-.m-input-self:focus-within {
-  border-color: var(--m-gray-500);
-  overflow: hidden;
-}
-
-.m-input-self:active {
-  border-color: var(--m-accent-color);
-  overflow: hidden;
-}
-
-.m-input-self > .m-input-icon {
-  width: 1.25rem;
-  height: auto;
-  color: var(--m-gray-400);
-}
-
-.m-input-icon.large {
-  width: 2rem;
-  height: 2rem;
-  margin-right: var(--m-margin-s);
-  margin-left: var(--m-margin-s);
-}
-
-.m-input-icon.medium {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-right: var(--m-margin-s);
-  margin-left: var(--m-margin-s);
-}
-
-.m-input-icon.small {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: var(--m-margin-s);
-  margin-left: var(--m-margin-s);
+  gap: 0.5rem;
 }
 
 .m-input-input {
@@ -64,13 +26,82 @@
 }
 
 .m-input-button {
-  height: 1rem;
+  background: none;
   cursor: pointer;
-  border: none;
-  padding: 0;
   color: var(--m-accent-color);
+  border: none;
+  padding: var(--m-padding-s);
 }
 
 .m-input-button:hover {
+  color: var(--m-gray-500);
+}
+
+.m-input-self .m-button-self .notext {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  min-width: 1rem;
+}
+
+.m-input-container:focus-within {
+  border-color: var(--m-gray-200);
   overflow: hidden;
+}
+
+.m-input-container:active {
+  border-color: var(--m-accent-color);
+  overflow: hidden;
+}
+
+.m-input-self .m-input-icon {
+  width: 1.25rem;
+  height: auto;
+  color: var(--m-gray-400);
+}
+
+.m-input-icon.large {
+  font-size: 1.5rem;
+}
+
+.m-input-icon.medium {
+  font-size: 1.25rem;
+}
+
+.m-input-icon.small {
+  font-size: 1rem;
+  justify-self: flex-start;
+}
+
+.m-input-icon-required {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--m-error-color);
+}
+
+.m-input-icon-required.hidden {
+  visibility: hidden;
+  width: 1rem;
+}
+
+.m-input-container:has(.m-input-icon-required:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-input-text-required {
+  display: inline-block;
+  color: var(--m-error-color);
+  font-size: var(--m-font-size-xs);
+  font-weight: var(--m-font-weight-regular);
+  font-family: var(--m-font-family);
+  padding-left: var(--m-padding-lg);
+  line-height: var(--m-line-height-xs);
+  letter-spacing: -0.133px;
+}
+
+.m-input-text-required.hidden {
+  visibility: hidden;
 }

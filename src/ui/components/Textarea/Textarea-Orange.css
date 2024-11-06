@@ -1,26 +1,123 @@
 .m-textarea-self {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-items: stretch;
+}
+
+.m-textarea-container-up {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--m-gray-200);
+  border-radius: var(--m-border-radius-primary);
+  background: var(--m-gray-100);
+  color: var(--m-gray-600);
+  width: 100%;
+  padding: var(--m-padding-m);
+  padding-right: 0;
+  overflow: hidden;
+  flex-grow: 1;
+  gap: 0.5rem;
+}
+
+.m-textarea-container-down {
+  flex-grow: 0;
+  height: 1.5rem;
+  padding-top: var(--m-padding-s);
+  padding-left: var(--m-padding-m);
 }
 
 .m-textarea-textarea {
   width: 100%;
-  border: 1px solid var(--m-gray-200);
-  border-radius: var(--m-border-radius-primary);
-  padding: var(--m-padding-m);
+  height: 100%;
+  outline: none;
+  border: none;
+  color: var(--m-gray-600);
+  background: transparent;
+  resize: none;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  font-size: var(--m-font-size-s);
+}
+
+.m-textarea-self .m-input-button.cancel-btn {
+  font-size: var(--m-font-size-m);
+}
+
+.m-textarea-self .m-input-button.check-btn {
+  font-size: var(--m-font-size-m);
+}
+
+.m-textarea-self .m-input-button.edit-btn {
+  font-size: var(--m-font-size-s);
+}
+
+.m-textarea-self:focus-within {
+  border-color: var(--m-black-color);
+}
+
+.m-textarea-self:active {
+  border-color: var(--m-accent-color);
+}
+
+.m-textarea-span {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  font-size: var(--m-font-size-s);
+  color: var(--m-gray-500);
+}
+
+.m-textarea-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: var(--m-padding-m);
+}
+
+.m-textarea-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.m-textarea-icons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.m-textarea-icon-required {
+  display: block;
+  color: var(--m-error-color);
+}
+
+.m-textarea-icon-required.hidden {
+  display: none;
+}
+
+.m-textarea-container-up:has(.m-textarea-icon-required:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-textarea-text-required {
+  display: inline-block;
+  color: var(--m-error-color);
+  font-size: var(--m-font-size-xs);
+  font-weight: var(--m-font-weight-regular);
   font-family: var(--m-font-family);
-  font-size: var(--m-font-size-m);
-  color: var(--m-body-color);
+  padding-left: var(--m-padding-lg);
+  line-height: var(--m-line-height-xs);
+  padding-top: var(--m-padding-s);
 }
 
-.m-textarea-textarea .m-input-button {
-  background: none;
-  cursor: pointer;
-  color: var(--m-gray-300);
-  border: var(--m-border);
-  padding: var(--m-padding-s);
-  font-size: var(--m-font-size-m);
-}
-
-.m-textarea-textarea .m-input-button:hover {
-  color: var(--m-heading-color);
+.m-textarea-text-required.hidden {
+  display: none;
 }

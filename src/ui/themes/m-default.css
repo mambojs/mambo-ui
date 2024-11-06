@@ -2,8 +2,10 @@
   /* Fonts */
   --m-font-family: "Ubuntu Light", sans-serif;
   --m-font-size: 1rem;
+  --m-font-size-xs: 0.75rem;
+  --m-font-size-s: 0.85rem;
   --m-font-size-m: 1rem;
-  --m-font-size-lg: 1.2rem;
+  --m-font-size-lg: 1.25rem;
 
   /* Colors */
   --m-text-color: white;

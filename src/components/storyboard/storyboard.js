@@ -11,14 +11,15 @@ function installStoryboard(props) {
 		configureStoriesData();
 		installComponentTreeView();
 		setupHomeButton();
-		loadDocumentation();
+		loadDocumentation().then();
 	}
 
 	function configureStoriesData() {
 		// Add props to stories collection
 		stories.map((story) => {
 			story.id = story.text.replaceAll(" ", "-").toLowerCase();
-			story.parentTag = dom.createTag(`story-${story.id}`);
+			const storyWrapperClass = `story-${story.id}-wrapper`;
+			story.parentTag = dom.createTag(`story-${story.id}`, {class: storyWrapperClass});
 		});
 	}
 

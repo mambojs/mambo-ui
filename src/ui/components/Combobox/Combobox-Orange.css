@@ -7,15 +7,14 @@
   border-radius: var(--m-border-radius-primary);
 }
 
-.m-combobox-self > .m-input-self {
+.m-combobox-self .m-input-container {
   padding: 0;
   border: none;
 }
 
 .m-combobox-input-input {
   width: 100%;
-  height: 3.375rem;
-  padding: var(--m-padding-s) var(--m-padding-xxl);
+  padding: var(--m-padding-lg) var(--m-padding-xxl);
   font-size: 1rem;
   background-color: var(--m-gray-100);
   color: var(--m-placeholder-color);
@@ -88,7 +87,7 @@
 .m-combobox-dropdown-container {
   display: none;
   position: absolute;
-  top: 3.5rem;
+  top: 3rem;
   width: 100%;
   height: auto;
   background-color: #f8f8f8;

@@ -1,6 +1,21 @@
 .m-input-self {
   display: flex;
-  border: 1px solid #ccc;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.m-input-container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  border: 1px solid var(--m-gray-200);
+  padding: var(--m-padding-m);
+  gap: 0.5rem;
+}
+
+.m-input-container:focus-within {
+  width: 100%;
+  border: 1px solid var(--m-black-color);
 }
 
 .m-input-input {
@@ -8,15 +23,55 @@
   border: none;
 }
 
+.m-input-input:focus {
+  width: 100%;
+  outline: none;
+}
+
 .m-input-button {
   background: none;
   cursor: pointer;
-  color: #ccc;
+  color: var(--m-gray-200);
   border: none;
-  padding: 0.25rem;
-  font-size: 100%;
+  padding: var(--m-padding-s);
 }
 
 .m-input-button:hover {
-  color: black;
+  color: var(--m-black-color);
+}
+
+.m-input-icon {
+  margin-right: var(--m-margin-m);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-input-icon-required {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--m-error-color);
+}
+
+.m-input-icon-required.hidden {
+  visibility: hidden;
+  width: 1rem;
+}
+
+.m-input-container:has(.m-input-icon-required:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-input-text-required {
+  display: inline-block;
+  color: var(--m-error-color);
+  font-size: var(--m-font-size-xs);
+  font-weight: 400;
+  font-family: var(--m-font-family);
+  padding-left: var(--m-padding-m);
+}
+
+.m-input-text-required.hidden {
+  visibility: hidden;
 }

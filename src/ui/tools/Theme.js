@@ -216,6 +216,7 @@ ui.defaultTheme = {
 		treeViewParent: "m-grid-tree-view-parent",
 	},
 	input: {
+		container: "m-input-container",
 		clearButton: {
 			button: "m-input-button fa-solid fa-xmark",
 		},
@@ -226,6 +227,8 @@ ui.defaultTheme = {
 		label: "m-input-label",
 		self: "m-input-self",
 		icon: "m-input-icon",
+		iconRequired: "m-input-icon-required fa-solid fa-exclamation-triangle hidden",
+		textRequired: "m-input-text-required hidden",
 	},
 	listbox: {
 		container: "m-listbox-container",
@@ -359,12 +362,26 @@ ui.defaultTheme = {
 		tabs: "m-tabs",
 	},
 	textarea: {
-		button: {
-			button: "m-textarea-button fa-solid fa-xmark",
+		cancelButton: {
+			button: "m-input-button fa-solid fa-xmark cancel-btn",
 		},
-		textarea: "m-textarea-textarea",
+		editButton: {
+			button: "m-input-button fa-solid fa-edit edit-btn",
+		},
+		checkButton: {
+			button: "m-input-button fa-solid fa-check check-btn",
+		},
+		buttonsContainer: "m-textarea-buttons-container",
+		containerDown: "m-textarea-container-down",
+		containerUp: "m-textarea-container-up",
+		footer: "m-textarea-footer",
+		iconsContainer: "m-textarea-icons-container",
+		iconRequired: "m-textarea-icon-required fa-solid fa-exclamation-triangle hidden",
 		label: "m-textarea-label",
+		span: "m-textarea-span",
 		self: "m-textarea-self",
+		textarea: "m-textarea-textarea",
+		textRequired: "m-textarea-text-required hidden",
 	},
 	timePicker: {
 		combobox: {

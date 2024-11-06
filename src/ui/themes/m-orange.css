@@ -15,9 +15,10 @@
 
   /* Fonts */
   --m-font-family: "Proxima Nova", "Ubuntu Light", sans-serif;
-  --m-font-size-s: 0.833rem;
+  --m-font-size: 1rem;
+  --m-font-size-xs: 0.85rem;
   --m-font-size-m: 1rem;
-  --m-font-size-lg: 1.2rem;
+  --m-font-size-lg: 1.25rem;
   --m-font-weight-light: 300;
   --m-font-weight-regular: 400;
   --m-font-weight-medium: 500;
