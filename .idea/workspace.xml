@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/storyboard/storyboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/storyboard/storyboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/storyboard/storyboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/storyboard/storyboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Textarea/Textarea-Orange.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Textarea/Textarea-Orange.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Textarea/Textarea.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Textarea/Textarea.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Textarea/Textarea.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Textarea/Textarea.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Textarea/story/textarea.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Textarea/story/textarea.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/themes/m-default.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/themes/m-default.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/tools/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/tools/Theme.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +38,7 @@
     &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Debug&quot;,
     &quot;Node.js.Input.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;diego/password-input&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;diego/textarea&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -94,6 +102,9 @@
       <workItem from="1730835507950" duration="688000" />
       <workItem from="1730854703426" duration="1942000" />
       <workItem from="1730910756644" duration="301000" />
+      <workItem from="1730915300785" duration="2753000" />
+      <workItem from="1730935788222" duration="14864000" />
+      <workItem from="1730978347723" duration="25899000" />
     </task>
     <servers />
   </component>
@@ -128,12 +139,6 @@
           <url>http://localhost:8003/src/ui/components/Input/Input.js</url>
           <line>134</line>
           <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/ui/components/Input/Input.js</url>
-          <line>87</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

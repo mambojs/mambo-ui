@@ -11,7 +11,7 @@ function storyInput(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "search",
+						"class": "fa-regular fa-envelope",
 					},
 					size: "small",
 					position: "left",
@@ -27,7 +27,7 @@ function storyInput(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			value: "My value",
 			enableClear: false,
-			enablePressButton: true,
+			enableLeftButton: true,
 			fnMouseDown: (context) => {
 				context.Input.setAttr({ type: "text" });
 				context.Button.getTag().classList.toggle("fa-eye", true);
@@ -52,12 +52,16 @@ function storyInput(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "eye",
+						class: "fa-regular fa-envelope",
 					},
 					size: "small",
-					position: "right",
+					position: "left",
 				},
 			],
+			required: true,
+			fnBlur: ({ Input }) => {
+				Input.showRequired();
+			},
 		};
 
 		ui.input(config);

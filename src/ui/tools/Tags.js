@@ -57,14 +57,17 @@ ui.defaultTags = {
 		tiles: { name: "m-tiles" },
 	},
 	input: {
+		container: { name: "m-input-container" },
 		input: { name: "input", attr: { type: "text" } },
+		iconRequired: { name: "i" },
+		textRequired: { name: "m-input-text-required" },
 	},
 	listbox: {
 		container: { name: "m-listbox-container" },
 		item: { name: "m-listbox-item" },
 	},
 	mapbox: {
-		container: { name: "div" },
+		container: { name: "m-mapbox-container" },
 		currentPoint: { name: "m-mapbox-current-point" },
 	},
 	percentage: {
@@ -121,6 +124,14 @@ ui.defaultTags = {
 	},
 	textarea: {
 		textarea: { name: "textarea", attr: {} },
+		span: { name: "span" },
+		buttonsContainer: { name: "m-textarea-buttons-container" },
+		iconsContainer: { name: "m-textarea-icons-container" },
+		footer: { name: "m-textarea-footer" },
+		iconRequired: { name: "i" },
+		textRequired: { name: "m-textarea-text-required" },
+		containerUp: { name: "m-textarea-container-up" },
+		containerDown: { name: "m-textarea-container-down" },
 	},
 	timePicker: {},
 	treeView: {

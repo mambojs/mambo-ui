@@ -1,21 +1,130 @@
 .m-textarea-self {
   display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-items: stretch;
+}
+
+.m-textarea-container-up {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--m-black-color);
+  border-radius: var(--m-border-radius);
+  background: var(--m-white-color);
+  color: var(--m-gray-600);
+  width: 100%;
+  padding: var(--m-padding-m);
+  padding-right: 0;
+  overflow: hidden;
+  flex-grow: 1;
+  gap: 0.5rem;
+}
+
+.m-textarea-container-down {
+  flex-grow: 0;
+  height: 1.5rem;
+  padding-top: var(--m-padding-s);
+  padding-left: var(--m-padding-m);
 }
 
 .m-textarea-textarea {
   width: 100%;
-  border: 1px solid #ccc;
-}
-
-.m-input-button {
-  background: none;
-  cursor: pointer;
-  color: #ccc;
+  height: 100%;
+  outline: none;
   border: none;
-  padding: var(--m-padding-s);
-  font-size: 100%;
+  background: var(--m-white-color);
+  resize: none;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+  font-size: var(--m-font-size-s);
 }
 
-.m-input-button:hover {
-  color: black;
+.m-textarea-self .m-input-button {
+  color: var(--m-gray-400);
+}
+
+.m-textarea-self .m-input-button:hover {
+  color: var(--m-black-color);
+}
+
+.m-textarea-self .m-input-button.cancel-btn {
+  font-size: var(--m-font-size-m);
+}
+
+
+.m-textarea-self .m-input-button.check-btn {
+  font-size: var(--m-font-size-m);
+}
+
+.m-textarea-self .m-input-button.edit-btn {
+  font-size: var(--m-font-size-m);
+}
+
+.m-textarea-self:focus-within {
+  border-color: var(--m-black-color);
+}
+
+.m-textarea-self:active {
+  border-color: var(--m-gray-500);
+}
+
+.m-textarea-span {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  font-size: var(--m-font-size-s);
+  color: var(--m-gray-500);
+  background: var(--m-white-color);
+}
+
+.m-textarea-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: var(--m-padding-m);
+}
+
+.m-textarea-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.m-textarea-icons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.m-textarea-icon-required {
+  display: block;
+  color: var(--m-error-color);
+}
+
+.m-textarea-icon-required.hidden {
+  display: none;
+}
+
+.m-textarea-container-up:has(.m-textarea-icon-required:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-textarea-text-required {
+  display: inline-block;
+  color: var(--m-error-color);
+  font-size: var(--m-font-size-xs);
+  font-weight: 400;
+  font-family: var(--m-font-family);
+  padding-right: var(--m-padding-m);
+}
+
+.m-textarea-text-required.hidden {
+  display: none;
 }

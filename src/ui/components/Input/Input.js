@@ -4,23 +4,30 @@ ui.class.Input = class Input extends HTMLElement {
 		const self = this;
 		const m_iconList = [];
 		// HTML tag variables
+		let m_required;
 		let m_parentTag;
 		let m_inputTag;
 		let m_labelTag;
-		let m_button;
+		let m_clearButton;
 		let m_leftButton;
 		let m_props;
 		let m_dataChanged;
+		let m_containerTag;
+		let m_requiredTextTag;
+		let m_iconRequiredTag;
 
 		// Configure public methods
-		this.clear = clearInput;
 		this.commitDataChange = () => (m_dataChanged = null);
+		this.clear = clearInput;
+		this.clearButton = () => m_clearButton;
 		this.dataChanged = () => m_dataChanged;
-		this.getTag = () => m_inputTag;
 		this.getIconTagById = getIconTagById;
+		this.getTag = () => m_inputTag;
+		this.leftButton = () => m_leftButton;
 		this.setup = setup;
-		this.value = value;
 		this.setAttr = setAttribute;
+		this.showRequired = showRequired;
+		this.value = value;
 
 		if (props) {
 			setup(props);
@@ -38,6 +45,8 @@ ui.class.Input = class Input extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				self.classList.add(m_props.css.self);
+				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+				self.appendChild(m_containerTag);
 
 				const tagConfig = {
 					...m_props.tags.input,
@@ -52,7 +61,7 @@ ui.class.Input = class Input extends HTMLElement {
 				tagConfig.attr.name = m_props.name;
 				tagConfig.attr.id = m_props.name;
 				m_inputTag = ui.d.createTag(tagConfig);
-				self.appendChild(m_inputTag);
+				m_containerTag.appendChild(m_inputTag);
 
 				if (m_props.icon) {
 					insertIcon();
@@ -70,7 +79,7 @@ ui.class.Input = class Input extends HTMLElement {
 					};
 
 					m_labelTag = ui.d.createTag(labelTagConfig);
-					self.appendChild(m_labelTag);
+					m_containerTag.appendChild(m_labelTag);
 				}
 
 				if (m_props?.validate?.onStart) {
@@ -79,6 +88,15 @@ ui.class.Input = class Input extends HTMLElement {
 
 				installLeftButton().then(resolve);
 				installClearInput().then(resolve);
+
+				if (m_props.required) {
+					m_iconRequiredTag = ui.d.createTag({ ...m_props.tags.iconRequired, class: m_props.css.iconRequired });
+					m_iconList.push(m_iconRequiredTag);
+					m_containerTag.appendChild(m_iconRequiredTag);
+					m_requiredTextTag = ui.d.createTag({ ...m_props.tags.textRequired, class: m_props.css.textRequired });
+					if (m_props.requiredText) m_requiredTextTag.innerText = m_props.requiredText;
+					self.appendChild(m_requiredTextTag);
+				}
 			});
 		}
 
@@ -112,9 +130,9 @@ ui.class.Input = class Input extends HTMLElement {
 				m_iconList.push(iconTag);
 
 				if (icon.position === "right") {
-					self.appendChild(iconTag);
+					m_containerTag.appendChild(iconTag);
 				} else {
-					self.insertBefore(iconTag, m_inputTag);
+					m_containerTag.insertBefore(iconTag, m_inputTag);
 				}
 			}
 		}
@@ -125,7 +143,7 @@ ui.class.Input = class Input extends HTMLElement {
 					const buttonConfig = {
 						...m_props.clearButton,
 						css: m_props.css.clearButton,
-						parentTag: self,
+						parentTag: m_containerTag,
 						fnComplete: resolve,
 						fnClick: (context) => {
 							clearInput();
@@ -140,18 +158,18 @@ ui.class.Input = class Input extends HTMLElement {
 						},
 					};
 
-					ui.button(buttonConfig);
+					m_clearButton = ui.button(buttonConfig);
 				}
 			});
 		}
 
 		function installLeftButton() {
 			return new Promise((resolve) => {
-				if (m_props.enablePressButton) {
+				if (m_props.enableLeftButton) {
 					const buttonConfig = {
 						...m_props.leftButton,
 						css: m_props.css.leftButton,
-						parentTag: self,
+						parentTag: m_containerTag,
 						fnComplete: resolve,
 						fnMouseDown: (context) => {
 							if (m_props.fnMouseDown) {
@@ -214,7 +232,7 @@ ui.class.Input = class Input extends HTMLElement {
 				m_props.fnKeyup({
 					Input: self,
 					value: m_inputTag.value,
-					Button: m_button,
+					Button: m_clearButton,
 					ev: ev,
 				});
 			}
@@ -270,6 +288,16 @@ ui.class.Input = class Input extends HTMLElement {
 			return m_iconList.find((icon) => icon.id === id);
 		}
 
+		function showRequired() {
+			if (m_iconRequiredTag && m_props.required && m_inputTag.value === "") {
+				m_iconRequiredTag.classList.remove("hidden");
+				m_requiredTextTag.classList.remove("hidden");
+			} else {
+				m_iconRequiredTag.classList.add("hidden");
+				m_requiredTextTag.classList.add("hidden");
+			}
+		}
+
 		function setupComplete() {
 			if (m_props.fnComplete) {
 				m_props.fnComplete({ Input: self });
@@ -285,6 +313,7 @@ ui.class.Input = class Input extends HTMLElement {
 					clearButton: { text: "" },
 					leftButton: { text: "" },
 					icon: [],
+					requiredText: "This is a required field.",
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);

@@ -111,6 +111,14 @@ storyboard-treeview {
   height: 100%;
 }
 
+.story-textarea-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 20rem;
+  height: 15rem;
+  gap: 0.5rem;
+}
+
 pre.prettyprint {
   border: none !important;
   padding: 0 !important;

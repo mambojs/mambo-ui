@@ -5,6 +5,10 @@
   align-items: stretch;
 }
 
+.m-combobox-self .m-input-container {
+  padding: 0;
+}
+
 .m-combobox-input-wrapper {
   display: flex;
   flex-grow: 1;
