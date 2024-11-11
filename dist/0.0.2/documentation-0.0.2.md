@@ -1,8 +1,27 @@
+<!--
+******************************************
+*  Copyright 2024 Alejandro Sebastian Scotti, Scotti Corp.
+*
+*  Licensed under the Apache License, Version 2.0 (the "License");
+*  you may not use this file except in compliance with the License.
+*  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*  @version 0.0.2
+******************************************
+-->
 
-# MAMBO.JS
-## UI Components Documentation - Version 0.0.2
+# MAMBO.JS - UI Components Documentation - Version 0.0.2
 
 ### Table of Contents
+
 1. [Button](#button)
 2. [ButtonSVG](#buttonsvg)
 3. [ButtonGroup](#buttongroup)
@@ -20,19 +39,19 @@
 15. [Input](#input)
 16. [Listbox](#listbox)
 17. [MapBox](#mapbox)
-18. [Percentage](#percentage)
-19. [Radio](#radio)
-20. [RadioGroup](#radiogroup)
-21. [Rating](#rating)
-22. [Search](#search)
-23. [Slideout](#slideout)
-24. [Slider](#slider)
-25. [Switch](#switch)
-26. [Tab](#tab)
-27. [Textarea](#textarea)
-28. [TimePicker](#timepicker)
-29. [TreeView](#treeview)
-30. [VideoPlayer](#videoplayer)
+18. [Percentage](#percentage)19. 
+20. [Radio](#radio)
+21. [RadioGroup](#radiogroup)
+22. [Rating](#rating)
+23. [Search](#search)
+24. [Slideout](#slideout)
+25. [Slider](#slider)
+26. [Switch](#switch)
+27. [Tab](#tab)
+28. [Textarea](#textarea)
+29. [TimePicker](#timepicker)
+30. [TreeView](#treeview)
+31. [VideoPlayer](#videoplayer)
 
 ## Button
 
