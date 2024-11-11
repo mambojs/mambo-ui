@@ -71,11 +71,9 @@ function cssOrangeLibFiles() {
 	}
 
 	return src([
-		"../src/ui/**/*.css",
 		"../src/ui/themes/m-orange.css",
-		"../src/components/**/*-Orange.css",
+		"../src/ui/**/*-Orange.css",
 		"!../src/ui/**/demo/*.css",
-		"!../src/components/**/*.css",
 		"!../src/ui/themes/m-default.css"
 	])
 		.pipe(mapInit)
