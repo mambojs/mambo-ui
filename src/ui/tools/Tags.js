@@ -10,6 +10,9 @@ ui.defaultTags = {
 		bodyContent: { name: "m-calendar-body-content" },
 		bodyHeader: { name: "m-calendar-body-header" },
 	},
+	card: {
+		body: { name: "m-card-body" },
+	},
 	checkboxRadio: {
 		inputTag: { name: "input", attr: { type: "checkbox" } },
 		label: { name: "label" },
@@ -29,12 +32,16 @@ ui.defaultTags = {
 		wrapper: { name: "m-date-picker-wrapper" },
 	},
 	dialog: {
+		container: { name: "m-dialog-container" },
+		button: { name: "m-dialog-button" },
 		body: { name: "m-dialog-body" },
 		header: { name: "m-dialog-header" },
 		headerCenter: { name: "m-dialog-header-center" },
 		headerLeft: { name: "m-dialog-header-left" },
 		headerRight: { name: "m-dialog-header-right" },
 		headerTitle: { name: "h3" },
+		footer: { name: "m-dialog-footer" },
+		self: { name: "m-dialog-self" },
 	},
 	dragDrop: {
 		dropText: { name: "m-drag-drop-text" },

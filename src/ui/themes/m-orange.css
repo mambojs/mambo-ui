@@ -1,6 +1,5 @@
 * {
   /* Default */
-  --m-hover-background-color: #555;
   --m-hover-color: white;
   --m-selected-background-color: #e4e4e4;
   --m-selected-color: black;
@@ -16,9 +15,13 @@
   /* Fonts */
   --m-font-family: "Proxima Nova", "Ubuntu Light", sans-serif;
   --m-font-size: 1rem;
-  --m-font-size-xs: 0.85rem;
+  --m-font-size-xs: 0.70rem;
+  --m-font-size-s: 0.85rem;
   --m-font-size-m: 1rem;
   --m-font-size-lg: 1.25rem;
+  --m-font-size-xl: 1.50rem;
+  --m-font-size-xxl: 1.875rem;
+  --m-font-size-xxxl: 2.125rem;
   --m-font-weight-light: 300;
   --m-font-weight-regular: 400;
   --m-font-weight-medium: 500;
@@ -29,8 +32,10 @@
   --m-line-height-s: 1.20rem;
   --m-line-height-m: 1.25rem;
   --m-line-height-lg: 1.5rem;
-  --m-box-shadow-primary: 0 2.145px 4.29px 0 rgba(173 175 187 / 30%);
-  --m-box-shadow-secondary: 0 2.145px 4.29px 0 rgba(173 175 187 / 30%);
+  --m-box-shadow-pressed: none;
+  --m-box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 / 15%);
+  --m-box-shadow-primary: 0 0.125rem 0.25rem 0 rgba(173 175 187 / 30%);
+  --m-box-shadow-secondary: 0 0.125rem 0.25rem 0 rgba(173 175 187 / 30%);
   --m-box-shadow-primary-hover: none;
   --m-box-shadow-primary-pressed: none;
   --m-box-shadow-primary-active: none;
@@ -80,11 +85,13 @@
   --m-selected-secondary-background-color: #FFF0E9;
   --m-pressed-primary-background-color: #D84800;
   --m-pressed-secondary-background-color: #FFDCCB;
+  --m-hover-background-color: #F98043;
   --m-hover-primary-background-color: #F98043;
   --m-hover-secondary-background-color: #FFF0E9;
 
   /* Gray Scale | White */
   --m-black-color: #000;
+  --m-black-color-50: rgba(0 0 0 / 50%);
   --m-white-color: #FFF;
   --m-gray-100: #F3F4F5;
   --m-gray-200: #D0D4D9;

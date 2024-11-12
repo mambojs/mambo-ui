@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--m-padding-s);
+  padding: var(--m-padding-lg) var(--m-padding-lg);
   color: var(--m-white-color);
   background: var(--m-accent-primary-color);
   font-style: normal;

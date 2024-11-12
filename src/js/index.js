@@ -14,6 +14,7 @@ const components = [
 	{ text: "Button SVG" },
 	{ text: "Button Group" },
 	{ text: "Calendar" },
+	{ text: "Card" },
 	{ text: "Checkbox" },
 	{ text: "Checkbox Group" },
 	{ text: "Combobox" },

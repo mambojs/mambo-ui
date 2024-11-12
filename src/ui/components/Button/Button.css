@@ -1,7 +1,7 @@
 .m-button-button {
   color: var(--m-text-color);
   font-size: var(--m-font-size-m);
-  padding: var(--m-padding-s);
+  padding: var(--m-padding-m) var(--m-padding-m);
   background: var(--m-background-color);
   border: var(--m-border);
   border-radius: var(--m-border-radius);

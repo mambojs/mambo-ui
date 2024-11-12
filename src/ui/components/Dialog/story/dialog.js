@@ -1,12 +1,53 @@
 function storyDialog(selectedStory) {
-	const props = {
+	const buttonConfig1 = {
+		text: "Open Dialog With Mambo Buttons",
 		parentTag: selectedStory.parentTag,
-		text: "Click to trigger Dialog instance",
+		header: "Dialog Title",
+		body: "<p style='padding:3em;'>Your Dialog content will go here</p>",
+		footer: "<mambo-button></mambo-button>",
 		fnClick: () => {
 			let dialogConfig = {
 				title: "Dialog Title",
+				closeButton: false,
 				fnComplete: (context) => {
 					context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em;'>Your Dialog content will go here</p>";
+					context.Dialog.getFooterTag().innerHTML =
+						`<div style='display:flex;gap:1em;'>
+							<mambo-button id='btnCancel'></mambo-button>
+							<mambo-button id='btnConfirm'></mambo-button>
+						 </div>`;
+					const buttonConfirm = document.getElementById("btnConfirm");
+					const buttonCancel = document.getElementById("btnCancel");
+					buttonCancel.setup({
+						text: "Cancel",
+						type: "primary",
+						size: "small",
+						icon: [
+							{
+								attr: {
+									class: "fa-solid fa-xmark",
+								},
+							},
+						],
+						fnClick: () => {
+							context.Dialog.close();
+						},
+					});
+					buttonConfirm.setup({
+						text: "Confirm",
+						type: "primary",
+						size: "small",
+						icon: [
+							{
+								attr: {
+									class: "fa-solid fa-check",
+								},
+							},
+						],
+						fnClick: () => {
+							context.Dialog.close();
+						},
+					});
 				},
 			};
 
@@ -14,5 +55,27 @@ function storyDialog(selectedStory) {
 		},
 	};
 
-	ui.button(props);
+	ui.button(buttonConfig1);
+
+	const buttonConfig2 = {
+		text: "Open Dialog with Close Button",
+		parentTag: selectedStory.parentTag,
+		header: "Dialog Title",
+		body: "<p style='padding:3em;'>Your Dialog content will go here</p>",
+		footer: "<mambo-button></mambo-button>",
+		fnClick: () => {
+			let dialogConfig = {
+				title: "Dialog Title",
+				closeButtonLeft: true,
+				fnComplete: (context) => {
+					context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
+					context.Dialog.getFooterTag().innerHTML = "Thank you for your attention";
+				},
+			};
+
+			ui.dialog(dialogConfig);
+		},
+	};
+
+	ui.button(buttonConfig2);
 }

@@ -13,6 +13,7 @@
   --m-background-color: black;
   --m-error-color: red;
   --m-black-color: #000;
+  --m-black-color-50: rgba(0 0 0 / 50%);
   --m-white-color: #FFF;
   --m-gray-100: #F3F4F5;
   --m-gray-200: #D0D4D9;

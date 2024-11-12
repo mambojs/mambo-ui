@@ -3,6 +3,7 @@ ui.class.Input = class Input extends HTMLElement {
 		super();
 		const self = this;
 		const m_iconList = [];
+
 		// HTML tag variables
 		let m_required;
 		let m_parentTag;
