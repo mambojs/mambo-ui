@@ -23,8 +23,7 @@
 
 .m-combobox-self .m-combobox-input-input {
   border: 1px solid transparent;
-  border-radius: var(--m-border-radius-primary);
-  border-color: var(--m-gray-100);
+  border-radius: var(--m-border-radius-primary);  ;
 }
 
 .m-combobox-self:hover {

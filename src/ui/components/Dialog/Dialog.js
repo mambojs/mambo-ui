@@ -3,18 +3,23 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 		super();
 		const self = this;
 
-		let m_props;
-
 		// HTML tag variables
-		let m_parentTag;
+		let m_button;
+		let m_containerTag;
 		let m_dialogHdrTag;
 		let m_dialogBodyTag;
+		let m_dialogFtrTag;
+		let m_parentTag;
+		let m_props;
 
 		// Configure public methods
 		this.close = closeDialog;
+		this.button = () => m_button;
 		this.getParentTag = () => self;
+		this.getContainerTag = () => m_containerTag;
 		this.getBodyTag = () => m_dialogBodyTag;
 		this.getHeaderTag = () => m_dialogHdrTag;
+		this.getFooterTag = () => m_dialogFtrTag;
 		this.setup = setup;
 
 		if (props) {
@@ -32,12 +37,12 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
+
+				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+				self.appendChild(m_containerTag);
+
 				m_dialogBodyTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
 				const dialogHdrLeft = ui.d.createTag({ ...m_props.tags.headerLeft, class: m_props.css.headerLeft });
-
-				if (m_props.closeButton) {
-					installCloseButton(dialogHdrLeft);
-				}
 
 				const overlayHdrCenter = ui.d.createTag({ ...m_props.tags.headerCenter, class: m_props.css.headerCenter });
 
@@ -53,37 +58,50 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 				}
 
 				const overlayHdrRight = ui.d.createTag({ ...m_props.tags.headerRight, class: m_props.css.headerRight });
+				installCloseButton();
 				m_dialogHdrTag = ui.d.createTag({ ...m_props.tags.header, class: m_props.css.header });
 				m_dialogHdrTag.appendChild(dialogHdrLeft);
 				m_dialogHdrTag.appendChild(overlayHdrCenter);
 				m_dialogHdrTag.appendChild(overlayHdrRight);
+				m_dialogFtrTag = ui.d.createTag({ ...m_props.tags.footer, class: m_props.css.footer });
 				self.classList.add(m_props.css.self);
-				self.appendChild(m_dialogHdrTag);
-				self.appendChild(m_dialogBodyTag);
+				m_containerTag.appendChild(m_dialogHdrTag);
+				m_containerTag.appendChild(m_dialogBodyTag);
+				m_containerTag.appendChild(m_dialogFtrTag);
 				resolve();
 			});
 		}
 
-		function installCloseButton(headerLeftTag) {
-			const btnConfig = {
-				parentTag: headerLeftTag,
-				text: m_props.closeText,
-				css: {
-					button: m_props.css.headerCloseButton,
-				},
-				attr: {
-					type: "button",
-				},
-				fnClick: () => {
-					if (m_props.fnClose) {
-						m_props.fnClose({ dialog: self });
-					} else {
-						close();
-					}
-				},
-			};
+		function installCloseButton() {
 
-			ui.button(btnConfig);
+			let propCss = m_props.css.button;
+
+			if (m_props.closeButtonLeft) {
+				m_props.closeButton = false;
+				propCss = m_props.css.buttonLeft;
+			}
+
+			if (m_props.closeButton || m_props.closeButtonLeft) {
+				const btnConfig = {
+					...m_props.button,
+					css: propCss,
+					parentTag: m_containerTag,
+					attr: {
+						type: "button",
+					},
+					fnClick: (context) => {
+						closeDialog();
+						if (m_props.fnClose) {
+							m_props.fnClose({
+								Dialog: self,
+								Button: context.Button,
+								ev: context.ev
+							});
+						}
+					},
+				};
+				m_button = ui.button(btnConfig);
+			}
 		}
 
 		function closeDialog() {
@@ -105,7 +123,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 				m_props = {
 					parentTag: "body",
 					closeButton: true,
-					closeText: "close",
+					button: {text: ""},
+					closeText: "",
 					theme: "default",
 					tag: "default",
 				};

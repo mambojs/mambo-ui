@@ -1,0 +1,7 @@
+.m-card-body {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  border-radius: var(--m-border-radius-primary);
+  border: 1px solid var(--m-gray-200);
+}

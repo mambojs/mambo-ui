@@ -73,6 +73,9 @@ ui.defaultTheme = {
 			self: "m-years-button-group",
 		},
 	},
+	card: {
+		body: "m-card-body",
+	},
 	checkboxRadio: {
 		radioParent: "m-checkbox-radio-parent",
 		radioText: "m-checkbox-radio-text-span",
@@ -148,13 +151,21 @@ ui.defaultTheme = {
 		self: "m-date-picker-self",
 	},
 	dialog: {
+		container: "m-dialog-container",
 		body: "m-dialog-body",
+		button: {
+			button: "m-dialog-button fa-solid fa-xmark",
+		},
+		buttonLeft: {
+			button: "m-dialog-button fa-solid fa-xmark left",
+		},
 		header: "m-dialog-header",
 		headerCenter: "m-dialog-header-center",
 		headerCloseButton: "m-dialog-header-close",
 		headerLeft: "m-dialog-header-left",
 		headerRight: "m-dialog-header-right",
 		headerTitle: "m-dialog-header-title",
+		footer: "m-dialog-footer",
 		self: "m-dialog-self",
 	},
 	dragDrop: {

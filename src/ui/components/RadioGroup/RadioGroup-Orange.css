@@ -6,7 +6,7 @@
 .m-radio-group-label {
   display: block;
   position: relative;
-  padding-left: var(--m-padding-l);
+  padding-left: var(--m-padding-lg);
   cursor: pointer;
   font-size: var(--m-font-size-lg);
   line-height: var(--m-line-height-m);

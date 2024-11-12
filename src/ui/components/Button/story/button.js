@@ -21,6 +21,7 @@ function storyButton(selectedStory) {
 		};
 		ui.button(config);
 	}
+
 	function primaryLarge() {
 		const config = {
 			parentTag: selectedStory.parentTag,
@@ -31,7 +32,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "large",
 				},
@@ -50,7 +51,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "medium",
 				},
@@ -69,7 +70,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "small",
 					position: "left",
@@ -104,7 +105,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "medium",
 					position: "left",
@@ -136,7 +137,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "medium",
 					position: "right",
@@ -210,7 +211,7 @@ function storyButton(selectedStory) {
 				},
 				{
 					attr: {
-						"data-feather": "circle",
+						class: "fa-solid fa-circle",
 					},
 				},
 			],
