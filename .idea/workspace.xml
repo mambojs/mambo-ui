@@ -6,17 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Dialog/Dialog-Orange.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Dialog/Dialog-Orange.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Dialog/Dialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Dialog/Dialog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Dialog/Dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Dialog/Dialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Dialog/story/dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Dialog/story/dialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/themes/m-orange.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/themes/m-orange.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/tools/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/tools/Theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Button/Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Button/Button.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,7 +33,7 @@
     "JavaScript Debug.Frontend Debugger.executor": "Debug",
     "Node.js.Input.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "diego/cards",
+    "git-widget-placeholder": "diego/config-webstorm",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/diego/Desktop/Mambo/mambo-ui",
     "node.js.detected.package.eslint": "true",
@@ -46,7 +44,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.start.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.sourceCode.JavaScript",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -105,6 +104,9 @@
       <workItem from="1731447878100" duration="7000" />
       <workItem from="1731586837718" duration="2372000" />
       <workItem from="1731595753580" duration="12961000" />
+      <workItem from="1731624693312" duration="235000" />
+      <workItem from="1731690326687" duration="2000000" />
+      <workItem from="1731770038578" duration="391000" />
     </task>
     <servers />
   </component>
