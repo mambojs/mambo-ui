@@ -77,10 +77,6 @@
   background: var(--m-hover-background-color);
 }
 
-.m-dialog-header-close:hover {
-  background: var(--m-gray-500);
-}
-
 .m-dialog-header-title {
   text-align: center;
 }

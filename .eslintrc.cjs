@@ -21,6 +21,43 @@ module.exports = {
 		"linebreak-style": ["error", "windows"],
 		quotes: ["error", "double"],
 		semi: ["error", "always"],
+		"padding-line-between-statements": [
+			"error",
+			// Espacios antes y después de bloques reales (if, for, function, etc.)
+			{
+				blankLine: "always",
+				prev: "*",
+				next: "block-like",
+			},
+			{
+				blankLine: "always",
+				prev: "block-like",
+				next: "*",
+			},
+			// Espacios antes y después de asignaciones multilínea
+			{
+				blankLine: "always",
+				prev: "*",
+				next: "multiline-expression",
+			},
+			{
+				blankLine: "always",
+				prev: "multiline-expression",
+				next: "*",
+			},
+			// Sin espacios adicionales entre declaraciones simples consecutivas
+			{
+				blankLine: "any",
+				prev: ["const", "let", "var", "expression"],
+				next: ["const", "let", "var", "expression"],
+			},
+			// Línea en blanco antes de return para legibilidad
+			{
+				blankLine: "always",
+				prev: "*",
+				next: "return",
+			},
+		],
 	},
 	globals: {
 		feather: true,

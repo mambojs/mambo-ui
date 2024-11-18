@@ -36,9 +36,11 @@ ui.class.Input = class Input extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -78,7 +80,6 @@ ui.class.Input = class Input extends HTMLElement {
 						attr: { for: m_props.name },
 						text: m_props.labelText,
 					};
-
 					m_labelTag = ui.d.createTag(labelTagConfig);
 					m_containerTag.appendChild(m_labelTag);
 				}
@@ -256,8 +257,10 @@ ui.class.Input = class Input extends HTMLElement {
 
 		function validateMinLength(config, ev) {
 			const curLen = m_inputTag.value.length;
+
 			if (typeof config.value === "string") {
 				const length = config.len - curLen;
+
 				if (length > 0) {
 					const padding = config.value.repeat(length);
 					m_dataChanged = true;

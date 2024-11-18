@@ -161,7 +161,6 @@ ui.defaultTheme = {
 		},
 		header: "m-dialog-header",
 		headerCenter: "m-dialog-header-center",
-		headerCloseButton: "m-dialog-header-close",
 		headerLeft: "m-dialog-header-left",
 		headerRight: "m-dialog-header-right",
 		headerTitle: "m-dialog-header-title",
@@ -405,6 +404,40 @@ ui.defaultTheme = {
 			self: "m-time-picker-combobox",
 		},
 		self: "m-time-picker-self",
+	},
+	toaster: {
+		body: "m-toaster-body",
+		iconContainer: "m-toaster-icon-container",
+		buttonContainer: "m-toaster-button-container",
+		button: {
+			button: "m-toaster-button fa-solid fa-xmark",
+		},
+		self: "m-toaster-self",
+		icon: {
+			success: "fa-solid fa-check-circle",
+			warning: "fa-solid fa-exclamation-triangle",
+			error: "fa-solid fa-exclamation-triangle",
+			info: "fa-solid fa-info-circle",
+		},
+		size: {
+			small: "m-toaster-small",
+			medium: "m-toaster-medium",
+			large: "m-toaster-large",
+		},
+		type: {
+			error: "m-toaster-error",
+			info: "m-toaster-info",
+			success: "m-toaster-success",
+			warning: "m-toaster-warning",
+		},
+		position: {
+			left: "m-toaster-left",
+			center: "m-toaster-center",
+			centerV: "m-toaster-center-v",
+			right: "m-toaster-right",
+			top: "m-toaster-top",
+			bottom: "m-toaster-bottom",
+		},
 	},
 	treeView: {
 		expanded: "m-expanded",

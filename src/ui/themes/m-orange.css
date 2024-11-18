@@ -57,14 +57,14 @@
   --m-body-color: #414750;
   --m-disabled-text-color: #565E69;
   --m-placeholder-color: #8B939F;
-  --m-informative-color: #1C51A4;
+  --m-info-color: #1C51A4;
   --m-success-color: #58790C;
   --m-warning-color: #82620F;
   --m-error-color: #AB2816;
   --m-sub-color: #747688;
 
   /* Stroke / Fill */
-  --m-informative-stroke-color: #2C68C6;
+  --m-info-stroke-color: #2C68C6;
   --m-success-stroke-color: #98C729;
   --m-warning-stroke-color: #E8B93F;
   --m-error-stroke-color: #DD331D;
@@ -75,6 +75,7 @@
   --m-success-background-color: #F3FFD6;
   --m-warning-background-color: #FFF6E0;
   --m-error-background-color: #FDE7E5;
+  --m-info-background-color: #EDF4FF;
 
   /* States */
   --m-accent-primary-color: var(--m-accent-color);
@@ -88,6 +89,10 @@
   --m-hover-background-color: #F98043;
   --m-hover-primary-background-color: #F98043;
   --m-hover-secondary-background-color: #FFF0E9;
+  --m-info-hover-color: #163F80;
+  --m-success-hover-color: #4C6A0B;
+  --m-warning-hover-color: #704F0D;
+  --m-error-hover-color: #971F12;
 
   /* Gray Scale | White */
   --m-black-color: #000;
@@ -119,4 +124,12 @@
   --m-margin-xxl: 1rem;
   --m-margin-xxxl: 1.25rem;
   --m-margin-xxxxl: 1.5rem;
+
+  /* Toaster */
+  --m-min-width-toaster-small: 14rem;
+  --m-min-height-toaster-small: 3rem;
+  --m-min-width-toaster-medium: 16rem;
+  --m-min-height-toaster-medium: 3.5rem;
+  --m-min-width-toaster-large: 18rem;
+  --m-min-height-toaster-large: 4.5rem;
 }

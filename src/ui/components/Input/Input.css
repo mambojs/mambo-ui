@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  background-color: var(--m-gray-100);
 }
 
 .m-input-container {
