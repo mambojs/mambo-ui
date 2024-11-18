@@ -38,6 +38,7 @@ const components = [
 	{ text: "Switch" },
 	{ text: "Tab" },
 	{ text: "Textarea" },
+	{ text: "Toaster" },
 	{ text: "Time Picker" },
 	{ text: "TreeView" },
 	{ text: "Video Player" },

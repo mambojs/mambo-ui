@@ -66,7 +66,6 @@ function storyDialog(selectedStory) {
 		fnClick: () => {
 			let dialogConfig = {
 				title: "Dialog Title",
-				closeButtonLeft: true,
 				fnComplete: (context) => {
 					context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
 					context.Dialog.getFooterTag().innerHTML = "Thank you for your attention";

@@ -141,6 +141,13 @@ ui.defaultTags = {
 		containerDown: { name: "m-textarea-container-down" },
 	},
 	timePicker: {},
+	toaster: {
+		button: { name: "m-toaster-button" },
+		body: { name: "m-toaster-body" },
+		buttonContainer: { name: "m-toaster-button-container" },
+		iconContainer: { name: "m-toaster-icon-container" },
+		self: { name: "m-toaster-self" },
+	},
 	treeView: {
 		group: { name: "m-tree-view-group" },
 		icon: { name: "icon" },

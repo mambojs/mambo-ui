@@ -11,7 +11,6 @@
   --m-text-color: white;
   --m-disabled-text-color: #ccc;
   --m-background-color: black;
-  --m-error-color: red;
   --m-black-color: #000;
   --m-black-color-50: rgba(0 0 0 / 50%);
   --m-white-color: #FFF;
@@ -21,6 +20,18 @@
   --m-gray-400: #7B8493;
   --m-gray-500: #4D545E;
   --m-gray-600: #2A2E34;
+  --m-info-color: #1C51A4;
+  --m-success-color: #58790C;
+  --m-warning-color: #82620F;
+  --m-error-color: #AB2816;
+  --m-info-stroke-color: #2C68C6;
+  --m-success-stroke-color: #98C729;
+  --m-warning-stroke-color: #E8B93F;
+  --m-error-stroke-color: #DD331D;
+  --m-info-background-color: #EDF4FF;
+  --m-success-background-color: #F3FFD6;
+  --m-warning-background-color: #FFF6E0;
+  --m-error-background-color: #FDE7E5;
 
   /* Paddings */
   --m-padding-xs: 0.125rem;
@@ -49,8 +60,20 @@
   /* Hover */
   --m-hover-background-color: #555;
   --m-hover-color: white;
+  --m-info-hover-color: #163F80;
+  --m-success-hover-color: #4C6A0B;
+  --m-warning-hover-color: #704F0D;
+  --m-error-hover-color: #971F12;
 
   /* Selected */
   --m-selected-background-color: #e4e4e4;
   --m-selected-color: black;
+
+  /* Toaster */
+  --m-min-width-toaster-small: 14rem;
+  --m-min-height-toaster-small: 3rem;
+  --m-min-width-toaster-medium: 16rem;
+  --m-min-height-toaster-medium: 3.5rem;
+  --m-min-width-toaster-large: 18rem;
+  --m-min-height-toaster-large: 4.5rem;
 }

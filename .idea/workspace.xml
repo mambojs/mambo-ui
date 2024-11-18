@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Button/Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Button/Button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Toaster/Toaster.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Toaster/Toaster.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +35,31 @@
     "JavaScript Debug.Frontend Debugger.executor": "Debug",
     "Node.js.Input.js.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "diego/config-webstorm",
+    "git-widget-placeholder": "diego/mambo-toaster",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/diego/Desktop/Mambo/mambo-ui",
+    "last_opened_file_path": "C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.stylelint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.stylelint": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\stylelint",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.start.executor": "Run",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "preferences.sourceCode.JavaScript",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "actions.on.save",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.start">
     <configuration name="Frontend Debugger" type="JavascriptDebugType" uri="http://localhost:8003">
       <method v="2" />
@@ -107,6 +117,13 @@
       <workItem from="1731624693312" duration="235000" />
       <workItem from="1731690326687" duration="2000000" />
       <workItem from="1731770038578" duration="391000" />
+      <workItem from="1731776386786" duration="675000" />
+      <workItem from="1731780694412" duration="4609000" />
+      <workItem from="1731802351430" duration="143000" />
+      <workItem from="1731863145474" duration="986000" />
+      <workItem from="1731872072888" duration="6079000" />
+      <workItem from="1731893253720" duration="9383000" />
+      <workItem from="1731969936132" duration="2712000" />
     </task>
     <servers />
   </component>

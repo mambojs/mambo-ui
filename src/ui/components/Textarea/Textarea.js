@@ -372,7 +372,7 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					name: Math.random().toString(36).slice(2),
+					id: Math.random().toString(36).slice(2),
 					editButton: { text: "" },
 					cancelButton: { text: "" },
 					checkButton: { text: "" },

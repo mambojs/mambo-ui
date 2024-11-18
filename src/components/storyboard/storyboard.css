@@ -125,6 +125,12 @@ storyboard-treeview {
   gap: 0.5rem;
 }
 
+.story-toaster-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 pre.prettyprint {
   border: none !important;
   padding: 0 !important;

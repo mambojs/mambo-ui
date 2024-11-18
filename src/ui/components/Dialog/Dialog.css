@@ -75,19 +75,6 @@
   align-items: center;
 }
 
-.m-dialog-header-close {
-  margin: var(--m-margin-xl);
-  padding: var(--m-padding-s);
-  color: var(--m-white-color);
-  background: var(--m-black-color);
-  border: none;
-  cursor: pointer;
-}
-
-.m-dialog-header-close:hover {
-  background: var(--m-gray-500);
-}
-
 .m-dialog-header-title {
   text-align: center;
 }
