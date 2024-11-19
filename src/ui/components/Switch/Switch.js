@@ -165,4 +165,4 @@ ui.class.Switch = class Switch extends HTMLElement {
 };
 
 ui.switch = (props) => new ui.class.Switch(props);
-customElements.define("mambo-switch", ui.class.Switch);
+customElements.define(ui.defaultTags.switch.self.name, ui.class.Switch);

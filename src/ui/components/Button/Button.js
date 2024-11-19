@@ -183,7 +183,6 @@ ui.class.Button = class Button extends HTMLElement {
 						ev: ev,
 					});
 				}
-
 			}
 		}
 
@@ -306,4 +305,4 @@ ui.class.Button = class Button extends HTMLElement {
 };
 
 ui.button = (props) => new ui.class.Button(props);
-customElements.define("mambo-button", ui.class.Button);
+customElements.define(ui.defaultTags.button.self.name, ui.class.Button);

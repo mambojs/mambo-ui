@@ -162,4 +162,4 @@ ui.class.Radio = class Radio extends HTMLElement {
 };
 
 ui.radio = (props) => new ui.class.Radio(props);
-customElements.define("mambo-radio", ui.class.Radio);
+customElements.define(ui.defaultTags.radio.self.name, ui.class.Radio);

@@ -57,4 +57,4 @@ class Template extends HTMLElement {
 	}
 }
 // Must ALWAYS define the new element as a Native Web Component
-customElements.define("mambo-template", Template);
+customElements.define(ui.defaultTags.template.self.name, Template);

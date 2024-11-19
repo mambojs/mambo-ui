@@ -141,4 +141,4 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 };
 
 ui.dialog = (props) => new ui.class.Dialog(props);
-customElements.define("mambo-dialog", ui.class.Dialog);
+customElements.define(ui.defaultTags.dialog.self.name, ui.class.Dialog);

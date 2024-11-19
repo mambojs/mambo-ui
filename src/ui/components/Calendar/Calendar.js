@@ -604,4 +604,4 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 };
 
 ui.calendar = (props) => new ui.class.Calendar(props);
-customElements.define("mambo-calendar", ui.class.Calendar);
+customElements.define(ui.defaultTags.calendar.self.name, ui.class.Calendar);

@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.cjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Toaster/Toaster.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Toaster/Toaster.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,32 +26,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "JavaScript Debug.Frontend Debugger.executor": "Debug",
-    "Node.js.Input.js.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "diego/mambo-toaster",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.stylelint": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\stylelint",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\prettier",
-    "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "actions.on.save",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Debug&quot;,
+    &quot;Node.js.Input.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;diego/refactor-class-tag&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\stylelint&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\prettier&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.CSS&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components" />
@@ -124,6 +121,9 @@
       <workItem from="1731872072888" duration="6079000" />
       <workItem from="1731893253720" duration="9383000" />
       <workItem from="1731969936132" duration="2712000" />
+      <workItem from="1732071946878" duration="384000" />
+      <workItem from="1732123985014" duration="565000" />
+      <workItem from="1732125908510" duration="338000" />
     </task>
     <servers />
   </component>

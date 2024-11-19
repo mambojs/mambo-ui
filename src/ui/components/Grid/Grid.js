@@ -836,4 +836,4 @@ ui.class.Grid = class Grid extends HTMLElement {
 };
 
 ui.grid = (props) => new ui.class.Grid(props);
-customElements.define("mambo-grid", ui.class.Grid);
+customElements.define(ui.defaultTags.grid.self.name, ui.class.Grid);

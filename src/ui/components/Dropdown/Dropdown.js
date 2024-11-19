@@ -155,4 +155,4 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 };
 
 ui.dropdown = (props) => new ui.class.Dropdown(props);
-customElements.define("mambo-dropdown", ui.class.Dropdown);
+customElements.define(ui.defaultTags.dropdown.self.name, ui.class.Dropdown);

@@ -141,4 +141,4 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 };
 
 ui.dragDrop = (props) => new ui.class.DragDrop(props);
-customElements.define("mambo-dragdrop", ui.class.DragDrop);
+customElements.define(ui.defaultTags.dragDrop.self.name, ui.class.DragDrop);

@@ -66,4 +66,4 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 };
 
 ui.videoPlayer = (props) => new ui.class.VideoPlayer(props);
-customElements.define("mambo-video-player", ui.class.VideoPlayer);
+customElements.define(ui.defaultTags.videoPlayer.self.name, ui.class.VideoPlayer);

@@ -160,4 +160,4 @@ ui.class.Player = class Player extends HTMLElement {
 };
 
 ui.player = (props) => new ui.class.Player(props);
-customElements.define("mambo-player", ui.class.Player);
+customElements.define(ui.defaultTags.player.self.name, ui.class.Player);

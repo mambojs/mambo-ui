@@ -125,4 +125,4 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 };
 
 ui.fileChooser = (props) => new ui.class.FileChooser(props);
-customElements.define("mambo-file-chooser", ui.class.FileChooser);
+customElements.define(ui.defaultTags.fileChooser.self.name, ui.class.FileChooser);

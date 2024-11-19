@@ -193,4 +193,4 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 };
 
 ui.draggable = (props) => new ui.class.Draggable(props);
-customElements.define("mambo-draggable", ui.class.Draggable);
+customElements.define(ui.defaultTags.draggable.self.name, ui.class.Draggable);

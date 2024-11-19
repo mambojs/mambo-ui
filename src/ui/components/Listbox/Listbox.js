@@ -143,4 +143,4 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 };
 
 ui.listbox = (props) => new ui.class.Listbox(props);
-customElements.define("mambo-listbox", ui.class.Listbox);
+customElements.define(ui.defaultTags.listbox.self.name, ui.class.Listbox);

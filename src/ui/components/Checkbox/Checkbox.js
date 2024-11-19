@@ -162,4 +162,4 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 };
 
 ui.checkbox = (props) => new ui.class.Checkbox(props);
-customElements.define("mambo-checkbox", ui.class.Checkbox);
+customElements.define(ui.defaultTags.checkbox.self.name, ui.class.Checkbox);

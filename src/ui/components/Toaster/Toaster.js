@@ -156,4 +156,4 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 };
 
 ui.toaster = (props) => new ui.class.Toaster(props);
-customElements.define("mambo-toaster", ui.class.Toaster);
+customElements.define(ui.defaultTags.toaster.self.name, ui.class.Toaster);
