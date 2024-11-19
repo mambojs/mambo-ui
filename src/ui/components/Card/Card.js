@@ -61,4 +61,4 @@ ui.class.Card = class Card extends HTMLElement {
 };
 
 ui.card = (props) => new ui.class.Card(props);
-customElements.define("mambo-card", ui.class.Card);
+customElements.define(ui.defaultTags.card.self.name, ui.class.Card);

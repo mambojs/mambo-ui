@@ -126,4 +126,4 @@ ui.class.Tab = class Tab extends HTMLElement {
 };
 
 ui.tab = (options) => new ui.class.Tab(options);
-customElements.define("mambo-tab", ui.class.Tab);
+customElements.define(ui.defaultTags.tab.self.name, ui.class.Tab);

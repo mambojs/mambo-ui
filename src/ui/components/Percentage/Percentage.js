@@ -129,4 +129,4 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 };
 
 ui.percentage = (props) => new ui.class.Percentage(props);
-customElements.define("mambo-percentage", ui.class.Percentage);
+customElements.define(ui.defaultTags.percentage.self.name, ui.class.Percentage);

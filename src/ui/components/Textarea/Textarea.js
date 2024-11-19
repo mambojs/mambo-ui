@@ -394,4 +394,4 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 };
 
 ui.textarea = (props) => new ui.class.Textarea(props);
-customElements.define("mambo-textarea", ui.class.Textarea);
+customElements.define(ui.defaultTags.textarea.self.name, ui.class.Textarea);

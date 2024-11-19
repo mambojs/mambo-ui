@@ -117,4 +117,4 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 };
 
 ui.slideout = (props) => new ui.class.Slideout(props);
-customElements.define("mambo-slideout", ui.class.Slideout);
+customElements.define(ui.defaultTags.slideout.self.name, ui.class.Slideout);

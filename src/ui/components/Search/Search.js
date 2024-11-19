@@ -174,4 +174,4 @@ ui.class.Search = class Search extends HTMLElement {
 };
 
 ui.search = (props) => new ui.class.Search(props);
-customElements.define("mambo-search", ui.class.Search);
+customElements.define(ui.defaultTags.search.self.name, ui.class.Search);

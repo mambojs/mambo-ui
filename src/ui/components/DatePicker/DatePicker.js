@@ -185,4 +185,4 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 };
 
 ui.datePicker = (props) => new ui.class.DatePicker(props);
-customElements.define("mambo-date-picker", ui.class.DatePicker);
+customElements.define(ui.defaultTags.datePicker.self.name, ui.class.DatePicker);

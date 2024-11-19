@@ -136,4 +136,4 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 };
 
 ui.buttonGroup = (props) => new ui.class.ButtonGroup(props);
-customElements.define("mambo-button-group", ui.class.ButtonGroup);
+customElements.define(ui.defaultTags.buttonGroup.self.name, ui.class.ButtonGroup);

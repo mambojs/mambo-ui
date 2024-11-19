@@ -136,4 +136,4 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 };
 
 ui.timePicker = (props) => new ui.class.TimePicker(props);
-customElements.define("mambo-time-picker", ui.class.TimePicker);
+customElements.define(ui.defaultTags.timePicker.self.name, ui.class.TimePicker);

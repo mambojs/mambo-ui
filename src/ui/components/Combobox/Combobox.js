@@ -231,4 +231,4 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 };
 
 ui.combobox = (props) => new ui.class.Combobox(props);
-customElements.define("mambo-combobox", ui.class.Combobox);
+customElements.define(ui.defaultTags.combobox.self.name, ui.class.Combobox);

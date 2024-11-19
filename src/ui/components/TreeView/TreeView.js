@@ -196,4 +196,4 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 };
 
 ui.treeView = (props) => new ui.class.TreeView(props);
-customElements.define("mambo-tree-view", ui.class.TreeView);
+customElements.define(ui.defaultTags.treeView.self.name, ui.class.TreeView);

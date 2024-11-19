@@ -350,4 +350,4 @@ ui.class.Slider = class Slider extends HTMLElement {
 };
 
 ui.slider = (props) => new ui.class.Slider(props);
-customElements.define("mambo-slider", ui.class.Slider);
+customElements.define(ui.defaultTags.slider.self.name, ui.class.Slider);

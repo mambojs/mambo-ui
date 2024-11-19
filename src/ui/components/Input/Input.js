@@ -333,4 +333,4 @@ ui.class.Input = class Input extends HTMLElement {
 };
 
 ui.input = (props) => new ui.class.Input(props);
-customElements.define("mambo-input", ui.class.Input);
+customElements.define(ui.defaultTags.input.self.name, ui.class.Input);

@@ -186,4 +186,4 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 };
 
 ui.mapbox = (props) => new ui.class.Mapbox(props);
-customElements.define("mambo-mapbox", ui.class.Mapbox);
+customElements.define(ui.defaultTags.mapbox.self.name, ui.class.Mapbox);

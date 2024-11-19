@@ -246,4 +246,4 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
 };
 
 ui.buttonSVG = (props) => new ui.class.ButtonSVG(props);
-customElements.define("mambo-button-svg", ui.class.ButtonSVG);
+customElements.define(ui.defaultTags.buttonSVG.self.name, ui.class.ButtonSVG);

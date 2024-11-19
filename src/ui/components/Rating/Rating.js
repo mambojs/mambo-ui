@@ -171,4 +171,4 @@ ui.class.Rating = class Rating extends HTMLElement {
 };
 
 ui.rating = (props) => new ui.class.Rating(props);
-customElements.define("mambo-rating", ui.class.Rating);
+customElements.define(ui.defaultTags.rating.self.name, ui.class.Rating);

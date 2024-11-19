@@ -144,4 +144,4 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 };
 
 ui.checkboxGroup = (props) => new ui.class.CheckboxGroup(props);
-customElements.define("mambo-checkbox-group", ui.class.CheckboxGroup);
+customElements.define(ui.defaultTags.checkboxGroup.self.name, ui.class.CheckboxGroup);

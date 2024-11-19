@@ -152,4 +152,4 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 };
 
 ui.radioGroup = (props) => new ui.class.RadioGroup(props);
-customElements.define("mambo-radio-group", ui.class.RadioGroup);
+customElements.define(ui.defaultTags.radioGroup.self.name, ui.class.RadioGroup);
