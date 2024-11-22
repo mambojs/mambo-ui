@@ -41,9 +41,11 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -71,6 +73,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 				if (!validateGridData()) {
 					resolve();
+
 					return;
 				}
 
@@ -98,7 +101,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			return new Promise((resolve) => {
 				if (m_props.tileHTML) {
 					let content = ui.d.supplantHTML(m_props.tileHTML, tileData);
-					ui.d.append(tileTag, content);
+					tileTag.appendChild(content);
 				}
 
 				if (m_props.fnPostTile) {
@@ -108,6 +111,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 						tileData: tileData,
 					});
 				}
+
 				resolve();
 			});
 		}
@@ -154,6 +158,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			return new Promise((resolve, reject) => {
 				if (!validateGridData()) {
 					reject();
+
 					return;
 				}
 
@@ -270,6 +275,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 								rowData: rowData,
 							});
 						}
+
 						resolve();
 					});
 				});
@@ -449,6 +455,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			dialogConfig.fnClose = (contextClose) => {
 				contextClose.dialog.close();
+
 				if (context.column.fnClose) {
 					context.column.fnClose({
 						column: context.column,
@@ -693,6 +700,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			if (!m_props.maxColWidth) {
 				return;
 			}
+
 			// Save largest width value
 			const tagWidth = ui.d.computeTagWidth(context.tag, context.parentTag);
 			m_colsMaxPxWidth[context.colIndex] =
@@ -754,6 +762,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 						tag.style[key] = columnConfig.style[key];
 					}
 				}
+
 				resolve();
 			});
 		}
@@ -767,6 +776,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function removeColsStyles() {
 			let tag = document.getElementById(m_colStylesId);
+
 			if (tag) {
 				tag.parentNode.removeChild(tag);
 			}
@@ -786,6 +796,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 				if (!(context.column.id in m_componentsMapById)) {
 					m_componentsMapById[context.column.id] = [];
 				}
+
 				m_componentsMapById[context.column.id].push(context.component);
 			}
 
@@ -793,12 +804,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 			if (!(context.colIndex in m_componentsMapByColNbr)) {
 				m_componentsMapByColNbr[context.colIndex] = [];
 			}
+
 			m_componentsMapByColNbr[context.colIndex].push(context.component);
 		}
 
 		function validateGridData() {
 			if (!m_gridData || !Array.isArray(m_gridData)) {
 				console.error("Data Grid alert: grid data not found or is not data type Array -->", m_parentTag);
+
 				return false;
 			}
 
