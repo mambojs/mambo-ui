@@ -24,9 +24,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		async function setup(props) {
 			checkMapboxLibraries();
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			await renderMap();
 			await getUserLocation();
@@ -37,7 +39,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 			return new Promise((resolve) => {
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.classList.add(m_props.css.self);
-				ui.d.append(self, m_containerTag);
+				self.appendChild(m_containerTag);
 				resolve();
 			});
 		}
@@ -73,9 +75,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 				padding: 30,
 				maxZoom: 13,
 			};
+
 			if (props.config) {
 				config = ui.utils.extend(true, config, props);
 			}
+
 			m_map.fitBounds([props.southwestern, props.northeastern], config);
 		}
 
