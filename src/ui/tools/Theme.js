@@ -362,6 +362,7 @@ ui.defaultTheme = {
 		input: "m-switch-input",
 		off: "m-switch-label-off",
 		on: "m-switch-label-on",
+		text: "m-switch-text",
 		self: "m-switch-self",
 	},
 	tab: {

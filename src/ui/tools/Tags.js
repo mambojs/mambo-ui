@@ -159,6 +159,7 @@ ui.defaultTags = {
 		handle: { name: "m-switch-handle" },
 		off: { name: "m-switch-label-off" },
 		on: { name: "m-switch-label-on" },
+		text: { name: "m-switch-text" },
 	},
 	tab: {
 		self: { name: "mambo-tab" },
