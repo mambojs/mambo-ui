@@ -3,18 +3,19 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid #aaa;
+  border: 1px solid var(--m-gray-400);
 }
 
 .m-grid-hdr {
   display: flex;
   width: 100%;
   min-height: 2rem;
-  background: black;
-  color: white;
-  border-bottom: 1px solid #aaa;
+  background: var(--m-accent-color);
+  color: var(--m-white-color);
+  border-bottom: 1px solid var(--m-gray-400);
   font-weight: bold;
   white-space: nowrap;
+  gap: 0.5rem;
 }
 
 .m-grid-col-cell {
@@ -22,13 +23,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  line-height: 1.1rem;
-  padding: 0.25rem;
+  line-height: var(--m-line-height-xs);
+  padding: var(--m-padding-s);
   white-space: nowrap;
 }
 
 .m-grid-col-cell:nth-child(n + 2) {
-  border-left: 1px solid #aaa;
+  border-left: 1px solid var(--m-gray-400);
 }
 
 .m-grid-body {
@@ -42,33 +43,155 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  line-height: 1.1rem;
-  padding: 0.25rem 0;
+  line-height: var(--m-line-height-xs);
+  padding: var(--m-padding-s) 0;
   white-space: pre;
 }
 
 .m-grid-row {
   display: flex;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid var(--m-gray-400);
 }
 
 .m-grid-body .m-grid-row:last-child {
   border-bottom: none;
 }
 
-.m-grid-button {
-  background: none;
-  border: none;
+.m-grid-button,
+.m-grid-button.primary {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.25em 0.5em;
-  cursor: pointer;
+  padding: var(--m-padding-lg) var(--m-padding-lg);
+  color: var(--m-white-color);
+  background: var(--m-accent-primary-color);
+  font-style: normal;
+  font-size: var(--m-font-size-m);
+  font-weight: var(--m-font-weight-regular);
+  line-height: var(--m-line-height);
+  box-shadow: var(--m-box-shadow-primary);
+  border-radius: var(--m-border-radius-primary);
+  gap: 0.5rem;
+  border: none;
+}
+
+.m-grid-button:active,
+.m-grid-button.primary:active {
+  background: var(--m-active-primary-background-color);
+  box-shadow: var(--m-box-shadow-pressed);
+}
+
+.m-grid-button.m-hover,
+.m-grid-button.primary.m-hover {
+  background: var(--m-hover-primary-background-color);
+  box-shadow: var(--m-box-shadow-primary-hover);
+}
+
+.m-grid-button.primary.m-button-disabled {
+  background: var(--m-disabled-background-color);
+  box-shadow: var(--m-box-shadow-primary-disabled);
+  cursor: default;
+  pointer-events: none;
+  color: var(--m-disabled-text-color);
+}
+
+.m-grid-button.m-pressed,
+.m-grid-button.primary.m-pressed {
+  background: var(--m-pressed-primary-background-color);
+  box-shadow: var(--m-box-shadow-primary-active);
+}
+
+.m-grid-button.secondary {
+  background: var(--m-accent-secondary-color);
+  color: var(--m-accent-color);
+  border: 1px solid var(--m-gray-200);
+  box-shadow: var(--m-box-shadow-secondary);
+  border-radius: var(--m-border-radius-secondary);
+  gap: 0.5rem;
+}
+
+.m-grid-button.secondary.m-hover {
+  background: var(--m-hover-secondary-background-color);
+  box-shadow: var(--m-box-shadow-secondary-hover);
+}
+
+.m-grid-button.secondary:active {
+  background: var(--m-active-secondary-background-color);
+  box-shadow: var(--m-box-shadow-secondary-active);
+}
+
+.m-grid-button.secondary.m-pressed {
+  background: var(--m-pressed-secondary-background-color);
+  box-shadow: var(--m-box-shadow-secondary-active);
+}
+
+.m-grid-button.secondary.m-button-disabled {
+  background: var(--m-disabled-background-color);
+  box-shadow: var(--m-box-shadow-secondary-disabled);
+  cursor: default;
+  pointer-events: none;
+  color: var(--m-disabled-text-color);
+}
+
+.m-grid-button.small {
+  padding: var(--m-padding-m) var(--m-padding-xxl);
+  font-size: var(--m-font-size-s);
+  line-height: var(--m-line-height-s);
+}
+
+.m-grid-button.small.notext {
+  padding: var(--m-padding-m) var(--m-padding-m);
+  font-size: var(--m-font-size-s);
+  line-height: var(--m-line-height-s);
+}
+
+.m-grid-button.medium {
+  padding: var(--m-padding-m) var(--m-padding-xxxl);
+  font-size: var(--m-font-size-m);
+  line-height: var(--m-line-height-m);
+}
+
+.m-grid-button.medium.notext {
+  padding: var(--m-padding-m) var(--m-padding-m);
+  font-size: var(--m-font-size-m);
+  line-height: var(--m-line-height-m);
+}
+
+.m-grid-button.large {
+  padding: var(--m-padding-xxl) var(--m-padding-xxxxl);
+  font-size: var(--m-font-size-lg);
+  line-height: var(--m-line-height-lg);
+}
+
+.m-grid-button.large.notext {
+  padding: var(--m-padding-xxl) var(--m-padding-xxl);
+  font-size: var(--m-font-size-lg);
+  line-height: var(--m-line-height-lg);
+}
+
+.m-grid-button.secondary.m-selected {
+  background: var(--m-selected-secondary-background-color);
 }
 
 .m-grid-input {
   width: 100%;
-  border: 0;
+  border: none;
+  outline: none;
+  background: var(--m-gray-100);
+  color: var(--m-sub-color);
+}
+
+.m-grid-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--m-gray-300);
+  border-radius: var(--m-border-radius-primary);
+  overflow: hidden;
+  outline: none;
+  background: var(--m-gray-100);
+  padding: var(--m-padding-lg) var(--m-padding-lg);
+  gap: 0.5rem;
 }
 
 .m-grid-text {
@@ -76,11 +199,11 @@
 }
 
 .m-grid-button:hover {
-  background: #eee;
+  background: var(--m-hover-background-color);
 }
 
 .m-grid-drag-drop-parent {
-  padding: 0.2rem;
+  padding: var(--m-padding-s);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,8 +235,8 @@
   display: flex;
   flex-direction: column;
   white-space: nowrap;
-  line-height: 1.1rem;
-  padding: 0.2rem;
+  line-height: var(--m-line-height-xs);
+  padding: var(--m-padding-s);
 }
 
 .m-grid-dropdown-container {
@@ -122,7 +245,7 @@
   width: 25rem;
   height: 15rem;
   background-color: #f8f8f8;
-  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 15%);
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 / 15%);
   overflow: auto;
   z-index: 999;
 }
@@ -145,7 +268,7 @@
   width: 10rem;
   height: 10rem;
   background-color: #f8f8f8;
-  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 15%);
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 / 15%);
   overflow: auto;
   z-index: 999;
   left: 0;
@@ -168,8 +291,8 @@
   position: absolute;
   width: 7rem;
   height: 10rem;
-  background-color: #f8f8f8;
-  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 15%);
+  background-color: var(--m-gray-200);
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 / 15%);
   overflow: auto;
   z-index: 999;
   left: 0;
@@ -184,7 +307,7 @@
   flex-direction: column;
   width: 17em;
   overflow: hidden;
-  border: 1px solid #a9a9a9;
+  border: 1px solid var(--m-gray-400);
   border-radius: 0.25rem;
 }
 

@@ -21,9 +21,11 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -45,19 +47,20 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 		function installButton() {
 			return new Promise((resolve) => {
-				installInput(true).then(() => {
-					const config = {
-						...m_props.button,
-						parentTag: self,
-						fnClick: () => {
-							m_inputTag.getTag().click();
-						},
-						css: m_props.css.button,
-						fnComplete: resolve,
-					};
+				const config = {
+					...m_props.button,
+					parentTag: self,
+					fnClick: () => {
+						m_inputTag.getTag().click();
+					},
+					css: m_props.css.button,
+					fnComplete: () => {
+						installInput(true).then(resolve);
+					},
+					resolve,
+				};
 
-					ui.button(config);
-				});
+				ui.button(config);
 			});
 		}
 

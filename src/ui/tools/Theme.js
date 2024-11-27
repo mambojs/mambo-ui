@@ -216,6 +216,7 @@ ui.defaultTheme = {
 		header: "m-grid-hdr",
 		headerTitle: "m-grid-title",
 		input: "m-grid-input",
+		inputContainer: "m-grid-input-container",
 		row: "m-grid-row",
 		self: "m-grid-self",
 		text: "m-grid-text",

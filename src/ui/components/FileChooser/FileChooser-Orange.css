@@ -2,10 +2,38 @@
   display: block;
 }
 
+.m-file-chooser-input-self .m-input-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  background: var(--m-accent-primary-color);
+  color: var(--m-white-color);
+}
+
 .m-file-chooser-input {
   margin-top: 0.5rem;
 }
 
 .m-file-chooser-input-wrapper {
   display: flex;
+}
+
+.m-file-chooser-button {
+  align-items: center;
+  padding: var(--m-padding-m) var(--m-padding-m);
+  color: var(--m-white-color);
+  background: var(--m-accent-primary-color);
+  font-style: normal;
+  font-size: var(--m-font-size-m);
+  font-weight: var(--m-font-weight-regular);
+  line-height: var(--m-line-height);
+  box-shadow: var(--m-box-shadow-primary);
+  border-radius: var(--m-border-radius-primary);
+  gap: 0.5rem;
+  border: none;
+}
+
+.m-file-chooser-label {
+  text-align: center;
 }
