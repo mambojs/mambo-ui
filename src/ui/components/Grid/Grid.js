@@ -101,7 +101,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			return new Promise((resolve) => {
 				if (m_props.tileHTML) {
 					let content = ui.d.supplantHTML(m_props.tileHTML, tileData);
-					tileTag.appendChild(content);
+					ui.d.append(tileTag, content);
 				}
 
 				if (m_props.fnPostTile) {
@@ -201,7 +201,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 								};
 
 								// Install the cells for each column
-								switch (column.type) {
+								switch (column.tagType) {
 									case "button":
 										installButtonCell(context);
 										break;
@@ -317,6 +317,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			// Extend with header configuration
 			buttonConfig = ui.utils.extend(true, buttonConfig, context.column);
+
 			buttonConfig.fnClick = (contextClick) => {
 				if (context.column.fnClick) {
 					context.column.fnClick({
@@ -348,8 +349,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installInputCell(context) {
 			let inputConfig = {
 				css: {
-					input: m_props.css.input,
 					button: m_props.css.button,
+					input: m_props.css.input,
+					container: m_props.css.inputContainer,
 				},
 				value: context.column.dataKey in context.rowData ? context.rowData[context.column.dataKey] : context.column.text,
 			};
@@ -386,7 +388,12 @@ ui.class.Grid = class Grid extends HTMLElement {
 					tag: contextComplete.Input.getTag(),
 					parentTag: context.parentTag,
 				});
+
+				if (context.column.fnComplete) {
+					context.column.fnComplete(contextComplete);
+				}
 			};
+
 			inputConfig.fnClick = (contextClick) => {
 				if (context.column.fnClick) {
 					context.column.fnClick(contextClick);
@@ -431,39 +438,20 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function installDialogCell(context) {
 			const dialogDefaultConfig = {
-				title: "Dialog Title",
+				title: "Default Title",
 				css: {
 					button: m_props.css.button,
 				},
 			};
 
 			const dialogConfig = ui.utils.extend(true, dialogDefaultConfig, context.column);
+
 			dialogConfig.fnClick = () => {
-				ui.dialog(dialogConfig.parentTag, dialogConfig, (contextReady) => {
-					if (dialogConfig.fnOpen) {
-						dialogConfig.fnOpen({
-							dialog: contextReady.dialog,
-							dialogContentTag: contextReady.dialogContentTag,
-							column: context.column,
-							parentTag: context.parentTag,
-							colIndex: context.colIndex,
-							rowIndex: context.rowIndex,
-						});
-					}
+				ui.dialog({
+					title: dialogConfig.title,
+					fnComplete: context.column.fnOpen,
+					fnClose: context.column.fnClose,
 				});
-			};
-
-			dialogConfig.fnClose = (contextClose) => {
-				contextClose.dialog.close();
-
-				if (context.column.fnClose) {
-					context.column.fnClose({
-						column: context.column,
-						parentTag: context.parentTag,
-						colIndex: context.colIndex,
-						rowIndex: context.rowIndex,
-					});
-				}
 			};
 
 			const buttonConfig = ui.utils.extend(true, {}, dialogConfig);
@@ -559,7 +547,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const defaultConfig = {
 				parentTag: context.parentTag,
 				css: {
-					treeViewParent: m_props.css.treeViewParent,
+					self: m_props.css.treeViewParent,
 				},
 			};
 
