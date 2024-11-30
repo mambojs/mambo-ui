@@ -7,7 +7,7 @@ function storyButtonSVG(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
 			},
@@ -28,10 +28,10 @@ function storyButtonSVG(selectedStory) {
 			text: "Hover Button",
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
-				hover: "src/img/storyboard/star.png",
+				hover: "img/storyboard/star.png",
 			},
 			fnClick: (context) => {
 				alert(`${context.Button.text()} clicked.`);

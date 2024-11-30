@@ -54,19 +54,24 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 				m_buttonContainer = ui.d.createTag({ ...m_props.tags.buttonContainer, class: m_props.css.buttonContainer });
 				installCloseButton();
 				self.classList.add(m_props.css.self);
-				m_position = m_props.anchorOrigin;
-				m_size = m_props.size;
-				m_type = m_props.type;
-				self.classList.add(m_props.css.position[m_position.horizontal]);
 
-				if (m_position.vertical === "center") {
-					self.classList.add(m_props.css.position.centerV);
+				if (m_props.parentTag !== "body") {
+					self.classList.add("m-toaster-static");
 				} else {
-					self.classList.add(m_props.css.position[m_position.vertical]);
-				}
+					m_position = m_props.anchorOrigin;
+					m_size = m_props.size;
+					m_type = m_props.type;
+					self.classList.add(m_props.css.position[m_position.horizontal]);
 
-				if (m_size) {
-					self.classList.add(m_props.css.size[m_size]);
+					if (m_position.vertical === "center") {
+						self.classList.add(m_props.css.position.centerV);
+					} else {
+						self.classList.add(m_props.css.position[m_position.vertical]);
+					}
+
+					if (m_size) {
+						self.classList.add(m_props.css.size[m_size]);
+					}
 				}
 
 				if (m_type) {

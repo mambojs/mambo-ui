@@ -19,7 +19,7 @@ function installStoryboard(props) {
 		stories.map((story) => {
 			story.id = story.text.replaceAll(" ", "-").toLowerCase();
 			const storyWrapperClass = `story-${story.id}-wrapper`;
-			story.parentTag = dom.createTag(`story-${story.id}`, {class: storyWrapperClass});
+			story.parentTag = dom.createTag(`story-${story.id}`, { class: storyWrapperClass });
 		});
 	}
 
@@ -55,10 +55,8 @@ function installStoryboard(props) {
 		const fnName = `story${selectedStory.text.replaceAll(" ", "")}`;
 		const storyFn = window[fnName];
 		storyFn(selectedStory);
-		const storyFnContent = window[fnName].toString();
 		installTab();
-		outputCode(selectedStory.text);
-		loadStoryDocumentation(selectedStory.text);
+		await outputCode(selectedStory.text);
 	}
 
 	function installTab() {
@@ -100,25 +98,19 @@ function installStoryboard(props) {
 	}
 
 	async function outputCode(storyName) {
-		const file = await fetch(`getStoryCodeExample?name=${storyName}`).then((resp) => resp.text());
-		const codeElement = dom.createTag("pre", { class: "prettyprint lang-basic", text: file });
+		const file = await fetch(`getFile?type=story&name=${storyName}`);
+		const text = await file.text();
+		const codeElement = dom.createTag("pre", { class: "prettyprint lang-basic", text: text });
 		const codeContainer = dom.getTag("code-container");
 		codeContainer.appendChild(codeElement);
 		PR.prettyPrint();
 	}
 
-	async function loadStoryDocumentation(storyName) {
-		const file = await fetch(`getStoryDocumentation?name=${storyName}`).then((resp) => resp.text());
-		const descriptionElement = dom.createTag("description-element");
-		const documentationContainer = dom.getTag("documentation-container");
-		descriptionElement.innerHTML = addIdsToHeadings(marked.parse(file));
-		documentationContainer.appendChild(descriptionElement);
-	}
-
 	async function loadDocumentation() {
-		const file = await fetch("getDocumentation").then((resp) => resp.text());
+		const file = await fetch("getFile?type=documentation");
+		const text = await file.text();
 		const descriptionElement = dom.createTag("description-element");
-		descriptionElement.innerHTML = addIdsToHeadings(marked.parse(file));
+		descriptionElement.innerHTML = addIdsToHeadings(marked.parse(text));
 		storyParentTag.appendChild(descriptionElement);
 	}
 
@@ -143,6 +135,7 @@ function installStoryboard(props) {
 
 			let sectionContent = `<h2 id="${headingId}">${heading.textContent}</h2>`;
 			let nextElement = heading.nextElementSibling;
+
 			while (nextElement && nextElement.tagName !== "H2") {
 				sectionContent += nextElement.outerHTML;
 				nextElement = nextElement.nextElementSibling;
@@ -157,6 +150,7 @@ function installStoryboard(props) {
 	function outputDocumentation(storyName) {
 		const sectionId = slugify(storyName);
 		const documentationContainer = dom.getTag("documentation-container");
+
 		if (documentations[sectionId]) {
 			documentationContainer.innerHTML = documentations[sectionId];
 		}

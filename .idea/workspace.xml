@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="" />
+    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/storyboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/storyboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/storyboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/storyboard.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
@@ -27,10 +39,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Debug&quot;,
-    &quot;Node.js.Input.js.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;diego/props-on-child&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;diego/change-toaster&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -54,8 +66,13 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public\css" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public\js" />
+    </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.Frontend Debugger">
+  <component name="RunManager" selected="npm.start">
     <configuration name="Frontend Debugger" type="JavascriptDebugType" uri="http://localhost:8003">
       <method v="2" />
     </configuration>
@@ -129,6 +146,8 @@
       <workItem from="1732640472096" duration="12268000" />
       <workItem from="1732727557089" duration="23533000" />
       <workItem from="1732794332463" duration="3324000" />
+      <workItem from="1733264284406" duration="4166000" />
+      <workItem from="1733280251736" duration="389000" />
     </task>
     <servers />
   </component>

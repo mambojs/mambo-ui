@@ -7,7 +7,7 @@ const LIB_FILE_NAME = `${LIB_NAME}-${LIB_VERSION}`;
 const LIB_FILE_NAME_MIN = `${LIB_NAME}-min-${LIB_VERSION}`;
 const LIB_FILE_CSS = `${LIB_FILE_NAME}.css`;
 const LIB_FILE_CSS_MIN = `${LIB_FILE_NAME_MIN}.css`;
-const SRC_UI = `${config.PUBLIC_DIR}/ui/components`;
+const SRC_UI = `${config.SRC_DIR}/ui/components`;
 
 const COPYRIGHT = `/******************************************
 *  Copyright 2024 Alejandro Sebastian Scotti, Scotti Corp.
@@ -48,5 +48,6 @@ function dateFormat() {
 	const year = date.getFullYear().toString().slice(-2);
 	const hour = date.getHours().toString().padStart(2, "0");
 	const minutes = date.getMinutes().toString().padStart(2, "0");
+
 	return [month, day, year, hour, minutes].join("-");
 }
