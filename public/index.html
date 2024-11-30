@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Mambo UI Storyboard" name="description" />
+  <base href="/" />
+  <title>Mambo UI Storyboard</title>
+  <link href="img/mambo/mambo-m.ico" rel="icon" />
+  <!-- Mapbox Dependencies -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        rel="stylesheet" />
+  <!-- Scotti Dependencies -->
+  <link href="css/ubuntu.css" rel="stylesheet" />
+  <!-- Style Dependencies -->
+  <link href="css/prettify.css" rel="stylesheet" />
+  <link href="fonts/awesome/all.css" rel="stylesheet" />
+  <!-- Web App Styles -->
+  <link href="css/story.css" rel="stylesheet" />
+  <link href="css/storyboard.css" rel="stylesheet" />
+  <link href="css/index.css" rel="stylesheet" />
+  <link href="fonts/awesome/all.css" rel="stylesheet" />
+  <!-- Load JavaScripts Dependencies -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+  <script src="js/domjs-0.0.1.js"></script>
+  <script src="js/mambo-tools-0.0.1.js"></script>
+  <script src="js/run_prettify.js"></script>
+  <script src="js/feather.min.js"></script>
+  <script src="js/marked.min.js"></script>
+  <!-- Load Initializer JavaScript -->
+  <script src="js/init.js"></script>
+  <script src="ui/tools/Utilities.js"></script>
+  <script src="ui/tools/String.js"></script>
+  <script src="ui/tools/DateManager.js"></script>
+  <script src="ui/tools/Tags.js"></script>
+  <script src="ui/tools/Theme.js"></script>
+  <!-- Load Storyboard JavaScripts -->
+  <script src="js/storyboard.js"></script>
+</head>
+<body>
+<ui-storyboard>
+  <card-content>
+    <card-header>
+      <mambo-button id="homeButton"></mambo-button>
+      <mambo-combobox id="themeCombobox"></mambo-combobox>
+    </card-header>
+    <card-body>
+      <storyboard-treeview></storyboard-treeview>
+      <storyboard-component>
+        <story-tab></story-tab>
+      </storyboard-component>
+    </card-body>
+  </card-content>
+</ui-storyboard>
+<mambo-tab-img>
+  <img alt="Mambo Tab" class="middle" src="img/mambo/mambo-tab/middle-k.jpg" />
+  <img alt="Mambo Tab" class="left" src="img/mambo/mambo-tab/left-k.jpg" />
+  <img alt="Mambo Tab" class="right" src="img/mambo/mambo-tab/right-k.jpg" />
+</mambo-tab-img>
+<!-- Load App JavaScript -->
+<script src="js/index.js"></script>
+</body>
+</html>

@@ -8,10 +8,12 @@ function storyToaster(selectedStory) {
 			if (activeToasters["toaster-with-mambo-button"]) {
 				activeToasters["toaster-with-mambo-button"].close();
 				delete activeToasters["toaster-with-mambo-button"];
+
 				return;
 			}
 
 			let toasterConfig = {
+				parentTag: selectedStory.parentTag,
 				closeButton: false,
 				open: true,
 				message: "Mambo Toaster Successfully Completed",
@@ -73,6 +75,7 @@ function storyToaster(selectedStory) {
 				if (activeToasters[`${variant.h}-${variant.v}`]) {
 					activeToasters[`${variant.h}-${variant.v}`].close();
 					delete activeToasters[`${variant.h}-${variant.v}`];
+
 					return;
 				}
 

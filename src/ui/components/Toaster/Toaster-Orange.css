@@ -18,6 +18,11 @@
   background-color: var(--m-info-background-color);
 }
 
+.m-toaster-self.m-toaster-static {
+  position: static;
+  width: 100%;
+}
+
 .m-toaster-self.m-toaster-info {
   color: var(--m-info-color);
   border: 2px solid var(--m-info-stroke-color);

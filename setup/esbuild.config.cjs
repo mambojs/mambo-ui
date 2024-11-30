@@ -56,8 +56,8 @@ function buildLib() {
 
 	// Disable this optional Theme for now
 	/* esbuild.build(optionsCssThemes).then(() => {
-		console.log("Css Themes: Build complete!");
-	}); */
+    console.log("Css Themes: Build complete!");
+  }); */
 }
 
 function compileCssLib(lib, version) {
@@ -66,23 +66,27 @@ function compileCssLib(lib, version) {
 	exec(`gulp -f ./setup/gulpfile.js cssLibFiles cssOrangeLibFiles --build ${lib} --mversion ${version}`, (err, stdout, stderr) => {
 		if (err) {
 			console.log(`error: ${err.message}`);
+
 			return;
 		}
+
 		if (stderr) {
 			console.log(`stderr: ${stderr}`);
+
 			return;
 		}
+
 		console.log(`stdout: ${stdout}`);
 	});
 }
 
 function getLibFiles() {
 	const arrFiles = [
-		`${config.PUBLIC_DIR}/ui/tools/DateManager.js`,
-		`${config.PUBLIC_DIR}/ui/tools/String.js`,
-		`${config.PUBLIC_DIR}/ui/tools/Tags.js`,
-		`${config.PUBLIC_DIR}/ui/tools/Theme.js`,
-		`${config.PUBLIC_DIR}/ui/tools/Utilities.js`,
+		`${config.SRC_DIR}/ui/tools/DateManager.js`,
+		`${config.SRC_DIR}/ui/tools/String.js`,
+		`${config.SRC_DIR}/ui/tools/Tags.js`,
+		`${config.SRC_DIR}/ui/tools/Theme.js`,
+		`${config.SRC_DIR}/ui/tools/Utilities.js`,
 	];
 
 	const files = fs.readdirSync(`${esconfig.SRC_UI}`);
@@ -90,6 +94,7 @@ function getLibFiles() {
 	files.forEach((file) => {
 		let component = `${esconfig.SRC_UI}/${file}`;
 		let componentName = file;
+
 		if (fs.lstatSync(component).isDirectory() && !file.startsWith("_")) {
 			let componentFiles = fs.readdirSync(component);
 			componentFiles.forEach((filejs) => {
@@ -101,6 +106,7 @@ function getLibFiles() {
 		}
 	});
 	console.log(arrFiles);
+
 	return arrFiles;
 }
 

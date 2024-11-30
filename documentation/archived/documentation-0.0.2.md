@@ -18,11 +18,10 @@
 ******************************************
 -->
 
-
-# MAMBO.JS
-## UI Components Documentation - Version 0.0.2
+# MAMBO.JS - UI Components Documentation - Version 0.0.2
 
 ### Table of Contents
+
 1. [Button](#button)
 2. [ButtonSVG](#buttonsvg)
 3. [ButtonGroup](#buttongroup)
@@ -57,6 +56,7 @@
 ## Button
 
 ### Public Properties (m_props)
+
 - `text` (string): Default "Mambo Button". Button display text
 - `enable` (boolean): Default true. Controls button enabled state
 - `preventDefault` (boolean): Default true. Prevents default event behavior
@@ -64,19 +64,20 @@
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `img` (object|array): Optional image configuration(s)
-  - `css` (string): CSS class for image
-  - `prop` (object): HTML properties
-  - `attr` (object): HTML attributes
-  - `position` (string): "left"|"right" image position
-  - `hover` (string): Hover state image URL
+    - `css` (string): CSS class for image
+    - `prop` (object): HTML properties
+    - `attr` (object): HTML attributes
+    - `position` (string): "left"|"right" image position
+    - `hover` (string): Hover state image URL
 - `icon` (object|array): Optional icon configuration(s)
-  - `css` (string): CSS class for icon
-  - `prop` (object): HTML properties 
-  - `attr` (object): HTML attributes
-  - `position` (string): "left"|"right" icon position
-  - `size` (string): Icon size class
+    - `css` (string): CSS class for icon
+    - `prop` (object): HTML properties
+    - `attr` (object): HTML attributes
+    - `position` (string): "left"|"right" icon position
+    - `size` (string): Icon size class
 
 ### Private Properties
+
 - `m_imageList` (array): Stores image tag references
 - `m_iconList` (array): Stores icon tag references
 - `m_parentTag` (HTMLElement): Parent element reference
@@ -85,6 +86,7 @@
 - `m_enable` (boolean): Current enabled state
 
 ### Public Methods
+
 - `deselect()`: Removes selected state from button
 - `enable(enable: boolean)`: Sets button enabled state
 - `getConfig()`: Returns m_props configuration object
@@ -95,10 +97,11 @@
 - `getTag()`: Returns button element
 - `text(text: string)`: Gets/sets button text
 - `select(context: object)`: Handles external selection
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes button with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates button DOM structure
 - `insertGraphic()`: Adds images to button
 - `insertIcon()`: Adds icons to button
@@ -110,65 +113,71 @@
 - `mouseEnterOverButton()`: Adds hover class
 - `mouseLeaveOverButton()`: Removes hover class
 - `handleExternalSelect(context: object)`: Processes external selection
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `configure(customProps: object)`: Sets up initial configuration
 
 ## ButtonGroup
 
 ### Public Properties (m_props)
+
 - `buttons` (array): Default []. Array of button configurations
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `fnGroupClick` (function): Default handleGroupBtnClick. Group click handler
 
 ### Private Properties
+
 - `m_buttonsList` (array): Stores button component references
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_selectedButtonTag` (HTMLElement): Currently selected button
 
 ### Public Methods
+
 - `deselect()`: Deselects all buttons
 - `destroy()`: Removes button group
 - `getConfigById(context: object)`: Returns button config by ID
-  - `context.id` (string): Button ID
+    - `context.id` (string): Button ID
 - `getParentTag()`: Returns group element
 - `getSelected()`: Returns selected button
 - `getTag(context: object)`: Returns button by ID
-  - `context.id` (string): Button ID
+    - `context.id` (string): Button ID
 - `select(context: object)`: Selects button by ID
-  - `context.id` (string): Button ID
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.id` (string): Button ID
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes group with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates button group structure
 - `installButton(button: object)`: Creates individual buttons
 - `handleGroupBtnClick(context: object)`: Processes group click events
-  - `context.Button` (object): Clicked button reference
-  - `context.ev` (Event): Click event
+    - `context.Button` (object): Clicked button reference
+    - `context.ev` (Event): Click event
 - `configure(customProps: object)`: Sets up initial configuration
 
 ## ButtonSVG
 
 ### Public Properties (m_props)
+
 - `enable` (boolean): Default true. Controls button enabled state
 - `preventDefault` (boolean): Default true. Prevents default event behavior
 - `stopPropagation` (boolean): Default true. Stops event propagation
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `img` (object|array): Optional image configuration(s)
-  - `css` (string): CSS class for image
-  - `prop` (object): HTML properties
-  - `attr` (object): HTML attributes
-  - `hover` (string): Hover state image URL
+    - `css` (string): CSS class for image
+    - `prop` (object): HTML properties
+    - `attr` (object): HTML attributes
+    - `hover` (string): Hover state image URL
 - `svg` (object|array): Optional SVG configuration(s)
-  - `element` (object): SVG element properties
-    - `attr` (object): SVG attributes
-    - `paths` (array): SVG path data
-  - `prop` (object): HTML properties
-  - `attr` (object): HTML attributes
+    - `element` (object): SVG element properties
+        - `attr` (object): SVG attributes
+        - `paths` (array): SVG path data
+    - `prop` (object): HTML properties
+    - `attr` (object): HTML attributes
 
 ### Private Properties
+
 - `m_imageList` (array): Stores image tag references
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_buttonTag` (HTMLElement): Button element reference
@@ -176,6 +185,7 @@
 - `m_enable` (boolean): Current enabled state
 
 ### Public Methods
+
 - `deselect()`: Removes selected state
 - `enable(enable: boolean)`: Sets enabled state
 - `getConfig()`: Returns m_props configuration
@@ -184,12 +194,13 @@
 - `getParentTag()`: Returns parent element
 - `getTag()`: Returns button element
 - `text(context: object)`: Gets/sets button text
-  - `context.text` (string): New text value
+    - `context.text` (string): New text value
 - `select(context: object)`: Handles external selection
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates button structure
 - `insertGraphic(graphic: object|array, func: function)`: Adds graphics
 - `addImg(img: object)`: Adds image element
@@ -204,6 +215,7 @@
 ## Calendar
 
 ### Public Properties (m_props)
+
 - `theme` (string): Default "default". Theme name
 - `tag` (string): Default "default". Tag template name
 - `headerButtonGroup` (object): Header navigation buttons configuration
@@ -216,6 +228,7 @@
 - `max` (Date): Default 2099/12/31. Maximum selectable date
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_headerButtonGroup` (ButtonGroup): Navigation buttons
 - `m_headerButtonsList` (array): Navigation button references
@@ -232,6 +245,7 @@
 - `m_maxDate` (Date): Maximum allowed date
 
 ### Public Methods
+
 - `destroy()`: Removes calendar
 - `getParentTag()`: Returns calendar element
 - `navigateToFuture()`: Moves to next period
@@ -239,9 +253,10 @@
 - `navigateUp()`: Moves up one view level
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets selected date
-  - `context.value` (Date|string): New date value
+    - `context.value` (Date|string): New date value
 
 ### Private Functions
+
 - `setupDOM()`: Creates calendar structure
 - `setupHeader()`: Sets up navigation header
 - `setupBody()`: Sets up calendar body
@@ -258,6 +273,7 @@
 ## Checkbox
 
 ### Public Properties (m_props)
+
 - `enable` (boolean): Default true. Controls checkbox enabled state
 - `name` (string): Default random string. Input name attribute
 - `tag` (string): Default "default". Tag template name
@@ -268,6 +284,7 @@
 - `value` (string): Input value attribute
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_containerTag` (HTMLElement): Checkbox container
 - `m_inputTag` (HTMLElement): Input element
@@ -276,19 +293,21 @@
 - `m_checked` (boolean): Current checked state
 
 ### Public Methods
+
 - `destroy()`: Removes checkbox
 - `enable(context: object)`: Sets enabled state
-  - `context.enable` (boolean): New enabled state
+    - `context.enable` (boolean): New enabled state
 - `getId()`: Returns checkbox ID
 - `getParentTag()`: Returns container element
 - `select(context: object)`: Gets/sets checked state
-  - `context.value` (boolean): New checked state
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.value` (boolean): New checked state
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets input value
-  - `context.value` (string): New value
+    - `context.value` (string): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates checkbox structure
 - `handleClick(ev: Event)`: Processes click events
 - `checkInput(value: boolean, notTrigger: boolean)`: Updates checked state
@@ -298,6 +317,7 @@
 ## CheckboxGroup
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `name` (string): Default random string. Input name for all checkboxes
@@ -305,26 +325,29 @@
 - `position` (string): Default "right". Label position for all checkboxes
 
 ### Private Properties
+
 - `m_checkboxList` (array): Stores checkbox component references
 - `m_parentTag` (HTMLElement): Parent element reference
 
 ### Public Methods
+
 - `clear()`: Unchecks all checkboxes
 - `destroy()`: Removes checkbox group
 - `getParentTag()`: Returns group element
 - `getTag(context: object)`: Returns checkbox by ID
-  - `context.id` (string): Checkbox ID
+    - `context.id` (string): Checkbox ID
 - `select(context: object)`: Gets/sets checked states
-  - `context.id` (string|array): Checkbox ID(s) to check
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.id` (string|array): Checkbox ID(s) to check
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates checkbox group structure
 - `processCheckbox(checkbox: object, index: number)`: Creates individual checkboxes
 - `handleGroupClick(context: object)`: Processes group click events
-  - `context.Checkbox` (object): Clicked checkbox reference
-  - `context.ev` (Event): Click event
+    - `context.Checkbox` (object): Clicked checkbox reference
+    - `context.ev` (Event): Click event
 - `getTag(id: string)`: Returns checkbox by ID
 - `getSelected()`: Returns array of checked checkboxes
 - `selectTag(tag: object, notTrigger: boolean)`: Updates checkbox state
@@ -333,6 +356,7 @@
 ## Combobox
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `input` (object): Input configuration
@@ -345,6 +369,7 @@
 - `data` (array): Data items for dropdown
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_input` (Input): Input component
 - `m_dropdownWrapperTag` (HTMLElement): Dropdown container
@@ -355,14 +380,16 @@
 - `m_previous_text` (string): Previous input value
 
 ### Public Methods
+
 - `destroy()`: Removes combobox
 - `getParentTag()`: Returns combobox element
 - `getSelected()`: Returns selected button
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets value
-  - `context.value` (string): New value
+    - `context.value` (string): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates combobox structure
 - `setupInput()`: Creates input component
 - `setupDropdown()`: Creates dropdown component
@@ -379,6 +406,7 @@
 ## DatePicker
 
 ### Public Properties (m_props)
+
 - `theme` (string): Default "default". Theme name
 - `tag` (string): Default "default". Tag template name
 - `input` (object): Input configuration with events
@@ -392,6 +420,7 @@
 - `max` (Date): Default 2099/12/31. Maximum selectable date
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_input` (Input): Input component
 - `m_dropdownWrapperTag` (HTMLElement): Dropdown container
@@ -401,13 +430,15 @@
 - `m_previous_text` (string): Previous input value
 
 ### Public Methods
+
 - `destroy()`: Removes datepicker
 - `getParentTag()`: Returns datepicker element
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets selected date
-  - `context.value` (Date|string): New date value
+    - `context.value` (Date|string): New date value
 
 ### Private Functions
+
 - `setupDOM()`: Creates datepicker structure
 - `setupInput()`: Creates input component
 - `setupDropdown()`: Creates dropdown component
@@ -419,6 +450,7 @@
 ## Dialog
 
 ### Public Properties (m_props)
+
 - `parentTag` (string): Default "body". Parent element selector
 - `closeButton` (boolean): Default true. Show close button
 - `closeText` (string): Default "close". Close button text
@@ -428,11 +460,13 @@
 - `hdrHtml` (HTMLElement): Custom header HTML
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_dialogHdrTag` (HTMLElement): Header container
 - `m_dialogBodyTag` (HTMLElement): Body container
 
 ### Public Methods
+
 - `close()`: Closes dialog
 - `getParentTag()`: Returns dialog element
 - `getBodyTag()`: Returns body container
@@ -440,6 +474,7 @@
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates dialog structure
 - `installCloseButton(headerLeftTag: HTMLElement)`: Creates close button
 - `configure(customProps: object)`: Sets up initial configuration
@@ -447,6 +482,7 @@
 ## DragDrop
 
 ### Public Properties (m_props)
+
 - `dropText` (string): Default "Drop Here". Drop zone text
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
@@ -457,14 +493,17 @@
 - `fnMouseenterMouseleave` (function): Mouse enter/leave handler
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 
 ### Public Methods
+
 - `destroy()`: Removes drag drop zone
 - `getParentTag()`: Returns drag drop element
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates drag drop structure
 - `setupEventListener()`: Sets up event handlers
 - `handleMouseEnterLeave(ev: Event)`: Handles mouse events
@@ -476,6 +515,7 @@
 ## Draggable
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `enable` (boolean): Default true. Enable dragging
@@ -484,6 +524,7 @@
 - `containerTag` (string): Boundary container selector
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_draggableTag` (HTMLElement): Draggable element
 - `m_enable` (boolean): Current enabled state
@@ -496,6 +537,7 @@
 - `m_bounding` (DOMRect|null): Boundary rectangle
 
 ### Public Methods
+
 - `destroy()`: Removes draggable
 - `enable(enable: boolean)`: Sets enabled state
 - `getParentTag()`: Returns draggable element
@@ -505,6 +547,7 @@
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates draggable structure
 - `setupEventHandler()`: Sets up event handlers
 - `dragStart(ev: Event)`: Handles drag start
@@ -516,25 +559,28 @@
 ## Dropdown
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `disableButton` (boolean): If true, disables the dropdown button
 - `button` (object): Configuration for dropdown button
-  - `text` (string): Button text
-  - `css` (object): Button CSS classes
-  - `fnClick` (function): Custom click handler
+    - `text` (string): Button text
+    - `css` (object): Button CSS classes
+    - `fnClick` (function): Custom click handler
 - `positionTag` (HTMLElement): Optional element for positioning dropdown
 - `css` (object): CSS class overrides
 - `tags` (object): HTML tag configuration
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_dropdownContainerTag` (HTMLElement): Dropdown container element
 - `m_open` (boolean): Current open/closed state
 
 ### Public Methods
+
 - `close(context: object)`: Closes dropdown
-  - `context.ev` (Event): Optional event object
+    - `context.ev` (Event): Optional event object
 - `destroy()`: Removes dropdown from DOM
 - `getContentTag()`: Returns dropdown container element
 - `getParentTag()`: Returns parent element
@@ -542,6 +588,7 @@
 - `setup(props: object)`: Initializes dropdown with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates dropdown structure
 - `setupOpenButton()`: Creates and configures dropdown button
 - `setupContainer()`: Creates dropdown container
@@ -550,42 +597,43 @@
 - `closeAnimation(ev: Event)`: Handles closing animation
 - `configure(customProps: object)`: Sets up initial configuration
 
-
-
 ## FileChooser
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `buttonOnly` (boolean): If true, shows only button interface
 - `button` (object): Configuration for file select button
-  - `text` (string): Default "Select File"
+    - `text` (string): Default "Select File"
 - `input` (object): Configuration for file input
-  - `labelText` (string): Default "Choose files to upload"
-  - `tags` (object): Input tag configuration
+    - `labelText` (string): Default "Choose files to upload"
+    - `tags` (object): Input tag configuration
 - `fnUpload` (function): File upload handler
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_inputTag` (Input): Input component instance
 
 ### Public Methods
+
 - `destroy()`: Removes file chooser
 - `getInputTag()`: Returns input element
 - `getParentTag()`: Returns parent element
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates file chooser structure
 - `installButton()`: Creates button interface
 - `installInput(hidden: boolean)`: Creates file input element
 - `configure(customProps: object)`: Sets up initial configuration
 
-
-
 ## Grid
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `layout` (string): Default "grid". Grid layout type ("grid"|"tile")
@@ -598,6 +646,7 @@
 - `fnPostTile` (function): Post-tile creation handler
 
 ### Private Properties
+
 - `m_colsMaxPxWidth` (array): Column maximum widths
 - `m_componentsMapById` (object): Component map by ID
 - `m_componentsMapByColNbr` (array): Component map by column number
@@ -610,24 +659,26 @@
 - `m_gridDataChanged` (boolean): Data change flag
 
 ### Public Methods
+
 - `commitDataChange()`: Commits data changes
 - `dataChanged()`: Returns data changed state
 - `getCellComponentByIdByRow(context: object)`: Gets cell component by ID and row
-  - `context.columnId` (string): Column ID
-  - `context.rowIndex` (number): Row index
+    - `context.columnId` (string): Column ID
+    - `context.rowIndex` (number): Row index
 - `getCellComponentsById()`: Returns component map by ID
 - `getCellComponentByColNbrByRow(context: object)`: Gets cell component by column number and row
-  - `context.colNbr` (number): Column number
-  - `context.rowIndex` (number): Row index
+    - `context.colNbr` (number): Column number
+    - `context.rowIndex` (number): Row index
 - `getCellComponentsByColNbr()`: Returns component map by column number
 - `getGridData()`: Returns grid data
 - `getId()`: Returns grid ID
 - `getRowIndex(context: object)`: Returns row index
-  - `context.rowTag` (HTMLElement): Row element
+    - `context.rowTag` (HTMLElement): Row element
 - `removeColsStyles()`: Removes column styles
 - `setup(props: object)`: Initializes grid with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates grid structure
 - `setupTilesDOM()`: Creates tile layout structure
 - `setupGridDOM()`: Creates grid layout structure
@@ -636,11 +687,10 @@
 - `validateGridData()`: Validates grid data
 - `configure(customProps: object)`: Sets up initial configuration
 
-
-
 ## Input
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `name` (string): Default random string. Input name attribute
@@ -657,6 +707,7 @@
 - `leftButton` (object): Left button configuration
 
 ### Private Properties
+
 - `m_iconList` (array): Stores icon elements
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_inputTag` (HTMLElement): Input element
@@ -669,6 +720,7 @@
 - `m_dataChanged` (boolean): Data change flag
 
 ### Public Methods
+
 - `commitDataChange()`: Commits data changes
 - `clear()`: Clears input value
 - `clearButton()`: Returns clear button component
@@ -680,9 +732,10 @@
 - `setAttr(context: object)`: Sets input attributes
 - `showRequired()`: Shows/hides required indicator
 - `value(context: object)`: Gets/sets input value
-  - `context.value` (string): New value
+    - `context.value` (string): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates input structure
 - `insertIcon()`: Adds icons to input
 - `installClearInput()`: Creates clear button
@@ -693,28 +746,30 @@
 - `validate(ev: Event)`: Performs validation
 - `configure(customProps: object)`: Sets up initial configuration
 
-
-
 ## Listbox
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `displayKey` (string): Default "displayName". Data item display field
 - `data` (array): Listbox items data
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_listboxContainerTag` (HTMLElement): Listbox container element
 - `m_listboxData` (array): Stored listbox data
 
 ### Public Methods
+
 - `addToList(data: array)`: Adds items to listbox
 - `destroy()`: Removes listbox
 - `replaceList(data: array)`: Replaces all items
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates listbox structure
 - `installItems(data: array)`: Creates listbox items
 - `processItem(itemData: object)`: Creates individual item
@@ -722,11 +777,10 @@
 - `clearData()`: Removes all items
 - `configure(customProps: object)`: Sets up initial configuration
 
-
-
 ## MapBox
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `marker` (object): Default {color: "orange"}. Marker configuration
@@ -734,30 +788,33 @@
 - `zoom` (number): Default 16. Initial zoom level
 - `accessToken` (string): Mapbox access token
 - `controls` (object): Map controls configuration
-  - `fullscreen` (object): Fullscreen control config
-  - `navigation` (object): Navigation control config
-  - `search` (object): Search control config
+    - `fullscreen` (object): Fullscreen control config
+    - `navigation` (object): Navigation control config
+    - `search` (object): Search control config
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_containerTag` (HTMLElement): Map container element
 - `m_map` (mapboxgl.Map): Mapbox map instance
 - `m_markers` (array): Stored map markers
 
 ### Public Methods
+
 - `addPoints(points: array)`: Adds markers to map
 - `fitBounds(props: object)`: Fits map to bounds
-  - `props.southwestern` (array): Southwest coordinates
-  - `props.northeastern` (array): Northeast coordinates
-  - `props.config` (object): Bounds options
+    - `props.southwestern` (array): Southwest coordinates
+    - `props.northeastern` (array): Northeast coordinates
+    - `props.config` (object): Bounds options
 - `getMarker(coords: object)`: Returns marker by coordinates
-  - `coords.lng` (number): Longitude
-  - `coords.lat` (number): Latitude
+    - `coords.lng` (number): Longitude
+    - `coords.lat` (number): Latitude
 - `getMarkers()`: Returns all markers
 - `jumpTo(lng: number, lat: number)`: Centers map on coordinates
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates map structure
 - `getUserLocation()`: Gets user's location
 - `renderMap()`: Creates Mapbox map
@@ -766,11 +823,10 @@
 - `checkMapboxLibraries()`: Validates required libraries
 - `configure(customProps: object)`: Sets up initial configuration
 
-
-
 ## Percentage
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `value` (number): Default 0. Initial value
@@ -778,22 +834,25 @@
 - `max` (number): Default 1. Maximum value
 - `decimals` (number): Default 0. Decimal places
 - `ranges` (array): Value ranges configuration
-  - Default ranges: 0-0.5 (low), 0.5-1 (high)
+    - Default ranges: 0-0.5 (low), 0.5-1 (high)
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_percentageBarTag` (HTMLElement): Progress bar element
 - `m_percentageTextTag` (HTMLElement): Percentage text element
 - `m_value` (number): Current value
 
 ### Public Methods
+
 - `destroy()`: Removes percentage bar
 - `getParentTag()`: Returns parent element
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets value
-  - `context.value` (number): New value
+    - `context.value` (number): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates percentage bar structure
 - `setValue(value: number)`: Updates value
 - `setText()`: Updates percentage text
@@ -805,6 +864,7 @@
 ## Radio
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `enable` (boolean): Default true. Controls enabled state
@@ -814,6 +874,7 @@
 - `name` (string): Input name attribute
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_labelTag` (HTMLElement): Label container element
 - `m_inputTag` (HTMLElement): Input element
@@ -822,19 +883,21 @@
 - `m_checked` (boolean): Current checked state
 
 ### Public Methods
+
 - `destroy()`: Removes radio
 - `enable(context: object)`: Sets enabled state
-  - `context.enable` (boolean): New enabled state
+    - `context.enable` (boolean): New enabled state
 - `getId()`: Returns radio ID
 - `getParentTag()`: Returns parent element
 - `select(context: object)`: Gets/sets checked state
-  - `context.value` (boolean): New checked state
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.value` (boolean): New checked state
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets input value
-  - `context.value` (string): New value
+    - `context.value` (string): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates radio structure
 - `handleClick(ev: Event)`: Processes click events
 - `checkInput(value: boolean, notTrigger: boolean)`: Updates checked state
@@ -844,6 +907,7 @@
 ## RadioGroup
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `name` (string): Default random string. Input name for all radios
@@ -851,21 +915,24 @@
 - `radio` (object): Default configuration for all radios
 
 ### Private Properties
+
 - `m_radioList` (array): Stored radio components
 - `m_parentTag` (HTMLElement): Parent element reference
 
 ### Public Methods
+
 - `clear()`: Unchecks all radios
 - `destroy()`: Removes radio group
 - `getParentTag()`: Returns parent element
 - `getTag(context: object)`: Returns radio by ID
-  - `context.id` (string): Radio ID
+    - `context.id` (string): Radio ID
 - `select(context: object)`: Gets/sets checked states
-  - `context.id` (string|array): Radio ID(s) to check
-  - `context.notTrigger` (boolean): If true, only updates visual state
+    - `context.id` (string|array): Radio ID(s) to check
+    - `context.notTrigger` (boolean): If true, only updates visual state
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates radio group structure
 - `processRadio(radio: object, index: number)`: Creates individual radios
 - `handleGroupClick(context: object)`: Processes group click events
@@ -878,6 +945,7 @@
 ## Rating
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `value` (number): Default 0. Initial rating value
@@ -885,6 +953,7 @@
 - `enable` (boolean): Default true. Controls enabled state
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_ratingEmptyTag` (HTMLElement): Empty stars container
 - `m_ratingSelectedTag` (HTMLElement): Selected stars container
@@ -893,14 +962,16 @@
 - `m_enable` (boolean): Current enabled state
 
 ### Public Methods
+
 - `destroy()`: Removes rating
 - `enable(enable: boolean)`: Sets enabled state
 - `getParentTag()`: Returns parent element
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets rating value
-  - `context.value` (number): New value
+    - `context.value` (number): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates rating structure
 - `installLayers()`: Creates rating layers
 - `installStars()`: Creates star elements
@@ -916,16 +987,18 @@
 ## Search
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `firedIn` (number): Default 1. Minimum characters before triggering search
 - `input` (object): Input configuration
-  - `tags.input.prop.placeholder` (string): Default "Search". Input placeholder
+    - `tags.input.prop.placeholder` (string): Default "Search". Input placeholder
 - `suggest` (object): Suggestion listbox configuration
 - `button` (object): Search button configuration
 - `dropdown` (object): Dropdown configuration
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_inputContainer` (HTMLElement): Input container element
 - `m_input` (Input): Input component instance
@@ -936,11 +1009,13 @@
 - `m_value` (string): Current search value
 
 ### Public Methods
+
 - `destroy()`: Removes search component
 - `setup(props: object)`: Initializes with configuration
 - `suggest(data: array)`: Updates suggestion list
 
 ### Private Functions
+
 - `setupDOM()`: Creates search structure
 - `setupInput()`: Creates input component
 - `setupButton()`: Creates search button
@@ -951,10 +1026,11 @@
 ## TimePicker
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `combobox` (object): Combobox configuration
-  - `filter` (boolean): Default false. Enable filtering
+    - `filter` (boolean): Default false. Enable filtering
 - `value` (string): Default "". Initial time value
 - `interval` (number): Default 30. Minutes between time options
 - `format` (string): Default "h:mm A". Time format
@@ -962,17 +1038,20 @@
 - `max` (Date): Default today. Maximum time
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_comboBox` (Combobox): Combobox component instance
 - `m_value` (Date|null): Current selected time
 
 ### Public Methods
+
 - `destroy()`: Removes time picker
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets time value
-  - `context.value` (string): New time value
+    - `context.value` (string): New time value
 
 ### Private Functions
+
 - `setupDOM()`: Creates time picker structure
 - `setValue(value: string)`: Updates selected time
 - `configure(customProps: object)`: Sets up initial configuration
@@ -980,6 +1059,7 @@
 ## TreeView
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `data` (array): Default []. Tree data items
@@ -989,16 +1069,19 @@
 - `itemIdAttrName` (string): Default "data-tree-view-item-id". Item ID attribute
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_dataMapById` (object): Data items mapped by ID
 
 ### Public Methods
+
 - `destroy()`: Removes tree view
 - `getItemData(tag: HTMLElement)`: Returns item data by element
 - `getParentTag()`: Returns parent element
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates tree view structure
 - `processTreeData(groupData: array, parentTag: HTMLElement)`: Processes tree data
 - `processItem(itemData: object, parentTag: HTMLElement)`: Creates tree item
@@ -1012,28 +1095,33 @@
 ## VideoPlayer
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `player` (object): Player configuration
-  - `attr` (object): Player attributes
-    - `controls` (boolean): Default true. Show player controls
+    - `attr` (object): Player attributes
+        - `controls` (boolean): Default true. Show player controls
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_player` (Player): Player component instance
 
 ### Public Methods
+
 - `getPlayer()`: Returns player component
 - `getPlayerTag()`: Returns player element
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates video player structure
 - `configure(customProps: object)`: Sets up initial configuration
 
 ## Slideout
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `title` (string): Slideout header title
@@ -1042,12 +1130,14 @@
 - `overlay` (boolean): Default true. Show overlay background
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_slideoutHeaderTag` (HTMLElement): Header container
 - `m_slideoutBodyTag` (HTMLElement): Body container
 - `m_slideoutOverlayTag` (HTMLElement): Overlay element
 
 ### Public Methods
+
 - `close()`: Closes slideout
 - `getBodyTag()`: Returns body container
 - `getHeaderTag()`: Returns header container
@@ -1056,6 +1146,7 @@
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates slideout structure
 - `setupEventHandler()`: Sets up event handlers
 - `openAnimation()`: Handles opening animation
@@ -1065,6 +1156,7 @@
 ## Slider
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `orientation` (string): Default "horizontal". Slider orientation ("horizontal"|"vertical")
@@ -1077,6 +1169,7 @@
 - `showButtons` (boolean): Default true. Show increment/decrement buttons
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_wrapperTag` (HTMLElement): Slider wrapper element
 - `m_trackTag` (HTMLElement): Track element
@@ -1089,14 +1182,16 @@
 - `m_stepLength` (number): Pixel length per step
 
 ### Public Methods
+
 - `destroy()`: Removes slider
 - `enable(enable: boolean)`: Sets enabled state
 - `getParentTag()`: Returns slider element
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets value
-  - `context.value` (number): New value
+    - `context.value` (number): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates slider structure
 - `installTrack()`: Creates track element
 - `installSteps()`: Creates step markers
@@ -1110,14 +1205,16 @@
 ## Switch
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `enable` (boolean): Default true. Enable switch
 - `messages` (object): Switch state labels
-  - `checked` (string): Default "ON". Checked state text
-  - `unchecked` (string): Default "OFF". Unchecked state text
+    - `checked` (string): Default "ON". Checked state text
+    - `unchecked` (string): Default "OFF". Unchecked state text
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_inputTag` (HTMLElement): Input element
 - `m_containerTag` (HTMLElement): Switch container
@@ -1125,6 +1222,7 @@
 - `m_checked` (boolean): Current checked state
 
 ### Public Methods
+
 - `check(checked: boolean)`: Sets checked state
 - `checked()`: Returns checked state
 - `destroy()`: Removes switch
@@ -1134,6 +1232,7 @@
 - `toggle()`: Toggles checked state
 
 ### Private Functions
+
 - `setupDOM()`: Creates switch structure
 - `handleClick()`: Handles click events
 - `setEnable()`: Updates enabled visual state
@@ -1142,13 +1241,15 @@
 ## Tab
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `contents` (array): Default []. Tab content configurations
 - `tabs` (object): Tab button configurations
-  - `fnClick` (function): Tab click handler
+    - `fnClick` (function): Tab click handler
 
 ### Private Properties
+
 - `m_parentTag` (HTMLElement): Parent element reference
 - `m_tabsTag` (HTMLElement): Tabs container
 - `m_tabsGroup` (ButtonGroup): Tab buttons component
@@ -1157,9 +1258,11 @@
 - `m_selectedId` (string): Currently selected tab ID
 
 ### Public Methods
+
 - `setup(props: object)`: Initializes with configuration
 
 ### Private Functions
+
 - `setupDOM()`: Creates tab structure
 - `installTabs()`: Creates tab buttons
 - `installContent(content: object)`: Creates tab content
@@ -1169,6 +1272,7 @@
 ## Textarea
 
 ### Public Properties (m_props)
+
 - `tag` (string): Default "default". Tag template name
 - `theme` (string): Default "default". Theme name
 - `name` (string): Default random string. Textarea name
@@ -1183,6 +1287,7 @@
 - `icon` (array): Icon configurations
 
 ### Private Properties
+
 - `m_iconList` (array): Icon elements
 - `m_buttonsContainerTag` (HTMLElement): Buttons container
 - `m_cancelButton` (Button): Cancel button component
@@ -1201,6 +1306,7 @@
 - `m_required` (boolean): Current required state
 
 ### Public Methods
+
 - `commitDataChange()`: Commits data changes
 - `dataChanged()`: Returns data changed state
 - `editable()`: Returns editable state
@@ -1209,9 +1315,10 @@
 - `showRequired()`: Shows/hides required indicator
 - `setup(props: object)`: Initializes with configuration
 - `value(context: object)`: Gets/sets value
-  - `context.value` (string): New value
+    - `context.value` (string): New value
 
 ### Private Functions
+
 - `setupDOM()`: Creates textarea structure
 - `installButtons()`: Creates control buttons
 - `installIcons()`: Creates icons

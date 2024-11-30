@@ -164,7 +164,7 @@ function storyButton(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
 				position: "left",
@@ -186,10 +186,10 @@ function storyButton(selectedStory) {
 			text: "Hover Button",
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
-				hover: "src/img/storyboard/star.png",
+				hover: "img/storyboard/star.png",
 			},
 			fnClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
