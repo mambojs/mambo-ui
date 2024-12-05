@@ -4,15 +4,15 @@ const version = require("../package.json").version;
 
 const documentationDir = path.join(__dirname, "../documentation");
 const archivedDir = path.join(documentationDir, "archived");
-const distDir = path.join(__dirname, "../dist");
 const buildDir = path.join(__dirname, `../build/${version}`);
 const currentFileName = path.join(documentationDir, "documentation.md");
 const archivedFileName = path.join(archivedDir, `documentation-${version}.md`);
 const buildFileName = path.join(buildDir, "documentation.md");
+const currentYear = new Date().getFullYear();
 
 const COPYRIGHT_AND_TITLE = `<!--
 ******************************************
-*  Copyright 2024 Alejandro Sebastian Scotti, Scotti Corp.
+*  Copyright ${currentYear} Alejandro Sebastian Scotti, Scotti Corp.
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
@@ -55,7 +55,6 @@ if (fs.existsSync(currentFileName)) {
 	}
 
 	fs.writeFileSync(buildFileName, documentationWithHeaderAndTitle);
-
 } else {
 	process.exit(1);
 }

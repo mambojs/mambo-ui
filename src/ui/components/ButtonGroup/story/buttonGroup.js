@@ -87,6 +87,7 @@ function storyButtonGroup(selectedStory) {
 
 		ui.buttonGroup(btnGroupProps);
 	}
+
 	function demoPrimaryButtonGroup() {
 		let btnGroupProps = {
 			parentTag: selectedStory.parentTag,
