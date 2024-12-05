@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
 });
 
 // Serves resources from public folder
-config.PUBLIC_DIRS.forEach((dir) => {
+config.PUBLIC_DIRS_PROD.forEach((dir) => {
 	app.use(express.static(path.join(__dirname, `${dir}`)));
 });
 
@@ -51,7 +51,7 @@ app.get("/getFile", (req, res) => {
 
 // Return Index.html
 app.get("*", (req, res) => {
-	res.sendFile(path.resolve(__dirname, config.OUTPUT_HTML));
+	res.sendFile(path.resolve(__dirname, config.OUTPUT_HTML_PROD));
 });
 
 // Start up Application

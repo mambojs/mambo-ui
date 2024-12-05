@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/storyboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/storyboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/storyboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/storyboard.js" afterDir="false" />
-    </list>
+    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,35 +31,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;diego/change-toaster&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\stylelint&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\prettier&quot;,
-    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.JavaScript&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "JavaScript Debug.Frontend Debugger.executor": "Debug",
+    "Node.js.Input.js.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "diego/refactor-src",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/diego/Desktop/Mambo/mambo-ui/dist/0.0.2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.stylelint": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\stylelint",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.build.executor": "Run",
+    "npm.dev.executor": "Run",
+    "npm.start.executor": "Run",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\diego\\Desktop\\Mambo\\mambo-ui\\node_modules\\prettier",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "preferences.sourceCode.JavaScript",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.2" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public\js" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\setup" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public" />
@@ -79,6 +80,16 @@
     <configuration name="Input.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/ui/components/Input/Input.js" working-dir="$PROJECT_DIR$/src/ui/components/Input">
       <method v="2" />
     </configuration>
+    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -87,12 +98,23 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
-      <method v="2" />
+      <method v="2">
+        <option name="NpmBeforeRunTask" enabled="true">
+          <package-json value="$PROJECT_DIR$/package.json" />
+          <command value="run" />
+          <scripts>
+            <script value="build" />
+          </scripts>
+          <node-interpreter value="project" />
+          <envs />
+        </option>
+      </method>
     </configuration>
     <list>
       <item itemvalue="JavaScript Debug.Frontend Debugger" />
       <item itemvalue="Node.js.Input.js" />
       <item itemvalue="npm.start" />
+      <item itemvalue="npm.dev" />
     </list>
     <recent_temporary>
       <list>
@@ -148,6 +170,9 @@
       <workItem from="1732794332463" duration="3324000" />
       <workItem from="1733264284406" duration="4166000" />
       <workItem from="1733280251736" duration="389000" />
+      <workItem from="1733332273959" duration="5521000" />
+      <workItem from="1733415737825" duration="4987000" />
+      <workItem from="1733440624914" duration="11622000" />
     </task>
     <servers />
   </component>

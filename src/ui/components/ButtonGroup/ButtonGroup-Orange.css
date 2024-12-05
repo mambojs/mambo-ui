@@ -73,10 +73,10 @@
 .m-button-group-button.secondary {
   background: var(--m-accent-secondary-color);
   color: var(--m-accent-color);
-  border: 1.4px solid var(--m-gray-200);
+  border: 1px solid var(--m-gray-200);
   box-shadow: var(--m-box-shadow-secondary);
   border-radius: var(--m-border-radius-secondary);
-  gap: 0.625rem;
+  gap: 0.5rem;
 }
 
 .m-button-group-button.secondary.m-hover {
