@@ -26,9 +26,11 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -84,6 +86,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		function selectBtn(context = {}) {
 			let buttonTag = getTag(context.id);
+
 			if (buttonTag) {
 				buttonTag.select(context);
 				m_selectedButtonTag = buttonTag;

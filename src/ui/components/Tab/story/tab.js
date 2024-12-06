@@ -8,14 +8,32 @@ function storyTab(selectedStory) {
 			tabs: {
 				buttons: [
 					{
-						text: "Tab 1",
+						text: "Mail",
+						size: "small",
+						icon: {
+							attr: {
+								class: "fa-solid fa-envelope",
+							},
+						},
 						fnClick: (context) => {},
 					},
 					{
-						text: "Tab 2",
+						text: "Star",
+						size: "small",
+						icon: {
+							attr: {
+								class: "fa-solid fa-star",
+							},
+						},
 					},
 					{
-						text: "Tab 3",
+						text: "Compass",
+						size: "small",
+						icon: {
+							attr: {
+								class: "fa-solid fa-compass",
+							},
+						},
 					},
 				],
 				fnClick: (context) => {},

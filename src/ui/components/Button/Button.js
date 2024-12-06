@@ -29,9 +29,11 @@ ui.class.Button = class Button extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -40,16 +42,10 @@ ui.class.Button = class Button extends HTMLElement {
 			return new Promise((resolve) => {
 				const tagConfig = { ...m_props.tags.button };
 				let buttonClasses = [m_props.css.button];
+				if (m_props.size) buttonClasses.push(m_props.size);
+				if (!m_props.text) buttonClasses.push("no-text");
+				if (m_props.type) buttonClasses.push(m_props.type);
 
-				if (m_props.size) {
-					buttonClasses.push(m_props.size);
-				}
-				if (!m_props.text) {
-					buttonClasses.push("notext");
-				}
-				if (m_props.type) {
-					buttonClasses.push(m_props.type);
-				}
 				tagConfig.class = buttonClasses.join(" ");
 				tagConfig.text = m_props.text;
 				tagConfig.event = {
@@ -102,6 +98,7 @@ ui.class.Button = class Button extends HTMLElement {
 				};
 				let imgTag = ui.d.createTag("img", tagConfig);
 				m_imageList.push(imgTag);
+
 				if (img.position === "left") {
 					m_buttonTag.insertBefore(imgTag, m_buttonTag.firstChild);
 				} else {
@@ -129,6 +126,7 @@ ui.class.Button = class Button extends HTMLElement {
 				};
 				let iconTag = ui.d.createTag("i", tagConfig);
 				m_iconList.push(iconTag);
+
 				if (icon.position === "left") {
 					m_buttonTag.insertBefore(iconTag, m_buttonTag.firstChild);
 				} else {
@@ -140,6 +138,7 @@ ui.class.Button = class Button extends HTMLElement {
 		function getImageTagById(id) {
 			return m_imageList.find((img) => img.id === id);
 		}
+
 		function getIconTagById(id) {
 			return m_iconList.find((icon) => icon.id === id);
 		}

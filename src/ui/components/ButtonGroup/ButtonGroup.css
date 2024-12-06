@@ -12,7 +12,6 @@
   color: var(--m-text-color);
   font-size: var(--m-font-size-m);
   padding: var(--m-padding-s);
-  margin: 0 var(--m-margin-s);
   background: var(--m-background-color);
   cursor: pointer;
   text-decoration: none;

@@ -44,7 +44,7 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 						},
 					],
@@ -55,13 +55,9 @@ function storyButtonGroup(selectedStory) {
 					icon: [
 						{
 							attr: {
-								class: "fa-solid fa-star",
+								class: "fa-solid fa-compass",
 							},
-						},
-						{
-							attr: {
-								"data-feather": "star",
-							},
+							size: "medium",
 						},
 					],
 				},
@@ -76,7 +72,7 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 						},
 					],
@@ -97,19 +93,19 @@ function storyButtonGroup(selectedStory) {
 					text: "Button One",
 					fnClick: (context) => {},
 					type: "primary",
-					size: "large",
+					size: "small",
 				},
 				{
 					id: 2,
 					text: "Button Two",
 					type: "primary",
-					size: "large",
+					size: "medium",
 				},
 				{
 					id: 3,
 					text: "Button Three",
 					type: "primary",
-					size: "large",
+					size: "small",
 				},
 			],
 			fnClick: (context) => {},
@@ -138,7 +134,7 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 							position: "left",
 							size: "small",
@@ -180,7 +176,7 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 						},
 					],
