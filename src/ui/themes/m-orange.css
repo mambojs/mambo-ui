@@ -99,6 +99,9 @@
   --m-black-color: #000;
   --m-black-color-50: rgba(0 0 0 / 50%);
   --m-white-color: #FFF;
+  --m-white-color-50: rgba(255 255 255 / 50%);
+  --m-white-color-70: rgba(255 255 255 / 70%);
+  --m-white-color-90: rgba(255 255 255 / 90%);
   --m-gray-100: #F3F4F5;
   --m-gray-200: #D0D4D9;
   --m-gray-300: #AEB3BC;

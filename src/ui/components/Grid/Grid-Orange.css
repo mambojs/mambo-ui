@@ -139,7 +139,7 @@
   line-height: var(--m-line-height-s);
 }
 
-.m-grid-button.small.notext {
+.m-grid-button.small.no-text {
   padding: var(--m-padding-m) var(--m-padding-m);
   font-size: var(--m-font-size-s);
   line-height: var(--m-line-height-s);
@@ -151,7 +151,7 @@
   line-height: var(--m-line-height-m);
 }
 
-.m-grid-button.medium.notext {
+.m-grid-button.medium.no-text {
   padding: var(--m-padding-m) var(--m-padding-m);
   font-size: var(--m-font-size-m);
   line-height: var(--m-line-height-m);
@@ -163,7 +163,7 @@
   line-height: var(--m-line-height-lg);
 }
 
-.m-grid-button.large.notext {
+.m-grid-button.large.no-text {
   padding: var(--m-padding-xxl) var(--m-padding-xxl);
   font-size: var(--m-font-size-lg);
   line-height: var(--m-line-height-lg);

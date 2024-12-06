@@ -1,7 +1,7 @@
 function storyInput(selectedStory) {
 	inputWithClearButton();
-	inputWithLeftButton();
 	inputWithIcon();
+	inputWithLeftButton();
 
 	function inputWithClearButton() {
 		const config = {
@@ -11,7 +11,7 @@ function storyInput(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"class": "fa-regular fa-envelope",
+						class: "fa-regular fa-envelope",
 					},
 					size: "small",
 					position: "left",
@@ -58,6 +58,13 @@ function storyInput(selectedStory) {
 					position: "left",
 				},
 			],
+			tags: {
+				input: {
+					prop: {
+						placeholder: "Ingresa tu email",
+					},
+				},
+			},
 			required: true,
 			fnBlur: ({ Input }) => {
 				Input.showRequired();

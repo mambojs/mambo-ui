@@ -21,14 +21,14 @@
 }
 
 .m-button-img {
-  height: 1.25em;
+  height: 1.25rem;
   margin: 0 var(--m-margin-m);
 }
 
 .m-button-icon {
-  height: 1.25em;
   margin: 0 var(--m-margin-m);
   align-content: center;
+  line-height: var(--m-line-height);
 }
 
 .m-button-disabled {
