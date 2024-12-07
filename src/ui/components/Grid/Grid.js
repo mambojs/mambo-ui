@@ -17,7 +17,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		let m_tileParentTags = [];
 
 		let m_props;
-		let m_gridData = props.data;
+		let m_gridData;
 		let m_gridDataChanged;
 		let m_colStylesId;
 		let m_tileIndexAttrName;
@@ -36,6 +36,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		this.setup = setup;
 
 		if (props) {
+			if (props.data) m_gridData = props.data;
 			setup(props);
 		}
 
