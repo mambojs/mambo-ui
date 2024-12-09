@@ -154,16 +154,16 @@ ui.class.Button = class Button extends HTMLElement {
 				}
 
 				// Invoke callback for each button
-				if (m_props.fnClick) {
-					m_props.fnClick({
+				if (m_props.onClick) {
+					m_props.onClick({
 						Button: self,
 						ev: ev,
 					});
 				}
 
 				// Invoke callback for group
-				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({
+				if (m_props.onGroupClick) {
+					m_props.onGroupClick({
 						Button: self,
 						ev: ev,
 					});
@@ -176,8 +176,8 @@ ui.class.Button = class Button extends HTMLElement {
 				m_buttonTag.classList.add(m_props.css.pressed);
 
 				// Invoke callback for each button
-				if (m_props.fnMouseDown) {
-					m_props.fnMouseDown({
+				if (m_props.onMouseDown) {
+					m_props.onMouseDown({
 						Button: self,
 						ev: ev,
 					});
@@ -190,8 +190,8 @@ ui.class.Button = class Button extends HTMLElement {
 				m_buttonTag.classList.remove(m_props.css.pressed);
 
 				// Invoke callback for each button
-				if (m_props.fnMouseUp) {
-					m_props.fnMouseUp({
+				if (m_props.onMouseUp) {
+					m_props.onMouseUp({
 						Button: self,
 						ev: ev,
 					});
@@ -274,8 +274,8 @@ ui.class.Button = class Button extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Button: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Button: self });
 			}
 		}
 

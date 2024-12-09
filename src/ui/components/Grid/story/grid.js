@@ -36,7 +36,7 @@ function storyGrid(selectedStory) {
 					size: "large",
 				},
 			],
-			fnClick: handleButtonClick,
+			onClick: handleButtonClick,
 		},
 		{
 			id: "",
@@ -62,7 +62,7 @@ function storyGrid(selectedStory) {
 					size: "large",
 				},
 			],
-			fnClick: handleButtonClick,
+			onClick: handleButtonClick,
 		},
 		{
 			id: "input",
@@ -72,17 +72,17 @@ function storyGrid(selectedStory) {
 			enableClear: true,
 			attr: {},
 			enableLeftButton: true,
-			fnMouseDown: (context) => {
+			onMouseDown: (context) => {
 				context.Input.setAttr({ type: "text" });
 				context.Button.getTag().classList.toggle("fa-eye", true);
 				context.Button.getTag().classList.toggle("fa-eye-slash", false);
 			},
-			fnMouseUp: (context) => {
+			onMouseUp: (context) => {
 				context.Input.setAttr({ type: "password" });
 				context.Button.getTag().classList.toggle("fa-eye-slash", true);
 				context.Button.getTag().classList.toggle("fa-eye", false);
 			},
-			fnComplete: (context) => {
+			onComplete: (context) => {
 				context.Input.setAttr({ type: "password" });
 			},
 		},
@@ -103,7 +103,7 @@ function storyGrid(selectedStory) {
 			id: "fileChooser",
 			name: "File Chooser",
 			tagType: "file-chooser",
-			fnUpload: (context) => {},
+			onUpload: (context) => {},
 		},
 		{
 			id: "dialog",
@@ -119,11 +119,11 @@ function storyGrid(selectedStory) {
 					size: "large",
 				},
 			],
-			fnOpen: (context) => {
+			onOpen: (context) => {
 				context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
 				context.Dialog.getFooterTag().innerHTML = "Thank you for your attention";
 			},
-			fnClose: (context) => {},
+			onClose: (context) => {},
 		},
 		{
 			id: "slideout",
@@ -139,7 +139,7 @@ function storyGrid(selectedStory) {
 					size: "large",
 				},
 			],
-			fnInstallContent: (context) => {
+			onInstallContent: (context) => {
 				// Get the slideout content, header and body tags
 				// Insert your own HTML content
 				// You can replace the entire contents of the slideout area
@@ -159,7 +159,7 @@ function storyGrid(selectedStory) {
 			tagType: "drag-drop",
 			name: "Drag & Drop",
 			dropText: "Drop Files",
-			fnDrop: (context) => {},
+			onDrop: (context) => {},
 		},
 	];
 
@@ -168,8 +168,8 @@ function storyGrid(selectedStory) {
 		data: data,
 		columns: columnsConfig,
 		maxColWidth: true,
-		fnPostRow: handleGridPostRow,
-		fnComplete: (context) => {},
+		onPostRow: handleGridPostRow,
+		onComplete: (context) => {},
 	};
 
 	ui.grid(config);
@@ -231,7 +231,7 @@ function storyGrid(selectedStory) {
 					],
 				},
 			],
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		},
 		{
 			id: "dropdown",
@@ -242,7 +242,7 @@ function storyGrid(selectedStory) {
 				width: "160px",
 				"max-width": "160px",
 			},
-			fnComplete: (context) => {
+			onComplete: (context) => {
 				const contentTag = context.Dropdown.getContentTag();
 				dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
 			},
@@ -273,7 +273,7 @@ function storyGrid(selectedStory) {
 					id: "4",
 				},
 			],
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		},
 		{
 			id: "timePicker",
@@ -284,7 +284,7 @@ function storyGrid(selectedStory) {
 				width: "160px",
 				"max-width": "160px",
 			},
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		},
 		{
 			id: "datePicker",
@@ -295,7 +295,7 @@ function storyGrid(selectedStory) {
 				width: "160px",
 				"max-width": "160px",
 			},
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		},
 	];
 
@@ -304,7 +304,7 @@ function storyGrid(selectedStory) {
 		data: data2,
 		columns: columnsConfig2,
 		maxColWidth: true,
-		fnComplete: (context) => {},
+		onComplete: (context) => {},
 	};
 
 	ui.grid(config2);

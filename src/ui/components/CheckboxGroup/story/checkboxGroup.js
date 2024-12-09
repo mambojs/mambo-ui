@@ -9,7 +9,7 @@ function storyCheckboxGroup(selectedStory) {
 			{
 				text: "",
 				checked: true,
-				fnClick: (context) => {},
+				onClick: (context) => {},
 				position: "right",
 			},
 			{
@@ -22,8 +22,8 @@ function storyCheckboxGroup(selectedStory) {
 				position: "right",
 			},
 		],
-		fnClick: (context) => {},
-		fnGroupClick: (context) => {},
+		onClick: (context) => {},
+		onGroupClick: (context) => {},
 	};
 
 	ui.checkboxGroup(config);

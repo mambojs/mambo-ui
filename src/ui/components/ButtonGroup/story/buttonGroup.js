@@ -11,7 +11,7 @@ function storyButtonGroup(selectedStory) {
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 				},
 				{
 					id: 2,
@@ -22,7 +22,7 @@ function storyButtonGroup(selectedStory) {
 					text: "Button Three",
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);
@@ -35,7 +35,7 @@ function storyButtonGroup(selectedStory) {
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 					icon: [
 						{
 							attr: {
@@ -78,7 +78,7 @@ function storyButtonGroup(selectedStory) {
 					],
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);
@@ -91,7 +91,7 @@ function storyButtonGroup(selectedStory) {
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 					type: "primary",
 					size: "small",
 				},
@@ -108,7 +108,7 @@ function storyButtonGroup(selectedStory) {
 					size: "small",
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);
@@ -123,7 +123,7 @@ function storyButtonGroup(selectedStory) {
 					text: "Button One",
 					type: "secondary",
 					size: "small",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 					icon: [
 						{
 							attr: {
@@ -182,7 +182,7 @@ function storyButtonGroup(selectedStory) {
 					],
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);

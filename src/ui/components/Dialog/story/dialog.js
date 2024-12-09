@@ -5,14 +5,13 @@ function storyDialog(selectedStory) {
 		header: "Dialog Title",
 		body: "<p style='padding:3em;'>Your Dialog content will go here</p>",
 		footer: "<mambo-button></mambo-button>",
-		fnClick: () => {
+		onClick: () => {
 			let dialogConfig = {
 				title: "Dialog Title",
 				closeButton: false,
-				fnComplete: (context) => {
+				onComplete: (context) => {
 					context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em;'>Your Dialog content will go here</p>";
-					context.Dialog.getFooterTag().innerHTML =
-						`<div style='display:flex;gap:1em;'>
+					context.Dialog.getFooterTag().innerHTML = `<div style='display:flex;gap:1em;'>
 							<mambo-button id='btnCancel'></mambo-button>
 							<mambo-button id='btnConfirm'></mambo-button>
 						 </div>`;
@@ -29,7 +28,7 @@ function storyDialog(selectedStory) {
 								},
 							},
 						],
-						fnClick: () => {
+						onClick: () => {
 							context.Dialog.close();
 						},
 					});
@@ -44,7 +43,7 @@ function storyDialog(selectedStory) {
 								},
 							},
 						],
-						fnClick: () => {
+						onClick: () => {
 							context.Dialog.close();
 						},
 					});
@@ -63,11 +62,12 @@ function storyDialog(selectedStory) {
 		header: "Dialog Title",
 		body: "<p style='padding:3em;'>Your Dialog content will go here</p>",
 		footer: "<mambo-button></mambo-button>",
-		fnClick: () => {
+		onClick: () => {
 			let dialogConfig = {
 				title: "Dialog Title",
-				fnComplete: (context) => {
-					context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
+				onComplete: (context) => {
+					context.Dialog.getBodyTag().innerHTML =
+						"<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
 					context.Dialog.getFooterTag().innerHTML = "Thank you for your attention";
 				},
 			};

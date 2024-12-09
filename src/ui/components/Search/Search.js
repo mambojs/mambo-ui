@@ -26,9 +26,11 @@ ui.class.Search = class Search extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			await setupInput();
 			await setupButton();
@@ -51,19 +53,20 @@ ui.class.Search = class Search extends HTMLElement {
 				input.css = ui.utils.extend(true, m_props.css.input, input.css);
 				input.parentTag = m_inputContainer;
 
-				input.fnClear = (context) => {
+				input.onClear = (context) => {
 					m_value = "";
+
 					if (m_dropdown) {
 						m_dropdown.close();
 					}
 				};
 
-				input.fnKeyup = (context) => {
-					if (m_props.input?.fnKeyup) {
+				input.onKeyup = (context) => {
+					if (m_props.input?.onKeyup) {
 						m_value = context.value;
 
 						if (m_value.length >= m_props.firedIn) {
-							m_props.input.fnKeyup(m_value);
+							m_props.input.onKeyup(m_value);
 						} else {
 							if (m_dropdown) {
 								m_dropdown.close();
@@ -72,7 +75,7 @@ ui.class.Search = class Search extends HTMLElement {
 					}
 				};
 
-				input.fnComplete = resolve;
+				input.onComplete = resolve;
 				m_input = ui.input(input);
 			});
 		}
@@ -82,11 +85,11 @@ ui.class.Search = class Search extends HTMLElement {
 				let button = ui.utils.extend(true, {}, m_props.button);
 				button.css = ui.utils.extend(true, m_props.css.searchButton, button.css);
 				button.parentTag = self;
-				button.fnComplete = resolve();
+				button.onComplete = resolve();
 
-				button.fnClick = (context) => {
-					if (m_props.button?.fnClick && m_value?.length >= m_props.firedIn) {
-						m_props.button.fnClick(m_value);
+				button.onClick = (context) => {
+					if (m_props.button?.onClick && m_value?.length >= m_props.firedIn) {
+						m_props.button.onClick(m_value);
 					}
 				};
 
@@ -102,7 +105,7 @@ ui.class.Search = class Search extends HTMLElement {
 					let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
 					dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
 
-					dropdown.fnComplete = (context) => {
+					dropdown.onComplete = (context) => {
 						installListbox(context.Dropdown);
 						resolve();
 					};
@@ -112,6 +115,7 @@ ui.class.Search = class Search extends HTMLElement {
 					dropdown.parentTag = m_dropdownWrapperTag;
 					m_dropdown = ui.dropdown(dropdown);
 				}
+
 				resolve();
 			});
 		}
@@ -123,7 +127,7 @@ ui.class.Search = class Search extends HTMLElement {
 				let contentTag = dropdown.getContentTag();
 				listbox.parentTag = contentTag;
 				listbox.data = [];
-				listbox.fnComplete = resolve();
+				listbox.onComplete = resolve();
 				m_listbox = ui.listbox(listbox);
 			});
 		}
@@ -140,8 +144,8 @@ ui.class.Search = class Search extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Search: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Search: self });
 			}
 		}
 

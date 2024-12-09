@@ -7,21 +7,21 @@ function storyRadioGroup(selectedStory) {
 			{
 				text: "Radio One",
 				checked: true,
-				fnClick: (context) => {},
+				onClick: (context) => {},
 			},
 			{
 				text: "Radio Two",
 				checked: true,
-				fnClick: (context) => {},
+				onClick: (context) => {},
 			},
 			{
 				text: "Radio Three",
 				checked: false,
-				fnClick: (context) => {},
+				onClick: (context) => {},
 			},
 		],
-		fnClick: (context) => {},
-		fnGroupClick: (context) => {},
+		onClick: (context) => {},
+		onGroupClick: (context) => {},
 	};
 
 	ui.radioGroup(config);

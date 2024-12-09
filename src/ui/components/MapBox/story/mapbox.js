@@ -1,5 +1,4 @@
 function storyMapBox(selectedStory) {
-
 	const token = "pk.eyJ1Ijoic2NvdHRpYWxlamFuZHJvIiwiYSI6ImNsNWJxNGo1YzAxOXUzZHE5b2k1OWxhZ3AifQ.O39Uy9OX7tjnNGJxAnEoiw";
 	// userPositionMark();
 	sendPointsToMap();
@@ -12,9 +11,9 @@ function storyMapBox(selectedStory) {
 				container: {
 					attr: {
 						id: "simplemap",
-					}
-				}
-			}
+					},
+				},
+			},
 		};
 		ui.mapbox(config);
 	}
@@ -33,10 +32,10 @@ function storyMapBox(selectedStory) {
 				container: {
 					attr: {
 						id: "searcheventsmap",
-					}
-				}
+					},
+				},
 			},
-			fnComplete: (component) => addPoints(component)
+			onComplete: (component) => addPoints(component),
 		};
 		ui.mapbox(config);
 
@@ -44,20 +43,20 @@ function storyMapBox(selectedStory) {
 			const pointsArr = [
 				{
 					lng: -58.485783,
-					lat: -34.576503
+					lat: -34.576503,
 				},
 				{
 					lng: -58.493848,
-					lat: -34.602807
+					lat: -34.602807,
 				},
 				{
 					lng: -58.498737,
-					lat: -34.584316
+					lat: -34.584316,
 				},
 				{
 					lng: -58.476967,
-					lat: -34.569271
-				}
+					lat: -34.569271,
+				},
 			];
 			component.Mapbox.addPoints(pointsArr);
 		}

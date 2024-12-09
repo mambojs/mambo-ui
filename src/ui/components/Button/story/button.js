@@ -76,7 +76,7 @@ function storyButton(selectedStory) {
 					position: "left",
 				},
 			],
-			fnClick: (context) => {
+			onClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -171,7 +171,7 @@ function storyButton(selectedStory) {
 			},
 			id: 2,
 			text: "Image Button",
-			fnClick: (context) => {
+			onClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -191,7 +191,7 @@ function storyButton(selectedStory) {
 				},
 				hover: "img/storyboard/star.png",
 			},
-			fnClick: (context) => {
+			onClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -216,10 +216,10 @@ function storyButton(selectedStory) {
 				},
 			],
 
-			fnMouseDown: (context) => {
+			onMouseDown: (context) => {
 				console.log(`${context.Button.text()} Mouse Down.`);
 			},
-			fnMouseUp: (context) => {
+			onMouseUp: (context) => {
 				console.log(`${context.Button.text()} Mouse Up.`);
 			},
 		};

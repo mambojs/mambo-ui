@@ -6,7 +6,7 @@ function storyTextarea(selectedStory) {
 			textarea: { placeholder: "editable@email.com" },
 		},
 		required: true,
-		fnBlur: ({ Textarea }) => {
+		onBlur: ({ Textarea }) => {
 			Textarea.showRequired();
 		},
 	};

@@ -9,7 +9,7 @@ function storySlider(selectedStory) {
 	function defaultSlider() {
 		const config = {
 			parentTag: horizontalParentTag,
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		};
 
 		ui.slider(config);
@@ -19,7 +19,7 @@ function storySlider(selectedStory) {
 		const config = {
 			parentTag: verticalParentTag,
 			orientation: "vertical",
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		};
 
 		ui.slider(config);

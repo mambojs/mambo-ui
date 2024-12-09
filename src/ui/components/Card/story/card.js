@@ -13,7 +13,7 @@ function storyCard(selectedStory) {
 
 	const configCard2 = {
 		parentTag: selectedStory.parentTag,
-		fnComplete: (context) => {
+		onComplete: (context) => {
 			context.Card.getBodyTag().innerHTML = `<p style='padding:3rem;'>Your Card content will go here</p>
 				 <div style='display: flex; justify-content: flex-end; padding: 1rem;'>
 				 <mambo-button id='btnSelect'></mambo-button>`;
@@ -23,7 +23,7 @@ function storyCard(selectedStory) {
 				text: "Seleccionar",
 				type: "primary",
 				size: "small",
-				fnClick: () => {
+				onClick: () => {
 					console.log("Button clicked");
 				},
 			});

@@ -7,7 +7,7 @@ function storySlideout(selectedStory) {
 		const buttonConfig = {
 			parentTag: selectedStory.parentTag,
 			text: "Open Slideout",
-			fnClick: () => {
+			onClick: () => {
 				m_slideout.open();
 			},
 		};
@@ -18,7 +18,7 @@ function storySlideout(selectedStory) {
 	function installSlideout() {
 		const slideoutConfig = {
 			parentTag: "body",
-			fnComplete: installSlideoutContent,
+			onComplete: installSlideoutContent,
 		};
 		m_slideout = ui.slideout(slideoutConfig);
 	}

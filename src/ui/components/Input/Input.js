@@ -146,12 +146,12 @@ ui.class.Input = class Input extends HTMLElement {
 						...m_props.clearButton,
 						css: m_props.css.clearButton,
 						parentTag: m_containerTag,
-						fnComplete: resolve,
-						fnClick: (context) => {
+						onComplete: resolve,
+						onClick: (context) => {
 							clearInput();
 
-							if (m_props.fnClear) {
-								m_props.fnClear({
+							if (m_props.onClear) {
+								m_props.onClear({
 									Input: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -172,19 +172,19 @@ ui.class.Input = class Input extends HTMLElement {
 						...m_props.leftButton,
 						css: m_props.css.leftButton,
 						parentTag: m_containerTag,
-						fnComplete: resolve,
-						fnMouseDown: (context) => {
-							if (m_props.fnMouseDown) {
-								m_props.fnMouseDown({
+						onComplete: resolve,
+						onMouseDown: (context) => {
+							if (m_props.onMouseDown) {
+								m_props.onMouseDown({
 									Input: self,
 									Button: context.Button,
 									ev: context.ev,
 								});
 							}
 						},
-						fnMouseUp: (context) => {
-							if (m_props.fnMouseUp) {
-								m_props.fnMouseUp({
+						onMouseUp: (context) => {
+							if (m_props.onMouseUp) {
+								m_props.onMouseUp({
 									Input: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -202,8 +202,8 @@ ui.class.Input = class Input extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnBlur) {
-				m_props.fnBlur({
+			if (m_props.onBlur) {
+				m_props.onBlur({
 					Input: self,
 					value: m_inputTag.value,
 					ev: ev,
@@ -216,8 +216,8 @@ ui.class.Input = class Input extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnChange) {
-				m_props.fnChange({
+			if (m_props.onChange) {
+				m_props.onChange({
 					Input: self,
 					value: m_inputTag.value,
 					ev: ev,
@@ -230,8 +230,8 @@ ui.class.Input = class Input extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnKeyup) {
-				m_props.fnKeyup({
+			if (m_props.onKeyup) {
+				m_props.onKeyup({
 					Input: self,
 					value: m_inputTag.value,
 					Button: m_clearButton,
@@ -266,8 +266,8 @@ ui.class.Input = class Input extends HTMLElement {
 					m_dataChanged = true;
 					m_inputTag.value = config.dir === "right" ? m_inputTag.value + padding : padding + m_inputTag.value;
 
-					if (m_props.fnDataValidationChange) {
-						m_props.fnDataValidationChange({
+					if (m_props.onDataValidationChange) {
+						m_props.onDataValidationChange({
 							Input: self,
 							ev: ev,
 						});
@@ -303,8 +303,8 @@ ui.class.Input = class Input extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Input: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Input: self });
 			}
 		}
 

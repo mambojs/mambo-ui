@@ -63,7 +63,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		function installButton(button) {
 			return new Promise((resolve) => {
 				button.css = ui.utils.extend(true, m_props.css.button, button.css);
-				button.fnGroupClick = m_props.fnGroupClick;
+				button.onGroupClick = m_props.onGroupClick;
 				button.parentTag = self;
 				m_buttonsList.push(ui.button(button));
 				resolve();
@@ -75,8 +75,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			deselectBtns();
 
 			// If same callback for all buttons
-			if (m_props.fnClick) {
-				m_props.fnClick(context);
+			if (m_props.onClick) {
+				m_props.onClick(context);
 			}
 
 			// Select clicked button
@@ -114,8 +114,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ ButtonGroup: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ ButtonGroup: self });
 			}
 		}
 
@@ -125,7 +125,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 					buttons: [],
 					tag: "default",
 					theme: "default",
-					fnGroupClick: handleGroupBtnClick,
+					onGroupClick: handleGroupBtnClick,
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);

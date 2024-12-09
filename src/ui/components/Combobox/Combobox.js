@@ -28,9 +28,11 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			await setupInput();
 			await setupDropdown();
@@ -61,15 +63,16 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 				let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
 				dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
 
-				dropdown.fnBeforeClose = (context) => {
-					const result = m_props.dropdown.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
+				dropdown.onBeforeClose = (context) => {
+					const result = m_props.dropdown.onBeforeClose ? m_props.dropdown.onBeforeClose(context) : true;
+
 					return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
 				};
-				dropdown.fnComplete = (context) => {
+				dropdown.onComplete = (context) => {
 					installButtonGroup(context.Dropdown, m_comboBoxData);
 
-					if (m_props.dropdown.fnComplete) {
-						m_props.dropdown.fnComplete(context);
+					if (m_props.dropdown.onComplete) {
+						m_props.dropdown.onComplete(context);
 					}
 				};
 				dropdown.parentTag = m_dropdownWrapperTag;
@@ -87,7 +90,7 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 			buttonGroup.css = ui.utils.extend(true, m_props.css.buttonGroup, buttonGroup.css);
 
 			buttonGroup.buttons = data.map(processItemData);
-			buttonGroup.fnClick = (context) => {
+			buttonGroup.onClick = (context) => {
 				let text = context.Button.text();
 				m_input.value({ value: text });
 				m_previous_text = text;
@@ -95,16 +98,16 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 				m_input.getTag().classList.add("m-selected");
 				dropdown.close();
 
-				if (m_props.fnSelect) {
-					m_props.fnSelect({
+				if (m_props.onSelect) {
+					m_props.onSelect({
 						Combobox: self,
 						button: context.Button,
 						ev: context.ev,
 					});
 				}
 
-				if (m_props.buttonGroup.fnClick) {
-					m_props.buttonGroup.fnClick(context);
+				if (m_props.buttonGroup.onClick) {
+					m_props.buttonGroup.onClick(context);
 				}
 			};
 
@@ -143,14 +146,16 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 			if (item) {
 				const button = m_buttonGroup.getTag({ id: getItemDataId(item) });
+
 				if (button) {
 					button.select();
 				}
 			} else {
 				m_previous_text = value;
 				m_value = value;
-				if (m_props.fnSelect) {
-					m_props.fnSelect({ Combobox: self, ev: ev });
+
+				if (m_props.onSelect) {
+					m_props.onSelect({ Combobox: self, ev: ev });
 				}
 			}
 		}
@@ -180,8 +185,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Combobox: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Combobox: self });
 			}
 		}
 

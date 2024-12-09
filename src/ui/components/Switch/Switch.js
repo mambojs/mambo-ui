@@ -120,8 +120,8 @@ ui.class.Switch = class Switch extends HTMLElement {
 		function setChecked(ev) {
 			ui.d.setProps(m_inputTag, { checked: m_checked });
 
-			if (m_props.fnChange) {
-				m_props.fnChange({ Switch: self, ev: ev });
+			if (m_props.onChange) {
+				m_props.onChange({ Switch: self, ev: ev });
 			}
 		}
 
@@ -149,8 +149,8 @@ ui.class.Switch = class Switch extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Switch: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Switch: self });
 			}
 		}
 

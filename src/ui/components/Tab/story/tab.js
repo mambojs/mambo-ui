@@ -15,7 +15,7 @@ function storyTab(selectedStory) {
 								class: "fa-solid fa-envelope",
 							},
 						},
-						fnClick: (context) => {},
+						onClick: (context) => {},
 					},
 					{
 						text: "Star",
@@ -36,9 +36,9 @@ function storyTab(selectedStory) {
 						},
 					},
 				],
-				fnClick: (context) => {},
+				onClick: (context) => {},
 			},
-			fnTabComplete: (contentTag, tab) => {
+			onTabComplete: (contentTag, tab) => {
 				contentTag.appendChild(dom.createTag("div", { text: `Tab name: ${tab.text}` }));
 			},
 		};
@@ -52,7 +52,7 @@ function storyTab(selectedStory) {
 				{
 					id: 4,
 					text: "Tab 4",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 				},
 				{
 					id: 5,
@@ -63,7 +63,7 @@ function storyTab(selectedStory) {
 					text: "Tab 6",
 				},
 			],
-			fnClick: (buttonContext) => {},
+			onClick: (buttonContext) => {},
 		};
 
 		const contentList = btnGroupConfig.buttons.map((btn) => {

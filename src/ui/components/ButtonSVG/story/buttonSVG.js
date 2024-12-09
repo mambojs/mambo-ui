@@ -13,7 +13,7 @@ function storyButtonSVG(selectedStory) {
 			},
 			id: 2,
 			text: "Image Button",
-			fnClick: (context) => {
+			onClick: (context) => {
 				alert(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -33,7 +33,7 @@ function storyButtonSVG(selectedStory) {
 				},
 				hover: "img/storyboard/star.png",
 			},
-			fnClick: (context) => {
+			onClick: (context) => {
 				alert(`${context.Button.text()} clicked.`);
 			},
 		};

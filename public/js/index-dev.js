@@ -78,7 +78,7 @@ function setupThemeCombobox() {
 				text: "",
 			},
 		},
-		fnSelect: ({ Combobox }) => {
+		onSelect: ({ Combobox }) => {
 			if (Combobox.value() === 1) {
 				ui.theme.reloadStylesheets(defaultStylesheets);
 			} else {
