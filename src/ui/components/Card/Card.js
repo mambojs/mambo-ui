@@ -19,9 +19,11 @@ ui.class.Card = class Card extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -39,8 +41,8 @@ ui.class.Card = class Card extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Card: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Card: self });
 			}
 		}
 

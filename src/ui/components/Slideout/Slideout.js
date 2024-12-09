@@ -25,9 +25,11 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -58,9 +60,10 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 				if (m_props.enableCloseButton) {
 					const configButton = { css: m_props.css.button, ...m_props.closeButton };
 					configButton.parentTag = m_slideoutHeaderTag;
-					configButton.fnClick = closeAnimation;
+					configButton.onClick = closeAnimation;
 					ui.button(configButton);
 				}
+
 				resolve();
 			});
 		}
@@ -68,8 +71,9 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 		function openAnimation() {
 			self.classList.add(m_props.css.open);
 			m_slideoutOverlayTag.classList.add(m_props.css.openAnimation);
-			if (m_props.fnOpen) {
-				m_props.fnOpen({ slideout: self });
+
+			if (m_props.onOpen) {
+				m_props.onOpen({ slideout: self });
 			}
 		}
 
@@ -81,8 +85,8 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 			self.classList.remove(m_props.css.open);
 			m_slideoutOverlayTag.classList.remove(m_props.css.openAnimation);
 
-			if (m_props.fnClose) {
-				m_props.fnClose({ slideout: self });
+			if (m_props.onClose) {
+				m_props.onClose({ slideout: self });
 			}
 		}
 
@@ -91,8 +95,8 @@ ui.class.Slideout = class Slideout extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Slideout: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Slideout: self });
 			}
 		}
 

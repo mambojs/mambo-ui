@@ -22,9 +22,11 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -45,15 +47,17 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 
 				if (m_props.value) {
 					let value = ui.date.getDate(m_props.value, m_props.format);
+
 					if (value) {
 						combobox.value = ui.date.format(value, m_props.format);
 					}
 				}
 
-				combobox.fnSelect = (context) => {
+				combobox.onSelect = (context) => {
 					selectTime(context);
-					if (m_props.combobox.fnSelect) {
-						m_props.combobox.fnSelect(context);
+
+					if (m_props.combobox.onSelect) {
+						m_props.combobox.onSelect(context);
 					}
 				};
 
@@ -76,8 +80,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 		function selectTime(context) {
 			m_value = context.Button ? ui.date.createDate(context.Button.text(), m_props.format) : null;
 
-			if (m_props.fnSelect) {
-				m_props.fnSelect({
+			if (m_props.onSelect) {
+				m_props.onSelect({
 					TimePicker: self,
 					button: context.Button,
 					ev: context.ev,
@@ -104,8 +108,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ TimePicker: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ TimePicker: self });
 			}
 		}
 

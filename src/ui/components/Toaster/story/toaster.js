@@ -4,7 +4,7 @@ function storyToaster(selectedStory) {
 	const configButton = {
 		text: "Toaster with Mambo Button",
 		parentTag: selectedStory.parentTag,
-		fnClick: () => {
+		onClick: () => {
 			if (activeToasters["toaster-with-mambo-button"]) {
 				activeToasters["toaster-with-mambo-button"].close();
 				delete activeToasters["toaster-with-mambo-button"];
@@ -20,11 +20,11 @@ function storyToaster(selectedStory) {
 				autoHideDuration: 5000,
 				size: "large",
 				type: "success",
-				fnClose: (context) => {
+				onClose: (context) => {
 					context.Toaster.close();
 					delete activeToasters["toaster-with-mambo-button"];
 				},
-				fnComplete: (context) => {
+				onComplete: (context) => {
 					context.Toaster.getBodyTag().innerHTML = `
 									<div style="display: flex; align-items: start; flex-direction: column;">
 										<span style="font-size: var(--m-font-size-m);"> Titulo: </span>
@@ -40,7 +40,7 @@ function storyToaster(selectedStory) {
 						text: "Cancel",
 						type: "secondary",
 						size: "small",
-						fnClick: () => {
+						onClick: () => {
 							clearTimeout(timeOut);
 							context.Toaster.close();
 							delete activeToasters["toaster-with-mambo-button"];
@@ -71,7 +71,7 @@ function storyToaster(selectedStory) {
 		const config = {
 			text: `Toaster ${variant.h}-${variant.v}`,
 			parentTag: selectedStory.parentTag,
-			fnClick: () => {
+			onClick: () => {
 				if (activeToasters[`${variant.h}-${variant.v}`]) {
 					activeToasters[`${variant.h}-${variant.v}`].close();
 					delete activeToasters[`${variant.h}-${variant.v}`];
@@ -95,11 +95,11 @@ function storyToaster(selectedStory) {
 					autoHideDuration: 5000,
 					type: variant.type,
 					size: variant.size,
-					fnClose: (context) => {
+					onClose: (context) => {
 						context.Toaster.close();
 						delete activeToasters[`${variant.h}-${variant.v}`];
 					},
-					fnComplete: (context) => {
+					onComplete: (context) => {
 						const timeOut = setTimeout(() => {
 							context.Toaster.close();
 							delete activeToasters[`${variant.h}-${variant.v}`];

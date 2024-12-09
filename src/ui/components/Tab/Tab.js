@@ -23,9 +23,11 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -44,7 +46,7 @@ ui.class.Tab = class Tab extends HTMLElement {
 		function installTabs() {
 			return new Promise((resolve) => {
 				const tabConfig = ui.utils.extend(true, m_props.tabs, {});
-				tabConfig.fnClick = toggleTabContent;
+				tabConfig.onClick = toggleTabContent;
 				tabConfig.parentTag = m_tabsTag;
 				m_tabsGroup = ui.buttonGroup(tabConfig);
 				installContent().then(resolve);
@@ -75,8 +77,8 @@ ui.class.Tab = class Tab extends HTMLElement {
 
 						m_contentTag.appendChild(contentTag);
 
-						if (m_props.fnTabComplete) {
-							m_props.fnTabComplete(contentTag, button);
+						if (m_props.onTabComplete) {
+							m_props.onTabComplete(contentTag, button);
 						}
 
 						resolve();
@@ -94,15 +96,16 @@ ui.class.Tab = class Tab extends HTMLElement {
 			const tabId = clickedBtn.Button.getId();
 			const selectedTab = m_contentTagsMap[tabId];
 			selectedTab.classList.add(m_props.css.selectedTab);
+
 			// Invoke outside listener
-			if (m_props.tabs.fnClick) {
-				m_props.tabs.fnClick(clickedBtn);
+			if (m_props.tabs.onClick) {
+				m_props.tabs.onClick(clickedBtn);
 			}
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Tab: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Tab: self });
 			}
 		}
 

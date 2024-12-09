@@ -18,9 +18,11 @@ class Template extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			// More logic Promises here
 			setupComplete();
@@ -34,8 +36,8 @@ class Template extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ UITemplate: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ UITemplate: self });
 			}
 		}
 
@@ -56,5 +58,6 @@ class Template extends HTMLElement {
 		}
 	}
 }
+
 // Must ALWAYS define the new element as a Native Web Component
 customElements.define(ui.defaultTags.template.self.name, Template);

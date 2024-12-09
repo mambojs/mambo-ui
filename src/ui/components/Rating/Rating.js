@@ -26,9 +26,11 @@ ui.class.Rating = class Rating extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -62,6 +64,7 @@ ui.class.Rating = class Rating extends HTMLElement {
 					m_ratingSelectedTag.appendChild(selectedStarTag);
 					m_ratingHoverTag.appendChild(hoverStarTag);
 				}
+
 				resolve();
 			});
 		}
@@ -80,8 +83,8 @@ ui.class.Rating = class Rating extends HTMLElement {
 			if (m_enable) {
 				setValue(getHoverValue(ev));
 
-				if (m_props.fnSelect) {
-					m_props.fnSelect({ Rating: self, ev: ev });
+				if (m_props.onSelect) {
+					m_props.onSelect({ Rating: self, ev: ev });
 				}
 			}
 		}
@@ -145,8 +148,8 @@ ui.class.Rating = class Rating extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Rating: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Rating: self });
 			}
 		}
 

@@ -28,16 +28,17 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
 
 		function setupDOM() {
 			return new Promise((resolve) => {
-
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.appendChild(m_containerTag);
 
@@ -73,7 +74,6 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 		}
 
 		function installCloseButton() {
-
 			let propCss = m_props.css.button;
 
 			if (m_props.closeButtonLeft) {
@@ -89,13 +89,14 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 					attr: {
 						type: "button",
 					},
-					fnClick: (context) => {
+					onClick: (context) => {
 						closeDialog();
-						if (m_props.fnClose) {
-							m_props.fnClose({
+
+						if (m_props.onClose) {
+							m_props.onClose({
 								Dialog: self,
 								Button: context.Button,
-								ev: context.ev
+								ev: context.ev,
 							});
 						}
 					},
@@ -113,8 +114,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Dialog: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Dialog: self });
 			}
 		}
 
@@ -123,7 +124,7 @@ ui.class.Dialog = class Dialog extends HTMLElement {
 				m_props = {
 					parentTag: "body",
 					closeButton: true,
-					button: {text: ""},
+					button: { text: "" },
 					closeText: "",
 					theme: "default",
 					tag: "default",

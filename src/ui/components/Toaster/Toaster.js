@@ -107,11 +107,11 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 					attr: {
 						type: "button",
 					},
-					fnClick: (context) => {
+					onClick: (context) => {
 						close();
 
-						if (m_props.fnClose) {
-							m_props.fnClose({
+						if (m_props.onClose) {
+							m_props.onClose({
 								Toaster: self,
 								Button: context.Button,
 								ev: context.ev,
@@ -132,8 +132,8 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Toaster: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Toaster: self });
 			}
 		}
 

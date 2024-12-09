@@ -162,8 +162,8 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Mapbox: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Mapbox: self });
 			}
 		}
 

@@ -28,17 +28,17 @@ function storyInput(selectedStory) {
 			value: "My value",
 			enableClear: false,
 			enableLeftButton: true,
-			fnMouseDown: (context) => {
+			onMouseDown: (context) => {
 				context.Input.setAttr({ type: "text" });
 				context.Button.getTag().classList.toggle("fa-eye", true);
 				context.Button.getTag().classList.toggle("fa-eye-slash", false);
 			},
-			fnMouseUp: (context) => {
+			onMouseUp: (context) => {
 				context.Input.setAttr({ type: "password" });
 				context.Button.getTag().classList.toggle("fa-eye-slash", true);
 				context.Button.getTag().classList.toggle("fa-eye", false);
 			},
-			fnComplete: (context) => {
+			onComplete: (context) => {
 				context.Input.setAttr({ type: "password" });
 			},
 		};
@@ -66,7 +66,7 @@ function storyInput(selectedStory) {
 				},
 			},
 			required: true,
-			fnBlur: ({ Input }) => {
+			onBlur: ({ Input }) => {
 				Input.showRequired();
 			},
 		};

@@ -33,7 +33,7 @@ function installStoryboard(props) {
 				},
 			],
 			expanded: true,
-			fnSelect: loadComponent,
+			onSelect: loadComponent,
 		};
 
 		ui.treeView(treeViewConfig);
@@ -67,7 +67,7 @@ function installStoryboard(props) {
 					{
 						id: 0,
 						text: "Demo",
-						fnClick: (context) => {},
+						onClick: (context) => {},
 					},
 					{
 						id: 1,
@@ -76,14 +76,14 @@ function installStoryboard(props) {
 					{
 						id: 2,
 						text: "Documentation",
-						fnClick: async (context) => {
+						onClick: async (context) => {
 							outputDocumentation(selectedStory.text);
 						},
 					},
 				],
-				fnClick: (buttonContext) => {},
+				onClick: (buttonContext) => {},
 			},
-			fnTabComplete: (contentTag, tab) => {
+			onTabComplete: (contentTag, tab) => {
 				const storyContainer = dom.getTag("story-container");
 				storyContainer.appendChild(selectedStory.parentTag);
 			},
@@ -161,8 +161,8 @@ function installStoryboard(props) {
 		homeButton.setup({
 			id: "homeButton",
 			text: "Home",
-			size: "small",
-			fnClick: () => {
+			size: "medium",
+			onClick: () => {
 				storyParentTag.innerHTML = null;
 				loadDocumentation();
 			},

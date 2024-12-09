@@ -21,9 +21,11 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -86,6 +88,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 			let groupTag = ui.d.createTag({ ...m_props.tags.group, class: m_props.css.group });
 			parentTag.appendChild(groupTag);
 			processTreeData(groupData, groupTag);
+
 			return groupTag;
 		}
 
@@ -107,12 +110,14 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 				if (expanded) {
 					toggleExpand(groupTag, iconTag);
 				}
+
 				resolve();
 			});
 		}
 
 		function clearSelected() {
 			let selected = ui.d.getTags(`.${m_props.css.selected}`, self);
+
 			if (selected && selected.length > 0) {
 				for (let index = 0; index < selected.length; index++) {
 					selected[index].classList.remove(m_props.css.selected);
@@ -123,8 +128,8 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		function setupItemEventListeners(inTag, itemData) {
 			return new Promise((resolve) => {
 				inTag.addEventListener("click", (ev) => {
-					if (m_props.fnSelect) {
-						m_props.fnSelect({
+					if (m_props.onSelect) {
+						m_props.onSelect({
 							TreeView: self,
 							tag: inTag,
 							itemData: itemData,
@@ -159,6 +164,7 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 
 		function getItemData(tag) {
 			let itemId = tag.getAttribute(m_props.itemIdAttrName);
+
 			return m_dataMapById[itemId];
 		}
 
@@ -167,8 +173,8 @@ ui.class.TreeView = class TreeView extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ TreeView: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ TreeView: self });
 			}
 		}
 

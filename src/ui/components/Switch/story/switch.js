@@ -15,7 +15,7 @@ function storySwitch(selectedStory) {
 				checked: "",
 				unchecked: "",
 			},
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -30,7 +30,7 @@ function storySwitch(selectedStory) {
 				checked: "",
 				unchecked: "",
 			},
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -40,7 +40,7 @@ function storySwitch(selectedStory) {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			checked: true,
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -54,7 +54,7 @@ function storySwitch(selectedStory) {
 				checked: "YES",
 				unchecked: "NO",
 			},
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -64,7 +64,7 @@ function storySwitch(selectedStory) {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			enable: false,
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -78,7 +78,7 @@ function storySwitch(selectedStory) {
 				checked: "",
 				unchecked: "",
 			},
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);

@@ -6,7 +6,7 @@ function storyRating(selectedStory) {
 	function defaultRating() {
 		const config = {
 			parentTag: selectedStory.parentTag,
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		};
 
 		ui.rating(config);
@@ -20,7 +20,7 @@ function storyRating(selectedStory) {
 			},
 			value: 5,
 			max: 10,
-			fnSelect: (context) => {},
+			onSelect: (context) => {},
 		};
 
 		ui.rating(config);

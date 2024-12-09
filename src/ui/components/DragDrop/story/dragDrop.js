@@ -1,7 +1,7 @@
 function storyDragDrop(selectedStory) {
 	let props = {
 		parentTag: selectedStory.parentTag,
-		fnDrop: (context) => {
+		onDrop: (context) => {
 			console.table(context?.dataTransfer?.files);
 		},
 	};

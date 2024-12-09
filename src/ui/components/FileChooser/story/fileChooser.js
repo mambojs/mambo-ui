@@ -14,7 +14,7 @@ function storyFileChooser(selectedStory) {
 					input: { attr: { accept: ".txt" } },
 				},
 			},
-			fnUpload: handleFileSelection,
+			onUpload: handleFileSelection,
 		};
 
 		ui.fileChooser(config);
@@ -28,7 +28,7 @@ function storyFileChooser(selectedStory) {
 					input: { attr: { multiple: true } },
 				},
 			},
-			fnUpload: handleFileSelection,
+			onUpload: handleFileSelection,
 		};
 
 		ui.fileChooser(config);

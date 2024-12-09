@@ -24,9 +24,11 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -42,6 +44,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 			return new Promise((resolve) => {
 				if (m_props.disableButton) {
 					resolve();
+
 					return;
 				}
 
@@ -49,11 +52,11 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				button.css = ui.utils.extend(true, m_props.css.button, button.css);
 				button.parentTag = self;
 				button.text = button.text || "";
-				button.fnComplete = resolve;
+				button.onComplete = resolve;
 
-				button.fnClick = (context) => {
-					if (m_props.button?.fnClick) {
-						m_props.button.fnClick(context);
+				button.onClick = (context) => {
+					if (m_props.button?.onClick) {
+						m_props.button.onClick(context);
 					} else {
 						if (m_open) {
 							closeAnimation(context.ev);
@@ -101,8 +104,9 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		function openAnimation() {
 			m_dropdownContainerTag.classList.add(m_props.css.open);
 			m_open = true;
-			if (m_props.fnOpen) {
-				m_props.fnOpen({ dropdown: self });
+
+			if (m_props.onOpen) {
+				m_props.onOpen({ dropdown: self });
 			}
 		}
 
@@ -111,15 +115,15 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function closeAnimation(ev) {
-			if (m_props.fnBeforeClose && !m_props.fnBeforeClose({ ev: ev })) {
+			if (m_props.onBeforeClose && !m_props.onBeforeClose({ ev: ev })) {
 				return;
 			}
 
 			m_dropdownContainerTag.classList.remove(m_props.css.open);
 			m_open = false;
 
-			if (m_props.fnClose) {
-				m_props.fnClose({ dropdown: self });
+			if (m_props.onClose) {
+				m_props.onClose({ dropdown: self });
 			}
 		}
 
@@ -128,8 +132,8 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Dropdown: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Dropdown: self });
 			}
 		}
 
@@ -138,7 +142,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					fnBeforeClose: (context) => {
+					onBeforeClose: (context) => {
 						return true;
 					},
 				};

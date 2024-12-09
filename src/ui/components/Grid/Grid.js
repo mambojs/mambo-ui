@@ -105,8 +105,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 					ui.d.append(tileTag, content);
 				}
 
-				if (m_props.fnPostTile) {
-					m_props.fnPostTile({
+				if (m_props.onPostTile) {
+					m_props.onPostTile({
 						tileIndex: tileIndex,
 						tileTag: tileTag,
 						tileData: tileData,
@@ -269,8 +269,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 					Promise.all(rowPromises).then(() => {
 						// Invoke callback for each completed row
-						if (m_props.fnPostRow) {
-							m_props.fnPostRow({
+						if (m_props.onPostRow) {
+							m_props.onPostRow({
 								rowIndex: rowIndex,
 								rowTag: rowTag,
 								rowData: rowData,
@@ -319,9 +319,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 			// Extend with header configuration
 			buttonConfig = ui.utils.extend(true, buttonConfig, context.column);
 
-			buttonConfig.fnClick = (contextClick) => {
-				if (context.column.fnClick) {
-					context.column.fnClick({
+			buttonConfig.onClick = (contextClick) => {
+				if (context.column.onClick) {
+					context.column.onClick({
 						rowIndex: context.rowIndex,
 						rowData: context.rowData,
 						parentTag: context.parentTag,
@@ -329,7 +329,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 					});
 				}
 			};
-			buttonConfig.fnComplete = (contextComplete) => {
+			buttonConfig.onComplete = (contextComplete) => {
 				// Save body cols pixel widths
 				saveCellTagWidth({
 					colIndex: context.colIndex,
@@ -362,7 +362,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			inputConfig.events = [
 				{
 					name: "change",
-					fn: (contextEvent) => {
+					on: (contextEvent) => {
 						inputElChangeEvent({
 							input: contextEvent.input,
 							column: context.column,
@@ -373,7 +373,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 					},
 				},
 			];
-			inputConfig.fnDataValidationChange = (contextValidation) => {
+			inputConfig.onDataValidationChange = (contextValidation) => {
 				inputElChangeEvent({
 					input: contextValidation.input,
 					column: context.column,
@@ -382,7 +382,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 					ev: contextValidation.ev,
 				});
 			};
-			inputConfig.fnComplete = (contextComplete) => {
+			inputConfig.onComplete = (contextComplete) => {
 				// Save body cols pixel widths
 				saveCellTagWidth({
 					colIndex: context.colIndex,
@@ -390,14 +390,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 					parentTag: context.parentTag,
 				});
 
-				if (context.column.fnComplete) {
-					context.column.fnComplete(contextComplete);
+				if (context.column.onComplete) {
+					context.column.onComplete(contextComplete);
 				}
 			};
 
-			inputConfig.fnClick = (contextClick) => {
-				if (context.column.fnClick) {
-					context.column.fnClick(contextClick);
+			inputConfig.onClick = (contextClick) => {
+				if (context.column.onClick) {
+					context.column.onClick(contextClick);
 				}
 			};
 
@@ -417,7 +417,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 				attr: {
 					multiple: true,
 				},
-				fnComplete: (contextComplete) => {
+				onComplete: (contextComplete) => {
 					// Save body cols pixel widths
 					saveCellTagWidth({
 						colIndex: context.colIndex,
@@ -447,16 +447,16 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			const dialogConfig = ui.utils.extend(true, dialogDefaultConfig, context.column);
 
-			dialogConfig.fnClick = () => {
+			dialogConfig.onClick = () => {
 				ui.dialog({
 					title: dialogConfig.title,
-					fnComplete: context.column.fnOpen,
-					fnClose: context.column.fnClose,
+					onComplete: context.column.onOpen,
+					onClose: context.column.onClose,
 				});
 			};
 
 			const buttonConfig = ui.utils.extend(true, {}, dialogConfig);
-			buttonConfig.fnComplete = (contextComplete) => {
+			buttonConfig.onComplete = (contextComplete) => {
 				saveCellTagWidth({
 					colIndex: context.colIndex,
 					tag: contextComplete.Button.getTag(),
@@ -499,7 +499,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			};
 
 			const config = ui.utils.extend(true, defaultConfig, context.column);
-			config.fnClick = () => {
+			config.onClick = () => {
 				slideoutTag.open();
 			};
 
@@ -507,7 +507,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const buttonTag = ui.button(config);
 
 			const slideoutConfig = ui.utils.extend(true, {}, config);
-			slideoutConfig.fnComplete = config.fnInstallContent;
+			slideoutConfig.onComplete = config.onInstallContent;
 			slideoutConfig.parentTag = config.slideoutParentTag;
 			slideoutTag = ui.slideout(slideoutConfig);
 			addComponentToMap({
@@ -521,7 +521,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const defaultConfig = {
 				parentTag: context.parentTag,
 				dropText: "Drop Files",
-				fnDrop: handleDropEvent,
+				onDrop: handleDropEvent,
 				css: {
 					parent: m_props.css.dropParent,
 					imgDropIcon: m_props.css.dropImgDropIcon,
@@ -808,8 +808,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Grid: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Grid: self });
 			}
 		}
 

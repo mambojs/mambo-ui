@@ -50,11 +50,11 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 				const config = {
 					...m_props.button,
 					parentTag: self,
-					fnClick: () => {
+					onClick: () => {
 						m_inputTag.getTag().click();
 					},
 					css: m_props.css.button,
-					fnComplete: () => {
+					onComplete: () => {
 						installInput(true).then(resolve);
 					},
 					resolve,
@@ -74,8 +74,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 						{
 							name: "change",
 							fn: (context) => {
-								if (m_props.fnUpload) {
-									m_props.fnUpload({
+								if (m_props.onUpload) {
+									m_props.onUpload({
 										files: context.Input.getTag().files,
 										ev: context.ev,
 									});
@@ -83,7 +83,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 							},
 						},
 					],
-					fnComplete: resolve,
+					onComplete: resolve,
 				};
 
 				if (hidden) {
@@ -99,8 +99,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ FileChooser: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ FileChooser: self });
 			}
 		}
 
