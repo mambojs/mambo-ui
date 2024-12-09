@@ -1,0 +1,53 @@
+.m-radio-group-self .m-radio-self {
+  padding: var(--m-padding-xs);
+  display: block;
+}
+
+.m-radio-group-label {
+  display: block;
+  position: relative;
+  padding-left: var(--m-padding-lg);
+  cursor: pointer;
+  font-size: var(--m-font-size-lg);
+  line-height: var(--m-line-height-m);
+  margin-right: var(--m-margin-m);
+  user-select: none;
+}
+
+.m-radio-group-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+.m-radio-group-span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--m-gray-100);
+}
+
+.m-radio-group-input:checked ~ .m-radio-group-span {
+  background-color: var(--m-black-color);
+}
+
+.m-radio-group-span::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--m-white-color);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.m-radio-group-input:checked ~ .m-radio-group-span::after {
+  display: block;
+}

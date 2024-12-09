@@ -1,0 +1,42 @@
+.m-time-picker-combobox {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.m-time-picker-combobox-button {
+  position: relative;
+  height: 100%;
+  color: var(--m-color-white);
+  font-size: 100%;
+  padding: var(--m-padding-xs) var(--m-padding-m);
+  background: var(--m-color-black);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-time-picker-combobox-button.m-hover {
+  background: var(--m-color-gray-dark);
+}
+
+.m-time-picker-dropdown-container {
+  display: none;
+  position: absolute;
+  width: 10rem;
+  height: 15rem;
+  background-color: var(--m-color-gray-lightest);
+  box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 15%);
+  overflow: auto;
+  z-index: 999;
+  left: 0;
+}
+
+.m-time-picker-dropdown-container.m-open {
+  display: block;
+}

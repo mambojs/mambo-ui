@@ -70,9 +70,6 @@ function buildLib() {
 
 	esbuild.build(optionsBundleStories).then(() => {
 		console.log("Stories: Build complete!");
-		copyFilesToPublic(`${esconfig.LIB_DIR}/${libVersion}`, `${esconfig.LIB_FILE_NAME}.js`, `${esconfig.PUBLIC_DIR}/js`);
-		copyFilesToPublic(`${esconfig.LIB_DIR}/${libVersion}`, `${esconfig.LIB_FILE_NAME}.css`, `${esconfig.PUBLIC_DIR}/css`);
-		copyFilesToPublic(`${esconfig.LIB_DIR}/${libVersion}`, `${esconfig.LIB_FILE_NAME}-orange.css`, `${esconfig.PUBLIC_DIR}/css`);
 	});
 }
 
@@ -82,24 +79,35 @@ function copyFilesToPublic(srcDir, fileName, destDir) {
 	fs.copyFileSync(srcPath, destPath);
 }
 
+function copyFiles() {
+	const libVersion = esconfig.LIB_VERSION;
+	const libDir = `${esconfig.LIB_DIR}/${libVersion}`;
+	const publicCssDir = `${esconfig.PUBLIC_DIR}/css`;
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}.js`, `${esconfig.PUBLIC_DIR}/js`);
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}.css`, publicCssDir);
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}-orange.css`, publicCssDir);
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}-purple.css`, publicCssDir);
+}
+
 function compileCssLib(lib, version) {
 	console.log(`Compiling ${lib} CSS...`);
 
-	exec(`gulp -f ./setup/gulpfile.js cssLibFiles cssOrangeLibFiles --build ${lib} --mversion ${version}`, (err, stdout, stderr) => {
-		if (err) {
-			console.log(`error: ${err.message}`);
+	exec(
+		`gulp -f ./setup/gulpfile.js cssLibFiles cssOrangeLibFiles cssPurpleLibFiles --build ${lib} --mversion ${version}`,
+		(err, stdout, stderr) => {
+			if (err) {
+				console.log(`error: ${err.message}`);
+			}
 
-			return;
+			if (stderr) {
+				console.log(`stderr: ${stderr}`);
+			}
+
+			copyFiles();
+
+			console.log(`stdout: ${stdout}`);
 		}
-
-		if (stderr) {
-			console.log(`stderr: ${stderr}`);
-
-			return;
-		}
-
-		console.log(`stdout: ${stdout}`);
-	});
+	);
 }
 
 function getLibFiles() {
