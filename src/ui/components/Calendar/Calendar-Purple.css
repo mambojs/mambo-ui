@@ -1,0 +1,300 @@
+.m-calendar-self {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--m-gray-300);
+  border-radius: 0.25rem;
+}
+
+.m-calendar-header-button-group {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr 1.5rem;
+  width: 100%;
+  height: 1.5rem;
+}
+
+.m-prev-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  color: var(--m-white-color);
+  background: var(--m-background-color);
+  border: none;
+  cursor: pointer;
+}
+
+.m-prev-button.hover {
+  background: var(--m-hover-background-color);
+}
+
+.m-prev-button::before {
+  position: absolute;
+  content: "";
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-right: 6px solid white;
+}
+
+.m-fast-button {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  color: white;
+  padding: 0;
+  background: var(--m-accent-color);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-fast-button.m-hover {
+  background: #444;
+}
+
+.m-next-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  color: white;
+  background: var(--m-accent-color);
+  border: none;
+  cursor: pointer;
+}
+
+.m-next-button.m-hover {
+  background: #444;
+}
+
+.m-next-button::before {
+  position: absolute;
+  content: "";
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid white;
+}
+
+.m-calendar-body {
+  display: block;
+}
+
+.m-calendar-body-header {
+  display: block;
+  background-color: #dedede;
+  font-weight: bold;
+}
+
+.m-dates-header-parent {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.m-dates-header-day {
+  font-size: 80%;
+}
+
+.m-dates-button-group {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.m-dates-button-group-button {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background-color: var(--m-text-color);
+  cursor: pointer;
+  padding: var(--m-padding-s);
+}
+
+.m-dates-button-group-button:hover {
+  background-color: #ccc;
+}
+
+.m-dates-button-group-button.m-selected {
+  background-color: #ccc;
+}
+
+.m-dates-button-group-button-disabled {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.m-current-date {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  color: #e30000;
+}
+
+.m-current-date:hover {
+  background-color: #ccc;
+}
+
+.m-current-date.m-selected {
+  background-color: #ccc;
+}
+
+.m-other-month {
+  color: var(--m-disabled-text-color);
+  padding: var(--m-padding-s);
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.m-other-month:hover {
+  background-color: transparent;
+}
+
+.m-months-button-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 4em);
+  align-items: center;
+  justify-items: center;
+}
+
+.m-months-button-group-button {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.m-months-button-group-button:hover {
+  background-color: #ccc;
+}
+
+.m-months-button-group-button.m-selected {
+  background-color: #ccc;
+}
+
+.m-months-button-group-button-disabled {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.m-years-button-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 4em);
+  align-items: center;
+  justify-items: center;
+}
+
+.m-years-button-group-button {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.m-years-button-group-button:hover {
+  background-color: #ccc;
+}
+
+.m-years-button-group-button.m-selected {
+  background-color: #ccc;
+}
+
+.m-years-button-group-button-disabled {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.m-other-decade {
+  border: none;
+  border-radius: 0;
+  color: #a9a9a9;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.m-other-decade:hover {
+  background-color: #ccc;
+}
+
+.m-decades-button-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 4em);
+  align-items: center;
+  justify-items: center;
+}
+
+.m-decades-button-group-button {
+  border: none;
+  border-radius: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.m-decades-button-group-button:hover {
+  background-color: #ccc;
+}
+
+.m-decades-button-group-button.m-selected {
+  background-color: #ccc;
+}
+
+.m-decades-button-group-button-disabled {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.m-other-century {
+  border: none;
+  border-radius: 0;
+  color: #a9a9a9;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+.m-calendar-footer-button {
+  padding: 0.125rem;
+  color: var(--m-error-color);
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+.m-calendar-footer-button-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+  color: black;
+}
+
+.m-calendar-header-button-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}

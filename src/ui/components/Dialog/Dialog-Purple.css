@@ -1,0 +1,88 @@
+.m-dialog-self {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--m-black-color-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--m-padding-xxl);
+}
+
+.m-dialog-container {
+  position: relative;
+  background-color: var(--m-white-color);
+  padding: var(--m-padding-xl);
+  width: fit-content;
+  height: fit-content;
+  box-shadow: var(--m-box-shadow);
+  border-radius: var(--m-border-radius-primary);
+}
+
+.m-dialog-header {
+  width: 100%;
+  display: flex;
+  min-height: 3rem;
+  height: 3rem;
+}
+
+.m-dialog-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.m-dialog-header-left {
+  display: flex;
+  align-items: center;
+}
+
+.m-dialog-header-center {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.m-dialog-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.m-dialog-container .m-dialog-button {
+  position: absolute;
+  top: .25rem;
+  right: .25rem;
+  color: var(--m-white-color);
+  background: var(--m-accent-color);
+  padding: var(--m-padding-s) var(--m-padding-m);
+  border: none;
+  cursor: pointer;
+  border-radius: var(--m-border-radius-primary);
+  font-size: var(--m-font-size-m);
+  line-height: var(--m-font-size-m);
+  left: auto;
+}
+
+.m-dialog-container .m-dialog-button.left {
+  left: .25rem;
+  right: auto;
+}
+
+.m-dialog-container .m-dialog-button:hover {
+  background: var(--m-hover-background-color);
+}
+
+.m-dialog-header-title {
+  text-align: center;
+}
+
+.m-dialog-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

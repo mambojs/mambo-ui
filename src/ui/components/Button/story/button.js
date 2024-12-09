@@ -151,7 +151,7 @@ function storyButton(selectedStory) {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			id: 8,
-			text: "Mambo Button",
+			text: "Secondary",
 			size: "medium",
 			type: "secondary",
 			enable: false,

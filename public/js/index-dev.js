@@ -57,8 +57,15 @@ const orangeCompStylesheets = components.map((component) => {
 	return `${path}components/${name}/${name}-Orange.css`;
 });
 
+const purpleCompStylesheets = components.map((component) => {
+	const name = component.text.replaceAll(" ", "");
+
+	return `${path}components/${name}/${name}-Purple.css`;
+});
+
 const defaultStylesheets = { stylesheets: [...defaultCompStylesheets, ...[`${path}themes/m-default.css`]] };
 const orangeStylesheets = { stylesheets: [...orangeCompStylesheets, ...[`${path}themes/m-orange.css`]] };
+const purpleStylesheets = { stylesheets: [...purpleCompStylesheets, ...[`${path}themes/m-purple.css`]] };
 
 ui.theme.loadStylesheets(defaultStylesheets);
 
@@ -68,6 +75,7 @@ function setupThemeCombobox() {
 		data: [
 			{ id: 1, text: "Default Theme" },
 			{ id: 2, text: "Orange Theme" },
+			{ id: 3, text: "Purple Theme" },
 		],
 		value: "Default Theme",
 		input: {
@@ -81,8 +89,10 @@ function setupThemeCombobox() {
 		onSelect: ({ Combobox }) => {
 			if (Combobox.value() === 1) {
 				ui.theme.reloadStylesheets(defaultStylesheets);
-			} else {
+			} else if (Combobox.value() === 2) {
 				ui.theme.reloadStylesheets(orangeStylesheets);
+			} else {
+				ui.theme.reloadStylesheets(purpleStylesheets);
 			}
 		},
 	});
