@@ -16,7 +16,9 @@
     "precommit": "npm run validate",
     "prepush": "npm run validate",
     "build": "node ./setup/esbuild.config.cjs buildLib",
-    "build-documentation": "npm run build && node ./setup/build_documentation.cjs"
+    "build-documentation": "npm run build && node ./setup/build_documentation.cjs",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -26,9 +28,12 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.5.4",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.16.0",
     "babel-eslint": "^10.1.0",
     "esbuild": "^0.14.32",
-    "eslint": "^8.19.0",
+    "eslint": "^9.16.0",
+    "globals": "^15.13.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
