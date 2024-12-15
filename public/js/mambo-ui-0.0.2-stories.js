@@ -72,7 +72,7 @@ function storyButton(selectedStory) {
           position: "left"
         }
       ],
-      fnClick: (context) => {
+      onClick: (context) => {
         console.log(`${context.Button.text()} clicked.`);
       }
     };
@@ -141,7 +141,7 @@ function storyButton(selectedStory) {
     const config = {
       parentTag: selectedStory.parentTag,
       id: 8,
-      text: "Mambo Button",
+      text: "Secondary",
       size: "medium",
       type: "secondary",
       enable: false
@@ -160,7 +160,7 @@ function storyButton(selectedStory) {
       },
       id: 2,
       text: "Image Button",
-      fnClick: (context) => {
+      onClick: (context) => {
         console.log(`${context.Button.text()} clicked.`);
       }
     };
@@ -178,7 +178,7 @@ function storyButton(selectedStory) {
         },
         hover: "img/storyboard/star.png"
       },
-      fnClick: (context) => {
+      onClick: (context) => {
         console.log(`${context.Button.text()} clicked.`);
       }
     };
@@ -201,10 +201,10 @@ function storyButton(selectedStory) {
           }
         }
       ],
-      fnMouseDown: (context) => {
+      onMouseDown: (context) => {
         console.log(`${context.Button.text()} Mouse Down.`);
       },
-      fnMouseUp: (context) => {
+      onMouseUp: (context) => {
         console.log(`${context.Button.text()} Mouse Up.`);
       }
     };
@@ -223,7 +223,7 @@ function storyButtonGroup(selectedStory) {
         {
           id: 1,
           text: "Button One",
-          fnClick: (context) => {
+          onClick: (context) => {
           }
         },
         {
@@ -235,7 +235,7 @@ function storyButtonGroup(selectedStory) {
           text: "Button Three"
         }
       ],
-      fnClick: (context) => {
+      onClick: (context) => {
       }
     };
     ui.buttonGroup(btnGroupProps);
@@ -247,7 +247,7 @@ function storyButtonGroup(selectedStory) {
         {
           id: 1,
           text: "Button One",
-          fnClick: (context) => {
+          onClick: (context) => {
           },
           icon: [
             {
@@ -257,7 +257,7 @@ function storyButtonGroup(selectedStory) {
             },
             {
               attr: {
-                "data-feather": "star"
+                class: "fa-solid fa-star"
               }
             }
           ]
@@ -268,13 +268,9 @@ function storyButtonGroup(selectedStory) {
           icon: [
             {
               attr: {
-                class: "fa-solid fa-star"
-              }
-            },
-            {
-              attr: {
-                "data-feather": "star"
-              }
+                class: "fa-solid fa-compass"
+              },
+              size: "medium"
             }
           ]
         },
@@ -289,13 +285,13 @@ function storyButtonGroup(selectedStory) {
             },
             {
               attr: {
-                "data-feather": "star"
+                class: "fa-solid fa-star"
               }
             }
           ]
         }
       ],
-      fnClick: (context) => {
+      onClick: (context) => {
       }
     };
     ui.buttonGroup(btnGroupProps);
@@ -307,25 +303,25 @@ function storyButtonGroup(selectedStory) {
         {
           id: 1,
           text: "Button One",
-          fnClick: (context) => {
+          onClick: (context) => {
           },
           type: "primary",
-          size: "large"
+          size: "small"
         },
         {
           id: 2,
           text: "Button Two",
           type: "primary",
-          size: "large"
+          size: "medium"
         },
         {
           id: 3,
           text: "Button Three",
           type: "primary",
-          size: "large"
+          size: "small"
         }
       ],
-      fnClick: (context) => {
+      onClick: (context) => {
       }
     };
     ui.buttonGroup(btnGroupProps);
@@ -339,7 +335,7 @@ function storyButtonGroup(selectedStory) {
           text: "Button One",
           type: "secondary",
           size: "small",
-          fnClick: (context) => {
+          onClick: (context) => {
           },
           icon: [
             {
@@ -351,7 +347,7 @@ function storyButtonGroup(selectedStory) {
             },
             {
               attr: {
-                "data-feather": "star"
+                class: "fa-solid fa-star"
               },
               position: "left",
               size: "small"
@@ -393,13 +389,13 @@ function storyButtonGroup(selectedStory) {
             },
             {
               attr: {
-                "data-feather": "star"
+                class: "fa-solid fa-star"
               }
             }
           ]
         }
       ],
-      fnClick: (context) => {
+      onClick: (context) => {
       }
     };
     ui.buttonGroup(btnGroupProps);
@@ -419,7 +415,7 @@ function storyButtonSVG(selectedStory) {
       },
       id: 2,
       text: "Image Button",
-      fnClick: (context) => {
+      onClick: (context) => {
         alert(`${context.Button.text()} clicked.`);
       }
     };
@@ -437,7 +433,7 @@ function storyButtonSVG(selectedStory) {
         },
         hover: "img/storyboard/star.png"
       },
-      fnClick: (context) => {
+      onClick: (context) => {
         alert(`${context.Button.text()} clicked.`);
       }
     };
@@ -463,7 +459,7 @@ function storyCard(selectedStory) {
   ui.card(configCard1);
   const configCard2 = {
     parentTag: selectedStory.parentTag,
-    fnComplete: (context) => {
+    onComplete: (context) => {
       context.Card.getBodyTag().innerHTML = `<p style='padding:3rem;'>Your Card content will go here</p>
 				 <div style='display: flex; justify-content: flex-end; padding: 1rem;'>
 				 <mambo-button id='btnSelect'></mambo-button>`;
@@ -472,7 +468,7 @@ function storyCard(selectedStory) {
         text: "Seleccionar",
         type: "primary",
         size: "small",
-        fnClick: () => {
+        onClick: () => {
           console.log("Button clicked");
         }
       });
@@ -510,7 +506,7 @@ function storyCheckboxGroup(selectedStory) {
       {
         text: "",
         checked: true,
-        fnClick: (context) => {
+        onClick: (context) => {
         },
         position: "right"
       },
@@ -524,9 +520,9 @@ function storyCheckboxGroup(selectedStory) {
         position: "right"
       }
     ],
-    fnClick: (context) => {
+    onClick: (context) => {
     },
-    fnGroupClick: (context) => {
+    onGroupClick: (context) => {
     }
   };
   ui.checkboxGroup(config);
@@ -555,11 +551,11 @@ function storyDialog(selectedStory) {
     header: "Dialog Title",
     body: "<p style='padding:3em;'>Your Dialog content will go here</p>",
     footer: "<mambo-button></mambo-button>",
-    fnClick: () => {
+    onClick: () => {
       let dialogConfig = {
         title: "Dialog Title",
         closeButton: false,
-        fnComplete: (context) => {
+        onComplete: (context) => {
           context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em;'>Your Dialog content will go here</p>";
           context.Dialog.getFooterTag().innerHTML = `<div style='display:flex;gap:1em;'>
 							<mambo-button id='btnCancel'></mambo-button>
@@ -578,7 +574,7 @@ function storyDialog(selectedStory) {
                 }
               }
             ],
-            fnClick: () => {
+            onClick: () => {
               context.Dialog.close();
             }
           });
@@ -593,7 +589,7 @@ function storyDialog(selectedStory) {
                 }
               }
             ],
-            fnClick: () => {
+            onClick: () => {
               context.Dialog.close();
             }
           });
@@ -609,10 +605,10 @@ function storyDialog(selectedStory) {
     header: "Dialog Title",
     body: "<p style='padding:3em;'>Your Dialog content will go here</p>",
     footer: "<mambo-button></mambo-button>",
-    fnClick: () => {
+    onClick: () => {
       let dialogConfig = {
         title: "Dialog Title",
-        fnComplete: (context) => {
+        onComplete: (context) => {
           context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
           context.Dialog.getFooterTag().innerHTML = "Thank you for your attention";
         }
@@ -625,7 +621,7 @@ function storyDialog(selectedStory) {
 function storyDragDrop(selectedStory) {
   let props = {
     parentTag: selectedStory.parentTag,
-    fnDrop: (context) => {
+    onDrop: (context) => {
       console.table(context?.dataTransfer?.files);
     }
   };
@@ -696,7 +692,7 @@ function storyDropdown(selectedStory) {
     button: {
       text: "Open"
     },
-    fnComplete: (context) => {
+    onComplete: (context) => {
       const contentTag = context.Dropdown.getContentTag();
       dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
     }
@@ -718,7 +714,7 @@ function storyFileChooser(selectedStory) {
           input: { attr: { accept: ".txt" } }
         }
       },
-      fnUpload: handleFileSelection
+      onUpload: handleFileSelection
     };
     ui.fileChooser(config);
   }
@@ -730,7 +726,7 @@ function storyFileChooser(selectedStory) {
           input: { attr: { multiple: true } }
         }
       },
-      fnUpload: handleFileSelection
+      onUpload: handleFileSelection
     };
     ui.fileChooser(config);
   }
@@ -774,7 +770,7 @@ function storyGrid(selectedStory) {
           size: "large"
         }
       ],
-      fnClick: handleButtonClick
+      onClick: handleButtonClick
     },
     {
       id: "",
@@ -800,7 +796,7 @@ function storyGrid(selectedStory) {
           size: "large"
         }
       ],
-      fnClick: handleButtonClick
+      onClick: handleButtonClick
     },
     {
       id: "input",
@@ -810,17 +806,17 @@ function storyGrid(selectedStory) {
       enableClear: true,
       attr: {},
       enableLeftButton: true,
-      fnMouseDown: (context) => {
+      onMouseDown: (context) => {
         context.Input.setAttr({ type: "text" });
         context.Button.getTag().classList.toggle("fa-eye", true);
         context.Button.getTag().classList.toggle("fa-eye-slash", false);
       },
-      fnMouseUp: (context) => {
+      onMouseUp: (context) => {
         context.Input.setAttr({ type: "password" });
         context.Button.getTag().classList.toggle("fa-eye-slash", true);
         context.Button.getTag().classList.toggle("fa-eye", false);
       },
-      fnComplete: (context) => {
+      onComplete: (context) => {
         context.Input.setAttr({ type: "password" });
       }
     },
@@ -841,7 +837,7 @@ function storyGrid(selectedStory) {
       id: "fileChooser",
       name: "File Chooser",
       tagType: "file-chooser",
-      fnUpload: (context) => {
+      onUpload: (context) => {
       }
     },
     {
@@ -858,11 +854,11 @@ function storyGrid(selectedStory) {
           size: "large"
         }
       ],
-      fnOpen: (context) => {
+      onOpen: (context) => {
         context.Dialog.getBodyTag().innerHTML = "<p style='padding:3em; text-align: center;'>Your Dialog content will go here</p>";
         context.Dialog.getFooterTag().innerHTML = "Thank you for your attention";
       },
-      fnClose: (context) => {
+      onClose: (context) => {
       }
     },
     {
@@ -879,7 +875,7 @@ function storyGrid(selectedStory) {
           size: "large"
         }
       ],
-      fnInstallContent: (context) => {
+      onInstallContent: (context) => {
         const contentTag = context.Slideout.getContentTag();
         const headerTag = context.Slideout.getHeaderTag();
         dom.append(headerTag, "<h3>My Header Content</h3>");
@@ -892,7 +888,7 @@ function storyGrid(selectedStory) {
       tagType: "drag-drop",
       name: "Drag & Drop",
       dropText: "Drop Files",
-      fnDrop: (context) => {
+      onDrop: (context) => {
       }
     }
   ];
@@ -901,8 +897,8 @@ function storyGrid(selectedStory) {
     data,
     columns: columnsConfig,
     maxColWidth: true,
-    fnPostRow: handleGridPostRow,
-    fnComplete: (context) => {
+    onPostRow: handleGridPostRow,
+    onComplete: (context) => {
     }
   };
   ui.grid(config);
@@ -957,7 +953,7 @@ function storyGrid(selectedStory) {
           ]
         }
       ],
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     },
     {
@@ -969,7 +965,7 @@ function storyGrid(selectedStory) {
         width: "160px",
         "max-width": "160px"
       },
-      fnComplete: (context) => {
+      onComplete: (context) => {
         const contentTag = context.Dropdown.getContentTag();
         dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
       }
@@ -1000,7 +996,7 @@ function storyGrid(selectedStory) {
           id: "4"
         }
       ],
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     },
     {
@@ -1012,7 +1008,7 @@ function storyGrid(selectedStory) {
         width: "160px",
         "max-width": "160px"
       },
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     },
     {
@@ -1024,7 +1020,7 @@ function storyGrid(selectedStory) {
         width: "160px",
         "max-width": "160px"
       },
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     }
   ];
@@ -1033,15 +1029,15 @@ function storyGrid(selectedStory) {
     data: data2,
     columns: columnsConfig2,
     maxColWidth: true,
-    fnComplete: (context) => {
+    onComplete: (context) => {
     }
   };
   ui.grid(config2);
 }
 function storyInput(selectedStory) {
   inputWithClearButton();
-  inputWithLeftButton();
   inputWithIcon();
+  inputWithLeftButton();
   function inputWithClearButton() {
     const config = {
       parentTag: selectedStory.parentTag,
@@ -1050,7 +1046,7 @@ function storyInput(selectedStory) {
       icon: [
         {
           attr: {
-            "class": "fa-regular fa-envelope"
+            class: "fa-regular fa-envelope"
           },
           size: "small",
           position: "left"
@@ -1065,17 +1061,17 @@ function storyInput(selectedStory) {
       value: "My value",
       enableClear: false,
       enableLeftButton: true,
-      fnMouseDown: (context) => {
+      onMouseDown: (context) => {
         context.Input.setAttr({ type: "text" });
         context.Button.getTag().classList.toggle("fa-eye", true);
         context.Button.getTag().classList.toggle("fa-eye-slash", false);
       },
-      fnMouseUp: (context) => {
+      onMouseUp: (context) => {
         context.Input.setAttr({ type: "password" });
         context.Button.getTag().classList.toggle("fa-eye-slash", true);
         context.Button.getTag().classList.toggle("fa-eye", false);
       },
-      fnComplete: (context) => {
+      onComplete: (context) => {
         context.Input.setAttr({ type: "password" });
       }
     };
@@ -1093,8 +1089,15 @@ function storyInput(selectedStory) {
           position: "left"
         }
       ],
+      tags: {
+        input: {
+          prop: {
+            placeholder: "Ingresa tu email"
+          }
+        }
+      },
       required: true,
-      fnBlur: ({ Input }) => {
+      onBlur: ({ Input }) => {
         Input.showRequired();
       }
     };
@@ -1104,13 +1107,10 @@ function storyInput(selectedStory) {
 function storyListbox(selectedStory) {
   simpleListbox();
   function simpleListbox() {
-    const data = [
-      { displayName: "Av. Mosconi 2345" },
-      { displayName: "Test 2" }
-    ];
+    const data = [{ displayName: "Av. Mosconi 2345" }, { displayName: "Test 2" }];
     const config = {
       data,
-      fnSelect: (e) => console.log(e),
+      onSelect: (e) => console.log(e),
       parentTag: selectedStory.parentTag,
       prop: { id: "simplelistbox" }
     };
@@ -1151,7 +1151,7 @@ function storyMapBox(selectedStory) {
           }
         }
       },
-      fnComplete: (component) => addPoints(component)
+      onComplete: (component) => addPoints(component)
     };
     ui.mapbox(config);
     function addPoints(component) {
@@ -1284,7 +1284,7 @@ function storyPlayer(selectedStory) {
           text: "IPFS MP4 Video"
         }
       ],
-      fnClick: (context) => {
+      onClick: (context) => {
         const buttonId = context.Button.getId();
         switch (buttonId) {
           case 1:
@@ -1329,25 +1329,25 @@ function storyRadioGroup(selectedStory) {
       {
         text: "Radio One",
         checked: true,
-        fnClick: (context) => {
+        onClick: (context) => {
         }
       },
       {
         text: "Radio Two",
         checked: true,
-        fnClick: (context) => {
+        onClick: (context) => {
         }
       },
       {
         text: "Radio Three",
         checked: false,
-        fnClick: (context) => {
+        onClick: (context) => {
         }
       }
     ],
-    fnClick: (context) => {
+    onClick: (context) => {
     },
-    fnGroupClick: (context) => {
+    onGroupClick: (context) => {
     }
   };
   ui.radioGroup(config);
@@ -1359,7 +1359,7 @@ function storyRating(selectedStory) {
   function defaultRating() {
     const config = {
       parentTag: selectedStory.parentTag,
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     };
     ui.rating(config);
@@ -1372,7 +1372,7 @@ function storyRating(selectedStory) {
       },
       value: 5,
       max: 10,
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     };
     ui.rating(config);
@@ -1388,16 +1388,16 @@ function storyRating(selectedStory) {
 }
 function storySearch(selectedStory) {
   const config = {
-    button: { text: "", fnClick: (value) => toMap(apiSearch(value)) },
+    button: { text: "", onClick: (value) => toMap(apiSearch(value)) },
     input: {
-      fnKeyup: (value) => handleKeyUp(value),
+      onKeyup: (value) => handleKeyUp(value),
       enableClear: true
     },
     firedIn: 3,
     parentTag: selectedStory.parentTag,
     suggest: {
       displayKey: "displayName",
-      fnSelect: (e) => toMap(e)
+      onSelect: (e) => toMap(e)
     }
   };
   const search = ui.search(config);
@@ -1427,7 +1427,7 @@ function storySlideout(selectedStory) {
     const buttonConfig = {
       parentTag: selectedStory.parentTag,
       text: "Open Slideout",
-      fnClick: () => {
+      onClick: () => {
         m_slideout.open();
       }
     };
@@ -1436,7 +1436,7 @@ function storySlideout(selectedStory) {
   function installSlideout() {
     const slideoutConfig = {
       parentTag: "body",
-      fnComplete: installSlideoutContent
+      onComplete: installSlideoutContent
     };
     m_slideout = ui.slideout(slideoutConfig);
   }
@@ -1457,7 +1457,7 @@ function storySlider(selectedStory) {
   function defaultSlider() {
     const config = {
       parentTag: horizontalParentTag,
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     };
     ui.slider(config);
@@ -1466,7 +1466,7 @@ function storySlider(selectedStory) {
     const config = {
       parentTag: verticalParentTag,
       orientation: "vertical",
-      fnSelect: (context) => {
+      onSelect: (context) => {
       }
     };
     ui.slider(config);
@@ -1488,7 +1488,7 @@ function storySwitch(selectedStory) {
         checked: "",
         unchecked: ""
       },
-      fnChange: (context) => {
+      onChange: (context) => {
       }
     };
     ui.switch(config);
@@ -1502,7 +1502,7 @@ function storySwitch(selectedStory) {
         checked: "",
         unchecked: ""
       },
-      fnChange: (context) => {
+      onChange: (context) => {
       }
     };
     ui.switch(config);
@@ -1511,7 +1511,7 @@ function storySwitch(selectedStory) {
     const config = {
       parentTag: selectedStory.parentTag,
       checked: true,
-      fnChange: (context) => {
+      onChange: (context) => {
       }
     };
     ui.switch(config);
@@ -1524,7 +1524,7 @@ function storySwitch(selectedStory) {
         checked: "YES",
         unchecked: "NO"
       },
-      fnChange: (context) => {
+      onChange: (context) => {
       }
     };
     ui.switch(config);
@@ -1533,7 +1533,7 @@ function storySwitch(selectedStory) {
     const config = {
       parentTag: selectedStory.parentTag,
       enable: false,
-      fnChange: (context) => {
+      onChange: (context) => {
       }
     };
     ui.switch(config);
@@ -1546,7 +1546,7 @@ function storySwitch(selectedStory) {
         checked: "",
         unchecked: ""
       },
-      fnChange: (context) => {
+      onChange: (context) => {
       }
     };
     ui.switch(config);
@@ -1556,26 +1556,60 @@ function storyTab(selectedStory) {
   installWithFnCallback();
   installWithContentProp();
   function installWithFnCallback() {
+    const btnAttr = { style: "display: flex; flex-direction: column-reverse; width: 4rem; font-size: 0.75rem;" };
     let tabConfig = {
       parentTag: selectedStory.parentTag,
       tabs: {
         buttons: [
           {
-            text: "Tab 1",
-            fnClick: (context) => {
+            text: "Mail",
+            size: "small",
+            tags: {
+              button: {
+                attr: btnAttr
+              }
+            },
+            icon: {
+              attr: {
+                class: "fa-solid fa-envelope"
+              }
+            },
+            onClick: (context) => {
             }
           },
           {
-            text: "Tab 2"
+            text: "Star",
+            size: "small",
+            tags: {
+              button: {
+                attr: btnAttr
+              }
+            },
+            icon: {
+              attr: {
+                class: "fa-solid fa-star"
+              }
+            }
           },
           {
-            text: "Tab 3"
+            text: "Compass",
+            size: "small",
+            tags: {
+              button: {
+                attr: btnAttr
+              }
+            },
+            icon: {
+              attr: {
+                class: "fa-solid fa-compass"
+              }
+            }
           }
         ],
-        fnClick: (context) => {
+        onClick: (context) => {
         }
       },
-      fnTabComplete: (contentTag, tab) => {
+      onTabComplete: (contentTag, tab) => {
         contentTag.appendChild(dom.createTag("div", { text: `Tab name: ${tab.text}` }));
       }
     };
@@ -1587,7 +1621,7 @@ function storyTab(selectedStory) {
         {
           id: 4,
           text: "Tab 4",
-          fnClick: (context) => {
+          onClick: (context) => {
           }
         },
         {
@@ -1599,7 +1633,7 @@ function storyTab(selectedStory) {
           text: "Tab 6"
         }
       ],
-      fnClick: (buttonContext) => {
+      onClick: (buttonContext) => {
       }
     };
     const contentList = btnGroupConfig.buttons.map((btn) => {
@@ -1623,7 +1657,7 @@ function storyTextarea(selectedStory) {
       textarea: { placeholder: "editable@email.com" }
     },
     required: true,
-    fnBlur: ({ Textarea }) => {
+    onBlur: ({ Textarea }) => {
       Textarea.showRequired();
     }
   };
@@ -1640,7 +1674,7 @@ function storyToaster(selectedStory) {
   const configButton = {
     text: "Toaster with Mambo Button",
     parentTag: selectedStory.parentTag,
-    fnClick: () => {
+    onClick: () => {
       if (activeToasters["toaster-with-mambo-button"]) {
         activeToasters["toaster-with-mambo-button"].close();
         delete activeToasters["toaster-with-mambo-button"];
@@ -1654,11 +1688,11 @@ function storyToaster(selectedStory) {
         autoHideDuration: 5e3,
         size: "large",
         type: "success",
-        fnClose: (context) => {
+        onClose: (context) => {
           context.Toaster.close();
           delete activeToasters["toaster-with-mambo-button"];
         },
-        fnComplete: (context) => {
+        onComplete: (context) => {
           context.Toaster.getBodyTag().innerHTML = `
 									<div style="display: flex; align-items: start; flex-direction: column;">
 										<span style="font-size: var(--m-font-size-m);"> Titulo: </span>
@@ -1674,7 +1708,7 @@ function storyToaster(selectedStory) {
             text: "Cancel",
             type: "secondary",
             size: "small",
-            fnClick: () => {
+            onClick: () => {
               clearTimeout(timeOut);
               context.Toaster.close();
               delete activeToasters["toaster-with-mambo-button"];
@@ -1701,7 +1735,7 @@ function storyToaster(selectedStory) {
     const config = {
       text: `Toaster ${variant.h}-${variant.v}`,
       parentTag: selectedStory.parentTag,
-      fnClick: () => {
+      onClick: () => {
         if (activeToasters[`${variant.h}-${variant.v}`]) {
           activeToasters[`${variant.h}-${variant.v}`].close();
           delete activeToasters[`${variant.h}-${variant.v}`];
@@ -1720,11 +1754,11 @@ function storyToaster(selectedStory) {
           autoHideDuration: 5e3,
           type: variant.type,
           size: variant.size,
-          fnClose: (context) => {
+          onClose: (context) => {
             context.Toaster.close();
             delete activeToasters[`${variant.h}-${variant.v}`];
           },
-          fnComplete: (context) => {
+          onComplete: (context) => {
             const timeOut = setTimeout(() => {
               context.Toaster.close();
               delete activeToasters[`${variant.h}-${variant.v}`];
@@ -1758,7 +1792,7 @@ function storyTreeView(selectedStory) {
         items: [{ text: "Item 2-1" }, { text: "Item 2-2" }, { text: "Item 2-3" }, { text: "Item 2-4" }]
       }
     ],
-    fnSelect: (context) => {
+    onSelect: (context) => {
     }
   };
   ui.treeView(props);

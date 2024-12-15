@@ -9,8 +9,15 @@
   position: relative;
 }
 
+.m-search-input-container .m-input-container {
+  background-color: var(--m-white-color);
+  padding: var(--m-padding-s);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .m-search-input-wrapper {
-  border: 1px solid var(--m-border-color);
+  border: 1px solid var(--m-gray-100);
   display: flex;
   flex-grow: 1;
 }
@@ -26,6 +33,8 @@
   background: var(--m-black-color);
   border: none;
   border-radius: 0;
+  border-top-right-radius: var(--m-border-radius-primary);
+  border-bottom-right-radius: var(--m-border-radius-primary);
   color: var(--m-white-color);
   cursor: pointer;
   display: flex;

@@ -337,6 +337,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 					orientation: "horizontal",
 					enable: true,
 					showButtons: true,
+					decreaseButton: { text: "" },
+					increaseButton: { text: "" },
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);

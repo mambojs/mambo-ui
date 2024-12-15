@@ -5,16 +5,27 @@
   width: 100%;
 }
 
-.m-date-picker-input-wrapper {
+.m-date-picker-input-container {
   display: flex;
-  flex-grow: 1;
-  border: 1px solid #a9a9a9;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--m-gray-300);
+  border-radius: var(--m-border-radius-primary);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+  outline: none;
+  background: var(--m-gray-100);
+  padding: var(--m-padding-lg) var(--m-padding-lg);
+  gap: 0.5rem;
 }
 
 .m-date-picker-input-input {
   width: 100%;
   border: none;
-  padding: var(--m-padding-s);
+  outline: none;
+  background: var(--m-gray-100);
+  color: var(--m-sub-color);
 }
 
 .m-date-picker-button {
@@ -24,12 +35,13 @@
   padding: var(--m-padding-s) var(--m-padding-m);
   background: black;
   border: none;
-  border-radius: 0;
   cursor: pointer;
   text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top-right-radius: var(--m-border-radius-primary);
+  border-bottom-right-radius: var(--m-border-radius-primary);
 }
 
 .m-date-picker-button.m-hover {

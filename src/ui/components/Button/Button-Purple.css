@@ -13,6 +13,12 @@
   gap: 0.5rem;
   border: 1px solid var(--m-accent-color);
   border-radius: var(--m-border-radius-rounded);
+  width: 100%;
+}
+
+.m-button-button.no-text,
+.m-button-button.primary.no-text {
+  width: auto;
 }
 
 .m-button-button:focus,
