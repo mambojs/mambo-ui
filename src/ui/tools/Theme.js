@@ -145,8 +145,9 @@ ui.defaultTheme = {
 		},
 		dropdownWrapper: "m-date-picker-dropdown-wrapper",
 		input: {
+			self: "m-date-picker-input-self",
 			input: "m-date-picker-input-input",
-			inputWrapper: "m-date-picker-input-wrapper",
+			container: "m-date-picker-input-container",
 		},
 		self: "m-date-picker-self",
 	},
@@ -458,6 +459,7 @@ ui.defaultTheme = {
 		self: "m-video-player-self",
 	},
 };
+
 ui.class.Theme = class Theme {
 	constructor() {
 		this.m_themes = {

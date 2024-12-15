@@ -4,5 +4,5 @@
 }
 
 .m-listbox-item {
-  padding: .3rem 0;
+  padding: var(--m-padding-s) 0;
 }

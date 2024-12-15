@@ -476,13 +476,13 @@ ui.defaultTags = {
   },
   calendar: {
     self: { name: "mambo-calendar" },
-    body: { name: "m-calendar-body" },
-    bodyContent: { name: "m-calendar-body-content" },
-    bodyHeader: { name: "m-calendar-body-header" }
+    body: { name: "mambo-calendar-body" },
+    bodyContent: { name: "mambo-calendar-body-content" },
+    bodyHeader: { name: "mambo-calendar-body-header" }
   },
   card: {
     self: { name: "mambo-card" },
-    body: { name: "m-card-body" }
+    body: { name: "mambo-card-body" }
   },
   checkbox: {
     self: { name: "mambo-checkbox" },
@@ -503,78 +503,78 @@ ui.defaultTags = {
   },
   combobox: {
     self: { name: "mambo-combobox" },
-    wrapper: { name: "m-combobox-wrapper" }
+    wrapper: { name: "mambo-combobox-wrapper" }
   },
   datePicker: {
     self: { name: "mambo-date-picker" },
-    wrapper: { name: "m-date-picker-wrapper" }
+    wrapper: { name: "mambo-date-picker-wrapper" }
   },
   dialog: {
     self: { name: "mambo-dialog" },
-    container: { name: "m-dialog-container" },
-    button: { name: "m-dialog-button" },
-    body: { name: "m-dialog-body" },
-    header: { name: "m-dialog-header" },
-    headerCenter: { name: "m-dialog-header-center" },
-    headerLeft: { name: "m-dialog-header-left" },
-    headerRight: { name: "m-dialog-header-right" },
+    container: { name: "mambo-dialog-container" },
+    button: { name: "mambo-dialog-button" },
+    body: { name: "mambo-dialog-body" },
+    header: { name: "mambo-dialog-header" },
+    headerCenter: { name: "mambo-dialog-header-center" },
+    headerLeft: { name: "mambo-dialog-header-left" },
+    headerRight: { name: "mambo-dialog-header-right" },
     headerTitle: { name: "h3" },
-    footer: { name: "m-dialog-footer" },
-    wrapper: { name: "m-dialog-wrapper" }
+    footer: { name: "mambo-dialog-footer" },
+    wrapper: { name: "mambo-dialog-wrapper" }
   },
   dragDrop: {
     self: { name: "mambo-drag-drop" },
-    dropText: { name: "m-drag-drop-text" }
+    dropText: { name: "mambo-drag-drop-text" }
   },
   draggable: {
     self: { name: "mambo-draggable" },
-    draggable: { name: "m-draggable" }
+    draggable: { name: "mambo-draggable" }
   },
   dropdown: {
     self: { name: "mambo-dropdown" },
-    container: { name: "m-dropdown-container" }
+    container: { name: "mambo-dropdown-container" }
   },
   fileChooser: {
     self: { name: "mambo-file-chooser" }
   },
   grid: {
     self: { name: "mambo-grid" },
-    colCell: { name: "m-col-cell" },
-    body: { name: "m-grid-body" },
-    header: { name: "m-grid-header" },
-    headerTitle: { name: "m-title" },
-    grid: { name: "m-grid" },
-    row: { name: "m-data-grid-row", attr: {} },
-    text: { name: "m-text" },
-    tileItem: { name: "m-tile-item", attr: {} },
-    tiles: { name: "m-tiles" }
+    colCell: { name: "mambo-col-cell" },
+    body: { name: "mambo-grid-body" },
+    header: { name: "mambo-grid-header" },
+    headerTitle: { name: "mambo-title" },
+    grid: { name: "mambo-grid" },
+    row: { name: "mambo-data-grid-row", attr: {} },
+    text: { name: "mambo-text" },
+    tileItem: { name: "mambo-tile-item", attr: {} },
+    tiles: { name: "mambo-tiles" }
   },
   input: {
     self: { name: "mambo-input" },
-    container: { name: "m-input-container" },
+    container: { name: "mambo-input-container" },
     input: { name: "input", attr: { type: "text" } },
     iconRequired: { name: "i" },
-    textRequired: { name: "m-input-text-required" }
+    textRequired: { name: "mambo-input-text-required" }
   },
   listbox: {
     self: { name: "mambo-listbox" },
-    container: { name: "m-listbox-container" },
-    item: { name: "m-listbox-item" }
+    container: { name: "mambo-listbox-container" },
+    item: { name: "mambo-listbox-item" }
   },
   mapbox: {
     self: { name: "mambo-mapbox" },
-    container: { name: "m-mapbox-container" },
-    currentPoint: { name: "m-mapbox-current-point" }
+    container: { name: "mambo-mapbox-container" },
+    currentPoint: { name: "mambo-mapbox-current-point" }
   },
   percentage: {
     self: { name: "mambo-percentage" },
-    bar: { name: "m-percentage-bar" },
-    text: { name: "m-percentage-text" }
+    bar: { name: "mambo-percentage-bar" },
+    text: { name: "mambo-percentage-text" }
   },
   player: {
     self: { name: "mambo-player" },
-    controls: { name: "m-controls" },
-    time: { name: "m-time-stats" },
+    controls: { name: "mambo-controls" },
+    time: { name: "mambo-time-stats" },
     player: { name: "video" }
   },
   radio: {
@@ -589,78 +589,78 @@ ui.defaultTags = {
   },
   rating: {
     self: { name: "mambo-rating" },
-    empty: { name: "m-rating-empty" },
-    emptyStar: { name: "m-rating-empty-star" },
-    hover: { name: "m-rating-hover" },
-    hoverStar: { name: "m-rating-hover-star" },
-    selected: { name: "m-rating-selected" },
-    selectedStar: { name: "m-rating-selected-star" }
+    empty: { name: "mambo-rating-empty" },
+    emptyStar: { name: "mambo-rating-empty-star" },
+    hover: { name: "mambo-rating-hover" },
+    hoverStar: { name: "mambo-rating-hover-star" },
+    selected: { name: "mambo-rating-selected" },
+    selectedStar: { name: "mambo-rating-selected-star" }
   },
   search: {
     self: { name: "mambo-search" },
-    inputContainer: { name: "m-search-input-container" },
-    wrapper: { name: "m-search-wrapper" }
+    inputContainer: { name: "mambo-search-input-container" },
+    wrapper: { name: "mambo-search-wrapper" }
   },
   slideout: {
     self: { name: "mambo-slideout" },
-    body: { name: "m-slideout-body" },
-    header: { name: "m-slideout-header" },
-    overlay: { name: "m-slideout-overlay" }
+    body: { name: "mambo-slideout-body" },
+    header: { name: "mambo-slideout-header" },
+    overlay: { name: "mambo-slideout-overlay" }
   },
   slider: {
     self: { name: "mambo-slider" },
-    handle: { name: "m-slider-handle" },
-    selection: { name: "m-slider-selection" },
-    step: { name: "m-slider-step" },
-    stepLarge: { name: "m-slider-step-large" },
-    stepsContainer: { name: "m-slider-steps-container" },
-    track: { name: "m-slider-track" },
-    wrapper: { name: "m-slider-wrapper" }
+    handle: { name: "mambo-slider-handle" },
+    selection: { name: "mambo-slider-selection" },
+    step: { name: "mambo-slider-step" },
+    stepLarge: { name: "mambo-slider-step-large" },
+    stepsContainer: { name: "mambo-slider-steps-container" },
+    track: { name: "mambo-slider-track" },
+    wrapper: { name: "mambo-slider-wrapper" }
   },
   switch: {
     self: { name: "mambo-switch" },
-    container: { name: "m-switch-container" },
-    handle: { name: "m-switch-handle" },
-    off: { name: "m-switch-label-off" },
-    on: { name: "m-switch-label-on" },
-    text: { name: "m-switch-text" }
+    container: { name: "mambo-switch-container" },
+    handle: { name: "mambo-switch-handle" },
+    off: { name: "mambo-switch-label-off" },
+    on: { name: "mambo-switch-label-on" },
+    text: { name: "mambo-switch-text" }
   },
   tab: {
     self: { name: "mambo-tab" },
-    content: { name: "m-tab-content" },
-    body: { name: "m-tab-body" },
-    tabs: { name: "m-tabs" }
+    content: { name: "mambo-tab-content" },
+    body: { name: "mambo-tab-body" },
+    tabs: { name: "mambo-tabs" }
   },
   textarea: {
     self: { name: "mambo-textarea" },
     textarea: { name: "textarea", attr: {} },
     span: { name: "span" },
-    buttonsContainer: { name: "m-textarea-buttons-container" },
-    iconsContainer: { name: "m-textarea-icons-container" },
-    footer: { name: "m-textarea-footer" },
+    buttonsContainer: { name: "mambo-textarea-buttons-container" },
+    iconsContainer: { name: "mambo-textarea-icons-container" },
+    footer: { name: "mambo-textarea-footer" },
     iconRequired: { name: "i" },
-    textRequired: { name: "m-textarea-text-required" },
-    containerUp: { name: "m-textarea-container-up" },
-    containerDown: { name: "m-textarea-container-down" }
+    textRequired: { name: "mambo-textarea-text-required" },
+    containerUp: { name: "mambo-textarea-container-up" },
+    containerDown: { name: "mambo-textarea-container-down" }
   },
   timePicker: {
     self: { name: "mambo-time-picker" }
   },
   toaster: {
     self: { name: "mambo-toaster" },
-    button: { name: "m-toaster-button" },
-    body: { name: "m-toaster-body" },
-    buttonContainer: { name: "m-toaster-button-container" },
-    iconContainer: { name: "m-toaster-icon-container" },
-    wrapper: { name: "m-toaster-wrapper" }
+    button: { name: "mambo-toaster-button" },
+    body: { name: "mambo-toaster-body" },
+    buttonContainer: { name: "mambo-toaster-button-container" },
+    iconContainer: { name: "mambo-toaster-icon-container" },
+    wrapper: { name: "mambo-toaster-wrapper" }
   },
   treeView: {
     self: { name: "mambo-tree-view" },
-    group: { name: "m-tree-view-group" },
+    group: { name: "mambo-tree-view-group" },
     icon: { name: "icon" },
-    item: { name: "m-tree-view-item" },
-    itemIn: { name: "m-tree-view-item-in" },
-    itemTop: { name: "m-tree-view-item-top" }
+    item: { name: "mambo-tree-view-item" },
+    itemIn: { name: "mambo-tree-view-item-in" },
+    itemTop: { name: "mambo-tree-view-item-top" }
   },
   template: {
     self: { name: "mambo-template" }
@@ -840,8 +840,9 @@ ui.defaultTheme = {
     },
     dropdownWrapper: "m-date-picker-dropdown-wrapper",
     input: {
+      self: "m-date-picker-input-self",
       input: "m-date-picker-input-input",
-      inputWrapper: "m-date-picker-input-wrapper"
+      container: "m-date-picker-input-container"
     },
     self: "m-date-picker-self"
   },
@@ -1324,15 +1325,12 @@ ui.class.Button = class Button extends HTMLElement {
       return new Promise((resolve) => {
         const tagConfig = { ...m_props.tags.button };
         let buttonClasses = [m_props.css.button];
-        if (m_props.size) {
+        if (m_props.size)
           buttonClasses.push(m_props.size);
-        }
-        if (!m_props.text) {
-          buttonClasses.push("notext");
-        }
-        if (m_props.type) {
+        if (!m_props.text)
+          buttonClasses.push("no-text");
+        if (m_props.type)
           buttonClasses.push(m_props.type);
-        }
         tagConfig.class = buttonClasses.join(" ");
         tagConfig.text = m_props.text;
         tagConfig.event = {
@@ -1423,14 +1421,14 @@ ui.class.Button = class Button extends HTMLElement {
         if (m_props.stopPropagation) {
           ev.stopPropagation();
         }
-        if (m_props.fnClick) {
-          m_props.fnClick({
+        if (m_props.onClick) {
+          m_props.onClick({
             Button: self,
             ev
           });
         }
-        if (m_props.fnGroupClick) {
-          m_props.fnGroupClick({
+        if (m_props.onGroupClick) {
+          m_props.onGroupClick({
             Button: self,
             ev
           });
@@ -1440,8 +1438,8 @@ ui.class.Button = class Button extends HTMLElement {
     function handleMouseDown(ev) {
       if (m_enable) {
         m_buttonTag.classList.add(m_props.css.pressed);
-        if (m_props.fnMouseDown) {
-          m_props.fnMouseDown({
+        if (m_props.onMouseDown) {
+          m_props.onMouseDown({
             Button: self,
             ev
           });
@@ -1451,8 +1449,8 @@ ui.class.Button = class Button extends HTMLElement {
     function handleMouseUp(ev) {
       if (m_enable) {
         m_buttonTag.classList.remove(m_props.css.pressed);
-        if (m_props.fnMouseUp) {
-          m_props.fnMouseUp({
+        if (m_props.onMouseUp) {
+          m_props.onMouseUp({
             Button: self,
             ev
           });
@@ -1523,8 +1521,8 @@ ui.class.Button = class Button extends HTMLElement {
       m_buttonTag.classList.toggle(m_props.css.disabled, !m_enable);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Button: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Button: self });
       }
     }
     function configure(customProps = {}) {
@@ -1602,7 +1600,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
     function installButton(button) {
       return new Promise((resolve) => {
         button.css = ui.utils.extend(true, m_props.css.button, button.css);
-        button.fnGroupClick = m_props.fnGroupClick;
+        button.onGroupClick = m_props.onGroupClick;
         button.parentTag = self;
         m_buttonsList.push(ui.button(button));
         resolve();
@@ -1610,8 +1608,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
     }
     function handleGroupBtnClick(context) {
       deselectBtns();
-      if (m_props.fnClick) {
-        m_props.fnClick(context);
+      if (m_props.onClick) {
+        m_props.onClick(context);
       }
       context.Button.select({ notTrigger: true });
       m_selectedButtonTag = context.Button;
@@ -1639,8 +1637,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ ButtonGroup: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ ButtonGroup: self });
       }
     }
     function configure(customProps = {}) {
@@ -1649,7 +1647,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
           buttons: [],
           tag: "default",
           theme: "default",
-          fnGroupClick: handleGroupBtnClick
+          onGroupClick: handleGroupBtnClick
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -1770,14 +1768,14 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
         if (m_props.stopPropagation) {
           ev.stopPropagation();
         }
-        if (m_props.fnClick) {
-          m_props.fnClick({
+        if (m_props.onClick) {
+          m_props.onClick({
             Button: self,
             ev
           });
         }
-        if (m_props.fnGroupClick) {
-          m_props.fnGroupClick({
+        if (m_props.onGroupClick) {
+          m_props.onGroupClick({
             Button: self,
             ev
           });
@@ -1848,8 +1846,8 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
       m_buttonTag.classList.toggle(m_props.css.disabled, !m_enable);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Button: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Button: self });
       }
     }
     function configure(customProps = {}) {
@@ -1926,12 +1924,12 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let buttonGroup = ui.utils.extend(true, {}, m_props.headerButtonGroup);
         buttonGroup.css = ui.utils.extend(true, m_props.css.headerButtonGroup, buttonGroup.css);
         buttonGroup.parentTag = self;
-        buttonGroup.fnComplete = resolve;
+        buttonGroup.onComplete = resolve;
         buttonGroup.buttons.forEach((button, index) => {
-          button.fnComplete = (context) => {
+          button.onComplete = (context) => {
             m_headerButtonsList[index] = context.Button;
-            if (m_props.headerButtonGroup.buttons[index].fnComplete) {
-              m_props.headerButtonGroup.buttons[index].fnComplete(context);
+            if (m_props.headerButtonGroup.buttons[index].onComplete) {
+              m_props.headerButtonGroup.buttons[index].onComplete(context);
             }
           };
         });
@@ -1955,18 +1953,18 @@ ui.class.Calendar = class Calendar extends HTMLElement {
           const button = ui.utils.extend(true, {}, m_props.footerButton);
           button.css = ui.utils.extend(true, m_props.css.footerButton, button.css);
           button.parentTag = self;
-          button.fnComplete = resolve;
+          button.onComplete = resolve;
           let today = ui.date.getToday();
           button.id = ui.date.format(today, m_idFormat);
           button.text = ui.date.format(today, m_props.footer);
           if (ui.date.isBefore(today, m_minDate) || ui.date.isAfter(today, m_maxDate)) {
             button.enable = false;
           }
-          button.fnClick = (context) => {
+          button.onClick = (context) => {
             m_depth = m_minDepth;
             selectValue(context.Button, context.ev);
-            if (m_props.footerButton.fnClick) {
-              m_props.footerButton.fnClick(context);
+            if (m_props.footerButton.onClick) {
+              m_props.footerButton.onClick(context);
             }
           };
           ui.button(button);
@@ -2018,9 +2016,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
     }
     function setHeaderButtonsEnabled() {
       m_headerButtonsList.forEach((button, index) => {
-        if (m_props.headerButtonGroup.buttons[index].fnEnabled) {
+        if (m_props.headerButtonGroup.buttons[index].onEnabled) {
           button.enable({
-            enable: m_props.headerButtonGroup.buttons[index].fnEnabled()
+            enable: m_props.headerButtonGroup.buttons[index].onEnabled()
           });
         }
       });
@@ -2050,9 +2048,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
       return !ui.date.isSameOrAfter(lastViewDate, m_maxDate);
     }
     function setHeaderButtonsText() {
-      const i = m_props.headerButtonGroup.buttons.findIndex((button) => button.fnDynamicHeaderText);
+      const i = m_props.headerButtonGroup.buttons.findIndex((button) => button.onDynamicHeaderText);
       if (i) {
-        m_props.headerButtonGroup.buttons[i].fnDynamicHeaderText(m_headerButtonsList[i]);
+        m_props.headerButtonGroup.buttons[i].onDynamicHeaderText(m_headerButtonsList[i]);
       }
     }
     function getDepthButtonText(button) {
@@ -2092,9 +2090,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let buttonGroup = ui.utils.extend(true, {}, m_props.datesButtonGroup);
         buttonGroup.css = ui.utils.extend(true, m_props.css.datesButtonGroup, buttonGroup.css);
         buttonGroup.parentTag = m_bodyContentTag;
-        buttonGroup.fnComplete = (context) => {
-          if (m_props.datesButtonGroup?.fnComplete) {
-            m_props.datesButtonGroup.fnComplete(context);
+        buttonGroup.onComplete = (context) => {
+          if (m_props.datesButtonGroup?.onComplete) {
+            m_props.datesButtonGroup.onComplete(context);
           }
           m_datesButtonGroup.select({
             id: ui.date.format(m_value, m_idFormat),
@@ -2116,7 +2114,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
           id: ui.date.format(value2, m_idFormat),
           text: value2.getDate(),
           attr: { title: ui.date.format(value2, "dddd, MMMM DD, YYYY") },
-          fnClick: (context) => {
+          onClick: (context) => {
             buttonClick(context, m_props.datesButtonGroup);
           }
         };
@@ -2136,9 +2134,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let buttonGroup = ui.utils.extend(true, {}, m_props.monthsButtonGroup);
         buttonGroup.css = ui.utils.extend(true, m_props.css.monthsButtonGroup, buttonGroup.css);
         buttonGroup.parentTag = m_bodyContentTag;
-        buttonGroup.fnComplete = (context) => {
-          if (m_props.monthsButtonGroup?.fnComplete) {
-            m_props.monthsButtonGroup.fnComplete(context);
+        buttonGroup.onComplete = (context) => {
+          if (m_props.monthsButtonGroup?.onComplete) {
+            m_props.monthsButtonGroup.onComplete(context);
           }
           let selectedMonth = ui.date.cloneDate(m_value);
           ui.date.startOf(selectedMonth, "month");
@@ -2160,7 +2158,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
           id: ui.date.format(value2, m_idFormat),
           text: ui.date.format(value2, "MMM"),
           attr: { title: ui.date.format(value2, "MMMM") },
-          fnClick: (context) => {
+          onClick: (context) => {
             buttonClick(context, m_props.monthsButtonGroup);
           }
         };
@@ -2176,9 +2174,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let buttonGroup = ui.utils.extend(true, {}, m_props.yearsButtonGroup);
         buttonGroup.css = ui.utils.extend(true, m_props.css.yearsButtonGroup, buttonGroup.css);
         buttonGroup.parentTag = m_bodyContentTag;
-        buttonGroup.fnComplete = (context) => {
-          if (m_props.yearsButtonGroup?.fnComplete) {
-            m_props.yearsButtonGroup.fnComplete(context);
+        buttonGroup.onComplete = (context) => {
+          if (m_props.yearsButtonGroup?.onComplete) {
+            m_props.yearsButtonGroup.onComplete(context);
           }
           let selectedYear = ui.date.cloneDate(m_value);
           ui.date.startOf(selectedYear, "year");
@@ -2200,7 +2198,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let button = {
           id: ui.date.format(value2, m_idFormat),
           text: ui.date.format(value2, "YYYY"),
-          fnClick: (context) => {
+          onClick: (context) => {
             buttonClick(context, m_props.yearsButtonGroup);
           }
         };
@@ -2218,9 +2216,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let buttonGroup = ui.utils.extend(true, {}, m_props.decadesButtonGroup);
         buttonGroup.css = ui.utils.extend(true, m_props.css.decadesButtonGroup, buttonGroup.css);
         buttonGroup.parentTag = m_bodyContentTag;
-        buttonGroup.fnComplete = (context) => {
-          if (m_props.decadesButtonGroup?.fnComplete) {
-            m_props.decadesButtonGroup.fnComplete(context);
+        buttonGroup.onComplete = (context) => {
+          if (m_props.decadesButtonGroup?.onComplete) {
+            m_props.decadesButtonGroup.onComplete(context);
           }
           let selectedDecade = ui.date.cloneDate(m_value);
           ui.date.startOf(selectedDecade, "decade");
@@ -2242,7 +2240,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
         let button = {
           id: ui.date.format(value2, m_idFormat),
           text: `${value2.getFullYear()}-${value2.getFullYear() + 9}`,
-          fnClick: (context) => {
+          onClick: (context) => {
             buttonClick(context, m_props.decadesButtonGroup);
           }
         };
@@ -2260,16 +2258,16 @@ ui.class.Calendar = class Calendar extends HTMLElement {
     }
     function buttonClick(context, buttonGroup) {
       selectValue(context.Button, context.ev);
-      if (buttonGroup?.fnClick) {
-        buttonGroup.fnClick(context);
+      if (buttonGroup?.onClick) {
+        buttonGroup.onClick(context);
       }
     }
     function selectValue(button, ev) {
       let value2 = ui.date.createDate(button.getId(), m_idFormat);
       if (m_depth <= m_minDepth) {
         setValue(value2);
-        if (m_props.fnSelect) {
-          m_props.fnSelect({ Calendar: self, ev });
+        if (m_props.onSelect) {
+          m_props.onSelect({ Calendar: self, ev });
         }
       } else {
         --m_depth;
@@ -2341,8 +2339,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Calendar: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Calendar: self });
       }
     }
     function configure(customProps = {}) {
@@ -2358,17 +2356,17 @@ ui.class.Calendar = class Calendar extends HTMLElement {
                   button: "m-prev-button",
                   disabled: "m-calendar-header-button-disabled"
                 },
-                fnClick: navigateToPast,
-                fnEnabled: canNavigatePast
+                onClick: navigateToPast,
+                onEnabled: canNavigatePast
               },
               {
                 css: {
                   button: "m-fast-button",
                   disabled: "m-calendar-header-button-disabled"
                 },
-                fnClick: navigateUp,
-                fnEnabled: canNavigateUp,
-                fnDynamicHeaderText: getDepthButtonText
+                onClick: navigateUp,
+                onEnabled: canNavigateUp,
+                onDynamicHeaderText: getDepthButtonText
               },
               {
                 text: "",
@@ -2376,8 +2374,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
                   button: "m-next-button",
                   disabled: "m-calendar-header-button-disabled"
                 },
-                fnClick: navigateToFuture,
-                fnEnabled: canNavigateFuture
+                onClick: navigateToFuture,
+                onEnabled: canNavigateFuture
               }
             ]
           },
@@ -2445,8 +2443,8 @@ ui.class.Card = class Card extends HTMLElement {
       });
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Card: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Card: self });
       }
     }
     function configure(customProps = {}) {
@@ -2533,11 +2531,11 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
     function handleClick(ev) {
       if (m_enabled) {
         m_checked = !m_checked;
-        if (m_props.fnClick) {
-          m_props.fnClick({ Checkbox: self, ev });
+        if (m_props.onClick) {
+          m_props.onClick({ Checkbox: self, ev });
         }
-        if (m_props.fnGroupClick) {
-          m_props.fnGroupClick({ Checkbox: self, ev });
+        if (m_props.onGroupClick) {
+          m_props.onGroupClick({ Checkbox: self, ev });
         }
       } else {
         ev.preventDefault();
@@ -2579,8 +2577,8 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
       ui.d.remove(m_containerTag);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Checkbox: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Checkbox: self });
       }
     }
     function configure(customProps = {}) {
@@ -2647,19 +2645,19 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
           ...checkbox,
           name: m_props.name,
           parentTag: self,
-          fnGroupClick: handleGroupClick,
-          fnComplete: resolve,
+          onGroupClick: handleGroupClick,
+          onComplete: resolve,
           position: checkbox.position || m_props.position
         };
         m_checkboxList.push(ui.checkbox(checkboxConfig));
       });
     }
     function handleGroupClick(context) {
-      if (m_props.fnClick) {
-        m_props.fnClick(context);
+      if (m_props.onClick) {
+        m_props.onClick(context);
       }
-      if (m_props.fnGroupClick) {
-        m_props.fnGroupClick({
+      if (m_props.onGroupClick) {
+        m_props.onGroupClick({
           CheckboxGroup: self,
           Checkbox: context.Checkbox,
           ev: context.ev
@@ -2702,8 +2700,8 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ CheckboxRadioGroup: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ CheckboxRadioGroup: self });
       }
     }
     function configure(customProps = {}) {
@@ -2778,14 +2776,14 @@ ui.class.Combobox = class Combobox extends HTMLElement {
         self.appendChild(m_dropdownWrapperTag);
         let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
         dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
-        dropdown.fnBeforeClose = (context) => {
-          const result = m_props.dropdown.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
+        dropdown.onBeforeClose = (context) => {
+          const result = m_props.dropdown.onBeforeClose ? m_props.dropdown.onBeforeClose(context) : true;
           return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
         };
-        dropdown.fnComplete = (context) => {
+        dropdown.onComplete = (context) => {
           installButtonGroup(context.Dropdown, m_comboBoxData);
-          if (m_props.dropdown.fnComplete) {
-            m_props.dropdown.fnComplete(context);
+          if (m_props.dropdown.onComplete) {
+            m_props.dropdown.onComplete(context);
           }
         };
         dropdown.parentTag = m_dropdownWrapperTag;
@@ -2800,22 +2798,22 @@ ui.class.Combobox = class Combobox extends HTMLElement {
       buttonGroup.parentTag = contentTag;
       buttonGroup.css = ui.utils.extend(true, m_props.css.buttonGroup, buttonGroup.css);
       buttonGroup.buttons = data.map(processItemData);
-      buttonGroup.fnClick = (context) => {
+      buttonGroup.onClick = (context) => {
         let text = context.Button.text();
         m_input.value({ value: text });
         m_previous_text = text;
         m_value = context.Button.getId();
         m_input.getTag().classList.add("m-selected");
         dropdown.close();
-        if (m_props.fnSelect) {
-          m_props.fnSelect({
+        if (m_props.onSelect) {
+          m_props.onSelect({
             Combobox: self,
             button: context.Button,
             ev: context.ev
           });
         }
-        if (m_props.buttonGroup.fnClick) {
-          m_props.buttonGroup.fnClick(context);
+        if (m_props.buttonGroup.onClick) {
+          m_props.buttonGroup.onClick(context);
         }
       };
       m_buttonGroup = ui.buttonGroup(buttonGroup);
@@ -2853,8 +2851,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
       } else {
         m_previous_text = value2;
         m_value = value2;
-        if (m_props.fnSelect) {
-          m_props.fnSelect({ Combobox: self, ev });
+        if (m_props.onSelect) {
+          m_props.onSelect({ Combobox: self, ev });
         }
       }
     }
@@ -2878,8 +2876,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Combobox: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Combobox: self });
       }
     }
     function configure(customProps = {}) {
@@ -2976,15 +2974,15 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
         self.appendChild(m_dropdownWrapperTag);
         const dropdownConfig = ui.utils.extend(true, {}, m_props.dropdown);
         dropdownConfig.css = ui.utils.extend(true, m_props.css.dropdown, dropdownConfig.css);
-        dropdownConfig.fnBeforeClose = (context) => {
-          const result = m_props.dropdown?.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
+        dropdownConfig.onBeforeClose = (context) => {
+          const result = m_props.dropdown?.onBeforeClose ? m_props.dropdown.onBeforeClose(context) : true;
           return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
         };
-        dropdownConfig.fnComplete = (context) => {
+        dropdownConfig.onComplete = (context) => {
           installCalendar(context.Dropdown);
           resolve();
-          if (m_props.dropdown?.fnComplete) {
-            m_props.dropdown.fnComplete(context);
+          if (m_props.dropdown?.onComplete) {
+            m_props.dropdown.onComplete(context);
           }
         };
         dropdownConfig.parentTag = m_dropdownWrapperTag;
@@ -3002,17 +3000,17 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
       calendar.depth = m_props.depth;
       calendar.min = m_props.min;
       calendar.max = m_props.max;
-      calendar.fnSelect = (context) => {
+      calendar.onSelect = (context) => {
         m_value = context.Calendar.value();
         const text = ui.date.format(m_value, m_props.format);
         m_input.value({ value: text });
         m_previous_text = text;
         dropdown.close();
-        if (m_props.calendar.fnSelect) {
-          m_props.calendar.fnSelect(context);
+        if (m_props.calendar.onSelect) {
+          m_props.calendar.onSelect(context);
         }
-        if (m_props.fnSelect) {
-          m_props.fnSelect({ DatePicker: self, ev: context.ev });
+        if (m_props.onSelect) {
+          m_props.onSelect({ DatePicker: self, ev: context.ev });
         }
       };
       calendar.parentTag = contentTag;
@@ -3040,8 +3038,8 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
       const text = m_input.value();
       if (m_previous_text !== text) {
         setValue(text);
-        if (m_props.fnSelect) {
-          m_props.fnSelect({ DatePicker: self, ev });
+        if (m_props.onSelect) {
+          m_props.onSelect({ DatePicker: self, ev });
         }
       }
     }
@@ -3049,8 +3047,8 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ DatePicker: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ DatePicker: self });
       }
     }
     function configure(customProps = {}) {
@@ -3165,10 +3163,10 @@ ui.class.Dialog = class Dialog extends HTMLElement {
           attr: {
             type: "button"
           },
-          fnClick: (context) => {
+          onClick: (context) => {
             closeDialog();
-            if (m_props.fnClose) {
-              m_props.fnClose({
+            if (m_props.onClose) {
+              m_props.onClose({
                 Dialog: self,
                 Button: context.Button,
                 ev: context.ev
@@ -3186,8 +3184,8 @@ ui.class.Dialog = class Dialog extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Dialog: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Dialog: self });
       }
     }
     function configure(customProps = {}) {
@@ -3257,29 +3255,29 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
       });
     }
     function handleMouseEnterLeave(ev) {
-      if (m_props.fnMouseenterMouseleave) {
-        m_props.fnMouseenterMouseleave({ ev });
+      if (m_props.onMouseenterMouseleave) {
+        m_props.onMouseenterMouseleave({ ev });
       }
     }
     function handleDragover(ev) {
       ev.preventDefault();
-      if (m_props.fnDragover) {
-        m_props.fnDragover({ ev });
+      if (m_props.onDragover) {
+        m_props.onDragover({ ev });
       }
     }
     function handleDrop(ev) {
       ev.preventDefault();
       ev.stopPropagation();
-      if (!m_props.fnDrop) {
+      if (!m_props.onDrop) {
         return;
       }
       let items = ev.dataTransfer.items;
       if (!items || items.length === 0) {
-        m_props.fnDrop({ error: "No items dropped", dataTransfer: {} });
+        m_props.onDrop({ error: "No items dropped", dataTransfer: {} });
         return;
       }
       if (m_props.maxFileCount && items.length > m_props.maxFileCount) {
-        m_props.fnDrop({ error: "maxFileCount", dataTransfer: {} });
+        m_props.onDrop({ error: "maxFileCount", dataTransfer: {} });
         return;
       }
       for (let i = 0; i < items.length; i++) {
@@ -3288,7 +3286,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
           return;
         }
       }
-      m_props.fnDrop({ dataTransfer: ev.dataTransfer, ev });
+      m_props.onDrop({ dataTransfer: ev.dataTransfer, ev });
     }
     function checkFileKindAllowed(type) {
       let valid = true;
@@ -3306,8 +3304,8 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
       m_parentTag.removeChild(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Button: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Button: self });
       }
     }
     function configure(customProps = {}) {
@@ -3398,15 +3396,15 @@ ui.class.Draggable = class Draggable extends HTMLElement {
         if (ev.target === m_draggableTag) {
           m_active = true;
         }
-        if (m_active && m_props.fnDragStart) {
-          m_props.fnDragStart({ Draggable: self, ev });
+        if (m_active && m_props.onDragStart) {
+          m_props.onDragStart({ Draggable: self, ev });
         }
       }
     }
     function dragEnd(ev) {
       if (m_enable) {
-        if (m_active && m_props.fnDragEnd) {
-          m_props.fnDragEnd({ Draggable: self, ev });
+        if (m_active && m_props.onDragEnd) {
+          m_props.onDragEnd({ Draggable: self, ev });
         }
         m_active = false;
       }
@@ -3433,8 +3431,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
           }
         }
         setPosition(currentX, currentY);
-        if (m_props.fnDrag && (currentX !== 0 || currentY !== 0)) {
-          m_props.fnDrag({ Draggable: self, ev });
+        if (m_props.onDrag && (currentX !== 0 || currentY !== 0)) {
+          m_props.onDrag({ Draggable: self, ev });
         }
       }
     }
@@ -3469,8 +3467,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
       ui.d.remove(m_draggableTag);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Draggable: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Draggable: self });
       }
     }
     function configure(customProps = {}) {
@@ -3536,10 +3534,10 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
         button.css = ui.utils.extend(true, m_props.css.button, button.css);
         button.parentTag = self;
         button.text = button.text || "";
-        button.fnComplete = resolve;
-        button.fnClick = (context) => {
-          if (m_props.button?.fnClick) {
-            m_props.button.fnClick(context);
+        button.onComplete = resolve;
+        button.onClick = (context) => {
+          if (m_props.button?.onClick) {
+            m_props.button.onClick(context);
           } else {
             if (m_open) {
               closeAnimation(context.ev);
@@ -3581,29 +3579,29 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
     function openAnimation() {
       m_dropdownContainerTag.classList.add(m_props.css.open);
       m_open = true;
-      if (m_props.fnOpen) {
-        m_props.fnOpen({ dropdown: self });
+      if (m_props.onOpen) {
+        m_props.onOpen({ dropdown: self });
       }
     }
     function close(context = {}) {
       closeAnimation(context.ev);
     }
     function closeAnimation(ev) {
-      if (m_props.fnBeforeClose && !m_props.fnBeforeClose({ ev })) {
+      if (m_props.onBeforeClose && !m_props.onBeforeClose({ ev })) {
         return;
       }
       m_dropdownContainerTag.classList.remove(m_props.css.open);
       m_open = false;
-      if (m_props.fnClose) {
-        m_props.fnClose({ dropdown: self });
+      if (m_props.onClose) {
+        m_props.onClose({ dropdown: self });
       }
     }
     function destroyDropdown() {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Dropdown: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Dropdown: self });
       }
     }
     function configure(customProps = {}) {
@@ -3611,7 +3609,7 @@ ui.class.Dropdown = class Dropdown extends HTMLElement {
         m_props = {
           tag: "default",
           theme: "default",
-          fnBeforeClose: (context) => {
+          onBeforeClose: (context) => {
             return true;
           }
         };
@@ -3668,11 +3666,11 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
         const config = {
           ...m_props.button,
           parentTag: self,
-          fnClick: () => {
+          onClick: () => {
             m_inputTag.getTag().click();
           },
           css: m_props.css.button,
-          fnComplete: () => {
+          onComplete: () => {
             installInput(true).then(resolve);
           },
           resolve
@@ -3690,8 +3688,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
             {
               name: "change",
               fn: (context) => {
-                if (m_props.fnUpload) {
-                  m_props.fnUpload({
+                if (m_props.onUpload) {
+                  m_props.onUpload({
                     files: context.Input.getTag().files,
                     ev: context.ev
                   });
@@ -3699,7 +3697,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
               }
             }
           ],
-          fnComplete: resolve
+          onComplete: resolve
         };
         if (hidden) {
           inputConfig.hidden = true;
@@ -3711,8 +3709,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ FileChooser: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ FileChooser: self });
       }
     }
     function configure(customProps = {}) {
@@ -3755,7 +3753,7 @@ ui.class.Grid = class Grid extends HTMLElement {
     let m_tileParentTag;
     let m_tileParentTags = [];
     let m_props;
-    let m_gridData = props.data;
+    let m_gridData;
     let m_gridDataChanged;
     let m_colStylesId;
     let m_tileIndexAttrName;
@@ -3771,6 +3769,8 @@ ui.class.Grid = class Grid extends HTMLElement {
     this.removeColsStyles = removeColsStyles;
     this.setup = setup;
     if (props) {
+      if (props.data)
+        m_gridData = props.data;
       setup(props);
     }
     async function setup(props2) {
@@ -3825,8 +3825,8 @@ ui.class.Grid = class Grid extends HTMLElement {
           let content = ui.d.supplantHTML(m_props.tileHTML, tileData);
           ui.d.append(tileTag, content);
         }
-        if (m_props.fnPostTile) {
-          m_props.fnPostTile({
+        if (m_props.onPostTile) {
+          m_props.onPostTile({
             tileIndex,
             tileTag,
             tileData
@@ -3955,8 +3955,8 @@ ui.class.Grid = class Grid extends HTMLElement {
             });
           });
           Promise.all(rowPromises).then(() => {
-            if (m_props.fnPostRow) {
-              m_props.fnPostRow({
+            if (m_props.onPostRow) {
+              m_props.onPostRow({
                 rowIndex,
                 rowTag,
                 rowData
@@ -3995,9 +3995,9 @@ ui.class.Grid = class Grid extends HTMLElement {
         }
       };
       buttonConfig = ui.utils.extend(true, buttonConfig, context.column);
-      buttonConfig.fnClick = (contextClick) => {
-        if (context.column.fnClick) {
-          context.column.fnClick({
+      buttonConfig.onClick = (contextClick) => {
+        if (context.column.onClick) {
+          context.column.onClick({
             rowIndex: context.rowIndex,
             rowData: context.rowData,
             parentTag: context.parentTag,
@@ -4005,7 +4005,7 @@ ui.class.Grid = class Grid extends HTMLElement {
           });
         }
       };
-      buttonConfig.fnComplete = (contextComplete) => {
+      buttonConfig.onComplete = (contextComplete) => {
         saveCellTagWidth({
           colIndex: context.colIndex,
           tag: contextComplete.Button.getTag(),
@@ -4033,7 +4033,7 @@ ui.class.Grid = class Grid extends HTMLElement {
       inputConfig.events = [
         {
           name: "change",
-          fn: (contextEvent) => {
+          on: (contextEvent) => {
             inputElChangeEvent({
               input: contextEvent.input,
               column: context.column,
@@ -4044,7 +4044,7 @@ ui.class.Grid = class Grid extends HTMLElement {
           }
         }
       ];
-      inputConfig.fnDataValidationChange = (contextValidation) => {
+      inputConfig.onDataValidationChange = (contextValidation) => {
         inputElChangeEvent({
           input: contextValidation.input,
           column: context.column,
@@ -4053,19 +4053,19 @@ ui.class.Grid = class Grid extends HTMLElement {
           ev: contextValidation.ev
         });
       };
-      inputConfig.fnComplete = (contextComplete) => {
+      inputConfig.onComplete = (contextComplete) => {
         saveCellTagWidth({
           colIndex: context.colIndex,
           tag: contextComplete.Input.getTag(),
           parentTag: context.parentTag
         });
-        if (context.column.fnComplete) {
-          context.column.fnComplete(contextComplete);
+        if (context.column.onComplete) {
+          context.column.onComplete(contextComplete);
         }
       };
-      inputConfig.fnClick = (contextClick) => {
-        if (context.column.fnClick) {
-          context.column.fnClick(contextClick);
+      inputConfig.onClick = (contextClick) => {
+        if (context.column.onClick) {
+          context.column.onClick(contextClick);
         }
       };
       inputConfig.parentTag = context.parentTag;
@@ -4083,7 +4083,7 @@ ui.class.Grid = class Grid extends HTMLElement {
         attr: {
           multiple: true
         },
-        fnComplete: (contextComplete) => {
+        onComplete: (contextComplete) => {
           saveCellTagWidth({
             colIndex: context.colIndex,
             tag: contextComplete.FileChooser.getParentTag(),
@@ -4108,15 +4108,15 @@ ui.class.Grid = class Grid extends HTMLElement {
         }
       };
       const dialogConfig = ui.utils.extend(true, dialogDefaultConfig, context.column);
-      dialogConfig.fnClick = () => {
+      dialogConfig.onClick = () => {
         ui.dialog({
           title: dialogConfig.title,
-          fnComplete: context.column.fnOpen,
-          fnClose: context.column.fnClose
+          onComplete: context.column.onOpen,
+          onClose: context.column.onClose
         });
       };
       const buttonConfig = ui.utils.extend(true, {}, dialogConfig);
-      buttonConfig.fnComplete = (contextComplete) => {
+      buttonConfig.onComplete = (contextComplete) => {
         saveCellTagWidth({
           colIndex: context.colIndex,
           tag: contextComplete.Button.getTag(),
@@ -4152,13 +4152,13 @@ ui.class.Grid = class Grid extends HTMLElement {
         }
       };
       const config = ui.utils.extend(true, defaultConfig, context.column);
-      config.fnClick = () => {
+      config.onClick = () => {
         slideoutTag.open();
       };
       config.parentTag = context.parentTag;
       const buttonTag = ui.button(config);
       const slideoutConfig = ui.utils.extend(true, {}, config);
-      slideoutConfig.fnComplete = config.fnInstallContent;
+      slideoutConfig.onComplete = config.onInstallContent;
       slideoutConfig.parentTag = config.slideoutParentTag;
       slideoutTag = ui.slideout(slideoutConfig);
       addComponentToMap({
@@ -4171,7 +4171,7 @@ ui.class.Grid = class Grid extends HTMLElement {
       const defaultConfig = {
         parentTag: context.parentTag,
         dropText: "Drop Files",
-        fnDrop: handleDropEvent,
+        onDrop: handleDropEvent,
         css: {
           parent: m_props.css.dropParent,
           imgDropIcon: m_props.css.dropImgDropIcon,
@@ -4386,8 +4386,8 @@ ui.class.Grid = class Grid extends HTMLElement {
       return true;
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Grid: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Grid: self });
       }
     }
     function configure(customProps = {}) {
@@ -4541,11 +4541,11 @@ ui.class.Input = class Input extends HTMLElement {
             ...m_props.clearButton,
             css: m_props.css.clearButton,
             parentTag: m_containerTag,
-            fnComplete: resolve,
-            fnClick: (context) => {
+            onComplete: resolve,
+            onClick: (context) => {
               clearInput();
-              if (m_props.fnClear) {
-                m_props.fnClear({
+              if (m_props.onClear) {
+                m_props.onClear({
                   Input: self,
                   Button: context.Button,
                   ev: context.ev
@@ -4564,19 +4564,19 @@ ui.class.Input = class Input extends HTMLElement {
             ...m_props.leftButton,
             css: m_props.css.leftButton,
             parentTag: m_containerTag,
-            fnComplete: resolve,
-            fnMouseDown: (context) => {
-              if (m_props.fnMouseDown) {
-                m_props.fnMouseDown({
+            onComplete: resolve,
+            onMouseDown: (context) => {
+              if (m_props.onMouseDown) {
+                m_props.onMouseDown({
                   Input: self,
                   Button: context.Button,
                   ev: context.ev
                 });
               }
             },
-            fnMouseUp: (context) => {
-              if (m_props.fnMouseUp) {
-                m_props.fnMouseUp({
+            onMouseUp: (context) => {
+              if (m_props.onMouseUp) {
+                m_props.onMouseUp({
                   Input: self,
                   Button: context.Button,
                   ev: context.ev
@@ -4592,8 +4592,8 @@ ui.class.Input = class Input extends HTMLElement {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
-      if (m_props.fnBlur) {
-        m_props.fnBlur({
+      if (m_props.onBlur) {
+        m_props.onBlur({
           Input: self,
           value: m_inputTag.value,
           ev
@@ -4604,8 +4604,8 @@ ui.class.Input = class Input extends HTMLElement {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
-      if (m_props.fnChange) {
-        m_props.fnChange({
+      if (m_props.onChange) {
+        m_props.onChange({
           Input: self,
           value: m_inputTag.value,
           ev
@@ -4616,8 +4616,8 @@ ui.class.Input = class Input extends HTMLElement {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
-      if (m_props.fnKeyup) {
-        m_props.fnKeyup({
+      if (m_props.onKeyup) {
+        m_props.onKeyup({
           Input: self,
           value: m_inputTag.value,
           Button: m_clearButton,
@@ -4647,8 +4647,8 @@ ui.class.Input = class Input extends HTMLElement {
           const padding = config.value.repeat(length);
           m_dataChanged = true;
           m_inputTag.value = config.dir === "right" ? m_inputTag.value + padding : padding + m_inputTag.value;
-          if (m_props.fnDataValidationChange) {
-            m_props.fnDataValidationChange({
+          if (m_props.onDataValidationChange) {
+            m_props.onDataValidationChange({
               Input: self,
               ev
             });
@@ -4679,8 +4679,8 @@ ui.class.Input = class Input extends HTMLElement {
       }
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Input: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Input: self });
       }
     }
     function configure(customProps = {}) {
@@ -4772,9 +4772,9 @@ ui.class.Listbox = class Listbox extends HTMLElement {
     function setupItemEventListeners(item, data) {
       return new Promise((resolve) => {
         const listeners = [
-          { type: "click", fn: "fnSelect" },
-          { type: "mouseover", fn: "fnHover" },
-          { type: "mouseleave", fn: "fnLeave" }
+          { type: "click", fn: "onSelect" },
+          { type: "mouseover", fn: "onHover" },
+          { type: "mouseleave", fn: "onLeave" }
         ];
         listeners.forEach((listener) => {
           item.addEventListener(listener.type, (ev) => {
@@ -4807,8 +4807,8 @@ ui.class.Listbox = class Listbox extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Listbox: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Listbox: self });
       }
     }
     function configure(customProps = {}) {
@@ -4961,8 +4961,8 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
       }
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Mapbox: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Mapbox: self });
       }
     }
     function configure(customProps = {}) {
@@ -5062,8 +5062,8 @@ ui.class.Percentage = class Percentage extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Percentage: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Percentage: self });
       }
     }
     function configure(customProps = {}) {
@@ -5156,7 +5156,7 @@ ui.class.Player = class Player extends HTMLElement {
           {
             id: 1,
             text: "Button One",
-            fnClick: (context) => {
+            onClick: (context) => {
             }
           },
           {
@@ -5168,7 +5168,7 @@ ui.class.Player = class Player extends HTMLElement {
             text: "Button Three"
           }
         ],
-        fnClick: (context) => {
+        onClick: (context) => {
           alert(`'Button clicked: ' ${context.Button.getId()}`);
         }
       };
@@ -5201,8 +5201,8 @@ ui.class.Player = class Player extends HTMLElement {
     function handleFullScreenClick() {
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Player: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Player: self });
       }
     }
     function configure(customProps = {}) {
@@ -5306,11 +5306,11 @@ ui.class.Radio = class Radio extends HTMLElement {
     function handleClick(ev) {
       if (m_enable) {
         m_checked = true;
-        if (m_props.fnClick) {
-          m_props.fnClick({ Radio: self, ev });
+        if (m_props.onClick) {
+          m_props.onClick({ Radio: self, ev });
         }
-        if (m_props.fnGroupClick) {
-          m_props.fnGroupClick({ Radio: self, ev });
+        if (m_props.onGroupClick) {
+          m_props.onGroupClick({ Radio: self, ev });
         }
       } else {
         ev.preventDefault();
@@ -5353,8 +5353,8 @@ ui.class.Radio = class Radio extends HTMLElement {
       ui.d.remove(m_labelTag);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Radio: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Radio: self });
       }
     }
     function configure(customProps = {}) {
@@ -5419,8 +5419,8 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
           ...radio,
           name: m_props.name,
           parentTag: self,
-          fnGroupClick: handleGroupClick,
-          fnComplete: resolve,
+          onGroupClick: handleGroupClick,
+          onComplete: resolve,
           position: radio.position || m_props.radio.position || "left"
         };
         m_radioList.push(ui.radio(radioConfig));
@@ -5428,11 +5428,11 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
     }
     function handleGroupClick(context) {
       selectTag(context.Radio, true);
-      if (m_props.fnClick) {
-        m_props.fnClick(context);
+      if (m_props.onClick) {
+        m_props.onClick(context);
       }
-      if (m_props.fnGroupClick) {
-        m_props.fnGroupClick({
+      if (m_props.onGroupClick) {
+        m_props.onGroupClick({
           RadioGroup: self,
           Radio: context.Radio,
           ev: context.ev
@@ -5481,8 +5481,8 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ CheckboxRadioGroup: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ CheckboxRadioGroup: self });
       }
     }
     function configure(customProps = {}) {
@@ -5573,8 +5573,8 @@ ui.class.Rating = class Rating extends HTMLElement {
     function selectValue(ev) {
       if (m_enable) {
         setValue(getHoverValue(ev));
-        if (m_props.fnSelect) {
-          m_props.fnSelect({ Rating: self, ev });
+        if (m_props.onSelect) {
+          m_props.onSelect({ Rating: self, ev });
         }
       }
     }
@@ -5627,8 +5627,8 @@ ui.class.Rating = class Rating extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Rating: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Rating: self });
       }
     }
     function configure(customProps = {}) {
@@ -5695,17 +5695,17 @@ ui.class.Search = class Search extends HTMLElement {
         let input = ui.utils.extend(true, {}, m_props.input);
         input.css = ui.utils.extend(true, m_props.css.input, input.css);
         input.parentTag = m_inputContainer;
-        input.fnClear = (context) => {
+        input.onClear = (context) => {
           m_value = "";
           if (m_dropdown) {
             m_dropdown.close();
           }
         };
-        input.fnKeyup = (context) => {
-          if (m_props.input?.fnKeyup) {
+        input.onKeyup = (context) => {
+          if (m_props.input?.onKeyup) {
             m_value = context.value;
             if (m_value.length >= m_props.firedIn) {
-              m_props.input.fnKeyup(m_value);
+              m_props.input.onKeyup(m_value);
             } else {
               if (m_dropdown) {
                 m_dropdown.close();
@@ -5713,7 +5713,7 @@ ui.class.Search = class Search extends HTMLElement {
             }
           }
         };
-        input.fnComplete = resolve;
+        input.onComplete = resolve;
         m_input = ui.input(input);
       });
     }
@@ -5722,10 +5722,10 @@ ui.class.Search = class Search extends HTMLElement {
         let button = ui.utils.extend(true, {}, m_props.button);
         button.css = ui.utils.extend(true, m_props.css.searchButton, button.css);
         button.parentTag = self;
-        button.fnComplete = resolve();
-        button.fnClick = (context) => {
-          if (m_props.button?.fnClick && m_value?.length >= m_props.firedIn) {
-            m_props.button.fnClick(m_value);
+        button.onComplete = resolve();
+        button.onClick = (context) => {
+          if (m_props.button?.onClick && m_value?.length >= m_props.firedIn) {
+            m_props.button.onClick(m_value);
           }
         };
         m_searchButton = ui.button(button);
@@ -5738,7 +5738,7 @@ ui.class.Search = class Search extends HTMLElement {
           self.appendChild(m_dropdownWrapperTag);
           let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
           dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
-          dropdown.fnComplete = (context) => {
+          dropdown.onComplete = (context) => {
             installListbox(context.Dropdown);
             resolve();
           };
@@ -5757,7 +5757,7 @@ ui.class.Search = class Search extends HTMLElement {
         let contentTag = dropdown.getContentTag();
         listbox.parentTag = contentTag;
         listbox.data = [];
-        listbox.fnComplete = resolve();
+        listbox.onComplete = resolve();
         m_listbox = ui.listbox(listbox);
       });
     }
@@ -5771,8 +5771,8 @@ ui.class.Search = class Search extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Search: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Search: self });
       }
     }
     function configure(customProps = {}) {
@@ -5854,7 +5854,7 @@ ui.class.Slideout = class Slideout extends HTMLElement {
         if (m_props.enableCloseButton) {
           const configButton = { css: m_props.css.button, ...m_props.closeButton };
           configButton.parentTag = m_slideoutHeaderTag;
-          configButton.fnClick = closeAnimation;
+          configButton.onClick = closeAnimation;
           ui.button(configButton);
         }
         resolve();
@@ -5863,8 +5863,8 @@ ui.class.Slideout = class Slideout extends HTMLElement {
     function openAnimation() {
       self.classList.add(m_props.css.open);
       m_slideoutOverlayTag.classList.add(m_props.css.openAnimation);
-      if (m_props.fnOpen) {
-        m_props.fnOpen({ slideout: self });
+      if (m_props.onOpen) {
+        m_props.onOpen({ slideout: self });
       }
     }
     function close() {
@@ -5873,16 +5873,16 @@ ui.class.Slideout = class Slideout extends HTMLElement {
     function closeAnimation() {
       self.classList.remove(m_props.css.open);
       m_slideoutOverlayTag.classList.remove(m_props.css.openAnimation);
-      if (m_props.fnClose) {
-        m_props.fnClose({ slideout: self });
+      if (m_props.onClose) {
+        m_props.onClose({ slideout: self });
       }
     }
     function destroySlideout() {
       ui.d.remove(self).remove(m_slideoutOverlayTag);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Slideout: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Slideout: self });
       }
     }
     function configure(customProps = {}) {
@@ -5973,18 +5973,18 @@ ui.class.Slider = class Slider extends HTMLElement {
     function installIncreaseButton() {
       return installButton(m_props.increaseButton, m_css.increaseButton, handleIncrease);
     }
-    function installButton(config, css, fnClick) {
+    function installButton(config, css, onClick) {
       return new Promise((resolve) => {
         const buttonConfig = ui.utils.extend(true, {}, config);
         buttonConfig.css = ui.utils.extend(true, css, buttonConfig.css);
         buttonConfig.parentTag = self;
-        buttonConfig.fnClick = (context) => {
-          fnClick();
-          if (m_props.fnSelect) {
-            m_props.fnSelect({ Slider: self, ev: context.ev });
+        buttonConfig.onClick = (context) => {
+          onClick();
+          if (m_props.onSelect) {
+            m_props.onSelect({ Slider: self, ev: context.ev });
           }
-          if (config?.fnClick) {
-            config.fnClick(context);
+          if (config?.onClick) {
+            config.onClick(context);
           }
         };
         ui.button(buttonConfig);
@@ -6066,14 +6066,14 @@ ui.class.Slider = class Slider extends HTMLElement {
           tags: m_props.tags?.draggable?.tags,
           axis: m_horizontal ? "x" : "y",
           grid: m_horizontal ? [m_stepLength, 0] : [0, m_stepLength],
-          fnDragStart: (context) => {
-            if (m_props.fnSlideStart) {
-              m_props.fnSlideStart({ Slider: self, ev: context.ev });
+          onDragStart: (context) => {
+            if (m_props.onSlideStart) {
+              m_props.onSlideStart({ Slider: self, ev: context.ev });
             }
           },
-          fnDragEnd: updateValue,
-          fnDrag: updateSelection,
-          fnComplete: resolve
+          onDragEnd: updateValue,
+          onDrag: updateSelection,
+          onComplete: resolve
         };
         m_draggable = ui.draggable(config);
         setEnable(m_enable);
@@ -6082,14 +6082,14 @@ ui.class.Slider = class Slider extends HTMLElement {
     function updateValue(context) {
       m_value = Number(m_stepTags[getSelectedIndex()].id);
       setHandlePosition();
-      if (m_props.fnSelect) {
-        m_props.fnSelect({ Slider: self, ev: context.ev });
+      if (m_props.onSelect) {
+        m_props.onSelect({ Slider: self, ev: context.ev });
       }
     }
     function updateSelection(context) {
       setSelectionPosition();
-      if (m_props.fnSlide) {
-        m_props.fnSlide({ Slider: self, ev: context.ev });
+      if (m_props.onSlide) {
+        m_props.onSlide({ Slider: self, ev: context.ev });
       }
     }
     function getSelectedIndex() {
@@ -6159,8 +6159,8 @@ ui.class.Slider = class Slider extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Slider: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Slider: self });
       }
     }
     function configure(customProps = {}) {
@@ -6175,7 +6175,9 @@ ui.class.Slider = class Slider extends HTMLElement {
           largeStep: 5,
           orientation: "horizontal",
           enable: true,
-          showButtons: true
+          showButtons: true,
+          decreaseButton: { text: "" },
+          increaseButton: { text: "" }
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -6292,8 +6294,8 @@ ui.class.Switch = class Switch extends HTMLElement {
     }
     function setChecked(ev) {
       ui.d.setProps(m_inputTag, { checked: m_checked });
-      if (m_props.fnChange) {
-        m_props.fnChange({ Switch: self, ev });
+      if (m_props.onChange) {
+        m_props.onChange({ Switch: self, ev });
       }
     }
     function enable(context = {}) {
@@ -6316,8 +6318,8 @@ ui.class.Switch = class Switch extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Switch: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Switch: self });
       }
     }
     function configure(customProps = {}) {
@@ -6383,7 +6385,7 @@ ui.class.Tab = class Tab extends HTMLElement {
     function installTabs() {
       return new Promise((resolve) => {
         const tabConfig = ui.utils.extend(true, m_props.tabs, {});
-        tabConfig.fnClick = toggleTabContent;
+        tabConfig.onClick = toggleTabContent;
         tabConfig.parentTag = m_tabsTag;
         m_tabsGroup = ui.buttonGroup(tabConfig);
         installContent().then(resolve);
@@ -6405,8 +6407,8 @@ ui.class.Tab = class Tab extends HTMLElement {
               contentTag.appendChild(m_props.contents[index]);
             }
             m_contentTag.appendChild(contentTag);
-            if (m_props.fnTabComplete) {
-              m_props.fnTabComplete(contentTag, button);
+            if (m_props.onTabComplete) {
+              m_props.onTabComplete(contentTag, button);
             }
             resolve2();
           });
@@ -6419,13 +6421,13 @@ ui.class.Tab = class Tab extends HTMLElement {
       const tabId = clickedBtn.Button.getId();
       const selectedTab = m_contentTagsMap[tabId];
       selectedTab.classList.add(m_props.css.selectedTab);
-      if (m_props.tabs.fnClick) {
-        m_props.tabs.fnClick(clickedBtn);
+      if (m_props.tabs.onClick) {
+        m_props.tabs.onClick(clickedBtn);
       }
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Tab: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Tab: self });
       }
     }
     function configure(customProps = {}) {
@@ -6531,7 +6533,10 @@ ui.class.Textarea = class Textarea extends HTMLElement {
         m_containerUpTag.appendChild(m_spanTag);
         m_footerTag = ui.d.createTag({ ...m_props.tags.footer, class: m_props.css.footer });
         m_containerUpTag.appendChild(m_footerTag);
-        m_buttonsContainerTag = ui.d.createTag({ ...m_props.tags.buttonsContainer, class: m_props.css.buttonsContainer });
+        m_buttonsContainerTag = ui.d.createTag({
+          ...m_props.tags.buttonsContainer,
+          class: m_props.css.buttonsContainer
+        });
         m_footerTag.appendChild(m_buttonsContainerTag);
         m_iconsContainerTag = ui.d.createTag({ ...m_props.tags.iconsContainer, class: m_props.css.iconsContainer });
         m_footerTag.appendChild(m_iconsContainerTag);
@@ -6567,11 +6572,11 @@ ui.class.Textarea = class Textarea extends HTMLElement {
             ...m_props.cancelButton,
             css: m_props.css.cancelButton,
             parentTag: m_buttonsContainerTag,
-            fnComplete: resolve,
-            fnClick: (context) => {
+            onComplete: resolve,
+            onClick: (context) => {
               enableSpan();
-              if (m_props.fnClear) {
-                m_props.fnClear({
+              if (m_props.onClear) {
+                m_props.onClear({
                   Textarea: self,
                   Button: context.Button,
                   ev: context.ev
@@ -6590,11 +6595,11 @@ ui.class.Textarea = class Textarea extends HTMLElement {
             ...m_props.editButton,
             css: m_props.css.editButton,
             parentTag: m_buttonsContainerTag,
-            fnComplete: resolve,
-            fnClick: (context) => {
+            onComplete: resolve,
+            onClick: (context) => {
               enableTextarea();
-              if (m_props.fnClick) {
-                m_props.fnClick({
+              if (m_props.onClick) {
+                m_props.onClick({
                   Textarea: self,
                   Button: context.Button,
                   ev: context.ev
@@ -6613,11 +6618,11 @@ ui.class.Textarea = class Textarea extends HTMLElement {
             ...m_props.checkButton,
             css: m_props.css.checkButton,
             parentTag: m_buttonsContainerTag,
-            fnComplete: resolve,
-            fnClick: (context) => {
+            onComplete: resolve,
+            onClick: (context) => {
               saveTextareaValue();
-              if (m_props.fnClick) {
-                m_props.fnClick({
+              if (m_props.onClick) {
+                m_props.onClick({
                   Textarea: self,
                   Button: context.Button,
                   ev: context.ev
@@ -6643,8 +6648,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
-      if (m_props.fnBlur) {
-        m_props.fnBlur({
+      if (m_props.onBlur) {
+        m_props.onBlur({
           Textarea: self,
           value: m_textareaTag.value,
           ev
@@ -6655,8 +6660,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
-      if (m_props.fnChange) {
-        m_props.fnChange({
+      if (m_props.onChange) {
+        m_props.onChange({
           Textarea: self,
           value: m_textareaTag.value,
           ev
@@ -6667,8 +6672,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
       ev.stopPropagation();
       ev.preventDefault();
       validate(ev);
-      if (m_props.fnKeyup) {
-        m_props.fnKeyup({
+      if (m_props.onKeyup) {
+        m_props.onKeyup({
           Textarea: self,
           value: m_textareaTag.value,
           ev
@@ -6697,8 +6702,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
           const padding = config.value.repeat(length);
           m_dataChanged = true;
           m_textareaTag.value = config.dir === "right" ? m_textareaTag.value + padding : padding + m_textareaTag.value;
-          if (m_props.fnDataValidationChange) {
-            m_props.fnDataValidationChange({
+          if (m_props.onDataValidationChange) {
+            m_props.onDataValidationChange({
               Textarea: self,
               ev
             });
@@ -6769,8 +6774,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
       }
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Textarea: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Textarea: self });
       }
     }
     function configure(customProps = {}) {
@@ -6840,10 +6845,10 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
             combobox.value = ui.date.format(value2, m_props.format);
           }
         }
-        combobox.fnSelect = (context) => {
+        combobox.onSelect = (context) => {
           selectTime(context);
-          if (m_props.combobox.fnSelect) {
-            m_props.combobox.fnSelect(context);
+          if (m_props.combobox.onSelect) {
+            m_props.combobox.onSelect(context);
           }
         };
         m_comboBox = ui.combobox(combobox);
@@ -6860,8 +6865,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
     }
     function selectTime(context) {
       m_value = context.Button ? ui.date.createDate(context.Button.text(), m_props.format) : null;
-      if (m_props.fnSelect) {
-        m_props.fnSelect({
+      if (m_props.onSelect) {
+        m_props.onSelect({
           TimePicker: self,
           button: context.Button,
           ev: context.ev
@@ -6884,8 +6889,8 @@ ui.class.TimePicker = class TimePicker extends HTMLElement {
       m_comboBox.destroy();
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ TimePicker: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ TimePicker: self });
       }
     }
     function configure(customProps = {}) {
@@ -7007,10 +7012,10 @@ ui.class.Toaster = class Toaster extends HTMLElement {
           attr: {
             type: "button"
           },
-          fnClick: (context) => {
+          onClick: (context) => {
             close();
-            if (m_props.fnClose) {
-              m_props.fnClose({
+            if (m_props.onClose) {
+              m_props.onClose({
                 Toaster: self,
                 Button: context.Button,
                 ev: context.ev
@@ -7028,8 +7033,8 @@ ui.class.Toaster = class Toaster extends HTMLElement {
       }
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ Toaster: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ Toaster: self });
       }
     }
     function configure(customProps = {}) {
@@ -7160,8 +7165,8 @@ ui.class.TreeView = class TreeView extends HTMLElement {
     function setupItemEventListeners(inTag, itemData) {
       return new Promise((resolve) => {
         inTag.addEventListener("click", (ev) => {
-          if (m_props.fnSelect) {
-            m_props.fnSelect({
+          if (m_props.onSelect) {
+            m_props.onSelect({
               TreeView: self,
               tag: inTag,
               itemData,
@@ -7197,8 +7202,8 @@ ui.class.TreeView = class TreeView extends HTMLElement {
       ui.d.remove(self);
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ TreeView: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ TreeView: self });
       }
     }
     function configure(customProps = {}) {
@@ -7249,8 +7254,8 @@ var Template = class extends HTMLElement {
       });
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ UITemplate: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ UITemplate: self });
       }
     }
     function configure(customProps = {}) {
@@ -7301,8 +7306,8 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
       });
     }
     function setupComplete() {
-      if (m_props.fnComplete) {
-        m_props.fnComplete({ VideoPlayer: self });
+      if (m_props.onComplete) {
+        m_props.onComplete({ VideoPlayer: self });
       }
     }
     function configure(customProps = {}) {

@@ -9,6 +9,12 @@
   position: relative;
 }
 
+.m-search-input-container .m-button-self {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .m-search-input-wrapper {
   border: 1px solid #a9a9a9;
   display: flex;

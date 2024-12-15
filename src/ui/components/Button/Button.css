@@ -10,6 +10,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.m-button-button.no-text {
+  width: auto;
+  padding: var(--m-padding-m) 0;
 }
 
 .m-button-button.m-hover {

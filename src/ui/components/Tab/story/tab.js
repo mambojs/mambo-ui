@@ -3,6 +3,8 @@ function storyTab(selectedStory) {
 	installWithContentProp();
 
 	function installWithFnCallback() {
+		const btnAttr = { style: "display: flex; flex-direction: column-reverse; width: 4rem; font-size: 0.75rem;" };
+
 		let tabConfig = {
 			parentTag: selectedStory.parentTag,
 			tabs: {
@@ -10,6 +12,11 @@ function storyTab(selectedStory) {
 					{
 						text: "Mail",
 						size: "small",
+						tags: {
+							button: {
+								attr: btnAttr,
+							},
+						},
 						icon: {
 							attr: {
 								class: "fa-solid fa-envelope",
@@ -20,6 +27,11 @@ function storyTab(selectedStory) {
 					{
 						text: "Star",
 						size: "small",
+						tags: {
+							button: {
+								attr: btnAttr,
+							},
+						},
 						icon: {
 							attr: {
 								class: "fa-solid fa-star",
@@ -29,6 +41,11 @@ function storyTab(selectedStory) {
 					{
 						text: "Compass",
 						size: "small",
+						tags: {
+							button: {
+								attr: btnAttr,
+							},
+						},
 						icon: {
 							attr: {
 								class: "fa-solid fa-compass",
