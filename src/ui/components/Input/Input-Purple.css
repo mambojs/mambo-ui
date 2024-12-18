@@ -8,11 +8,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--m-gray-300);
+  border: 1px solid var(--m-gray-200);
   border-radius: var(--m-border-radius-primary);
   overflow: hidden;
   outline: none;
-  background: var(--m-gray-100);
+  background: var(--m-white-color);
   padding: var(--m-padding-lg) var(--m-padding-lg);
   gap: 0.5rem;
 }
@@ -21,14 +21,14 @@
   width: 100%;
   border: none;
   outline: none;
-  background: var(--m-gray-100);
-  color: var(--m-sub-color);
+  background: var(--m-white-color);
+  color: var(--m-gray-800);
 }
 
 .m-input-button {
   background: none;
   cursor: pointer;
-  color: var(--m-accent-color);
+  color: var(--m-gray-500);
   border: none;
   padding: var(--m-padding-s);
 }
@@ -79,7 +79,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--m-error-color);
+  color: var(--m-error-stroke-color);
 }
 
 .m-input-icon-required.hidden {
@@ -88,7 +88,12 @@
 }
 
 .m-input-container:has(.m-input-icon-required:not(.hidden)) {
-  border-color: var(--m-error-color);
+  border-color: var(--m-error-stroke-color);
+  background-color: var(--m-error-background-color);
+}
+
+.m-input-input:has(+ .m-input-icon-required:not(.hidden)) {
+  background: var(--m-error-background-color);
 }
 
 .m-input-text-required {
@@ -104,4 +109,9 @@
 
 .m-input-text-required.hidden {
   display: none;
+}
+
+.m-input-label {
+  font-size: var(--m-font-size-xs);
+  font-weight: var(--m-font-weight-bold);
 }

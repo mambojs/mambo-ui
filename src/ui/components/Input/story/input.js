@@ -1,13 +1,14 @@
 function storyInput(selectedStory) {
 	inputWithClearButton();
-	inputWithIcon();
 	inputWithLeftButton();
+	inputWithIcon();
 
 	function inputWithClearButton() {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			value: "My value",
 			enableClear: true,
+			labelText: "Email",
 			icon: [
 				{
 					attr: {
@@ -28,6 +29,7 @@ function storyInput(selectedStory) {
 			value: "My value",
 			enableClear: false,
 			enableLeftButton: true,
+			labelText: "Password",
 			onMouseDown: (context) => {
 				context.Input.setAttr({ type: "text" });
 				context.Button.getTag().classList.toggle("fa-eye", true);
@@ -49,6 +51,7 @@ function storyInput(selectedStory) {
 	function inputWithIcon() {
 		const config = {
 			parentTag: selectedStory.parentTag,
+			labelText: "Email",
 			icon: [
 				{
 					attr: {
