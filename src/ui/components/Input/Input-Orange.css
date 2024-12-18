@@ -105,3 +105,7 @@
 .m-input-text-required.hidden {
   display: none;
 }
+
+.m-input-label {
+  font-size: var(--m-font-size-xs);
+}

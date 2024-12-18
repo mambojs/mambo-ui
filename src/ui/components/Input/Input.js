@@ -81,7 +81,7 @@ ui.class.Input = class Input extends HTMLElement {
 						text: m_props.labelText,
 					};
 					m_labelTag = ui.d.createTag(labelTagConfig);
-					m_containerTag.appendChild(m_labelTag);
+					self.insertBefore(m_labelTag, m_containerTag);
 				}
 
 				if (m_props?.validate?.onStart) {

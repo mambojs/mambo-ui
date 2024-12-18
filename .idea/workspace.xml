@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.eslintrc.cjs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Button/Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Button/Button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input-Orange.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input-Orange.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input-Purple.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input-Purple.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/Input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/Input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Input/story/input.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Input/story/input.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/themes/m-purple.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/themes/m-purple.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EditorConfigPreviewManager">
+    <editorConfig file="$PROJECT_DIR$/.editorconfig" previewFile="$PROJECT_DIR$/src/ui/components/Tab/story/tab.js" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -29,6 +34,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;diegonicita&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mambojs/mambo-ui.git&quot;,
+    &quot;accountId&quot;: &quot;403e847d-b11d-44db-b9ac-be6a32947d49&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -43,7 +60,7 @@
     &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Debug&quot;,
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;diego/new-eslint&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components/VideoPlayer&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -185,6 +202,8 @@
       <workItem from="1733938748622" duration="1328000" />
       <workItem from="1733940131062" duration="103000" />
       <workItem from="1733940258462" duration="143000" />
+      <workItem from="1734448863347" duration="8000" />
+      <workItem from="1734486166947" duration="3136000" />
     </task>
     <servers />
   </component>
