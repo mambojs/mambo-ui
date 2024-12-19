@@ -45,7 +45,7 @@ ui.class.Input = class Input extends HTMLElement {
 			setupComplete();
 		}
 
-		function setupDOM() {
+		async function setupDOM() {
 			return new Promise((resolve) => {
 				self.classList.add(m_props.css.self);
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
@@ -88,8 +88,8 @@ ui.class.Input = class Input extends HTMLElement {
 					validate();
 				}
 
-				installLeftButton().then(resolve);
-				installClearInput().then(resolve);
+				installLeftButton();
+				installClearInput();
 
 				if (m_props.required) {
 					m_iconRequiredTag = ui.d.createTag({ ...m_props.tags.iconRequired, class: m_props.css.iconRequired });
@@ -99,6 +99,8 @@ ui.class.Input = class Input extends HTMLElement {
 					if (m_props.requiredText) m_requiredTextTag.innerText = m_props.requiredText;
 					self.appendChild(m_requiredTextTag);
 				}
+
+				resolve();
 			});
 		}
 
@@ -162,6 +164,8 @@ ui.class.Input = class Input extends HTMLElement {
 
 					m_clearButton = ui.button(buttonConfig);
 				}
+
+				resolve();
 			});
 		}
 
@@ -194,6 +198,8 @@ ui.class.Input = class Input extends HTMLElement {
 					};
 					m_leftButton = ui.button(buttonConfig);
 				}
+
+				resolve();
 			});
 		}
 

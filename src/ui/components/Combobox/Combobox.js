@@ -5,6 +5,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 		// HTML tag variables
 		let m_parentTag;
+		let m_containerTag;
+		let m_labelTag;
 		let m_input;
 		let m_dropdownWrapperTag;
 		let m_dropdown;
@@ -34,14 +36,42 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 			}
 
 			await setupDOM();
+			await setupContainer();
 			await setupInput();
+			await setupLabel();
 			await setupDropdown();
+			setupLabelForAttr();
 			setupComplete();
 		}
 
-		async function setupDOM() {
+		function setupDOM() {
 			return new Promise((resolve) => {
 				self.classList.add(m_props.css.self);
+				resolve();
+			});
+		}
+
+		function setupContainer() {
+			return new Promise((resolve) => {
+				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+				self.appendChild(m_containerTag);
+				resolve();
+			});
+		}
+
+		function setupLabel() {
+			return new Promise((resolve) => {
+				if (m_props.labelText) {
+					const labelTagConfig = {
+						name: "label",
+						class: m_props.css.label,
+						prop: m_props.prop,
+						text: m_props.labelText,
+					};
+					m_labelTag = ui.d.createTag(labelTagConfig);
+					self.prepend(m_labelTag);
+				}
+
 				resolve();
 			});
 		}
@@ -50,16 +80,15 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 			return new Promise((resolve) => {
 				let input = ui.utils.extend(true, {}, m_props.input);
 				input.css = ui.utils.extend(true, m_props.css.input, input.css);
-				input.parentTag = self;
-				m_input = ui.input(input);
-				resolve();
+				input.parentTag = m_containerTag;
+				m_input = ui.input({ ...input, onComplete: resolve() });
 			});
 		}
 
 		function setupDropdown() {
 			return new Promise((resolve) => {
 				m_dropdownWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_props.css.wrapper });
-				self.appendChild(m_dropdownWrapperTag);
+				m_containerTag.appendChild(m_dropdownWrapperTag);
 				let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
 				dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
 
@@ -182,6 +211,13 @@ ui.class.Combobox = class Combobox extends HTMLElement {
 
 		function destroyComboBox() {
 			ui.d.remove(self);
+		}
+
+		function setupLabelForAttr() {
+			if (m_props.labelText) {
+				const id = m_input.getTag().getAttribute("id");
+				ui.d.setAttr(m_labelTag, { for: id });
+			}
 		}
 
 		function setupComplete() {

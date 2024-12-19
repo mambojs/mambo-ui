@@ -119,6 +119,7 @@ ui.defaultTheme = {
 			container: "m-combobox-dropdown-container",
 			self: "m-combobox-dropdown-parent",
 		},
+		container: "m-combobox-container",
 		wrapper: "m-dropdown-wrapper",
 		input: {
 			input: "m-combobox-input-input",
