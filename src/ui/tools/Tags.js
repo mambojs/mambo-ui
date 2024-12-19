@@ -39,7 +39,9 @@ ui.defaultTags = {
 	},
 	combobox: {
 		self: { name: "mambo-combobox" },
+		container: { name: "mambo-combobox-container" },
 		wrapper: { name: "mambo-combobox-wrapper" },
+		input: { name: "mambo-input" },
 	},
 	datePicker: {
 		self: { name: "mambo-date-picker" },

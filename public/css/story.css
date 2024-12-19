@@ -77,3 +77,8 @@ story-card > mambo-card {
   display: block;
   margin-bottom: 1rem;
 }
+
+story-combobox > mambo-combobox {
+  display: block;
+  margin-bottom: 1rem;
+}
