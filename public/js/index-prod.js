@@ -11,6 +11,7 @@ const ui = mamboUI(domJS);
 
 const defaultStylesheets = { stylesheets: ["css/mambo-ui-0.0.2.css"] };
 const orangeStylesheets = { stylesheets: ["css/mambo-ui-0.0.2-orange.css"] };
+const purpleStylesheets = { stylesheets: ["css/mambo-ui-0.0.2-purple.css"] };
 
 ui.theme.loadStylesheets(defaultStylesheets);
 
@@ -20,6 +21,7 @@ function setupThemeCombobox() {
 		data: [
 			{ id: 1, text: "Default Theme" },
 			{ id: 2, text: "Orange Theme" },
+			{ id: 3, text: "Purple Theme" },
 		],
 		value: "Default Theme",
 		input: {
@@ -33,8 +35,10 @@ function setupThemeCombobox() {
 		onSelect: ({ Combobox }) => {
 			if (Combobox.value() === 1) {
 				ui.theme.reloadStylesheets(defaultStylesheets);
-			} else {
+			} else if (Combobox.value() === 2) {
 				ui.theme.reloadStylesheets(orangeStylesheets);
+			} else {
+				ui.theme.reloadStylesheets(purpleStylesheets);
 			}
 		},
 	});
@@ -97,6 +101,7 @@ const components = [
 	{ text: "Tab" },
 	{ text: "Textarea" },
 	{ text: "Toaster" },
+	{ text: "Tooltip" },
 	{ text: "Time Picker" },
 	{ text: "TreeView" },
 	{ text: "Video Player" },

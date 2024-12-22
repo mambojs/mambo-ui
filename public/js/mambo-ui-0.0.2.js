@@ -503,7 +503,9 @@ ui.defaultTags = {
   },
   combobox: {
     self: { name: "mambo-combobox" },
-    wrapper: { name: "mambo-combobox-wrapper" }
+    container: { name: "mambo-combobox-container" },
+    wrapper: { name: "mambo-combobox-wrapper" },
+    input: { name: "mambo-input" }
   },
   datePicker: {
     self: { name: "mambo-date-picker" },
@@ -653,6 +655,10 @@ ui.defaultTags = {
     buttonContainer: { name: "mambo-toaster-button-container" },
     iconContainer: { name: "mambo-toaster-icon-container" },
     wrapper: { name: "mambo-toaster-wrapper" }
+  },
+  tooltip: {
+    self: { name: "mambo-tooltip" },
+    body: { name: "mambo-tooltip-body" }
   },
   treeView: {
     self: { name: "mambo-tree-view" },
@@ -814,6 +820,7 @@ ui.defaultTheme = {
       container: "m-combobox-dropdown-container",
       self: "m-combobox-dropdown-parent"
     },
+    container: "m-combobox-container",
     wrapper: "m-dropdown-wrapper",
     input: {
       input: "m-combobox-input-input",
@@ -1136,6 +1143,11 @@ ui.defaultTheme = {
       top: "m-toaster-top",
       bottom: "m-toaster-bottom"
     }
+  },
+  tooltip: {
+    body: "m-tooltip-body",
+    self: "m-tooltip-self",
+    open: "m-tooltip-open"
   },
   treeView: {
     expanded: "m-expanded",
@@ -2729,6 +2741,8 @@ ui.class.Combobox = class Combobox extends HTMLElement {
     super();
     const self = this;
     let m_parentTag;
+    let m_containerTag;
+    let m_labelTag;
     let m_input;
     let m_dropdownWrapperTag;
     let m_dropdown;
@@ -2751,13 +2765,38 @@ ui.class.Combobox = class Combobox extends HTMLElement {
         await ui.utils.installUIComponent({ self, m_parentTag, m_props });
       }
       await setupDOM();
+      await setupContainer();
       await setupInput();
+      await setupLabel();
       await setupDropdown();
+      setupLabelForAttr();
       setupComplete();
     }
-    async function setupDOM() {
+    function setupDOM() {
       return new Promise((resolve) => {
         self.classList.add(m_props.css.self);
+        resolve();
+      });
+    }
+    function setupContainer() {
+      return new Promise((resolve) => {
+        m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+        self.appendChild(m_containerTag);
+        resolve();
+      });
+    }
+    function setupLabel() {
+      return new Promise((resolve) => {
+        if (m_props.labelText) {
+          const labelTagConfig = {
+            name: "label",
+            class: m_props.css.label,
+            prop: m_props.prop,
+            text: m_props.labelText
+          };
+          m_labelTag = ui.d.createTag(labelTagConfig);
+          self.prepend(m_labelTag);
+        }
         resolve();
       });
     }
@@ -2765,15 +2804,14 @@ ui.class.Combobox = class Combobox extends HTMLElement {
       return new Promise((resolve) => {
         let input = ui.utils.extend(true, {}, m_props.input);
         input.css = ui.utils.extend(true, m_props.css.input, input.css);
-        input.parentTag = self;
-        m_input = ui.input(input);
-        resolve();
+        input.parentTag = m_containerTag;
+        m_input = ui.input({ ...input, onComplete: resolve() });
       });
     }
     function setupDropdown() {
       return new Promise((resolve) => {
         m_dropdownWrapperTag = ui.d.createTag({ ...m_props.tags.wrapper, class: m_props.css.wrapper });
-        self.appendChild(m_dropdownWrapperTag);
+        m_containerTag.appendChild(m_dropdownWrapperTag);
         let dropdown = ui.utils.extend(true, {}, m_props.dropdown);
         dropdown.css = ui.utils.extend(true, m_props.css.dropdown, dropdown.css);
         dropdown.onBeforeClose = (context) => {
@@ -2874,6 +2912,12 @@ ui.class.Combobox = class Combobox extends HTMLElement {
     }
     function destroyComboBox() {
       ui.d.remove(self);
+    }
+    function setupLabelForAttr() {
+      if (m_props.labelText) {
+        const id = m_input.getTag().getAttribute("id");
+        ui.d.setAttr(m_labelTag, { for: id });
+      }
     }
     function setupComplete() {
       if (m_props.onComplete) {
@@ -4452,7 +4496,7 @@ ui.class.Input = class Input extends HTMLElement {
       await setupDOM();
       setupComplete();
     }
-    function setupDOM() {
+    async function setupDOM() {
       return new Promise((resolve) => {
         self.classList.add(m_props.css.self);
         m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
@@ -4485,13 +4529,13 @@ ui.class.Input = class Input extends HTMLElement {
             text: m_props.labelText
           };
           m_labelTag = ui.d.createTag(labelTagConfig);
-          m_containerTag.appendChild(m_labelTag);
+          self.insertBefore(m_labelTag, m_containerTag);
         }
         if (m_props?.validate?.onStart) {
           validate();
         }
-        installLeftButton().then(resolve);
-        installClearInput().then(resolve);
+        installLeftButton();
+        installClearInput();
         if (m_props.required) {
           m_iconRequiredTag = ui.d.createTag({ ...m_props.tags.iconRequired, class: m_props.css.iconRequired });
           m_iconList.push(m_iconRequiredTag);
@@ -4501,6 +4545,7 @@ ui.class.Input = class Input extends HTMLElement {
             m_requiredTextTag.innerText = m_props.requiredText;
           self.appendChild(m_requiredTextTag);
         }
+        resolve();
       });
     }
     function setAttribute(context) {
@@ -4555,6 +4600,7 @@ ui.class.Input = class Input extends HTMLElement {
           };
           m_clearButton = ui.button(buttonConfig);
         }
+        resolve();
       });
     }
     function installLeftButton() {
@@ -4586,6 +4632,7 @@ ui.class.Input = class Input extends HTMLElement {
           };
           m_leftButton = ui.button(buttonConfig);
         }
+        resolve();
       });
     }
     function handleOnBlur(ev) {
@@ -7061,6 +7108,168 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 };
 ui.toaster = (props) => new ui.class.Toaster(props);
 customElements.define(ui.defaultTags.toaster.self.name, ui.class.Toaster);
+ui.class.Tooltip = class Tooltip extends HTMLElement {
+  constructor(props) {
+    super();
+    const self = this;
+    let m_anchorTag;
+    let m_bodyTag;
+    let m_parentTag;
+    let m_props;
+    let m_open;
+    let m_position;
+    this.show = show;
+    this.hide = hide;
+    this.getParentTag = () => self;
+    this.getBodyTag = () => m_bodyTag;
+    this.getAnchorTag = () => m_anchorTag;
+    this.open = () => m_open;
+    this.setup = setup;
+    this.updatePosition = updatePosition;
+    if (props) {
+      setup(props);
+    }
+    async function setup(props2) {
+      await configure(props2);
+      if (!self.isConnected) {
+        await ui.utils.installUIComponent({ self, m_parentTag, m_props });
+      }
+      await setupDOM();
+      setupEventListeners();
+      setupComplete();
+    }
+    function setupDOM() {
+      return new Promise((resolve) => {
+        m_bodyTag = ui.d.createTag({ ...m_props.tags.body, class: m_props.css.body });
+        self.appendChild(m_bodyTag);
+        self.classList.add(m_props.css.self);
+        self.style.visibility = "hidden";
+        if (m_props.position) {
+          m_position = m_props.position;
+          self.classList.add(m_props.position);
+        }
+        resolve();
+      });
+    }
+    function setupEventListeners() {
+      m_anchorTag = ui.d.getTag(m_props.anchorTag);
+      if (!m_anchorTag) {
+        console.error("Anchor element not found for tooltip");
+        return;
+      }
+      m_anchorTag.addEventListener("mouseover", handleMouseOver);
+      m_anchorTag.addEventListener("mouseout", handleMouseOut);
+      m_anchorTag.addEventListener("focus", handleFocus);
+      m_anchorTag.addEventListener("blur", handleBlur);
+    }
+    function updatePosition() {
+      if (!m_open || !m_anchorTag)
+        return;
+      const anchorRect = m_anchorTag.getBoundingClientRect();
+      const tooltipRect = self.getBoundingClientRect();
+      let top, left;
+      switch (m_position) {
+        case "top":
+          top = anchorRect.top - tooltipRect.height;
+          left = anchorRect.left + (anchorRect.width - tooltipRect.width) / 2;
+          break;
+        case "bottom":
+          top = anchorRect.bottom;
+          left = anchorRect.left + (anchorRect.width - tooltipRect.width) / 2;
+          break;
+        case "left":
+          top = anchorRect.top + (anchorRect.height - tooltipRect.height) / 2;
+          left = anchorRect.left - tooltipRect.width;
+          break;
+        case "right":
+          top = anchorRect.top + (anchorRect.height - tooltipRect.height) / 2;
+          left = anchorRect.right;
+          break;
+      }
+      const viewport = {
+        top: 0,
+        left: 0,
+        right: window.innerWidth,
+        bottom: window.innerHeight
+      };
+      if (left < viewport.left)
+        left = viewport.left;
+      if (left + tooltipRect.width > viewport.right)
+        left = viewport.right - tooltipRect.width;
+      if (top < viewport.top)
+        top = viewport.top;
+      if (top + tooltipRect.height > viewport.bottom)
+        top = viewport.bottom - tooltipRect.height;
+      self.style.top = `${top}px`;
+      self.style.left = `${left}px`;
+    }
+    function show() {
+      if (!m_open) {
+        self.style.visibility = "visible";
+        self.classList.add(m_props.css.open);
+        m_open = true;
+        updatePosition();
+        if (m_props.onShow) {
+          m_props.onShow({ Tooltip: self });
+        }
+      }
+    }
+    function hide() {
+      if (m_open) {
+        self.style.visibility = "hidden";
+        self.classList.remove(m_props.css.open);
+        m_open = false;
+        if (m_props.onHide) {
+          m_props.onHide({ Tooltip: self });
+        }
+      }
+    }
+    function setupComplete() {
+      if (m_props.onComplete) {
+        m_props.onComplete({ Tooltip: self });
+      }
+    }
+    function handleMouseOver() {
+      if (m_props.onMouseOver) {
+        m_props.onMouseOver({ Tooltip: self });
+      }
+    }
+    function handleMouseOut() {
+      if (m_props.onMouseOut) {
+        m_props.onMouseOut({ Tooltip: self });
+      }
+    }
+    function handleFocus() {
+      if (m_props.onFocus) {
+        m_props.onFocus({ Tooltip: self });
+      }
+    }
+    function handleBlur() {
+      if (m_props.onBlur) {
+        m_props.onBlur({ Tooltip: self });
+      }
+    }
+    function configure(customProps = {}) {
+      return new Promise((resolve) => {
+        m_props = {
+          parentTag: "body",
+          position: "top",
+          theme: "default",
+          tag: "default"
+        };
+        m_props = ui.utils.extend(true, m_props, customProps);
+        m_parentTag = ui.d.getTag(m_props.parentTag);
+        const tags = ui.tags.getTags({ name: m_props.tag, component: "tooltip" });
+        m_props.tags = ui.utils.extend(true, tags, m_props.tags);
+        const css = ui.theme.getTheme({ name: m_props.theme, component: "tooltip" });
+        m_props.css = ui.utils.extend(true, css, m_props.css);
+        resolve();
+      });
+    }
+  }
+};
+ui.tooltip = (props) => new ui.class.Tooltip(props);
+customElements.define(ui.defaultTags.tooltip.self.name, ui.class.Tooltip);
 ui.class.TreeView = class TreeView extends HTMLElement {
   constructor(props) {
     super();

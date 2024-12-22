@@ -652,24 +652,35 @@
 .m-combobox-self {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
 }
 
+.m-combobox-self label {
+  font-size: var(--m-font-size-xs);
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.m-combobox-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .m-combobox-self .m-input-container {
-  padding: 0;
+  padding: var(--m-padding-xs);
 }
 
 .m-combobox-input-wrapper {
   display: flex;
   flex-grow: 1;
-  border: 1px solid #a9a9a9;
+  border: 1px solid var(--m-gray-300);
 }
 
 .m-combobox-input-input {
   width: 100%;
   border: none;
-  padding: var(--m-padding-m);
+  padding: var(--m-padding-m) var(--m-padding-lg);
 }
 
 .m-combobox-button {
@@ -679,7 +690,7 @@
   align-items: center;
   height: 100%;
   color: white;
-  font-size: 1.2rem;
+  font-size: var(--m-font-size-lg);
   padding: var(--m-padding-m) var(--m-padding-xxl);
   background: black;
   border: none;
@@ -689,11 +700,11 @@
 }
 
 .m-combobox-button.m-hover {
-  background: #444;
+  background: var(--m-gray-500);
 }
 
 .m-combobox-button.m-selected {
-  background: #444;
+  background: var(--m-gray-500);
 }
 
 .m-combobox-button::before {
@@ -704,7 +715,7 @@
   transform: translate(-50%, -50%);
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 6px solid #fff;
+  border-top: 6px solid var(--m-white-color);
 }
 
 .m-combobox-dropdown-container {
@@ -712,7 +723,7 @@
   position: absolute;
   width: 100%;
   height: auto;
-  background-color: #f8f8f8;
+  background-color: var(--m-gray-100);
   box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0/15%);
   overflow: auto;
   z-index: 999;
@@ -738,19 +749,19 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  color: #000;
-  font-size: 0.85rem;
+  color: var(--m-black-color);
+  font-size: var(--m-font-size-s);
   padding: var(--m-padding-m);
-  background-color: #f8f8f8;
+  background-color: var(--m-gray-100);
   width: 100%;
 }
 
 .m-combobox-button-group-button:hover {
-  background-color: #ccc;
+  background-color: var(--m-gray-200);
 }
 
 .m-combobox-button-group-button.m-selected {
-  background-color: #ccc;
+  background-color: var(--m-gray-200);
 }
 
 .m-date-picker-self {
@@ -1319,6 +1330,10 @@
 
 .m-input-text-required.hidden {
   display: none;
+}
+
+.m-input-label {
+  font-size: var(--m-font-size-xs);
 }
 
 .m-listbox-container {
@@ -2354,6 +2369,87 @@
   bottom: 1.5rem;
 }
 
+.m-tooltip-self {
+  display: flex;
+  flex-wrap: nowrap;
+  position: absolute;
+  z-index: 9999;
+  font-size: var(--m-font-size-s);
+  box-shadow: var(--m-box-shadow);
+  padding: var(--m-padding-s) var(--m-padding-lg);
+  gap: 0.25rem;
+  border-radius: 0.25rem;
+  color: var(--m-black-color);
+  border: 1px solid var(--m-black-color);
+  background-color: var(--m-white-color);
+  max-width: 20rem;
+  min-width: 1rem;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.m-tooltip-self.m-tooltip-open {
+  opacity: 1;
+}
+
+.m-tooltip-body {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  line-height: 1.2;
+}
+
+.m-tooltip-self::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+}
+
+.m-tooltip-self.bottom {
+  transform: translateY(0.5rem);
+}
+
+.m-tooltip-self.top {
+  transform: translateY(-0.5rem);
+}
+
+.m-tooltip-self.left {
+  transform: translateX(-0.5rem);
+}
+
+.m-tooltip-self.right {
+  transform: translateX(0.5rem);
+}
+
+.m-tooltip-self.bottom::before {
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--m-black-color-50);
+}
+
+.m-tooltip-self.top::before {
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--m-black-color-50);
+}
+
+.m-tooltip-self.left::before {
+  right: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--m-black-color-50);
+}
+
+.m-tooltip-self.right::before {
+  left: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--m-black-color-50);
+}
 .m-tree-view-self {
   display: flex;
   flex-direction: column;

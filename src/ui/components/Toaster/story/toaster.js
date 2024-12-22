@@ -2,7 +2,7 @@ function storyToaster(selectedStory) {
 	const activeToasters = {};
 
 	const configButton = {
-		text: "Toaster with Mambo Button",
+		text: "Tooltip with Mambo Button",
 		parentTag: selectedStory.parentTag,
 		onClick: () => {
 			if (activeToasters["toaster-with-mambo-button"]) {
@@ -16,7 +16,7 @@ function storyToaster(selectedStory) {
 				parentTag: selectedStory.parentTag,
 				closeButton: false,
 				open: true,
-				message: "Mambo Toaster Successfully Completed",
+				message: "Mambo Tooltip Successfully Completed",
 				autoHideDuration: 5000,
 				size: "large",
 				type: "success",
