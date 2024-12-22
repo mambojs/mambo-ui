@@ -443,6 +443,11 @@ ui.defaultTheme = {
 			bottom: "m-toaster-bottom",
 		},
 	},
+	tooltip: {
+		body: "m-tooltip-body",
+		self: "m-tooltip-self",
+		open: "m-tooltip-open",
+	},
 	treeView: {
 		expanded: "m-expanded",
 		group: "m-tree-view-group",

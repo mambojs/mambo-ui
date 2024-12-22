@@ -192,6 +192,10 @@ ui.defaultTags = {
 		iconContainer: { name: "mambo-toaster-icon-container" },
 		wrapper: { name: "mambo-toaster-wrapper" },
 	},
+	tooltip: {
+		self: { name: "mambo-tooltip" },
+		body: { name: "mambo-tooltip-body" },
+	},
 	treeView: {
 		self: { name: "mambo-tree-view" },
 		group: { name: "mambo-tree-view-group" },
