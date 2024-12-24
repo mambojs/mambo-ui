@@ -1388,6 +1388,24 @@
   }
 }
 
+.m-pagination-container .m-button-group-self {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.m-pagination-container .m-button-group-button {
+  border-radius: 1rem;
+  padding: .45rem 0.50rem;
+  width: fit-content;
+  letter-spacing: -0.025rem;
+  font-size: var(--m-font-size-s);
+}
+
+.m-pagination-container .m-button-group-button .m-button-icon {
+  margin: 0;
+  align-content: center;
+  line-height: var(--m-line-height);
+}
 .m-percentage-self {
   display: flex;
   width: 100%;

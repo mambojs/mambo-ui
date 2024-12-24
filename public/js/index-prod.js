@@ -90,6 +90,7 @@ const components = [
 	{ text: "Input" },
 	{ text: "Listbox" },
 	{ text: "MapBox" },
+	{ text: "Pagination" },
 	{ text: "Percentage" },
 	{ text: "Radio" },
 	{ text: "Radio Group" },

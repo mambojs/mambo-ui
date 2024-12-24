@@ -1829,6 +1829,7 @@
   }
 }
 
+
 .m-percentage-self {
   display: flex;
   width: 100%;
@@ -2834,7 +2835,7 @@
   padding: var(--m-padding-lg) var(--m-padding-lg);
   gap: 0.25rem;
   border-radius: 0.25rem;
-  border: 2px solid var(--m-accent-color);
+  border: 1px solid var(--m-accent-color);
   color: var(--m-white-color);
   background-color: var(--m-accent-color);
   max-width: 20rem;

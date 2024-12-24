@@ -104,6 +104,11 @@ ui.defaultTags = {
 		container: { name: "mambo-mapbox-container" },
 		currentPoint: { name: "mambo-mapbox-current-point" },
 	},
+	pagination: {
+		self: { name: "mambo-pagination" },
+		container: { name: "mambo-pagination-container" },
+		button: { name: "mambo-pagination-button" },
+	},
 	percentage: {
 		self: { name: "mambo-percentage" },
 		bar: { name: "mambo-percentage-bar" },

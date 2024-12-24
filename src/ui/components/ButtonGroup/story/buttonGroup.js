@@ -78,7 +78,9 @@ function storyButtonGroup(selectedStory) {
 					],
 				},
 			],
-			onClick: (context) => {},
+			onClick: (context) => {
+				console.log(context.Button.getId());
+			},
 		};
 
 		ui.buttonGroup(btnGroupProps);

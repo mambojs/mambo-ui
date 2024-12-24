@@ -254,6 +254,10 @@ ui.defaultTheme = {
 		hidewait: "m-mapbox-hide-wait",
 		self: "m-mapbox-self",
 	},
+	pagination: {
+		self: "m-pagination-self",
+		container: "m-pagination-container",
+	},
 	percentage: {
 		bar: "m-percentage-bar",
 		self: "m-percentage-self",

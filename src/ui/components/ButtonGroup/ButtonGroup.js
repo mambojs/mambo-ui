@@ -19,6 +19,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		this.getTag = getButtonTagById;
 		this.select = selectBtn;
 		this.setup = setup;
+		this.getButtons = () => m_buttonsList;
 
 		if (props) {
 			setup(props);

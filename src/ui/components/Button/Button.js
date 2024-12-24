@@ -15,6 +15,7 @@ ui.class.Button = class Button extends HTMLElement {
 		this.enable = enable;
 		this.getConfig = () => m_props;
 		this.getId = () => m_props.id;
+		this.setId = (id) => (m_props.id = id);
 		this.getImageTagById = getImageTagById;
 		this.getIconTagById = getIconTagById;
 		this.getParentTag = () => m_parentTag;
