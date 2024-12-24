@@ -5,22 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ui/components/Tooltip/Tooltip-Orange.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/components/Tooltip/Tooltip-Purple.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/components/Tooltip/Tooltip.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/components/Tooltip/Tooltip.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/components/Tooltip/story/tooltip.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/mambo-ui-0.0.2-orange.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mambo-ui-0.0.2-orange.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/mambo-ui-0.0.2-purple.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mambo-ui-0.0.2-purple.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/mambo-ui-0.0.2.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mambo-ui-0.0.2.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index-dev.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index-dev.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/index-dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/index-dev.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/story.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/story.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/mambo-ui-0.0.2-stories.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/mambo-ui-0.0.2-stories.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/mambo-ui-0.0.2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/mambo-ui-0.0.2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/Toaster/story/toaster.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Toaster/story/toaster.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/tools/Tags.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/tools/Tags.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/tools/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/tools/Theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Pagination/Pagination.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Pagination/Pagination.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Pagination/Pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Pagination/Pagination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/Pagination/story/pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/Pagination/story/pagination.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -69,9 +64,10 @@
     &quot;JavaScript Debug.Frontend Debugger.executor&quot;: &quot;Debug&quot;,
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;diego/tooltip&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;diego/pagination&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/src/ui/components/Pagination&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
@@ -93,11 +89,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\Pagination" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\VideoPlayer" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\TreeView" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\Toaster" />
-      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\TimePicker" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public" />
@@ -217,6 +213,7 @@
       <workItem from="1734577518492" duration="5102000" />
       <workItem from="1734626424837" duration="19931000" />
       <workItem from="1734815902686" duration="11479000" />
+      <workItem from="1735042151735" duration="8004000" />
     </task>
     <servers />
   </component>

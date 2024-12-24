@@ -82,3 +82,8 @@ story-combobox > mambo-combobox {
   display: block;
   margin-bottom: 1rem;
 }
+
+story-pagination > mambo-pagination {
+  display: block;
+  margin-bottom: 1rem;
+}

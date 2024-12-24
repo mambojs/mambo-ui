@@ -28,6 +28,7 @@ const components = [
 	{ text: "Listbox" },
 	{ text: "MapBox" },
 	{ text: "Percentage" },
+	{ text: "Pagination" },
 	{ text: "Radio" },
 	{ text: "Radio Group" },
 	{ text: "Rating" },
