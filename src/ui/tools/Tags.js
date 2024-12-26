@@ -99,6 +99,14 @@ ui.defaultTags = {
 		container: { name: "mambo-listbox-container" },
 		item: { name: "mambo-listbox-item" },
 	},
+	listMenu: {
+		self: { name: "mambo-list-menu" },
+		container: { name: "mambo-list-menu-container" },
+		wrapper: { name: "mambo-list-menu-wrapper" },
+		body: { name: "mambo-list-menu-body" },
+		title: { name: "mambo-list-menu-title" },
+		subtitle: { name: "mambo-list-menu-subtitle" },
+	},
 	mapbox: {
 		self: { name: "mambo-mapbox" },
 		container: { name: "mambo-mapbox-container" },

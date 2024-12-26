@@ -26,6 +26,7 @@ const components = [
 	{ text: "Grid" },
 	{ text: "Input" },
 	{ text: "Listbox" },
+	{ text: "ListMenu" },
 	{ text: "MapBox" },
 	{ text: "Percentage" },
 	{ text: "Pagination" },
