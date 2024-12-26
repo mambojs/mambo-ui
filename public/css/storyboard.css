@@ -143,6 +143,13 @@ storyboard-treeview {
   gap: 0.5rem;
 }
 
+.story-listmenu-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 20rem;
+}
+
 pre.prettyprint {
   border: none !important;
   padding: 0 !important;

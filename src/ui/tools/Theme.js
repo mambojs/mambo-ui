@@ -248,6 +248,15 @@ ui.defaultTheme = {
 		item: "m-listbox-item",
 		self: "m-listbox-self",
 	},
+	listMenu: {
+		self: "m-list-menu-self",
+		container: "m-list-menu-container",
+		wrapper: "m-list-menu-wrapper",
+		body: "m-list-menu-body",
+		title: "m-list-menu-title",
+		subtitle: "m-list-menu-subtitle",
+		icon: "m-list-menu-icon",
+	},
 	mapbox: {
 		container: "m-mapbox-container",
 		currentPoint: "m-mapbox-current-point",

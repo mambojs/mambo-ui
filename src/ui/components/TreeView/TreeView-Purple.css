@@ -34,7 +34,7 @@
 }
 
 .m-tree-view-item-in.m-hover {
-  background-color: var(--m-color-gray-light);
+  background-color: var(--m-gray-100);
 }
 
 .m-tree-view-item-in.m-selected {

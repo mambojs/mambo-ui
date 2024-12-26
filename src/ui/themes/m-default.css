@@ -6,6 +6,9 @@
   --m-font-size-s: 0.85rem;
   --m-font-size-m: 1rem;
   --m-font-size-lg: 1.25rem;
+  --m-font-size-xl: 1.50rem;
+  --m-font-size-xxl: 1.875rem;
+  --m-font-size-xxxl: 2.125rem;
 
   /* Colors */
   --m-text-color: white;
