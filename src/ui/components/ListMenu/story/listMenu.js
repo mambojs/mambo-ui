@@ -1,27 +1,10 @@
 function storyListMenu(selectedStory) {
-	const emptyIcons = [
-		{
-			attr: {
-				class: "fa-solid",
-			},
-			size: "large",
-			position: "left",
-		},
-		{
-			attr: {
-				class: "fa-solid",
-			},
-			size: "large",
-			position: "right",
-		},
-	];
-
 	simpleListMenu();
 
 	function simpleListMenu() {
 		const data = [
 			{
-				title: "List Item 1",
+				title: "List Item Parent 1",
 				subtitle: "Supporting line text",
 				icon: [
 					{
@@ -37,13 +20,36 @@ function storyListMenu(selectedStory) {
 						},
 						size: "large",
 						position: "right",
+						rotatable: true,
 					},
 				],
-				child: [
+				children: [
 					{
-						title: "List Item 1-1",
+						title: "List Item First Child",
 						subtitle: "Supporting line text",
-						icon: emptyIcons,
+						icon: [
+							{
+								attr: {
+									class: "fa-solid fa-person",
+								},
+								size: "large",
+								position: "left",
+							},
+							{
+								attr: {
+									class: "fa-solid fa-caret-right",
+								},
+								size: "large",
+								position: "right",
+								rotatable: true,
+							},
+						],
+						children: [
+							{
+								title: "List Item Child of First Child",
+								subtitle: "Supporting line text",
+							},
+						],
 					},
 				],
 			},
@@ -64,23 +70,21 @@ function storyListMenu(selectedStory) {
 						},
 						size: "large",
 						position: "right",
+						rotatable: true,
 					},
 				],
-				child: [
+				children: [
 					{
 						title: "About",
 						subtitle: "App Information",
-						icon: emptyIcons,
 					},
 					{
 						title: "Help",
 						subtitle: "Contact us",
-						icon: emptyIcons,
 					},
 					{
 						title: "Feedback",
 						subtitle: "Send us your feedback",
-						icon: emptyIcons,
 					},
 				],
 			},
