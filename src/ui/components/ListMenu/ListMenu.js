@@ -54,7 +54,7 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 
 		function processItem(itemData, parentId) {
 			return new Promise((resolve) => {
-				const itemId = "item-" + Math.random().toString(36).substr(2, 9);
+				const itemId = ui.utils.getUniqueId();
 
 				const itemWrapperTag = ui.d.createTag({
 					name: m_props.tags.wrapper.name,
@@ -62,12 +62,12 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 				});
 
 				if (parentId) {
-					itemWrapperTag.setAttribute("data-parent-id", parentId);
+					itemWrapperTag.setAttribute(m_props.parentIdAttrName, parentId);
 					itemWrapperTag.classList.add("child-item");
 					itemWrapperTag.style.display = "none";
 				}
 
-				itemWrapperTag.setAttribute("data-item-id", itemId);
+				itemWrapperTag.setAttribute(m_props.itemIdAttrName, itemId);
 
 				const bodyTag = ui.d.createTag({
 					name: m_props.tags.body.name,
@@ -90,14 +90,22 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 				bodyTag.appendChild(titleTag);
 				bodyTag.appendChild(subtitleTag);
 
-				insertIcon({ data: itemData, parentTag: itemWrapperTag });
+				const hasIcons = insertIcon({ data: itemData, parentTag: itemWrapperTag, bodyTag });
+
+				if (!hasIcons.left) {
+					bodyTag.classList.add(m_props.css.paddingLeft || "padding-left");
+				}
+
+				if (!hasIcons.right) {
+					bodyTag.classList.add(m_props.css.paddingRight || "padding-right");
+				}
 
 				m_containerTag.appendChild(itemWrapperTag);
 
-				if (itemData.child && itemData.child.length > 0) {
+				if (itemData.children && Array.isArray(itemData.children) && itemData.children.length > 0) {
 					itemWrapperTag.classList.add("has-children");
 
-					installItems(itemData.child, itemId).then(() => {
+					installItems(itemData.children, itemId).then(() => {
 						setupItemEventListeners(itemWrapperTag, itemData).then(resolve);
 					});
 				} else {
@@ -107,18 +115,35 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 		}
 
 		function insertIcon(context) {
+			const iconPresence = { left: false, right: false };
+
 			if (Array.isArray(context.data.icon)) {
 				context.data.icon.forEach((icon) => {
-					addIcon({ icon: icon, parentTag: context.parentTag });
+					const position = addIcon({
+						icon: icon,
+						parentTag: context.parentTag,
+					});
+
+					if (position) {
+						iconPresence[position] = true;
+					}
 				});
 			}
 
+			return iconPresence;
+
 			function addIcon(context) {
 				const cssClasses = [m_props.css.icon, context.icon.attr.class, context.icon.size].filter(Boolean).join(" ");
+				const props = {
+					...context.icon.prop,
+					position: context.icon.position,
+					size: context.icon.size,
+					rotatable: context.icon.rotatable,
+				};
 
 				const tagConfig = {
 					class: cssClasses,
-					prop: context.icon.prop,
+					prop: props,
 					attr: context.icon.attr,
 				};
 				let iconTag = ui.d.createTag("i", tagConfig);
@@ -126,8 +151,12 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 
 				if (context.icon.position === "left") {
 					context.parentTag.insertBefore(iconTag, context.parentTag.firstChild);
+
+					return "left";
 				} else {
 					context.parentTag.appendChild(iconTag);
+
+					return "right";
 				}
 			}
 		}
@@ -137,21 +166,50 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 		}
 
 		function toggleChildren(parentItem) {
-			const parentId = parentItem.getAttribute("data-item-id");
-			const childItems = m_containerTag.querySelectorAll(`[data-parent-id="${parentId}"]`);
-			const isExpanded = parentItem.getAttribute("data-expanded") === "true";
+			const parentId = parentItem.getAttribute(m_props.itemIdAttrName);
+			const isExpanded = parentItem.getAttribute(m_props.dataExpanded) === "true";
 
-			childItems.forEach((child) => {
-				child.style.display = isExpanded ? "none" : "flex";
-			});
+			const allDescendants = getAllDescendants(parentId);
 
-			parentItem.setAttribute("data-expanded", !isExpanded);
+			if (isExpanded) {
+				allDescendants.forEach((child) => {
+					child.style.display = "none";
+					child.setAttribute(m_props.dataExpanded, "false");
 
-			const arrowIcon = parentItem.querySelector(".fa-caret-right");
-
-			if (arrowIcon) {
-				arrowIcon.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+					m_iconList.map((icon) => {
+						if (icon.rotatable && child === icon.parentElement) icon.style.transform = "rotate(0deg)";
+					});
+				});
+			} else {
+				const directChildren = Array.from(allDescendants).filter((child) => child.getAttribute(m_props.parentIdAttrName) === parentId);
+				directChildren.forEach((child) => {
+					child.style.display = "flex";
+				});
 			}
+
+			parentItem.setAttribute(m_props.dataExpanded, !isExpanded);
+
+			m_iconList.map((icon) => {
+				if (icon.rotatable && parentItem === icon.parentElement) icon.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+			});
+		}
+
+		function getAllDescendants(parentId) {
+			const descendants = [];
+			let currentLevel = m_containerTag.querySelectorAll(`[data-parent-id="${parentId}"]`);
+
+			while (currentLevel.length > 0) {
+				const nextLevel = [];
+				currentLevel.forEach((child) => {
+					descendants.push(child);
+					const childId = child.getAttribute(m_props.itemIdAttrName);
+					const childChildren = m_containerTag.querySelectorAll(`[data-parent-id="${childId}"]`);
+					childChildren.forEach((grandChild) => nextLevel.push(grandChild));
+				});
+				currentLevel = nextLevel;
+			}
+
+			return descendants;
 		}
 
 		function setupItemEventListeners(item, data) {
@@ -212,6 +270,9 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
+					itemIdAttrName: "data-item-id",
+					parentIdAttrName: "data-parent-id",
+					dataExpanded: "data-expanded",
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);

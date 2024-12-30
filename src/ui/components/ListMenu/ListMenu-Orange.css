@@ -30,6 +30,14 @@
   flex-grow: 1;
 }
 
+.m-list-menu-body.padding-left {
+  padding-left: var(--m-padding-xxxxl);
+}
+
+.m-list-menu-body.padding-right {
+  padding-right: var(--m-padding-xxl);
+}
+
 .m-list-menu-title {
   font-size: var(--m-font-size-m);
 }
