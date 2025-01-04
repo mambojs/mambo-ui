@@ -5,8 +5,13 @@ function storyButtonGroup(selectedStory) {
 	demoSecondaryButtonGroupIcon();
 
 	function demoButtonGroup() {
+		const btnGroupAttr = { style: "justify-content: space-around;" };
+
 		let btnGroupProps = {
 			parentTag: selectedStory.parentTag,
+			tags: {
+				self: { attr: btnGroupAttr },
+			},
 			buttons: [
 				{
 					id: 1,
@@ -87,8 +92,11 @@ function storyButtonGroup(selectedStory) {
 	}
 
 	function demoPrimaryButtonGroup() {
+		const btnGroupAttr = { style: "justify-content: space-around;" };
+
 		let btnGroupProps = {
 			parentTag: selectedStory.parentTag,
+			tags: { self: { attr: btnGroupAttr } },
 			buttons: [
 				{
 					id: 1,
