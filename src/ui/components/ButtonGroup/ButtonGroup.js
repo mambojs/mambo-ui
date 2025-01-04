@@ -38,7 +38,10 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
+				ui.d.setAttr(self, m_props.tags.self.attr);
+				ui.d.setProps(self, m_props.tags.self.prop);
 				self.classList.add(m_props.css.self);
+
 				const buttonPromises = [];
 
 				m_props.buttons.forEach((button, index) => {
@@ -128,7 +131,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 					theme: "default",
 					onGroupClick: handleGroupBtnClick,
 				};
-
+				const tags = ui.tags.getTags({ name: m_props.tag, component: "buttonGroup" });
+				m_props.tags = ui.utils.extend(true, tags, customProps.tags);
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
 				const css = ui.theme.getTheme({ name: m_props.theme, component: "buttonGroup" });
