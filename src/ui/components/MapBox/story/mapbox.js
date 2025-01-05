@@ -27,6 +27,7 @@ function storyMapBox(selectedStory) {
 				search: true,
 			},
 			marker: { color: "#E50087" },
+			loadingMessage: "Cargando mapa...",
 			parentTag: selectedStory.parentTag,
 			tags: {
 				container: {

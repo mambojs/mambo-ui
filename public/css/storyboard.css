@@ -150,6 +150,12 @@ storyboard-treeview {
   width: 20rem;
 }
 
+.story-mapbox-wrapper {
+  display: block;
+  width: 25rem;
+  height: 25rem;
+}
+
 pre.prettyprint {
   border: none !important;
   padding: 0 !important;
