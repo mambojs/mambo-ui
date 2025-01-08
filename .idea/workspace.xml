@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="" />
+    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/storyboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/storyboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/components/MapBox/MapBox.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/MapBox/MapBox.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +58,7 @@
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;diego/change-listmenu&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;diego/mapbox&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Daniela/Desktop/Proyectos/mambo-ui/node_modules/stylelint&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -73,7 +77,7 @@
     &quot;prettier.import.notification.dismissed&quot;: &quot;true&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\Daniela\\Desktop\\Proyectos\\mambo-ui\\node_modules\\prettier&quot;,
     &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.CSS&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -209,8 +213,7 @@
       <workItem from="1735246553048" duration="1112000" />
       <workItem from="1735324685705" duration="2271000" />
       <workItem from="1735327127377" duration="375000" />
-      <workItem from="1735444060027" duration="2379000" />
-      <workItem from="1735565735391" duration="8738000" />
+      <workItem from="1735959603719" duration="3667000" />
     </task>
     <servers />
   </component>
@@ -227,8 +230,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>

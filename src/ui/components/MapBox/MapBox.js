@@ -37,6 +37,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
+				m_parentTag.style.setProperty(m_props.containerLoadingMessageVar, `"${m_props.loadingMessage}"`);
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_containerTag);
@@ -175,6 +176,8 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 					tag: "default",
 					theme: "default",
 					zoom: 16,
+					containerLoadingMessageVar: "--container-after-content",
+					loadingMessage: "Loading...",
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				mapboxgl.accessToken = m_props.accessToken;
