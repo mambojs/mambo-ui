@@ -195,6 +195,24 @@ ui.class.Input = class Input extends HTMLElement {
 								});
 							}
 						},
+						onTouchStart: (context) => {
+							if (m_props.onTouchStart) {
+								m_props.onTouchStart({
+									Input: self,
+									Button: context.Button,
+									ev: context.ev,
+								});
+							}
+						},
+						onTouchEnd: (context) => {
+							if (m_props.onTouchEnd) {
+								m_props.onTouchEnd({
+									Input: self,
+									Button: context.Button,
+									ev: context.ev,
+								});
+							}
+						},
 					};
 					m_leftButton = ui.button(buttonConfig);
 				}

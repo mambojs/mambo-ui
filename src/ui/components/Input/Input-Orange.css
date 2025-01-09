@@ -94,7 +94,7 @@
 .m-input-text-required {
   display: inline-block;
   color: var(--m-error-color);
-  font-size: var(--m-font-size-xs);
+  font-size: var(--m-font-size-s);
   font-weight: var(--m-font-weight-regular);
   font-family: var(--m-font-family);
   padding-left: var(--m-padding-lg);
