@@ -61,6 +61,8 @@ ui.class.Button = class Button extends HTMLElement {
 						mouseLeaveOverButton();
 						mouseLeaveOverImage();
 					},
+					touchstart: handleTouchStart,
+					touchend: handleTouchEnd,
 				};
 
 				m_buttonTag = ui.d.createTag(tagConfig);
@@ -193,6 +195,32 @@ ui.class.Button = class Button extends HTMLElement {
 				// Invoke callback for each button
 				if (m_props.onMouseUp) {
 					m_props.onMouseUp({
+						Button: self,
+						ev: ev,
+					});
+				}
+			}
+		}
+
+		function handleTouchStart(ev) {
+			if (m_enable) {
+				m_buttonTag.classList.add(m_props.css.pressed);
+
+				if (m_props.onTouchStart) {
+					m_props.onTouchStart({
+						Button: self,
+						ev: ev,
+					});
+				}
+			}
+		}
+
+		function handleTouchEnd(ev) {
+			if (m_enable) {
+				m_buttonTag.classList.remove(m_props.css.pressed);
+
+				if (m_props.onTouchEnd) {
+					m_props.onTouchEnd({
 						Button: self,
 						ev: ev,
 					});
