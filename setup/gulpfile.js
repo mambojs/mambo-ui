@@ -8,6 +8,7 @@ import concat from "gulp-concat";
 import sourcemaps from "gulp-sourcemaps";
 import config from "./esconfig.cjs";
 import empty from "gulp-empty";
+import ignore from "gulp-ignore";
 
 function cssLibFiles() {
 	const type = process.argv.slice(-3)[0];
@@ -32,15 +33,12 @@ function cssLibFiles() {
 			break;
 	}
 
-	return src([
-		"../src/ui/**/*.css",
-		"../src/ui/themes/m-default.css",
-		"!../src/ui/**/demo/*.css",
-		"!../src/ui/**/*-Orange.css",
-		"!../src/ui/themes/m-orange.css",
-		"!../src/ui/**/*-Purple.css",
-		"!../src/ui/themes/m-purple.css",
-	])
+	return src(["../src/ui/**/*.css"])
+		.pipe(ignore.exclude("**/demo/**"))
+		.pipe(ignore.exclude("**/*-Orange.css"))
+		.pipe(ignore.exclude("**/*-Purple.css"))
+		.pipe(ignore.exclude("**/themes/m-orange.css"))
+		.pipe(ignore.exclude("**/themes/m-purple.css"))
 		.pipe(mapInit)
 		.pipe(concat(`${libName}`))
 		.pipe(stripCssComments())
@@ -73,14 +71,11 @@ function cssOrangeLibFiles() {
 			break;
 	}
 
-	return src([
-		"../src/ui/themes/m-orange.css",
-		"../src/ui/**/*-Orange.css",
-		"!../src/ui/**/demo/*.css",
-		"!../src/ui/themes/m-default.css",
-		"!../src/ui/**/*-Purple.css",
-		"!../src/ui/themes/m-purple.css",
-	])
+	return src("../src/ui/**/*.css")
+		.pipe(ignore.exclude("**/demo/**"))
+		.pipe(ignore.exclude("**/*-Purple.css"))
+		.pipe(ignore.include("**/themes/m-orange.css"))
+		.pipe(ignore.include("**/*-Orange.css"))
 		.pipe(mapInit)
 		.pipe(concat(`${libName}`))
 		.pipe(stripCssComments())
@@ -113,14 +108,11 @@ function cssPurpleLibFiles() {
 			break;
 	}
 
-	return src([
-		"../src/ui/themes/m-purple.css",
-		"../src/ui/**/*-Purple.css",
-		"!../src/ui/**/demo/*.css",
-		"!../src/ui/themes/m-default.css",
-		"!../src/ui/**/*-Orange.css",
-		"!../src/ui/themes/m-orange.css",
-	])
+	return src("../src/ui/**/*.css")
+		.pipe(ignore.exclude("**/demo/**"))
+		.pipe(ignore.exclude("**/*-Orange.css"))
+		.pipe(ignore.include("**/themes/m-purple.css"))
+		.pipe(ignore.include("**/*-Purple.css"))
 		.pipe(mapInit)
 		.pipe(concat(`${libName}`))
 		.pipe(stripCssComments())

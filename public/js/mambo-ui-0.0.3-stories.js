@@ -1152,27 +1152,11 @@ function storyListbox(selectedStory) {
   }
 }
 function storyListMenu(selectedStory) {
-  const emptyIcons = [
-    {
-      attr: {
-        class: "fa-solid"
-      },
-      size: "large",
-      position: "left"
-    },
-    {
-      attr: {
-        class: "fa-solid"
-      },
-      size: "large",
-      position: "right"
-    }
-  ];
   simpleListMenu();
   function simpleListMenu() {
     const data = [
       {
-        title: "List Item 1",
+        title: "List Item Parent 1",
         subtitle: "Supporting line text",
         icon: [
           {
@@ -1187,14 +1171,37 @@ function storyListMenu(selectedStory) {
               class: "fa-solid fa-caret-right"
             },
             size: "large",
-            position: "right"
+            position: "right",
+            rotatable: true
           }
         ],
-        child: [
+        children: [
           {
-            title: "List Item 1-1",
+            title: "List Item First Child",
             subtitle: "Supporting line text",
-            icon: emptyIcons
+            icon: [
+              {
+                attr: {
+                  class: "fa-solid fa-person"
+                },
+                size: "large",
+                position: "left"
+              },
+              {
+                attr: {
+                  class: "fa-solid fa-caret-right"
+                },
+                size: "large",
+                position: "right",
+                rotatable: true
+              }
+            ],
+            children: [
+              {
+                title: "List Item Child of First Child",
+                subtitle: "Supporting line text"
+              }
+            ]
           }
         ]
       },
@@ -1214,24 +1221,22 @@ function storyListMenu(selectedStory) {
               class: "fa-solid fa-caret-right"
             },
             size: "large",
-            position: "right"
+            position: "right",
+            rotatable: true
           }
         ],
-        child: [
+        children: [
           {
             title: "About",
-            subtitle: "App Information",
-            icon: emptyIcons
+            subtitle: "App Information"
           },
           {
             title: "Help",
-            subtitle: "Contact us",
-            icon: emptyIcons
+            subtitle: "Contact us"
           },
           {
             title: "Feedback",
-            subtitle: "Send us your feedback",
-            icon: emptyIcons
+            subtitle: "Send us your feedback"
           }
         ]
       }
@@ -1270,6 +1275,7 @@ function storyMapBox(selectedStory) {
         search: true
       },
       marker: { color: "#E50087" },
+      loadingMessage: "Cargando mapa...",
       parentTag: selectedStory.parentTag,
       tags: {
         container: {
