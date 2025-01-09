@@ -39,6 +39,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-empty": "^0.1.2",
     "gulp-header-comment": "^0.10.0",
+    "gulp-ignore": "^3.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-strip-css-comments": "^2.0.0",
     "htmlhint": "^1.1.4",

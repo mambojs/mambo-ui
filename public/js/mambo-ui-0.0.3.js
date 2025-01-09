@@ -4957,17 +4957,17 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
     }
     function processItem(itemData, parentId) {
       return new Promise((resolve) => {
-        const itemId = "item-" + Math.random().toString(36).substr(2, 9);
+        const itemId = ui.utils.getUniqueId();
         const itemWrapperTag = ui.d.createTag({
           name: m_props.tags.wrapper.name,
           class: m_props.css.wrapper
         });
         if (parentId) {
-          itemWrapperTag.setAttribute("data-parent-id", parentId);
+          itemWrapperTag.setAttribute(m_props.parentIdAttrName, parentId);
           itemWrapperTag.classList.add("child-item");
           itemWrapperTag.style.display = "none";
         }
-        itemWrapperTag.setAttribute("data-item-id", itemId);
+        itemWrapperTag.setAttribute(m_props.itemIdAttrName, itemId);
         const bodyTag = ui.d.createTag({
           name: m_props.tags.body.name,
           class: m_props.css.body
@@ -4985,11 +4985,17 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
         itemWrapperTag.appendChild(bodyTag);
         bodyTag.appendChild(titleTag);
         bodyTag.appendChild(subtitleTag);
-        insertIcon({ data: itemData, parentTag: itemWrapperTag });
+        const hasIcons = insertIcon({ data: itemData, parentTag: itemWrapperTag, bodyTag });
+        if (!hasIcons.left) {
+          bodyTag.classList.add(m_props.css.paddingLeft || "padding-left");
+        }
+        if (!hasIcons.right) {
+          bodyTag.classList.add(m_props.css.paddingRight || "padding-right");
+        }
         m_containerTag.appendChild(itemWrapperTag);
-        if (itemData.child && itemData.child.length > 0) {
+        if (itemData.children && Array.isArray(itemData.children) && itemData.children.length > 0) {
           itemWrapperTag.classList.add("has-children");
-          installItems(itemData.child, itemId).then(() => {
+          installItems(itemData.children, itemId).then(() => {
             setupItemEventListeners(itemWrapperTag, itemData).then(resolve);
           });
         } else {
@@ -4998,24 +5004,40 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
       });
     }
     function insertIcon(context) {
+      const iconPresence = { left: false, right: false };
       if (Array.isArray(context.data.icon)) {
         context.data.icon.forEach((icon) => {
-          addIcon({ icon, parentTag: context.parentTag });
+          const position = addIcon({
+            icon,
+            parentTag: context.parentTag
+          });
+          if (position) {
+            iconPresence[position] = true;
+          }
         });
       }
+      return iconPresence;
       function addIcon(context2) {
         const cssClasses = [m_props.css.icon, context2.icon.attr.class, context2.icon.size].filter(Boolean).join(" ");
+        const props2 = {
+          ...context2.icon.prop,
+          position: context2.icon.position,
+          size: context2.icon.size,
+          rotatable: context2.icon.rotatable
+        };
         const tagConfig = {
           class: cssClasses,
-          prop: context2.icon.prop,
+          prop: props2,
           attr: context2.icon.attr
         };
         let iconTag = ui.d.createTag("i", tagConfig);
         m_iconList.push(iconTag);
         if (context2.icon.position === "left") {
           context2.parentTag.insertBefore(iconTag, context2.parentTag.firstChild);
+          return "left";
         } else {
           context2.parentTag.appendChild(iconTag);
+          return "right";
         }
       }
     }
@@ -5023,17 +5045,44 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
       return m_iconList.find((icon) => icon.id === id);
     }
     function toggleChildren(parentItem) {
-      const parentId = parentItem.getAttribute("data-item-id");
-      const childItems = m_containerTag.querySelectorAll(`[data-parent-id="${parentId}"]`);
-      const isExpanded = parentItem.getAttribute("data-expanded") === "true";
-      childItems.forEach((child) => {
-        child.style.display = isExpanded ? "none" : "flex";
-      });
-      parentItem.setAttribute("data-expanded", !isExpanded);
-      const arrowIcon = parentItem.querySelector(".fa-caret-right");
-      if (arrowIcon) {
-        arrowIcon.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+      const parentId = parentItem.getAttribute(m_props.itemIdAttrName);
+      const isExpanded = parentItem.getAttribute(m_props.dataExpanded) === "true";
+      const allDescendants = getAllDescendants(parentId);
+      if (isExpanded) {
+        allDescendants.forEach((child) => {
+          child.style.display = "none";
+          child.setAttribute(m_props.dataExpanded, "false");
+          m_iconList.map((icon) => {
+            if (icon.rotatable && child === icon.parentElement)
+              icon.style.transform = "rotate(0deg)";
+          });
+        });
+      } else {
+        const directChildren = Array.from(allDescendants).filter((child) => child.getAttribute(m_props.parentIdAttrName) === parentId);
+        directChildren.forEach((child) => {
+          child.style.display = "flex";
+        });
       }
+      parentItem.setAttribute(m_props.dataExpanded, !isExpanded);
+      m_iconList.map((icon) => {
+        if (icon.rotatable && parentItem === icon.parentElement)
+          icon.style.transform = isExpanded ? "rotate(0deg)" : "rotate(90deg)";
+      });
+    }
+    function getAllDescendants(parentId) {
+      const descendants = [];
+      let currentLevel = m_containerTag.querySelectorAll(`[data-parent-id="${parentId}"]`);
+      while (currentLevel.length > 0) {
+        const nextLevel = [];
+        currentLevel.forEach((child) => {
+          descendants.push(child);
+          const childId = child.getAttribute(m_props.itemIdAttrName);
+          const childChildren = m_containerTag.querySelectorAll(`[data-parent-id="${childId}"]`);
+          childChildren.forEach((grandChild) => nextLevel.push(grandChild));
+        });
+        currentLevel = nextLevel;
+      }
+      return descendants;
     }
     function setupItemEventListeners(item, data) {
       return new Promise((resolve) => {
@@ -5084,7 +5133,10 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
       return new Promise((resolve) => {
         m_props = {
           tag: "default",
-          theme: "default"
+          theme: "default",
+          itemIdAttrName: "data-item-id",
+          parentIdAttrName: "data-parent-id",
+          dataExpanded: "data-expanded"
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -5131,6 +5183,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
     }
     function setupDOM() {
       return new Promise((resolve) => {
+        m_parentTag.style.setProperty(m_props.containerLoadingMessageVar, `"${m_props.loadingMessage}"`);
         m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
         self.classList.add(m_props.css.self);
         self.appendChild(m_containerTag);
@@ -5240,7 +5293,9 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
           mapStyle: "mapbox://styles/mapbox/streets-v11",
           tag: "default",
           theme: "default",
-          zoom: 16
+          zoom: 16,
+          containerLoadingMessageVar: "--container-after-content",
+          loadingMessage: "Loading..."
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         mapboxgl.accessToken = m_props.accessToken;
