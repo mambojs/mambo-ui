@@ -1,16 +1,16 @@
 function storySearch(selectedStory) {
 	const config = {
-		button: { text: "", fnClick: value => toMap(apiSearch(value)) },
+		button: { text: "", onClick: (value) => toMap(apiSearch(value)) },
 		input: {
-			fnKeyup: value => handleKeyUp(value),
+			onKeyup: (value) => handleKeyUp(value),
 			enableClear: true,
 		},
 		firedIn: 3,
 		parentTag: selectedStory.parentTag,
 		suggest: {
 			displayKey: "displayName",
-			fnSelect: e => toMap(e),
-		}
+			onSelect: (e) => toMap(e),
+		},
 	};
 
 	const search = ui.search(config);
@@ -32,11 +32,12 @@ function storySearch(selectedStory) {
 			{ displayName: "Text Three", id: 3 },
 			{ displayName: "Text Four", id: 4 },
 			{ displayName: "Text Five", id: 5 },
-		]
+		];
 
 		// Emule API filter
-		const expr = new RegExp(value, 'gi');
-		return testData.filter(data => data.displayName.match(expr));
+		const expr = new RegExp(value, "gi");
+
+		return testData.filter((data) => data.displayName.match(expr));
 	}
 
 	function toMap(ev) {

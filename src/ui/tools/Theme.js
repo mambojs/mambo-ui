@@ -73,6 +73,9 @@ ui.defaultTheme = {
 			self: "m-years-button-group",
 		},
 	},
+	card: {
+		body: "m-card-body",
+	},
 	checkboxRadio: {
 		radioParent: "m-checkbox-radio-parent",
 		radioText: "m-checkbox-radio-text-span",
@@ -116,6 +119,7 @@ ui.defaultTheme = {
 			container: "m-combobox-dropdown-container",
 			self: "m-combobox-dropdown-parent",
 		},
+		container: "m-combobox-container",
 		wrapper: "m-dropdown-wrapper",
 		input: {
 			input: "m-combobox-input-input",
@@ -142,19 +146,27 @@ ui.defaultTheme = {
 		},
 		dropdownWrapper: "m-date-picker-dropdown-wrapper",
 		input: {
+			self: "m-date-picker-input-self",
 			input: "m-date-picker-input-input",
-			inputWrapper: "m-date-picker-input-wrapper",
+			container: "m-date-picker-input-container",
 		},
 		self: "m-date-picker-self",
 	},
 	dialog: {
+		container: "m-dialog-container",
 		body: "m-dialog-body",
+		button: {
+			button: "m-dialog-button fa-solid fa-xmark",
+		},
+		buttonLeft: {
+			button: "m-dialog-button fa-solid fa-xmark left",
+		},
 		header: "m-dialog-header",
 		headerCenter: "m-dialog-header-center",
-		headerCloseButton: "m-dialog-header-close",
 		headerLeft: "m-dialog-header-left",
 		headerRight: "m-dialog-header-right",
 		headerTitle: "m-dialog-header-title",
+		footer: "m-dialog-footer",
 		self: "m-dialog-self",
 	},
 	dragDrop: {
@@ -206,6 +218,7 @@ ui.defaultTheme = {
 		header: "m-grid-hdr",
 		headerTitle: "m-grid-title",
 		input: "m-grid-input",
+		inputContainer: "m-grid-input-container",
 		row: "m-grid-row",
 		self: "m-grid-self",
 		text: "m-grid-text",
@@ -235,11 +248,24 @@ ui.defaultTheme = {
 		item: "m-listbox-item",
 		self: "m-listbox-self",
 	},
+	listMenu: {
+		self: "m-list-menu-self",
+		container: "m-list-menu-container",
+		wrapper: "m-list-menu-wrapper",
+		body: "m-list-menu-body",
+		title: "m-list-menu-title",
+		subtitle: "m-list-menu-subtitle",
+		icon: "m-list-menu-icon",
+	},
 	mapbox: {
 		container: "m-mapbox-container",
 		currentPoint: "m-mapbox-current-point",
 		hidewait: "m-mapbox-hide-wait",
 		self: "m-mapbox-self",
+	},
+	pagination: {
+		self: "m-pagination-self",
+		container: "m-pagination-container",
 	},
 	percentage: {
 		bar: "m-percentage-bar",
@@ -352,6 +378,7 @@ ui.defaultTheme = {
 		input: "m-switch-input",
 		off: "m-switch-label-off",
 		on: "m-switch-label-on",
+		text: "m-switch-text",
 		self: "m-switch-self",
 	},
 	tab: {
@@ -395,6 +422,45 @@ ui.defaultTheme = {
 		},
 		self: "m-time-picker-self",
 	},
+	toaster: {
+		body: "m-toaster-body",
+		iconContainer: "m-toaster-icon-container",
+		buttonContainer: "m-toaster-button-container",
+		button: {
+			button: "m-toaster-button fa-solid fa-xmark",
+		},
+		self: "m-toaster-self",
+		icon: {
+			success: "fa-solid fa-check-circle",
+			warning: "fa-solid fa-exclamation-triangle",
+			error: "fa-solid fa-exclamation-triangle",
+			info: "fa-solid fa-info-circle",
+		},
+		size: {
+			small: "m-toaster-small",
+			medium: "m-toaster-medium",
+			large: "m-toaster-large",
+		},
+		type: {
+			error: "m-toaster-error",
+			info: "m-toaster-info",
+			success: "m-toaster-success",
+			warning: "m-toaster-warning",
+		},
+		position: {
+			left: "m-toaster-left",
+			center: "m-toaster-center",
+			centerV: "m-toaster-center-v",
+			right: "m-toaster-right",
+			top: "m-toaster-top",
+			bottom: "m-toaster-bottom",
+		},
+	},
+	tooltip: {
+		body: "m-tooltip-body",
+		self: "m-tooltip-self",
+		open: "m-tooltip-open",
+	},
 	treeView: {
 		expanded: "m-expanded",
 		group: "m-tree-view-group",
@@ -412,6 +478,7 @@ ui.defaultTheme = {
 		self: "m-video-player-self",
 	},
 };
+
 ui.class.Theme = class Theme {
 	constructor() {
 		this.m_themes = {

@@ -17,9 +17,11 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -52,16 +54,16 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 		}
 
 		function handleMouseEnterLeave(ev) {
-			if (m_props.fnMouseenterMouseleave) {
-				m_props.fnMouseenterMouseleave({ ev: ev });
+			if (m_props.onMouseenterMouseleave) {
+				m_props.onMouseenterMouseleave({ ev: ev });
 			}
 		}
 
 		function handleDragover(ev) {
 			ev.preventDefault();
 
-			if (m_props.fnDragover) {
-				m_props.fnDragover({ ev: ev });
+			if (m_props.onDragover) {
+				m_props.onDragover({ ev: ev });
 			}
 		}
 
@@ -69,30 +71,33 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 			ev.preventDefault();
 			ev.stopPropagation();
 
-			if (!m_props.fnDrop) {
+			if (!m_props.onDrop) {
 				return;
 			}
 
 			let items = ev.dataTransfer.items;
 
 			if (!items || items.length === 0) {
-				m_props.fnDrop({ error: "No items dropped", dataTransfer: {} });
+				m_props.onDrop({ error: "No items dropped", dataTransfer: {} });
+
 				return;
 			}
 
 			if (m_props.maxFileCount && items.length > m_props.maxFileCount) {
-				m_props.fnDrop({ error: "maxFileCount", dataTransfer: {} });
+				m_props.onDrop({ error: "maxFileCount", dataTransfer: {} });
+
 				return;
 			}
 
 			for (let i = 0; i < items.length; i++) {
 				if (!checkFileKindAllowed(items[i].type)) {
 					console.error("DragDrop() one or more file formats are not allowed.");
+
 					return;
 				}
 			}
 
-			m_props.fnDrop({ dataTransfer: ev.dataTransfer, ev: ev });
+			m_props.onDrop({ dataTransfer: ev.dataTransfer, ev: ev });
 		}
 
 		function checkFileKindAllowed(type) {
@@ -103,6 +108,7 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 					// Check if file type is allowed
 					if (allowedKind !== type) {
 						valid = false;
+
 						return true;
 					}
 				});
@@ -116,8 +122,8 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Button: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Button: self });
 			}
 		}
 
@@ -141,4 +147,4 @@ ui.class.DragDrop = class DragDrop extends HTMLElement {
 };
 
 ui.dragDrop = (props) => new ui.class.DragDrop(props);
-customElements.define("mambo-dragdrop", ui.class.DragDrop);
+customElements.define(ui.defaultTags.dragDrop.self.name, ui.class.DragDrop);

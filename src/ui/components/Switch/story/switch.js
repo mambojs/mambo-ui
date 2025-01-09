@@ -1,13 +1,36 @@
 function storySwitch(selectedStory) {
-	defaultSwitch();
+	defaultSwitchLeft();
+	defaultSwitchRight();
 	checkedSwitch();
 	customTextSwitch();
 	disabledSwitch();
+	disabledSwitchNoLabels();
 
-	function defaultSwitch() {
+	function defaultSwitchLeft() {
 		const config = {
 			parentTag: selectedStory.parentTag,
-			fnChange: (context) => {},
+			text: "Option",
+			position: "left",
+			messages: {
+				checked: "",
+				unchecked: "",
+			},
+			onChange: (context) => {},
+		};
+
+		ui.switch(config);
+	}
+
+	function defaultSwitchRight() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			text: "Option",
+			position: "right",
+			messages: {
+				checked: "",
+				unchecked: "",
+			},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -17,7 +40,7 @@ function storySwitch(selectedStory) {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			checked: true,
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -31,7 +54,7 @@ function storySwitch(selectedStory) {
 				checked: "YES",
 				unchecked: "NO",
 			},
-			fnChange: (context) => {},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);
@@ -41,7 +64,21 @@ function storySwitch(selectedStory) {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			enable: false,
-			fnChange: (context) => {},
+			onChange: (context) => {},
+		};
+
+		ui.switch(config);
+	}
+
+	function disabledSwitchNoLabels() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			enable: false,
+			messages: {
+				checked: "",
+				unchecked: "",
+			},
+			onChange: (context) => {},
 		};
 
 		ui.switch(config);

@@ -4,7 +4,7 @@ function storyDropdown(selectedStory) {
 		button: {
 			text: "Open",
 		},
-		fnComplete: (context) => {
+		onComplete: (context) => {
 			const contentTag = context.Dropdown.getContentTag();
 			dom.append(contentTag, "<p style='padding:1em;'>Here goes your content</p>");
 		},

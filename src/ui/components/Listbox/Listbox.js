@@ -19,9 +19,11 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -77,9 +79,9 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 		function setupItemEventListeners(item, data) {
 			return new Promise((resolve) => {
 				const listeners = [
-					{ type: "click", fn: "fnSelect" },
-					{ type: "mouseover", fn: "fnHover" },
-					{ type: "mouseleave", fn: "fnLeave" },
+					{ type: "click", fn: "onSelect" },
+					{ type: "mouseover", fn: "onHover" },
+					{ type: "mouseleave", fn: "onLeave" },
 				];
 				listeners.forEach((listener) => {
 					item.addEventListener(listener.type, (ev) => {
@@ -117,8 +119,8 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Listbox: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Listbox: self });
 			}
 		}
 
@@ -143,4 +145,4 @@ ui.class.Listbox = class Listbox extends HTMLElement {
 };
 
 ui.listbox = (props) => new ui.class.Listbox(props);
-customElements.define("mambo-listbox", ui.class.Listbox);
+customElements.define(ui.defaultTags.listbox.self.name, ui.class.Listbox);

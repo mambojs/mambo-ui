@@ -21,6 +21,7 @@ function storyButton(selectedStory) {
 		};
 		ui.button(config);
 	}
+
 	function primaryLarge() {
 		const config = {
 			parentTag: selectedStory.parentTag,
@@ -31,7 +32,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "large",
 				},
@@ -50,7 +51,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "medium",
 				},
@@ -69,13 +70,13 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "small",
 					position: "left",
 				},
 			],
-			fnClick: (context) => {
+			onClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -104,7 +105,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "medium",
 					position: "left",
@@ -136,7 +137,7 @@ function storyButton(selectedStory) {
 			icon: [
 				{
 					attr: {
-						"data-feather": "plus",
+						class: "fa-solid fa-plus",
 					},
 					size: "medium",
 					position: "right",
@@ -150,7 +151,7 @@ function storyButton(selectedStory) {
 		const config = {
 			parentTag: selectedStory.parentTag,
 			id: 8,
-			text: "Mambo Button",
+			text: "Secondary",
 			size: "medium",
 			type: "secondary",
 			enable: false,
@@ -163,14 +164,14 @@ function storyButton(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
 				position: "left",
 			},
 			id: 2,
 			text: "Image Button",
-			fnClick: (context) => {
+			onClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -185,12 +186,12 @@ function storyButton(selectedStory) {
 			text: "Hover Button",
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
-				hover: "src/img/storyboard/star.png",
+				hover: "img/storyboard/star.png",
 			},
-			fnClick: (context) => {
+			onClick: (context) => {
 				console.log(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -210,15 +211,15 @@ function storyButton(selectedStory) {
 				},
 				{
 					attr: {
-						"data-feather": "circle",
+						class: "fa-solid fa-circle",
 					},
 				},
 			],
 
-			fnMouseDown: (context) => {
+			onMouseDown: (context) => {
 				console.log(`${context.Button.text()} Mouse Down.`);
 			},
-			fnMouseUp: (context) => {
+			onMouseUp: (context) => {
 				console.log(`${context.Button.text()} Mouse Up.`);
 			},
 		};

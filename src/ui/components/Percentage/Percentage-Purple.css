@@ -1,0 +1,25 @@
+.m-percentage-self {
+  display: flex;
+  width: 100%;
+  height: 1.5rem;
+}
+
+.m-percentage-bar {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.m-percentage-text {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+  font-weight: bold;
+}
+
+.m-percentage-range-low {
+  background-color: #df2222;
+}
+
+.m-percentage-range-high {
+  background-color: #00b300;
+}

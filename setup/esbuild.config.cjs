@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const { exec } = require("child_process");
 const esbuild = require("esbuild");
 const esconfig = require("./esconfig.cjs");
@@ -16,15 +17,18 @@ function buildLib() {
 
 	const footerFn = "\nreturn ui;\n}";
 
+	const { arrFiles, arrFilesStories } = getLibFiles();
+
 	// Bundle Native
 	const optionsBundle = {
 		stdin: { contents: "" },
 		banner: { js: esconfig.COPYRIGHT + headerFn },
 		footer: { js: footerFn },
-		inject: getLibFiles(),
+		inject: arrFiles,
 		entryNames: esconfig.LIB_FILE_NAME,
 		outdir: `${esconfig.LIB_DIR}/${libVersion}`,
 	};
+
 	// Minified bundle with sourcemap
 	const optionsMinifyMap = {
 		...optionsBundle,
@@ -33,14 +37,6 @@ function buildLib() {
 		entryNames: esconfig.LIB_FILE_NAME_MIN,
 		outdir: `${esconfig.LIB_DIR}/${libVersion}`,
 		minify: true,
-		sourcemap: true,
-	};
-
-	const optionsCssThemes = {
-		entryPoints: ["src/themes/dark.css"],
-		outdir: `${esconfig.LIB_DIR}/themes`,
-		minify: true,
-		bundle: true,
 		sourcemap: true,
 	};
 
@@ -54,54 +50,103 @@ function buildLib() {
 		compileCssLib("min", libVersion);
 	});
 
-	// Disable this optional Theme for now
-	/* esbuild.build(optionsCssThemes).then(() => {
-		console.log("Css Themes: Build complete!");
-	}); */
+	const getStoriesContent = (arrFilesStories) => {
+		return arrFilesStories
+			.map((file) => {
+				const content = fs.readFileSync(file, "utf8");
+
+				return content;
+			})
+			.join("\n");
+	};
+
+	const optionsBundleStories = {
+		stdin: {
+			contents: getStoriesContent(arrFilesStories), // Inyectar el contenido completo de cada archivo
+		},
+		entryNames: esconfig.STORIES_FILE_NAME,
+		outdir: `${esconfig.PUBLIC_DIR}/js`,
+	};
+
+	esbuild.build(optionsBundleStories).then(() => {
+		console.log("Stories: Build complete!");
+	});
+}
+
+function copyFilesToPublic(srcDir, fileName, destDir) {
+	const srcPath = path.join(srcDir, fileName);
+	const destPath = path.join(destDir, fileName);
+	fs.copyFileSync(srcPath, destPath);
+}
+
+function copyFiles() {
+	const libVersion = esconfig.LIB_VERSION;
+	const libDir = `${esconfig.LIB_DIR}/${libVersion}`;
+	const publicCssDir = `${esconfig.PUBLIC_DIR}/css`;
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}.js`, `${esconfig.PUBLIC_DIR}/js`);
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}.css`, publicCssDir);
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}-orange.css`, publicCssDir);
+	copyFilesToPublic(libDir, `${esconfig.LIB_FILE_NAME}-purple.css`, publicCssDir);
 }
 
 function compileCssLib(lib, version) {
 	console.log(`Compiling ${lib} CSS...`);
 
-	exec(`gulp -f ./setup/gulpfile.js cssLibFiles cssOrangeLibFiles --build ${lib} --mversion ${version}`, (err, stdout, stderr) => {
-		if (err) {
-			console.log(`error: ${err.message}`);
-			return;
+	exec(
+		`gulp -f ./setup/gulpfile.js cssLibFiles cssOrangeLibFiles cssPurpleLibFiles --build ${lib} --mversion ${version}`,
+		(err, stdout, stderr) => {
+			if (err) {
+				console.log(`error: ${err.message}`);
+			}
+
+			if (stderr) {
+				console.log(`stderr: ${stderr}`);
+			}
+
+			copyFiles();
+
+			console.log(`stdout: ${stdout}`);
 		}
-		if (stderr) {
-			console.log(`stderr: ${stderr}`);
-			return;
-		}
-		console.log(`stdout: ${stdout}`);
-	});
+	);
 }
 
 function getLibFiles() {
 	const arrFiles = [
-		`${config.PUBLIC_DIR}/ui/tools/DateManager.js`,
-		`${config.PUBLIC_DIR}/ui/tools/String.js`,
-		`${config.PUBLIC_DIR}/ui/tools/Tags.js`,
-		`${config.PUBLIC_DIR}/ui/tools/Theme.js`,
-		`${config.PUBLIC_DIR}/ui/tools/Utilities.js`,
+		`${config.SRC_DIR}/ui/tools/DateManager.js`,
+		`${config.SRC_DIR}/ui/tools/String.js`,
+		`${config.SRC_DIR}/ui/tools/Tags.js`,
+		`${config.SRC_DIR}/ui/tools/Theme.js`,
+		`${config.SRC_DIR}/ui/tools/Utilities.js`,
 	];
 
-	const files = fs.readdirSync(`${esconfig.SRC_UI}`);
+	const arrFilesStories = [];
 
-	files.forEach((file) => {
-		let component = `${esconfig.SRC_UI}/${file}`;
-		let componentName = file;
-		if (fs.lstatSync(component).isDirectory() && !file.startsWith("_")) {
-			let componentFiles = fs.readdirSync(component);
-			componentFiles.forEach((filejs) => {
-				if (filejs.endsWith(".js")) {
-					const filepath = `${esconfig.SRC_UI}/${componentName}/${filejs}`;
-					arrFiles.push(filepath);
+	function processDirectory(directory) {
+		const files = fs.readdirSync(directory);
+		files.forEach((file) => {
+			const fullPath = `${directory}/${file}`;
+
+			if (fs.lstatSync(fullPath).isDirectory() && !file.startsWith("_")) {
+				if (file === "story") {
+					const storyFiles = fs.readdirSync(fullPath).filter((f) => f.endsWith(".js"));
+					storyFiles.forEach((storyFile) => {
+						arrFilesStories.push(`${fullPath}/${storyFile}`);
+					});
+				} else {
+					processDirectory(fullPath);
 				}
-			});
-		}
-	});
-	console.log(arrFiles);
-	return arrFiles;
+			} else if (file.endsWith(".js")) {
+				arrFiles.push(fullPath);
+			}
+		});
+	}
+
+	processDirectory(esconfig.SRC_UI);
+
+	console.log("Main Files:", arrFiles);
+	console.log("Story Files:", arrFilesStories);
+
+	return { arrFiles, arrFilesStories };
 }
 
 for (var i = 0; i < process.argv.length; i++) {

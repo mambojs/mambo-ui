@@ -22,9 +22,11 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -52,8 +54,8 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 					...checkbox,
 					name: m_props.name,
 					parentTag: self,
-					fnGroupClick: handleGroupClick,
-					fnComplete: resolve,
+					onGroupClick: handleGroupClick,
+					onComplete: resolve,
 					position: checkbox.position || m_props.position,
 				};
 
@@ -62,12 +64,12 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 		}
 
 		function handleGroupClick(context) {
-			if (m_props.fnClick) {
-				m_props.fnClick(context);
+			if (m_props.onClick) {
+				m_props.onClick(context);
 			}
 
-			if (m_props.fnGroupClick) {
-				m_props.fnGroupClick({
+			if (m_props.onGroupClick) {
+				m_props.onGroupClick({
 					CheckboxGroup: self,
 					Checkbox: context.Checkbox,
 					ev: context.ev,
@@ -118,8 +120,8 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ CheckboxRadioGroup: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ CheckboxRadioGroup: self });
 			}
 		}
 
@@ -144,4 +146,4 @@ ui.class.CheckboxGroup = class CheckboxGroup extends HTMLElement {
 };
 
 ui.checkboxGroup = (props) => new ui.class.CheckboxGroup(props);
-customElements.define("mambo-checkbox-group", ui.class.CheckboxGroup);
+customElements.define(ui.defaultTags.checkboxGroup.self.name, ui.class.CheckboxGroup);

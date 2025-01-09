@@ -24,9 +24,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		async function setup(props) {
 			checkMapboxLibraries();
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			await renderMap();
 			await getUserLocation();
@@ -35,9 +37,10 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 		function setupDOM() {
 			return new Promise((resolve) => {
+				m_parentTag.style.setProperty(m_props.containerLoadingMessageVar, `"${m_props.loadingMessage}"`);
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
 				self.classList.add(m_props.css.self);
-				ui.d.append(self, m_containerTag);
+				self.appendChild(m_containerTag);
 				resolve();
 			});
 		}
@@ -73,9 +76,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 				padding: 30,
 				maxZoom: 13,
 			};
+
 			if (props.config) {
 				config = ui.utils.extend(true, config, props);
 			}
+
 			m_map.fitBounds([props.southwestern, props.northeastern], config);
 		}
 
@@ -158,8 +163,8 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Mapbox: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Mapbox: self });
 			}
 		}
 
@@ -171,6 +176,8 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 					tag: "default",
 					theme: "default",
 					zoom: 16,
+					containerLoadingMessageVar: "--container-after-content",
+					loadingMessage: "Loading...",
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				mapboxgl.accessToken = m_props.accessToken;
@@ -186,4 +193,4 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 };
 
 ui.mapbox = (props) => new ui.class.Mapbox(props);
-customElements.define("mambo-mapbox", ui.class.Mapbox);
+customElements.define(ui.defaultTags.mapbox.self.name, ui.class.Mapbox);

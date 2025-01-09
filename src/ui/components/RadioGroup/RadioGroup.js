@@ -22,9 +22,11 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -52,8 +54,8 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 					...radio,
 					name: m_props.name,
 					parentTag: self,
-					fnGroupClick: handleGroupClick,
-					fnComplete: resolve,
+					onGroupClick: handleGroupClick,
+					onComplete: resolve,
 					position: radio.position || m_props.radio.position || "left",
 				};
 
@@ -64,12 +66,12 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 		function handleGroupClick(context) {
 			selectTag(context.Radio, true);
 
-			if (m_props.fnClick) {
-				m_props.fnClick(context);
+			if (m_props.onClick) {
+				m_props.onClick(context);
 			}
 
-			if (m_props.fnGroupClick) {
-				m_props.fnGroupClick({
+			if (m_props.onGroupClick) {
+				m_props.onGroupClick({
 					RadioGroup: self,
 					Radio: context.Radio,
 					ev: context.ev,
@@ -127,8 +129,8 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ CheckboxRadioGroup: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ CheckboxRadioGroup: self });
 			}
 		}
 
@@ -152,4 +154,4 @@ ui.class.RadioGroup = class RadioGroup extends HTMLElement {
 };
 
 ui.radioGroup = (props) => new ui.class.RadioGroup(props);
-customElements.define("mambo-radio-group", ui.class.RadioGroup);
+customElements.define(ui.defaultTags.radioGroup.self.name, ui.class.RadioGroup);

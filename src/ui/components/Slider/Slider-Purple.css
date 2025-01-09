@@ -1,0 +1,218 @@
+.m-slider-self {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.m-slider-self.vertical {
+  flex-direction: column;
+}
+
+.m-slider-parent-horizontal {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+}
+
+.m-slider-wrapper-horizontal,
+.m-slider-wrapper-vertical {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.m-slider-wrapper-vertical {
+  flex-direction: column;
+}
+
+.m-slider-track-horizontal {
+  width: 100%;
+  height: 0.3rem;
+  margin: var(--m-margin-m);
+  background-color: var(--m-gray-100);
+  border-radius: var(--m-border-radius-s);
+}
+
+.m-slider-selection-horizontal {
+  position: absolute;
+  background-color: black;
+  height: 0.3rem;
+  border-radius: var(--m-border-radius-s);
+  top: 1.35rem;
+  left: var(--m-padding-s);
+}
+
+.m-slider-handle-horizontal {
+  position: absolute;
+  background-color: #000;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2rem;
+  top: 1rem;
+  cursor: pointer;
+}
+
+.m-slider-steps-container-horizontal {
+  position: absolute;
+  display: flex;
+  height: 1rem;
+  left: 0.5rem;
+  top: 1rem;
+}
+
+.m-slider-step-horizontal {
+  position: relative;
+  height: 1rem;
+}
+
+.m-slider-step-horizontal::after {
+  position: absolute;
+  content: "- -";
+  transform: rotate(90deg);
+  left: -5px;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #a9a9a9;
+  white-space: nowrap;
+}
+
+.m-slider-step-large-horizontal {
+  position: relative;
+  height: 1rem;
+}
+
+.m-slider-step-large-horizontal::after {
+  position: absolute;
+  content: "_ _";
+  transform: rotate(90deg);
+  left: -3px;
+  font-size: 1rem;
+  line-height: 1rem;
+  font-weight: bold;
+  color: #a9a9a9;
+  white-space: nowrap;
+}
+
+.m-slider-step-large-span-horizontal {
+  position: absolute;
+  bottom: -1.2rem;
+  font-size: 0.8rem;
+  left: 0;
+  transform: translate(-50%);
+}
+
+.m-slider-button-increase-horizontal,
+.m-slider-button-decrease-horizontal,
+.m-slider-button-decrease-vertical,
+.m-slider-button-increase-vertical {
+  position: relative;
+  background: black;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  color: white;
+  font-size: 100%;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.m-slider-button-increase-horizontal.m-hover,
+.m-slider-button-decrease-horizontal.m-hover,
+.m-slider-button-decrease-vertical.m-hover,
+.m-slider-button-increase-vertical.m-hover {
+  background: #444;
+}
+
+.m-slider-parent-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 3rem;
+  height: 45vh;
+}
+
+.m-slider-track-vertical {
+  width: 0.3rem;
+  height: 100%;
+  margin: 0.5rem;
+  background-color: #ddd;
+  border-radius: 0.2rem;
+}
+
+.m-slider-selection-vertical {
+  position: absolute;
+  background-color: black;
+  width: 0.3rem;
+  border-radius: 0.2rem;
+  left: 1.35rem;
+  bottom: 0.5rem;
+}
+
+.m-slider-handle-vertical {
+  position: absolute;
+  background-color: #000;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 2rem;
+  left: 1rem;
+  cursor: pointer;
+}
+
+.m-slider-steps-container-vertical {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 1rem;
+  top: 0.5rem;
+  left: 1rem;
+}
+
+.m-slider-step-vertical {
+  position: relative;
+  width: 1rem;
+}
+
+.m-slider-step-vertical::after {
+  position: absolute;
+  content: "- -";
+  top: -0.5rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #a9a9a9;
+  white-space: nowrap;
+}
+
+.m-slider-step-large-vertical {
+  position: relative;
+  width: 1rem;
+}
+
+.m-slider-step-large-vertical::after {
+  position: absolute;
+  content: "_ _";
+  left: -0.2rem;
+  top: -1rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  font-weight: bold;
+  color: #a9a9a9;
+  white-space: nowrap;
+}
+
+.m-slider-step-large-span-vertical {
+  position: absolute;
+  left: 1.5rem;
+  font-size: 0.8rem;
+  top: 0;
+  transform: translate(0, -50%);
+}
+
+.m-slider-disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}

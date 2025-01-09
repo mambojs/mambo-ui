@@ -66,9 +66,28 @@
   cursor: pointer;
 }
 
+.m-grid-input-container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  border: 1px solid var(--m-gray-200);
+  padding: var(--m-padding-m);
+  gap: 0.5rem;
+}
+
+.m-grid-container:focus-within {
+  width: 100%;
+  border: 1px solid var(--m-black-color);
+}
+
 .m-grid-input {
   width: 100%;
-  border: 0;
+  border: none;
+}
+
+.m-grid-input:focus {
+  width: 100%;
+  outline: none;
 }
 
 .m-grid-text {

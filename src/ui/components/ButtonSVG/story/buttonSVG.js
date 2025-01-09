@@ -7,13 +7,13 @@ function storyButtonSVG(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
 			},
 			id: 2,
 			text: "Image Button",
-			fnClick: (context) => {
+			onClick: (context) => {
 				alert(`${context.Button.text()} clicked.`);
 			},
 		};
@@ -28,12 +28,12 @@ function storyButtonSVG(selectedStory) {
 			text: "Hover Button",
 			img: {
 				attr: {
-					src: "src/img/storyboard/home-icon.svg",
+					src: "img/storyboard/home-icon.svg",
 					alt: "home",
 				},
-				hover: "src/img/storyboard/star.png",
+				hover: "img/storyboard/star.png",
 			},
-			fnClick: (context) => {
+			onClick: (context) => {
 				alert(`${context.Button.text()} clicked.`);
 			},
 		};

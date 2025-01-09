@@ -7,6 +7,7 @@ ui.class.Switch = class Switch extends HTMLElement {
 		let m_parentTag;
 		let m_inputTag;
 		let m_containerTag;
+		let m_textTag;
 
 		let m_props;
 		let m_enable = true;
@@ -28,9 +29,11 @@ ui.class.Switch = class Switch extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -46,9 +49,21 @@ ui.class.Switch = class Switch extends HTMLElement {
 
 				m_inputTag = ui.d.createTag(tagConfig);
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+
+				if (m_props.text) {
+					m_textTag = ui.d.createTag({ ...m_props.tags.text, class: m_props.css.text });
+					m_textTag.innerHTML = m_props.text;
+					if (m_props.position === "left") self.appendChild(m_textTag);
+				}
+
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_inputTag);
 				self.appendChild(m_containerTag);
+
+				if (m_props.text && m_props.position === "right") {
+					self.appendChild(m_textTag);
+				}
+
 				installLabels().then(setupEventListener).then(resolve);
 			});
 		}
@@ -105,8 +120,8 @@ ui.class.Switch = class Switch extends HTMLElement {
 		function setChecked(ev) {
 			ui.d.setProps(m_inputTag, { checked: m_checked });
 
-			if (m_props.fnChange) {
-				m_props.fnChange({ Switch: self, ev: ev });
+			if (m_props.onChange) {
+				m_props.onChange({ Switch: self, ev: ev });
 			}
 		}
 
@@ -134,8 +149,8 @@ ui.class.Switch = class Switch extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Switch: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Switch: self });
 			}
 		}
 
@@ -145,6 +160,7 @@ ui.class.Switch = class Switch extends HTMLElement {
 					tag: "default",
 					theme: "default",
 					enable: true,
+					text: "",
 					messages: {
 						checked: "ON",
 						unchecked: "OFF",
@@ -165,4 +181,4 @@ ui.class.Switch = class Switch extends HTMLElement {
 };
 
 ui.switch = (props) => new ui.class.Switch(props);
-customElements.define("mambo-switch", ui.class.Switch);
+customElements.define(ui.defaultTags.switch.self.name, ui.class.Switch);

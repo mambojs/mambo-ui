@@ -20,9 +20,11 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -37,8 +39,8 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ VideoPlayer: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ VideoPlayer: self });
 			}
 		}
 
@@ -66,4 +68,4 @@ ui.class.VideoPlayer = class VideoPlayer extends HTMLElement {
 };
 
 ui.videoPlayer = (props) => new ui.class.VideoPlayer(props);
-customElements.define("mambo-video-player", ui.class.VideoPlayer);
+customElements.define(ui.defaultTags.videoPlayer.self.name, ui.class.VideoPlayer);

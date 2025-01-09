@@ -22,6 +22,7 @@ function storyPlayer(selectedStory) {
 		Hls.DefaultConfig.loader = HlsjsIpfsLoader;
 		Hls.DefaultConfig.debug = false;
 		const isSup = Hls.isSupported();
+
 		if (isSup) {
 			const hls = new Hls();
 			hls.config.ipfs = ipfs;
@@ -46,13 +47,16 @@ function storyPlayer(selectedStory) {
 				parser.push(chunk);
 				parser.end();
 			}
+
 			// Declare video SourceBuffer
 			const sourceBuffer = ms.addSourceBuffer("video/MP2T; avc1.42c00d,mp4a.40.2");
 			// Parse m3u8 manifest
 			const videoSegments = parser.manifest.segments;
+
 			// Iterate through manifest
 			for (let i = 0; i < videoSegments.length; i++) {
 				const segmentPath = `bafybeihf5pvm3gckha5zkcmiovc6hwhzvws3ffdfpswr2e2qtd2h57j3li/${videoSegments[i].name}`;
+
 				for await (const chunk of ipfs.get(segmentPath)) {
 					sourceBuffer.appendBuffer(chunk);
 				}
@@ -103,8 +107,9 @@ function storyPlayer(selectedStory) {
 					text: "IPFS MP4 Video",
 				},
 			],
-			fnClick: (context) => {
+			onClick: (context) => {
 				const buttonId = context.Button.getId();
+
 				switch (buttonId) {
 					case 1:
 						m_playerTag.src = "public/app/demo/media/video1.mp4";

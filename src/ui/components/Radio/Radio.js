@@ -28,9 +28,11 @@ ui.class.Radio = class Radio extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -38,6 +40,7 @@ ui.class.Radio = class Radio extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_labelTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+
 				if (m_props.position === "right") {
 					m_labelTag.classList.add("right");
 				}
@@ -83,12 +86,12 @@ ui.class.Radio = class Radio extends HTMLElement {
 			if (m_enable) {
 				m_checked = true;
 
-				if (m_props.fnClick) {
-					m_props.fnClick({ Radio: self, ev: ev });
+				if (m_props.onClick) {
+					m_props.onClick({ Radio: self, ev: ev });
 				}
 
-				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({ Radio: self, ev: ev });
+				if (m_props.onGroupClick) {
+					m_props.onGroupClick({ Radio: self, ev: ev });
 				}
 			} else {
 				ev.preventDefault();
@@ -138,8 +141,8 @@ ui.class.Radio = class Radio extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Radio: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Radio: self });
 			}
 		}
 
@@ -162,4 +165,4 @@ ui.class.Radio = class Radio extends HTMLElement {
 };
 
 ui.radio = (props) => new ui.class.Radio(props);
-customElements.define("mambo-radio", ui.class.Radio);
+customElements.define(ui.defaultTags.radio.self.name, ui.class.Radio);

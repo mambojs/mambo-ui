@@ -1,7 +1,7 @@
 .m-button-button {
   color: var(--m-text-color);
   font-size: var(--m-font-size-m);
-  padding: var(--m-padding-s);
+  padding: var(--m-padding-m) var(--m-padding-m);
   background: var(--m-background-color);
   border: var(--m-border);
   border-radius: var(--m-border-radius);
@@ -10,6 +10,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.m-button-button.no-text {
+  width: auto;
+  padding: var(--m-padding-m) 0;
 }
 
 .m-button-button.m-hover {
@@ -21,14 +27,14 @@
 }
 
 .m-button-img {
-  height: 1.25em;
+  height: 1.25rem;
   margin: 0 var(--m-margin-m);
 }
 
 .m-button-icon {
-  height: 1.25em;
   margin: 0 var(--m-margin-m);
   align-content: center;
+  line-height: var(--m-line-height);
 }
 
 .m-button-disabled {

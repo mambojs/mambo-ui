@@ -30,9 +30,11 @@ ui.class.Player = class Player extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 			//installControls();
@@ -73,7 +75,7 @@ ui.class.Player = class Player extends HTMLElement {
 					{
 						id: 1,
 						text: "Button One",
-						fnClick: (context) => {
+						onClick: (context) => {
 							// You can declare individual event handlers for each button
 						},
 					},
@@ -86,7 +88,7 @@ ui.class.Player = class Player extends HTMLElement {
 						text: "Button Three",
 					},
 				],
-				fnClick: (context) => {
+				onClick: (context) => {
 					// You can declare a single event handler for all buttons
 					alert(`'Button clicked: ' ${context.Button.getId()}`);
 				},
@@ -124,8 +126,8 @@ ui.class.Player = class Player extends HTMLElement {
 		function handleFullScreenClick() {}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Player: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Player: self });
 			}
 		}
 
@@ -160,4 +162,4 @@ ui.class.Player = class Player extends HTMLElement {
 };
 
 ui.player = (props) => new ui.class.Player(props);
-customElements.define("mambo-player", ui.class.Player);
+customElements.define(ui.defaultTags.player.self.name, ui.class.Player);

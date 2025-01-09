@@ -1,6 +1,5 @@
 * {
   /* Default */
-  --m-hover-background-color: #555;
   --m-hover-color: white;
   --m-selected-background-color: #e4e4e4;
   --m-selected-color: black;
@@ -16,9 +15,14 @@
   /* Fonts */
   --m-font-family: "Proxima Nova", "Ubuntu Light", sans-serif;
   --m-font-size: 1rem;
-  --m-font-size-xs: 0.85rem;
+  --m-font-size-xxs: 0.60rem;
+  --m-font-size-xs: 0.70rem;
+  --m-font-size-s: 0.85rem;
   --m-font-size-m: 1rem;
   --m-font-size-lg: 1.25rem;
+  --m-font-size-xl: 1.50rem;
+  --m-font-size-xxl: 1.875rem;
+  --m-font-size-xxxl: 2.125rem;
   --m-font-weight-light: 300;
   --m-font-weight-regular: 400;
   --m-font-weight-medium: 500;
@@ -29,8 +33,10 @@
   --m-line-height-s: 1.20rem;
   --m-line-height-m: 1.25rem;
   --m-line-height-lg: 1.5rem;
-  --m-box-shadow-primary: 0 2.145px 4.29px 0 rgba(173 175 187 / 30%);
-  --m-box-shadow-secondary: 0 2.145px 4.29px 0 rgba(173 175 187 / 30%);
+  --m-box-shadow-pressed: none;
+  --m-box-shadow: 0.1rem 0.2rem 0.5rem 0 rgba(0 0 0 / 15%);
+  --m-box-shadow-primary: 0 0.125rem 0.25rem 0 rgba(173 175 187 / 30%);
+  --m-box-shadow-secondary: 0 0.125rem 0.25rem 0 rgba(173 175 187 / 30%);
   --m-box-shadow-primary-hover: none;
   --m-box-shadow-primary-pressed: none;
   --m-box-shadow-primary-active: none;
@@ -52,14 +58,14 @@
   --m-body-color: #414750;
   --m-disabled-text-color: #565E69;
   --m-placeholder-color: #8B939F;
-  --m-informative-color: #1C51A4;
+  --m-info-color: #1C51A4;
   --m-success-color: #58790C;
   --m-warning-color: #82620F;
   --m-error-color: #AB2816;
   --m-sub-color: #747688;
 
   /* Stroke / Fill */
-  --m-informative-stroke-color: #2C68C6;
+  --m-info-stroke-color: #2C68C6;
   --m-success-stroke-color: #98C729;
   --m-warning-stroke-color: #E8B93F;
   --m-error-stroke-color: #DD331D;
@@ -70,6 +76,7 @@
   --m-success-background-color: #F3FFD6;
   --m-warning-background-color: #FFF6E0;
   --m-error-background-color: #FDE7E5;
+  --m-info-background-color: #EDF4FF;
 
   /* States */
   --m-accent-primary-color: var(--m-accent-color);
@@ -80,12 +87,21 @@
   --m-selected-secondary-background-color: #FFF0E9;
   --m-pressed-primary-background-color: #D84800;
   --m-pressed-secondary-background-color: #FFDCCB;
+  --m-hover-background-color: #F98043;
   --m-hover-primary-background-color: #F98043;
   --m-hover-secondary-background-color: #FFF0E9;
+  --m-info-hover-color: #163F80;
+  --m-success-hover-color: #4C6A0B;
+  --m-warning-hover-color: #704F0D;
+  --m-error-hover-color: #971F12;
 
   /* Gray Scale | White */
   --m-black-color: #000;
+  --m-black-color-50: rgba(0 0 0 / 50%);
   --m-white-color: #FFF;
+  --m-white-color-50: rgba(255 255 255 / 50%);
+  --m-white-color-70: rgba(255 255 255 / 70%);
+  --m-white-color-90: rgba(255 255 255 / 90%);
   --m-gray-100: #F3F4F5;
   --m-gray-200: #D0D4D9;
   --m-gray-300: #AEB3BC;
@@ -98,18 +114,26 @@
   --m-padding-s: 0.25rem;
   --m-padding-m: 0.5rem;
   --m-padding-lg: 0.75rem;
-  --m-padding-xl: 0.875rem;
-  --m-padding-xxl: 1rem;
-  --m-padding-xxxl: 1.25rem;
-  --m-padding-xxxxl: 1.5rem;
+  --m-padding-xl: 1rem;
+  --m-padding-xxl: 1.25rem;
+  --m-padding-xxxl: 1.5rem;
+  --m-padding-xxxxl: 2rem;
 
   /* Margins */
   --m-margin-xs: 0.125rem;
   --m-margin-s: 0.25rem;
   --m-margin-m: 0.5rem;
   --m-margin-lg: 0.75rem;
-  --m-margin-xl: 0.875rem;
-  --m-margin-xxl: 1rem;
-  --m-margin-xxxl: 1.25rem;
-  --m-margin-xxxxl: 1.5rem;
+  --m-margin-xl: 1rem;
+  --m-margin-xxl: 1.25rem;
+  --m-margin-xxxl: 1.5rem;
+  --m-margin-xxxxl: 2rem;
+
+  /* Toaster */
+  --m-min-width-toaster-small: 14rem;
+  --m-min-height-toaster-small: 3rem;
+  --m-min-width-toaster-medium: 16rem;
+  --m-min-height-toaster-medium: 3.5rem;
+  --m-min-width-toaster-large: 18rem;
+  --m-min-height-toaster-large: 4.5rem;
 }

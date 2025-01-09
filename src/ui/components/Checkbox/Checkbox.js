@@ -28,9 +28,11 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -38,9 +40,11 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+
 				if (m_props.position === "right") {
 					m_containerTag.classList.add("right");
 				}
+
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_containerTag);
 
@@ -81,12 +85,12 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 			if (m_enabled) {
 				m_checked = !m_checked;
 
-				if (m_props.fnClick) {
-					m_props.fnClick({ Checkbox: self, ev });
+				if (m_props.onClick) {
+					m_props.onClick({ Checkbox: self, ev });
 				}
 
-				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({ Checkbox: self, ev });
+				if (m_props.onGroupClick) {
+					m_props.onGroupClick({ Checkbox: self, ev });
 				}
 			} else {
 				ev.preventDefault();
@@ -135,8 +139,8 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Checkbox: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Checkbox: self });
 			}
 		}
 
@@ -162,4 +166,4 @@ ui.class.Checkbox = class Checkbox extends HTMLElement {
 };
 
 ui.checkbox = (props) => new ui.class.Checkbox(props);
-customElements.define("mambo-checkbox", ui.class.Checkbox);
+customElements.define(ui.defaultTags.checkbox.self.name, ui.class.Checkbox);

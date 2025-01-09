@@ -5,16 +5,21 @@
   width: 100%;
 }
 
-.m-date-picker-input-wrapper {
+.m-date-picker-input-container {
   display: flex;
-  flex-grow: 1;
-  border: 1px solid #a9a9a9;
+  flex-flow: row nowrap;
+  width: 100%;
+  border: 1px solid var(--m-gray-200);
+  padding: var(--m-padding-m);
+  gap: 0.5rem;
 }
 
 .m-date-picker-input-input {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   border: none;
-  padding: var(--m-padding-xs);
+  outline: none;
 }
 
 .m-date-picker-button {

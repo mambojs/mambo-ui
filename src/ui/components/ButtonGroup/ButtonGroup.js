@@ -19,6 +19,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		this.getTag = getButtonTagById;
 		this.select = selectBtn;
 		this.setup = setup;
+		this.getButtons = () => m_buttonsList;
 
 		if (props) {
 			setup(props);
@@ -26,16 +27,21 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
 
 		function setupDOM() {
 			return new Promise((resolve) => {
+				ui.d.setAttr(self, m_props.tags.self.attr);
+				ui.d.setProps(self, m_props.tags.self.prop);
 				self.classList.add(m_props.css.self);
+
 				const buttonPromises = [];
 
 				m_props.buttons.forEach((button, index) => {
@@ -61,7 +67,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		function installButton(button) {
 			return new Promise((resolve) => {
 				button.css = ui.utils.extend(true, m_props.css.button, button.css);
-				button.fnGroupClick = m_props.fnGroupClick;
+				button.onGroupClick = m_props.onGroupClick;
 				button.parentTag = self;
 				m_buttonsList.push(ui.button(button));
 				resolve();
@@ -73,8 +79,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 			deselectBtns();
 
 			// If same callback for all buttons
-			if (m_props.fnClick) {
-				m_props.fnClick(context);
+			if (m_props.onClick) {
+				m_props.onClick(context);
 			}
 
 			// Select clicked button
@@ -84,6 +90,7 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 
 		function selectBtn(context = {}) {
 			let buttonTag = getTag(context.id);
+
 			if (buttonTag) {
 				buttonTag.select(context);
 				m_selectedButtonTag = buttonTag;
@@ -111,8 +118,8 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ ButtonGroup: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ ButtonGroup: self });
 			}
 		}
 
@@ -122,9 +129,10 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 					buttons: [],
 					tag: "default",
 					theme: "default",
-					fnGroupClick: handleGroupBtnClick,
+					onGroupClick: handleGroupBtnClick,
 				};
-
+				const tags = ui.tags.getTags({ name: m_props.tag, component: "buttonGroup" });
+				m_props.tags = ui.utils.extend(true, tags, customProps.tags);
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
 				const css = ui.theme.getTheme({ name: m_props.theme, component: "buttonGroup" });
@@ -136,4 +144,4 @@ ui.class.ButtonGroup = class ButtonGroup extends HTMLElement {
 };
 
 ui.buttonGroup = (props) => new ui.class.ButtonGroup(props);
-customElements.define("mambo-button-group", ui.class.ButtonGroup);
+customElements.define(ui.defaultTags.buttonGroup.self.name, ui.class.ButtonGroup);

@@ -19,7 +19,7 @@ function storyTreeView(selectedStory) {
 				items: [{ text: "Item 2-1" }, { text: "Item 2-2" }, { text: "Item 2-3" }, { text: "Item 2-4" }],
 			},
 		],
-		fnSelect: (context) => {},
+		onSelect: (context) => {},
 	};
 
 	ui.treeView(props);

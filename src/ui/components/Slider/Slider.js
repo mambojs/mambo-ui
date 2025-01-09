@@ -31,9 +31,11 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			await continueSetupDOM();
 			setupComplete();
@@ -83,21 +85,21 @@ ui.class.Slider = class Slider extends HTMLElement {
 			return installButton(m_props.increaseButton, m_css.increaseButton, handleIncrease);
 		}
 
-		function installButton(config, css, fnClick) {
+		function installButton(config, css, onClick) {
 			return new Promise((resolve) => {
 				const buttonConfig = ui.utils.extend(true, {}, config);
 				buttonConfig.css = ui.utils.extend(true, css, buttonConfig.css);
 				buttonConfig.parentTag = self;
 
-				buttonConfig.fnClick = (context) => {
-					fnClick();
+				buttonConfig.onClick = (context) => {
+					onClick();
 
-					if (m_props.fnSelect) {
-						m_props.fnSelect({ Slider: self, ev: context.ev });
+					if (m_props.onSelect) {
+						m_props.onSelect({ Slider: self, ev: context.ev });
 					}
 
-					if (config?.fnClick) {
-						config.fnClick(context);
+					if (config?.onClick) {
+						config.onClick(context);
 					}
 				};
 
@@ -197,14 +199,14 @@ ui.class.Slider = class Slider extends HTMLElement {
 					tags: m_props.tags?.draggable?.tags,
 					axis: m_horizontal ? "x" : "y",
 					grid: m_horizontal ? [m_stepLength, 0] : [0, m_stepLength],
-					fnDragStart: (context) => {
-						if (m_props.fnSlideStart) {
-							m_props.fnSlideStart({ Slider: self, ev: context.ev });
+					onDragStart: (context) => {
+						if (m_props.onSlideStart) {
+							m_props.onSlideStart({ Slider: self, ev: context.ev });
 						}
 					},
-					fnDragEnd: updateValue,
-					fnDrag: updateSelection,
-					fnComplete: resolve,
+					onDragEnd: updateValue,
+					onDrag: updateSelection,
+					onComplete: resolve,
 				};
 
 				m_draggable = ui.draggable(config);
@@ -216,16 +218,16 @@ ui.class.Slider = class Slider extends HTMLElement {
 			m_value = Number(m_stepTags[getSelectedIndex()].id);
 			setHandlePosition();
 
-			if (m_props.fnSelect) {
-				m_props.fnSelect({ Slider: self, ev: context.ev });
+			if (m_props.onSelect) {
+				m_props.onSelect({ Slider: self, ev: context.ev });
 			}
 		}
 
 		function updateSelection(context) {
 			setSelectionPosition();
 
-			if (m_props.fnSlide) {
-				m_props.fnSlide({ Slider: self, ev: context.ev });
+			if (m_props.onSlide) {
+				m_props.onSlide({ Slider: self, ev: context.ev });
 			}
 		}
 
@@ -236,10 +238,12 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 			for (let i = 0; i < m_stepTags.length; i++) {
 				let stepOffset = m_horizontal ? m_stepTags[i].offsetLeft : m_wrapperTag.clientHeight - m_stepTags[i].offsetTop;
+
 				if (handleOffset <= stepOffset) {
 					if (stepOffset - handleOffset > m_stepLength / 2 && i > 0) {
 						return i - 1;
 					}
+
 					return i;
 				}
 			}
@@ -303,6 +307,7 @@ ui.class.Slider = class Slider extends HTMLElement {
 
 			if ((value - m_props.min) % m_props.step !== 0) {
 				let steps = Math.floor((value - m_props.min) / m_props.step);
+
 				return m_props.min + steps * m_props.step;
 			}
 
@@ -314,8 +319,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Slider: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Slider: self });
 			}
 		}
 
@@ -332,6 +337,8 @@ ui.class.Slider = class Slider extends HTMLElement {
 					orientation: "horizontal",
 					enable: true,
 					showButtons: true,
+					decreaseButton: { text: "" },
+					increaseButton: { text: "" },
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -350,4 +357,4 @@ ui.class.Slider = class Slider extends HTMLElement {
 };
 
 ui.slider = (props) => new ui.class.Slider(props);
-customElements.define("mambo-slider", ui.class.Slider);
+customElements.define(ui.defaultTags.slider.self.name, ui.class.Slider);

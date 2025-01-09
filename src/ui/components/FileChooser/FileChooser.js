@@ -21,9 +21,11 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -45,19 +47,20 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 
 		function installButton() {
 			return new Promise((resolve) => {
-				installInput(true).then(() => {
-					const config = {
-						...m_props.button,
-						parentTag: self,
-						fnClick: () => {
-							m_inputTag.getTag().click();
-						},
-						css: m_props.css.button,
-						fnComplete: resolve,
-					};
+				const config = {
+					...m_props.button,
+					parentTag: self,
+					onClick: () => {
+						m_inputTag.getTag().click();
+					},
+					css: m_props.css.button,
+					onComplete: () => {
+						installInput(true).then(resolve);
+					},
+					resolve,
+				};
 
-					ui.button(config);
-				});
+				ui.button(config);
 			});
 		}
 
@@ -71,8 +74,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 						{
 							name: "change",
 							fn: (context) => {
-								if (m_props.fnUpload) {
-									m_props.fnUpload({
+								if (m_props.onUpload) {
+									m_props.onUpload({
 										files: context.Input.getTag().files,
 										ev: context.ev,
 									});
@@ -80,7 +83,7 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 							},
 						},
 					],
-					fnComplete: resolve,
+					onComplete: resolve,
 				};
 
 				if (hidden) {
@@ -96,8 +99,8 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ FileChooser: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ FileChooser: self });
 			}
 		}
 
@@ -125,4 +128,4 @@ ui.class.FileChooser = class FileChooser extends HTMLElement {
 };
 
 ui.fileChooser = (props) => new ui.class.FileChooser(props);
-customElements.define("mambo-file-chooser", ui.class.FileChooser);
+customElements.define(ui.defaultTags.fileChooser.self.name, ui.class.FileChooser);

@@ -32,9 +32,11 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -79,16 +81,16 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 					m_active = true;
 				}
 
-				if (m_active && m_props.fnDragStart) {
-					m_props.fnDragStart({ Draggable: self, ev: ev });
+				if (m_active && m_props.onDragStart) {
+					m_props.onDragStart({ Draggable: self, ev: ev });
 				}
 			}
 		}
 
 		function dragEnd(ev) {
 			if (m_enable) {
-				if (m_active && m_props.fnDragEnd) {
-					m_props.fnDragEnd({ Draggable: self, ev: ev });
+				if (m_active && m_props.onDragEnd) {
+					m_props.onDragEnd({ Draggable: self, ev: ev });
 				}
 
 				m_active = false;
@@ -124,8 +126,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 
 				setPosition(currentX, currentY);
 
-				if (m_props.fnDrag && (currentX !== 0 || currentY !== 0)) {
-					m_props.fnDrag({ Draggable: self, ev: ev });
+				if (m_props.onDrag && (currentX !== 0 || currentY !== 0)) {
+					m_props.onDrag({ Draggable: self, ev: ev });
 				}
 			}
 		}
@@ -136,12 +138,15 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 					return 0;
 				} else {
 					let value = Math.round(current / step);
+
 					if (max !== null && value * step > max) {
 						return (value - 1) * step;
 					}
+
 					if (min !== null && value * step < min) {
 						return (value + 1) * step;
 					}
+
 					return value * step;
 				}
 			}
@@ -166,8 +171,8 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Draggable: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Draggable: self });
 			}
 		}
 
@@ -193,4 +198,4 @@ ui.class.Draggable = class Draggable extends HTMLElement {
 };
 
 ui.draggable = (props) => new ui.class.Draggable(props);
-customElements.define("mambo-draggable", ui.class.Draggable);
+customElements.define(ui.defaultTags.draggable.self.name, ui.class.Draggable);

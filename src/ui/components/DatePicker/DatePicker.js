@@ -26,9 +26,11 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -57,16 +59,18 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 				const dropdownConfig = ui.utils.extend(true, {}, m_props.dropdown);
 				dropdownConfig.css = ui.utils.extend(true, m_props.css.dropdown, dropdownConfig.css);
 
-				dropdownConfig.fnBeforeClose = (context) => {
-					const result = m_props.dropdown?.fnBeforeClose ? m_props.dropdown.fnBeforeClose(context) : true;
+				dropdownConfig.onBeforeClose = (context) => {
+					const result = m_props.dropdown?.onBeforeClose ? m_props.dropdown.onBeforeClose(context) : true;
+
 					return (!context.ev || !m_input.getTag().contains(context.ev.target)) && result;
 				};
 
-				dropdownConfig.fnComplete = (context) => {
+				dropdownConfig.onComplete = (context) => {
 					installCalendar(context.Dropdown);
 					resolve();
-					if (m_props.dropdown?.fnComplete) {
-						m_props.dropdown.fnComplete(context);
+
+					if (m_props.dropdown?.onComplete) {
+						m_props.dropdown.onComplete(context);
 					}
 				};
 
@@ -87,17 +91,19 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 			calendar.min = m_props.min;
 			calendar.max = m_props.max;
 
-			calendar.fnSelect = (context) => {
+			calendar.onSelect = (context) => {
 				m_value = context.Calendar.value();
 				const text = ui.date.format(m_value, m_props.format);
 				m_input.value({ value: text });
 				m_previous_text = text;
 				dropdown.close();
-				if (m_props.calendar.fnSelect) {
-					m_props.calendar.fnSelect(context);
+
+				if (m_props.calendar.onSelect) {
+					m_props.calendar.onSelect(context);
 				}
-				if (m_props.fnSelect) {
-					m_props.fnSelect({ DatePicker: self, ev: context.ev });
+
+				if (m_props.onSelect) {
+					m_props.onSelect({ DatePicker: self, ev: context.ev });
 				}
 			};
 
@@ -129,11 +135,12 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 
 		function handleBlur(ev) {
 			const text = m_input.value();
+
 			if (m_previous_text !== text) {
 				setValue(text);
 
-				if (m_props.fnSelect) {
-					m_props.fnSelect({ DatePicker: self, ev: ev });
+				if (m_props.onSelect) {
+					m_props.onSelect({ DatePicker: self, ev: ev });
 				}
 			}
 		}
@@ -143,8 +150,8 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ DatePicker: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ DatePicker: self });
 			}
 		}
 
@@ -185,4 +192,4 @@ ui.class.DatePicker = class DatePicker extends HTMLElement {
 };
 
 ui.datePicker = (props) => new ui.class.DatePicker(props);
-customElements.define("mambo-date-picker", ui.class.DatePicker);
+customElements.define(ui.defaultTags.datePicker.self.name, ui.class.DatePicker);

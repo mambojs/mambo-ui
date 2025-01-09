@@ -38,9 +38,11 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -57,13 +59,14 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let buttonGroup = ui.utils.extend(true, {}, m_props.headerButtonGroup);
 				buttonGroup.css = ui.utils.extend(true, m_props.css.headerButtonGroup, buttonGroup.css);
 				buttonGroup.parentTag = self;
-				buttonGroup.fnComplete = resolve;
+				buttonGroup.onComplete = resolve;
 
 				buttonGroup.buttons.forEach((button, index) => {
-					button.fnComplete = (context) => {
+					button.onComplete = (context) => {
 						m_headerButtonsList[index] = context.Button;
-						if (m_props.headerButtonGroup.buttons[index].fnComplete) {
-							m_props.headerButtonGroup.buttons[index].fnComplete(context);
+
+						if (m_props.headerButtonGroup.buttons[index].onComplete) {
+							m_props.headerButtonGroup.buttons[index].onComplete(context);
 						}
 					};
 				});
@@ -90,7 +93,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					const button = ui.utils.extend(true, {}, m_props.footerButton);
 					button.css = ui.utils.extend(true, m_props.css.footerButton, button.css);
 					button.parentTag = self;
-					button.fnComplete = resolve;
+					button.onComplete = resolve;
 
 					let today = ui.date.getToday();
 					button.id = ui.date.format(today, m_idFormat);
@@ -100,11 +103,12 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 						button.enable = false;
 					}
 
-					button.fnClick = (context) => {
+					button.onClick = (context) => {
 						m_depth = m_minDepth;
 						selectValue(context.Button, context.ev);
-						if (m_props.footerButton.fnClick) {
-							m_props.footerButton.fnClick(context);
+
+						if (m_props.footerButton.onClick) {
+							m_props.footerButton.onClick(context);
 						}
 					};
 
@@ -128,6 +132,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					ui.date.add(m_viewDate, number * 100, "years");
 					break;
 			}
+
 			setupBodyContent();
 		}
 
@@ -162,9 +167,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function setHeaderButtonsEnabled() {
 			m_headerButtonsList.forEach((button, index) => {
-				if (m_props.headerButtonGroup.buttons[index].fnEnabled) {
+				if (m_props.headerButtonGroup.buttons[index].onEnabled) {
 					button.enable({
-						enable: m_props.headerButtonGroup.buttons[index].fnEnabled(),
+						enable: m_props.headerButtonGroup.buttons[index].onEnabled(),
 					});
 				}
 			});
@@ -180,6 +185,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function canNavigateFuture() {
 			let lastViewDate = ui.date.cloneDate(m_viewDate);
+
 			switch (m_depth) {
 				case 0: //month
 					ui.date.endOf(lastViewDate, "month");
@@ -194,14 +200,15 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					ui.date.endOf(lastViewDate, "century");
 					break;
 			}
+
 			return !ui.date.isSameOrAfter(lastViewDate, m_maxDate);
 		}
 
 		function setHeaderButtonsText() {
-			const i = m_props.headerButtonGroup.buttons.findIndex((button) => button.fnDynamicHeaderText);
+			const i = m_props.headerButtonGroup.buttons.findIndex((button) => button.onDynamicHeaderText);
 
 			if (i) {
-				m_props.headerButtonGroup.buttons[i].fnDynamicHeaderText(m_headerButtonsList[i]);
+				m_props.headerButtonGroup.buttons[i].onDynamicHeaderText(m_headerButtonsList[i]);
 			}
 		}
 
@@ -238,6 +245,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					ShortName: dayName.substring(0, 1).toUpperCase(),
 				});
 			}
+
 			grid.parentTag = m_bodyHeaderTag;
 			m_datesHeaderGrid = ui.grid(grid);
 		}
@@ -247,9 +255,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let buttonGroup = ui.utils.extend(true, {}, m_props.datesButtonGroup);
 				buttonGroup.css = ui.utils.extend(true, m_props.css.datesButtonGroup, buttonGroup.css);
 				buttonGroup.parentTag = m_bodyContentTag;
-				buttonGroup.fnComplete = (context) => {
-					if (m_props.datesButtonGroup?.fnComplete) {
-						m_props.datesButtonGroup.fnComplete(context);
+				buttonGroup.onComplete = (context) => {
+					if (m_props.datesButtonGroup?.onComplete) {
+						m_props.datesButtonGroup.onComplete(context);
 					}
 
 					m_datesButtonGroup.select({
@@ -276,10 +284,11 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					id: ui.date.format(value, m_idFormat),
 					text: value.getDate(),
 					attr: { title: ui.date.format(value, "dddd, MMMM DD, YYYY") },
-					fnClick: (context) => {
+					onClick: (context) => {
 						buttonClick(context, m_props.datesButtonGroup);
 					},
 				};
+
 				if (!isValidButton(value)) {
 					button.enable = false;
 				} else if (ui.date.isSame(value, today)) {
@@ -287,6 +296,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				} else if (value.getMonth() !== m_viewDate.getMonth()) {
 					button.css = { button: m_props.css.otherMonth };
 				}
+
 				buttonGroup.buttons.push(button);
 				ui.date.add(value, 1, "days");
 			}
@@ -297,9 +307,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let buttonGroup = ui.utils.extend(true, {}, m_props.monthsButtonGroup);
 				buttonGroup.css = ui.utils.extend(true, m_props.css.monthsButtonGroup, buttonGroup.css);
 				buttonGroup.parentTag = m_bodyContentTag;
-				buttonGroup.fnComplete = (context) => {
-					if (m_props.monthsButtonGroup?.fnComplete) {
-						m_props.monthsButtonGroup.fnComplete(context);
+				buttonGroup.onComplete = (context) => {
+					if (m_props.monthsButtonGroup?.onComplete) {
+						m_props.monthsButtonGroup.onComplete(context);
 					}
 
 					let selectedMonth = ui.date.cloneDate(m_value);
@@ -326,13 +336,15 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 					id: ui.date.format(value, m_idFormat),
 					text: ui.date.format(value, "MMM"),
 					attr: { title: ui.date.format(value, "MMMM") },
-					fnClick: (context) => {
+					onClick: (context) => {
 						buttonClick(context, m_props.monthsButtonGroup);
 					},
 				};
+
 				if (!isValidButton(value)) {
 					button.enable = false;
 				}
+
 				buttonGroup.buttons.push(button);
 				ui.date.add(value, 1, "months");
 			}
@@ -343,9 +355,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let buttonGroup = ui.utils.extend(true, {}, m_props.yearsButtonGroup);
 				buttonGroup.css = ui.utils.extend(true, m_props.css.yearsButtonGroup, buttonGroup.css);
 				buttonGroup.parentTag = m_bodyContentTag;
-				buttonGroup.fnComplete = (context) => {
-					if (m_props.yearsButtonGroup?.fnComplete) {
-						m_props.yearsButtonGroup.fnComplete(context);
+				buttonGroup.onComplete = (context) => {
+					if (m_props.yearsButtonGroup?.onComplete) {
+						m_props.yearsButtonGroup.onComplete(context);
 					}
 
 					let selectedYear = ui.date.cloneDate(m_value);
@@ -372,15 +384,17 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let button = {
 					id: ui.date.format(value, m_idFormat),
 					text: ui.date.format(value, "YYYY"),
-					fnClick: (context) => {
+					onClick: (context) => {
 						buttonClick(context, m_props.yearsButtonGroup);
 					},
 				};
+
 				if (!isValidButton(value)) {
 					button.enable = false;
 				} else if (i === 0 || i === 11) {
 					button.css = { button: m_props.css.otherDecade };
 				}
+
 				buttonGroup.buttons.push(button);
 				ui.date.add(value, 1, "years");
 			}
@@ -391,9 +405,9 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let buttonGroup = ui.utils.extend(true, {}, m_props.decadesButtonGroup);
 				buttonGroup.css = ui.utils.extend(true, m_props.css.decadesButtonGroup, buttonGroup.css);
 				buttonGroup.parentTag = m_bodyContentTag;
-				buttonGroup.fnComplete = (context) => {
-					if (m_props.decadesButtonGroup?.fnComplete) {
-						m_props.decadesButtonGroup.fnComplete(context);
+				buttonGroup.onComplete = (context) => {
+					if (m_props.decadesButtonGroup?.onComplete) {
+						m_props.decadesButtonGroup.onComplete(context);
 					}
 
 					let selectedDecade = ui.date.cloneDate(m_value);
@@ -420,15 +434,17 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 				let button = {
 					id: ui.date.format(value, m_idFormat),
 					text: `${value.getFullYear()}-${value.getFullYear() + 9}`,
-					fnClick: (context) => {
+					onClick: (context) => {
 						buttonClick(context, m_props.decadesButtonGroup);
 					},
 				};
+
 				if (!isValidButton(value)) {
 					button.enable = false;
 				} else if (i === 0 || i === 11) {
 					button.css = { button: m_props.css.otherCentury };
 				}
+
 				buttonGroup.buttons.push(button);
 				ui.date.add(value, 10, "years");
 			}
@@ -440,29 +456,34 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function buttonClick(context, buttonGroup) {
 			selectValue(context.Button, context.ev);
-			if (buttonGroup?.fnClick) {
-				buttonGroup.fnClick(context);
+
+			if (buttonGroup?.onClick) {
+				buttonGroup.onClick(context);
 			}
 		}
 
 		function selectValue(button, ev) {
 			let value = ui.date.createDate(button.getId(), m_idFormat);
+
 			if (m_depth <= m_minDepth) {
 				setValue(value);
-				if (m_props.fnSelect) {
-					m_props.fnSelect({ Calendar: self, ev: ev });
+
+				if (m_props.onSelect) {
+					m_props.onSelect({ Calendar: self, ev: ev });
 				}
 			} else {
 				--m_depth;
 				setViewDate(value);
 				setupBodyContent();
 			}
+
 			setHeaderButtonsEnabled();
 		}
 
 		function getDefaultValue() {
 			let optionValue = m_props.value ? ui.date.getDate(m_props.value, m_props.format) : null;
 			optionValue = optionValue ? optionValue : ui.date.getToday();
+
 			return getInRangeDate(optionValue);
 		}
 
@@ -476,6 +497,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 			} else if (ui.date.isAfter(value, m_maxDate)) {
 				return ui.date.cloneDate(m_maxDate);
 			}
+
 			return ui.date.cloneDate(value);
 		}
 
@@ -488,6 +510,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 
 		function setViewDate(value) {
 			m_viewDate = value ? ui.date.cloneDate(value) : ui.date.getToday();
+
 			switch (m_depth) {
 				case 0: //month
 					ui.date.startOf(m_viewDate, "month");
@@ -519,6 +542,7 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		function navigateToFuture() {
 			navigate(1);
 		}
+
 		function navigateUp() {
 			if (canNavigateUp()) {
 				++m_depth;
@@ -532,8 +556,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Calendar: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Calendar: self });
 			}
 		}
 
@@ -550,17 +574,17 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 									button: "m-prev-button",
 									disabled: "m-calendar-header-button-disabled",
 								},
-								fnClick: navigateToPast,
-								fnEnabled: canNavigatePast,
+								onClick: navigateToPast,
+								onEnabled: canNavigatePast,
 							},
 							{
 								css: {
 									button: "m-fast-button",
 									disabled: "m-calendar-header-button-disabled",
 								},
-								fnClick: navigateUp,
-								fnEnabled: canNavigateUp,
-								fnDynamicHeaderText: getDepthButtonText,
+								onClick: navigateUp,
+								onEnabled: canNavigateUp,
+								onDynamicHeaderText: getDepthButtonText,
 							},
 							{
 								text: "",
@@ -568,8 +592,8 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 									button: "m-next-button",
 									disabled: "m-calendar-header-button-disabled",
 								},
-								fnClick: navigateToFuture,
-								fnEnabled: canNavigateFuture,
+								onClick: navigateToFuture,
+								onEnabled: canNavigateFuture,
 							},
 						],
 					},
@@ -604,4 +628,4 @@ ui.class.Calendar = class Calendar extends HTMLElement {
 };
 
 ui.calendar = (props) => new ui.class.Calendar(props);
-customElements.define("mambo-calendar", ui.class.Calendar);
+customElements.define(ui.defaultTags.calendar.self.name, ui.class.Calendar);

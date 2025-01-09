@@ -3,6 +3,7 @@ ui.class.Input = class Input extends HTMLElement {
 		super();
 		const self = this;
 		const m_iconList = [];
+
 		// HTML tag variables
 		let m_required;
 		let m_parentTag;
@@ -35,14 +36,16 @@ ui.class.Input = class Input extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
 
-		function setupDOM() {
+		async function setupDOM() {
 			return new Promise((resolve) => {
 				self.classList.add(m_props.css.self);
 				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
@@ -77,17 +80,16 @@ ui.class.Input = class Input extends HTMLElement {
 						attr: { for: m_props.name },
 						text: m_props.labelText,
 					};
-
 					m_labelTag = ui.d.createTag(labelTagConfig);
-					m_containerTag.appendChild(m_labelTag);
+					self.insertBefore(m_labelTag, m_containerTag);
 				}
 
 				if (m_props?.validate?.onStart) {
 					validate();
 				}
 
-				installLeftButton().then(resolve);
-				installClearInput().then(resolve);
+				installLeftButton();
+				installClearInput();
 
 				if (m_props.required) {
 					m_iconRequiredTag = ui.d.createTag({ ...m_props.tags.iconRequired, class: m_props.css.iconRequired });
@@ -97,6 +99,8 @@ ui.class.Input = class Input extends HTMLElement {
 					if (m_props.requiredText) m_requiredTextTag.innerText = m_props.requiredText;
 					self.appendChild(m_requiredTextTag);
 				}
+
+				resolve();
 			});
 		}
 
@@ -144,12 +148,12 @@ ui.class.Input = class Input extends HTMLElement {
 						...m_props.clearButton,
 						css: m_props.css.clearButton,
 						parentTag: m_containerTag,
-						fnComplete: resolve,
-						fnClick: (context) => {
+						onComplete: resolve,
+						onClick: (context) => {
 							clearInput();
 
-							if (m_props.fnClear) {
-								m_props.fnClear({
+							if (m_props.onClear) {
+								m_props.onClear({
 									Input: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -160,6 +164,8 @@ ui.class.Input = class Input extends HTMLElement {
 
 					m_clearButton = ui.button(buttonConfig);
 				}
+
+				resolve();
 			});
 		}
 
@@ -170,19 +176,19 @@ ui.class.Input = class Input extends HTMLElement {
 						...m_props.leftButton,
 						css: m_props.css.leftButton,
 						parentTag: m_containerTag,
-						fnComplete: resolve,
-						fnMouseDown: (context) => {
-							if (m_props.fnMouseDown) {
-								m_props.fnMouseDown({
+						onComplete: resolve,
+						onMouseDown: (context) => {
+							if (m_props.onMouseDown) {
+								m_props.onMouseDown({
 									Input: self,
 									Button: context.Button,
 									ev: context.ev,
 								});
 							}
 						},
-						fnMouseUp: (context) => {
-							if (m_props.fnMouseUp) {
-								m_props.fnMouseUp({
+						onMouseUp: (context) => {
+							if (m_props.onMouseUp) {
+								m_props.onMouseUp({
 									Input: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -192,6 +198,8 @@ ui.class.Input = class Input extends HTMLElement {
 					};
 					m_leftButton = ui.button(buttonConfig);
 				}
+
+				resolve();
 			});
 		}
 
@@ -200,8 +208,8 @@ ui.class.Input = class Input extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnBlur) {
-				m_props.fnBlur({
+			if (m_props.onBlur) {
+				m_props.onBlur({
 					Input: self,
 					value: m_inputTag.value,
 					ev: ev,
@@ -214,8 +222,8 @@ ui.class.Input = class Input extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnChange) {
-				m_props.fnChange({
+			if (m_props.onChange) {
+				m_props.onChange({
 					Input: self,
 					value: m_inputTag.value,
 					ev: ev,
@@ -228,8 +236,8 @@ ui.class.Input = class Input extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnKeyup) {
-				m_props.fnKeyup({
+			if (m_props.onKeyup) {
+				m_props.onKeyup({
 					Input: self,
 					value: m_inputTag.value,
 					Button: m_clearButton,
@@ -255,15 +263,17 @@ ui.class.Input = class Input extends HTMLElement {
 
 		function validateMinLength(config, ev) {
 			const curLen = m_inputTag.value.length;
+
 			if (typeof config.value === "string") {
 				const length = config.len - curLen;
+
 				if (length > 0) {
 					const padding = config.value.repeat(length);
 					m_dataChanged = true;
 					m_inputTag.value = config.dir === "right" ? m_inputTag.value + padding : padding + m_inputTag.value;
 
-					if (m_props.fnDataValidationChange) {
-						m_props.fnDataValidationChange({
+					if (m_props.onDataValidationChange) {
+						m_props.onDataValidationChange({
 							Input: self,
 							ev: ev,
 						});
@@ -299,8 +309,8 @@ ui.class.Input = class Input extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Input: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Input: self });
 			}
 		}
 
@@ -329,4 +339,4 @@ ui.class.Input = class Input extends HTMLElement {
 };
 
 ui.input = (props) => new ui.class.Input(props);
-customElements.define("mambo-input", ui.class.Input);
+customElements.define(ui.defaultTags.input.self.name, ui.class.Input);

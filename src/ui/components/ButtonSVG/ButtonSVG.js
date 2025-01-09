@@ -27,9 +27,11 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -124,16 +126,16 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
 				}
 
 				// Invoke callback for each button
-				if (m_props.fnClick) {
-					m_props.fnClick({
+				if (m_props.onClick) {
+					m_props.onClick({
 						Button: self,
 						ev: ev,
 					});
 				}
 
 				// Invoke callback for group
-				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({
+				if (m_props.onGroupClick) {
+					m_props.onGroupClick({
 						Button: self,
 						ev: ev,
 					});
@@ -216,8 +218,8 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Button: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Button: self });
 			}
 		}
 
@@ -246,4 +248,4 @@ ui.class.ButtonSVG = class ButtonSVG extends HTMLElement {
 };
 
 ui.buttonSVG = (props) => new ui.class.ButtonSVG(props);
-customElements.define("mambo-button-svg", ui.class.ButtonSVG);
+customElements.define(ui.defaultTags.buttonSVG.self.name, ui.class.ButtonSVG);

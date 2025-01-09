@@ -40,9 +40,11 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -94,7 +96,10 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 				m_containerUpTag.appendChild(m_spanTag);
 				m_footerTag = ui.d.createTag({ ...m_props.tags.footer, class: m_props.css.footer });
 				m_containerUpTag.appendChild(m_footerTag);
-				m_buttonsContainerTag = ui.d.createTag({ ...m_props.tags.buttonsContainer, class: m_props.css.buttonsContainer });
+				m_buttonsContainerTag = ui.d.createTag({
+					...m_props.tags.buttonsContainer,
+					class: m_props.css.buttonsContainer,
+				});
 				m_footerTag.appendChild(m_buttonsContainerTag);
 				m_iconsContainerTag = ui.d.createTag({ ...m_props.tags.iconsContainer, class: m_props.css.iconsContainer });
 				m_footerTag.appendChild(m_iconsContainerTag);
@@ -135,11 +140,12 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 						...m_props.cancelButton,
 						css: m_props.css.cancelButton,
 						parentTag: m_buttonsContainerTag,
-						fnComplete: resolve,
-						fnClick: (context) => {
+						onComplete: resolve,
+						onClick: (context) => {
 							enableSpan();
-							if (m_props.fnClear) {
-								m_props.fnClear({
+
+							if (m_props.onClear) {
+								m_props.onClear({
 									Textarea: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -160,11 +166,12 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 						...m_props.editButton,
 						css: m_props.css.editButton,
 						parentTag: m_buttonsContainerTag,
-						fnComplete: resolve,
-						fnClick: (context) => {
+						onComplete: resolve,
+						onClick: (context) => {
 							enableTextarea();
-							if (m_props.fnClick) {
-								m_props.fnClick({
+
+							if (m_props.onClick) {
+								m_props.onClick({
 									Textarea: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -185,11 +192,12 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 						...m_props.checkButton,
 						css: m_props.css.checkButton,
 						parentTag: m_buttonsContainerTag,
-						fnComplete: resolve,
-						fnClick: (context) => {
+						onComplete: resolve,
+						onClick: (context) => {
 							saveTextareaValue();
-							if (m_props.fnClick) {
-								m_props.fnClick({
+
+							if (m_props.onClick) {
+								m_props.onClick({
 									Textarea: self,
 									Button: context.Button,
 									ev: context.ev,
@@ -207,9 +215,11 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 			if (m_props.preventDefault) {
 				ev.preventDefault();
 			}
+
 			if (m_props.stopPropagation) {
 				ev.stopPropagation();
 			}
+
 			if (!m_editable) enableTextarea();
 		}
 
@@ -218,8 +228,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnBlur) {
-				m_props.fnBlur({
+			if (m_props.onBlur) {
+				m_props.onBlur({
 					Textarea: self,
 					value: m_textareaTag.value,
 					ev: ev,
@@ -232,8 +242,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnChange) {
-				m_props.fnChange({
+			if (m_props.onChange) {
+				m_props.onChange({
 					Textarea: self,
 					value: m_textareaTag.value,
 					ev: ev,
@@ -246,8 +256,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 			ev.preventDefault();
 			validate(ev);
 
-			if (m_props.fnKeyup) {
-				m_props.fnKeyup({
+			if (m_props.onKeyup) {
+				m_props.onKeyup({
 					Textarea: self,
 					value: m_textareaTag.value,
 					ev: ev,
@@ -272,15 +282,17 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 
 		function validateMinLength(config, ev) {
 			const curLen = m_textareaTag.value.length;
+
 			if (typeof config.value === "string") {
 				const length = config.len - curLen;
+
 				if (length > 0) {
 					const padding = config.value.repeat(length);
 					m_dataChanged = true;
 					m_textareaTag.value = config.dir === "right" ? m_textareaTag.value + padding : padding + m_textareaTag.value;
 
-					if (m_props.fnDataValidationChange) {
-						m_props.fnDataValidationChange({
+					if (m_props.onDataValidationChange) {
+						m_props.onDataValidationChange({
 							Textarea: self,
 							ev: ev,
 						});
@@ -362,8 +374,8 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Textarea: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Textarea: self });
 			}
 		}
 
@@ -372,7 +384,7 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 				m_props = {
 					tag: "default",
 					theme: "default",
-					name: Math.random().toString(36).slice(2),
+					id: Math.random().toString(36).slice(2),
 					editButton: { text: "" },
 					cancelButton: { text: "" },
 					checkButton: { text: "" },
@@ -394,4 +406,4 @@ ui.class.Textarea = class Textarea extends HTMLElement {
 };
 
 ui.textarea = (props) => new ui.class.Textarea(props);
-customElements.define("mambo-textarea", ui.class.Textarea);
+customElements.define(ui.defaultTags.textarea.self.name, ui.class.Textarea);

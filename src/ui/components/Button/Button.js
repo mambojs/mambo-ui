@@ -15,6 +15,7 @@ ui.class.Button = class Button extends HTMLElement {
 		this.enable = enable;
 		this.getConfig = () => m_props;
 		this.getId = () => m_props.id;
+		this.setId = (id) => (m_props.id = id);
 		this.getImageTagById = getImageTagById;
 		this.getIconTagById = getIconTagById;
 		this.getParentTag = () => m_parentTag;
@@ -29,9 +30,11 @@ ui.class.Button = class Button extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -40,16 +43,10 @@ ui.class.Button = class Button extends HTMLElement {
 			return new Promise((resolve) => {
 				const tagConfig = { ...m_props.tags.button };
 				let buttonClasses = [m_props.css.button];
+				if (m_props.size) buttonClasses.push(m_props.size);
+				if (!m_props.text) buttonClasses.push("no-text");
+				if (m_props.type) buttonClasses.push(m_props.type);
 
-				if (m_props.size) {
-					buttonClasses.push(m_props.size);
-				}
-				if (!m_props.text) {
-					buttonClasses.push("notext");
-				}
-				if (m_props.type) {
-					buttonClasses.push(m_props.type);
-				}
 				tagConfig.class = buttonClasses.join(" ");
 				tagConfig.text = m_props.text;
 				tagConfig.event = {
@@ -102,6 +99,7 @@ ui.class.Button = class Button extends HTMLElement {
 				};
 				let imgTag = ui.d.createTag("img", tagConfig);
 				m_imageList.push(imgTag);
+
 				if (img.position === "left") {
 					m_buttonTag.insertBefore(imgTag, m_buttonTag.firstChild);
 				} else {
@@ -129,6 +127,7 @@ ui.class.Button = class Button extends HTMLElement {
 				};
 				let iconTag = ui.d.createTag("i", tagConfig);
 				m_iconList.push(iconTag);
+
 				if (icon.position === "left") {
 					m_buttonTag.insertBefore(iconTag, m_buttonTag.firstChild);
 				} else {
@@ -140,6 +139,7 @@ ui.class.Button = class Button extends HTMLElement {
 		function getImageTagById(id) {
 			return m_imageList.find((img) => img.id === id);
 		}
+
 		function getIconTagById(id) {
 			return m_iconList.find((icon) => icon.id === id);
 		}
@@ -155,16 +155,16 @@ ui.class.Button = class Button extends HTMLElement {
 				}
 
 				// Invoke callback for each button
-				if (m_props.fnClick) {
-					m_props.fnClick({
+				if (m_props.onClick) {
+					m_props.onClick({
 						Button: self,
 						ev: ev,
 					});
 				}
 
 				// Invoke callback for group
-				if (m_props.fnGroupClick) {
-					m_props.fnGroupClick({
+				if (m_props.onGroupClick) {
+					m_props.onGroupClick({
 						Button: self,
 						ev: ev,
 					});
@@ -177,13 +177,12 @@ ui.class.Button = class Button extends HTMLElement {
 				m_buttonTag.classList.add(m_props.css.pressed);
 
 				// Invoke callback for each button
-				if (m_props.fnMouseDown) {
-					m_props.fnMouseDown({
+				if (m_props.onMouseDown) {
+					m_props.onMouseDown({
 						Button: self,
 						ev: ev,
 					});
 				}
-
 			}
 		}
 
@@ -192,8 +191,8 @@ ui.class.Button = class Button extends HTMLElement {
 				m_buttonTag.classList.remove(m_props.css.pressed);
 
 				// Invoke callback for each button
-				if (m_props.fnMouseUp) {
-					m_props.fnMouseUp({
+				if (m_props.onMouseUp) {
+					m_props.onMouseUp({
 						Button: self,
 						ev: ev,
 					});
@@ -276,8 +275,8 @@ ui.class.Button = class Button extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Button: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Button: self });
 			}
 		}
 
@@ -306,4 +305,4 @@ ui.class.Button = class Button extends HTMLElement {
 };
 
 ui.button = (props) => new ui.class.Button(props);
-customElements.define("mambo-button", ui.class.Button);
+customElements.define(ui.defaultTags.button.self.name, ui.class.Button);

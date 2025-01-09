@@ -1,0 +1,21 @@
+.m-drag-drop-self {
+  padding: var(--m-padding-xxl);
+  border: 1px dashed #ccc;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  width: fit-content;
+}
+
+.m-drag-drop-self:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 0.25rem #ccc;
+}
+
+.m-drag-drop-icon {
+  margin-bottom: var(--m-margin-xxl);
+  font-size: 3rem;
+}

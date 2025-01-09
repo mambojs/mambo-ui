@@ -9,3 +9,21 @@
 .m-file-chooser-input-wrapper {
   display: flex;
 }
+
+.m-file-chooser-button {
+  color: var(--m-text-color);
+  font-size: var(--m-font-size-m);
+  padding: var(--m-padding-m) var(--m-padding-m);
+  background: var(--m-background-color);
+  border: var(--m-border);
+  border-radius: var(--m-border-radius);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-file-chooser-button.m-hover {
+  background: var(--m-hover-background-color);
+}

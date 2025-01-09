@@ -5,13 +5,18 @@ function storyButtonGroup(selectedStory) {
 	demoSecondaryButtonGroupIcon();
 
 	function demoButtonGroup() {
+		const btnGroupAttr = { style: "justify-content: space-around;" };
+
 		let btnGroupProps = {
 			parentTag: selectedStory.parentTag,
+			tags: {
+				self: { attr: btnGroupAttr },
+			},
 			buttons: [
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 				},
 				{
 					id: 2,
@@ -22,7 +27,7 @@ function storyButtonGroup(selectedStory) {
 					text: "Button Three",
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);
@@ -35,7 +40,7 @@ function storyButtonGroup(selectedStory) {
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 					icon: [
 						{
 							attr: {
@@ -44,7 +49,7 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 						},
 					],
@@ -55,13 +60,9 @@ function storyButtonGroup(selectedStory) {
 					icon: [
 						{
 							attr: {
-								class: "fa-solid fa-star",
+								class: "fa-solid fa-compass",
 							},
-						},
-						{
-							attr: {
-								"data-feather": "star",
-							},
+							size: "medium",
 						},
 					],
 				},
@@ -76,42 +77,48 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 						},
 					],
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {
+				console.log(context.Button.getId());
+			},
 		};
 
 		ui.buttonGroup(btnGroupProps);
 	}
+
 	function demoPrimaryButtonGroup() {
+		const btnGroupAttr = { style: "justify-content: space-around;" };
+
 		let btnGroupProps = {
 			parentTag: selectedStory.parentTag,
+			tags: { self: { attr: btnGroupAttr } },
 			buttons: [
 				{
 					id: 1,
 					text: "Button One",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 					type: "primary",
-					size: "large",
+					size: "small",
 				},
 				{
 					id: 2,
 					text: "Button Two",
 					type: "primary",
-					size: "large",
+					size: "medium",
 				},
 				{
 					id: 3,
 					text: "Button Three",
 					type: "primary",
-					size: "large",
+					size: "small",
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);
@@ -126,7 +133,7 @@ function storyButtonGroup(selectedStory) {
 					text: "Button One",
 					type: "secondary",
 					size: "small",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 					icon: [
 						{
 							attr: {
@@ -137,7 +144,7 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 							position: "left",
 							size: "small",
@@ -179,13 +186,13 @@ function storyButtonGroup(selectedStory) {
 						},
 						{
 							attr: {
-								"data-feather": "star",
+								class: "fa-solid fa-star",
 							},
 						},
 					],
 				},
 			],
-			fnClick: (context) => {},
+			onClick: (context) => {},
 		};
 
 		ui.buttonGroup(btnGroupProps);

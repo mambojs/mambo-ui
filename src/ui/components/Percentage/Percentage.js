@@ -23,9 +23,11 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -70,6 +72,7 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 				let range = m_props.ranges.find((range) => {
 					return m_value >= range.min && m_value <= range.max;
 				});
+
 				if (range && range.css) {
 					clearRangeClasses();
 					m_percentageBarTag.classList.add(range.css);
@@ -88,8 +91,8 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Percentage: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Percentage: self });
 			}
 		}
 
@@ -129,4 +132,4 @@ ui.class.Percentage = class Percentage extends HTMLElement {
 };
 
 ui.percentage = (props) => new ui.class.Percentage(props);
-customElements.define("mambo-percentage", ui.class.Percentage);
+customElements.define(ui.defaultTags.percentage.self.name, ui.class.Percentage);

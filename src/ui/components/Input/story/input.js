@@ -8,10 +8,11 @@ function storyInput(selectedStory) {
 			parentTag: selectedStory.parentTag,
 			value: "My value",
 			enableClear: true,
+			labelText: "Email",
 			icon: [
 				{
 					attr: {
-						"class": "fa-regular fa-envelope",
+						class: "fa-regular fa-envelope",
 					},
 					size: "small",
 					position: "left",
@@ -28,17 +29,18 @@ function storyInput(selectedStory) {
 			value: "My value",
 			enableClear: false,
 			enableLeftButton: true,
-			fnMouseDown: (context) => {
+			labelText: "Password",
+			onMouseDown: (context) => {
 				context.Input.setAttr({ type: "text" });
 				context.Button.getTag().classList.toggle("fa-eye", true);
 				context.Button.getTag().classList.toggle("fa-eye-slash", false);
 			},
-			fnMouseUp: (context) => {
+			onMouseUp: (context) => {
 				context.Input.setAttr({ type: "password" });
 				context.Button.getTag().classList.toggle("fa-eye-slash", true);
 				context.Button.getTag().classList.toggle("fa-eye", false);
 			},
-			fnComplete: (context) => {
+			onComplete: (context) => {
 				context.Input.setAttr({ type: "password" });
 			},
 		};
@@ -49,6 +51,7 @@ function storyInput(selectedStory) {
 	function inputWithIcon() {
 		const config = {
 			parentTag: selectedStory.parentTag,
+			labelText: "Email",
 			icon: [
 				{
 					attr: {
@@ -58,8 +61,15 @@ function storyInput(selectedStory) {
 					position: "left",
 				},
 			],
+			tags: {
+				input: {
+					prop: {
+						placeholder: "Ingresa tu email",
+					},
+				},
+			},
 			required: true,
-			fnBlur: ({ Input }) => {
+			onBlur: ({ Input }) => {
 				Input.showRequired();
 			},
 		};

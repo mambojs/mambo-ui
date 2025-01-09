@@ -3,24 +3,59 @@ function storyTab(selectedStory) {
 	installWithContentProp();
 
 	function installWithFnCallback() {
+		const btnAttr = { style: "display: flex; flex-direction: column-reverse; width: 4rem; font-size: 0.75rem;" };
+
 		let tabConfig = {
 			parentTag: selectedStory.parentTag,
 			tabs: {
 				buttons: [
 					{
-						text: "Tab 1",
-						fnClick: (context) => {},
+						text: "Mail",
+						size: "small",
+						tags: {
+							button: {
+								attr: btnAttr,
+							},
+						},
+						icon: {
+							attr: {
+								class: "fa-solid fa-envelope",
+							},
+						},
+						onClick: (context) => {},
 					},
 					{
-						text: "Tab 2",
+						text: "Star",
+						size: "small",
+						tags: {
+							button: {
+								attr: btnAttr,
+							},
+						},
+						icon: {
+							attr: {
+								class: "fa-solid fa-star",
+							},
+						},
 					},
 					{
-						text: "Tab 3",
+						text: "Compass",
+						size: "small",
+						tags: {
+							button: {
+								attr: btnAttr,
+							},
+						},
+						icon: {
+							attr: {
+								class: "fa-solid fa-compass",
+							},
+						},
 					},
 				],
-				fnClick: (context) => {},
+				onClick: (context) => {},
 			},
-			fnTabComplete: (contentTag, tab) => {
+			onTabComplete: (contentTag, tab) => {
 				contentTag.appendChild(dom.createTag("div", { text: `Tab name: ${tab.text}` }));
 			},
 		};
@@ -34,7 +69,7 @@ function storyTab(selectedStory) {
 				{
 					id: 4,
 					text: "Tab 4",
-					fnClick: (context) => {},
+					onClick: (context) => {},
 				},
 				{
 					id: 5,
@@ -45,7 +80,7 @@ function storyTab(selectedStory) {
 					text: "Tab 6",
 				},
 			],
-			fnClick: (buttonContext) => {},
+			onClick: (buttonContext) => {},
 		};
 
 		const contentList = btnGroupConfig.buttons.map((btn) => {

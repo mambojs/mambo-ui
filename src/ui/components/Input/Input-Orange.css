@@ -37,7 +37,7 @@
   color: var(--m-gray-500);
 }
 
-.m-input-self .m-button-self .notext {
+.m-input-self .m-button-self .no-text {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,7 +83,7 @@
 }
 
 .m-input-icon-required.hidden {
-  visibility: hidden;
+  display: none;
   width: 1rem;
 }
 
@@ -103,5 +103,9 @@
 }
 
 .m-input-text-required.hidden {
-  visibility: hidden;
+  display: none;
+}
+
+.m-input-label {
+  font-size: var(--m-font-size-xs);
 }

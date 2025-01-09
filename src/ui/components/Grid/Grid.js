@@ -17,7 +17,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 		let m_tileParentTags = [];
 
 		let m_props;
-		let m_gridData = props.data;
+		let m_gridData;
 		let m_gridDataChanged;
 		let m_colStylesId;
 		let m_tileIndexAttrName;
@@ -36,14 +36,17 @@ ui.class.Grid = class Grid extends HTMLElement {
 		this.setup = setup;
 
 		if (props) {
+			if (props.data) m_gridData = props.data;
 			setup(props);
 		}
 
 		async function setup(props) {
 			await configure(props);
+
 			if (!self.isConnected) {
 				await ui.utils.installUIComponent({ self, m_parentTag, m_props });
 			}
+
 			await setupDOM();
 			setupComplete();
 		}
@@ -71,6 +74,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 				if (!validateGridData()) {
 					resolve();
+
 					return;
 				}
 
@@ -101,13 +105,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 					ui.d.append(tileTag, content);
 				}
 
-				if (m_props.fnPostTile) {
-					m_props.fnPostTile({
+				if (m_props.onPostTile) {
+					m_props.onPostTile({
 						tileIndex: tileIndex,
 						tileTag: tileTag,
 						tileData: tileData,
 					});
 				}
+
 				resolve();
 			});
 		}
@@ -154,6 +159,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			return new Promise((resolve, reject) => {
 				if (!validateGridData()) {
 					reject();
+
 					return;
 				}
 
@@ -196,7 +202,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 								};
 
 								// Install the cells for each column
-								switch (column.type) {
+								switch (column.tagType) {
 									case "button":
 										installButtonCell(context);
 										break;
@@ -263,13 +269,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 					Promise.all(rowPromises).then(() => {
 						// Invoke callback for each completed row
-						if (m_props.fnPostRow) {
-							m_props.fnPostRow({
+						if (m_props.onPostRow) {
+							m_props.onPostRow({
 								rowIndex: rowIndex,
 								rowTag: rowTag,
 								rowData: rowData,
 							});
 						}
+
 						resolve();
 					});
 				});
@@ -311,9 +318,10 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 			// Extend with header configuration
 			buttonConfig = ui.utils.extend(true, buttonConfig, context.column);
-			buttonConfig.fnClick = (contextClick) => {
-				if (context.column.fnClick) {
-					context.column.fnClick({
+
+			buttonConfig.onClick = (contextClick) => {
+				if (context.column.onClick) {
+					context.column.onClick({
 						rowIndex: context.rowIndex,
 						rowData: context.rowData,
 						parentTag: context.parentTag,
@@ -321,7 +329,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 					});
 				}
 			};
-			buttonConfig.fnComplete = (contextComplete) => {
+			buttonConfig.onComplete = (contextComplete) => {
 				// Save body cols pixel widths
 				saveCellTagWidth({
 					colIndex: context.colIndex,
@@ -342,8 +350,9 @@ ui.class.Grid = class Grid extends HTMLElement {
 		function installInputCell(context) {
 			let inputConfig = {
 				css: {
-					input: m_props.css.input,
 					button: m_props.css.button,
+					input: m_props.css.input,
+					container: m_props.css.inputContainer,
 				},
 				value: context.column.dataKey in context.rowData ? context.rowData[context.column.dataKey] : context.column.text,
 			};
@@ -353,7 +362,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			inputConfig.events = [
 				{
 					name: "change",
-					fn: (contextEvent) => {
+					on: (contextEvent) => {
 						inputElChangeEvent({
 							input: contextEvent.input,
 							column: context.column,
@@ -364,7 +373,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 					},
 				},
 			];
-			inputConfig.fnDataValidationChange = (contextValidation) => {
+			inputConfig.onDataValidationChange = (contextValidation) => {
 				inputElChangeEvent({
 					input: contextValidation.input,
 					column: context.column,
@@ -373,17 +382,22 @@ ui.class.Grid = class Grid extends HTMLElement {
 					ev: contextValidation.ev,
 				});
 			};
-			inputConfig.fnComplete = (contextComplete) => {
+			inputConfig.onComplete = (contextComplete) => {
 				// Save body cols pixel widths
 				saveCellTagWidth({
 					colIndex: context.colIndex,
 					tag: contextComplete.Input.getTag(),
 					parentTag: context.parentTag,
 				});
+
+				if (context.column.onComplete) {
+					context.column.onComplete(contextComplete);
+				}
 			};
-			inputConfig.fnClick = (contextClick) => {
-				if (context.column.fnClick) {
-					context.column.fnClick(contextClick);
+
+			inputConfig.onClick = (contextClick) => {
+				if (context.column.onClick) {
+					context.column.onClick(contextClick);
 				}
 			};
 
@@ -403,7 +417,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 				attr: {
 					multiple: true,
 				},
-				fnComplete: (contextComplete) => {
+				onComplete: (contextComplete) => {
 					// Save body cols pixel widths
 					saveCellTagWidth({
 						colIndex: context.colIndex,
@@ -425,42 +439,24 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function installDialogCell(context) {
 			const dialogDefaultConfig = {
-				title: "Dialog Title",
+				title: "Default Title",
 				css: {
 					button: m_props.css.button,
 				},
 			};
 
 			const dialogConfig = ui.utils.extend(true, dialogDefaultConfig, context.column);
-			dialogConfig.fnClick = () => {
-				ui.dialog(dialogConfig.parentTag, dialogConfig, (contextReady) => {
-					if (dialogConfig.fnOpen) {
-						dialogConfig.fnOpen({
-							dialog: contextReady.dialog,
-							dialogContentTag: contextReady.dialogContentTag,
-							column: context.column,
-							parentTag: context.parentTag,
-							colIndex: context.colIndex,
-							rowIndex: context.rowIndex,
-						});
-					}
+
+			dialogConfig.onClick = () => {
+				ui.dialog({
+					title: dialogConfig.title,
+					onComplete: context.column.onOpen,
+					onClose: context.column.onClose,
 				});
 			};
 
-			dialogConfig.fnClose = (contextClose) => {
-				contextClose.dialog.close();
-				if (context.column.fnClose) {
-					context.column.fnClose({
-						column: context.column,
-						parentTag: context.parentTag,
-						colIndex: context.colIndex,
-						rowIndex: context.rowIndex,
-					});
-				}
-			};
-
 			const buttonConfig = ui.utils.extend(true, {}, dialogConfig);
-			buttonConfig.fnComplete = (contextComplete) => {
+			buttonConfig.onComplete = (contextComplete) => {
 				saveCellTagWidth({
 					colIndex: context.colIndex,
 					tag: contextComplete.Button.getTag(),
@@ -503,7 +499,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			};
 
 			const config = ui.utils.extend(true, defaultConfig, context.column);
-			config.fnClick = () => {
+			config.onClick = () => {
 				slideoutTag.open();
 			};
 
@@ -511,7 +507,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const buttonTag = ui.button(config);
 
 			const slideoutConfig = ui.utils.extend(true, {}, config);
-			slideoutConfig.fnComplete = config.fnInstallContent;
+			slideoutConfig.onComplete = config.onInstallContent;
 			slideoutConfig.parentTag = config.slideoutParentTag;
 			slideoutTag = ui.slideout(slideoutConfig);
 			addComponentToMap({
@@ -525,7 +521,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const defaultConfig = {
 				parentTag: context.parentTag,
 				dropText: "Drop Files",
-				fnDrop: handleDropEvent,
+				onDrop: handleDropEvent,
 				css: {
 					parent: m_props.css.dropParent,
 					imgDropIcon: m_props.css.dropImgDropIcon,
@@ -552,7 +548,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			const defaultConfig = {
 				parentTag: context.parentTag,
 				css: {
-					treeViewParent: m_props.css.treeViewParent,
+					self: m_props.css.treeViewParent,
 				},
 			};
 
@@ -693,6 +689,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 			if (!m_props.maxColWidth) {
 				return;
 			}
+
 			// Save largest width value
 			const tagWidth = ui.d.computeTagWidth(context.tag, context.parentTag);
 			m_colsMaxPxWidth[context.colIndex] =
@@ -754,6 +751,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 						tag.style[key] = columnConfig.style[key];
 					}
 				}
+
 				resolve();
 			});
 		}
@@ -767,6 +765,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 
 		function removeColsStyles() {
 			let tag = document.getElementById(m_colStylesId);
+
 			if (tag) {
 				tag.parentNode.removeChild(tag);
 			}
@@ -786,6 +785,7 @@ ui.class.Grid = class Grid extends HTMLElement {
 				if (!(context.column.id in m_componentsMapById)) {
 					m_componentsMapById[context.column.id] = [];
 				}
+
 				m_componentsMapById[context.column.id].push(context.component);
 			}
 
@@ -793,12 +793,14 @@ ui.class.Grid = class Grid extends HTMLElement {
 			if (!(context.colIndex in m_componentsMapByColNbr)) {
 				m_componentsMapByColNbr[context.colIndex] = [];
 			}
+
 			m_componentsMapByColNbr[context.colIndex].push(context.component);
 		}
 
 		function validateGridData() {
 			if (!m_gridData || !Array.isArray(m_gridData)) {
 				console.error("Data Grid alert: grid data not found or is not data type Array -->", m_parentTag);
+
 				return false;
 			}
 
@@ -806,8 +808,8 @@ ui.class.Grid = class Grid extends HTMLElement {
 		}
 
 		function setupComplete() {
-			if (m_props.fnComplete) {
-				m_props.fnComplete({ Grid: self });
+			if (m_props.onComplete) {
+				m_props.onComplete({ Grid: self });
 			}
 		}
 
@@ -836,4 +838,4 @@ ui.class.Grid = class Grid extends HTMLElement {
 };
 
 ui.grid = (props) => new ui.class.Grid(props);
-customElements.define("mambo-grid", ui.class.Grid);
+customElements.define(ui.defaultTags.grid.self.name, ui.class.Grid);

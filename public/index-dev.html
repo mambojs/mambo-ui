@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Mambo UI Storyboard" name="description" />
+  <base href="/" />
+  <title>Mambo UI Storyboard</title>
+  <link href="img/mambo/mambo-m.ico" rel="icon" />
+  <!-- Mapbox Dependencies -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        rel="stylesheet" />
+  <!-- Scotti Dependencies -->
+  <link href="css/ubuntu.css" rel="stylesheet" />
+  <!-- Style Dependencies -->
+  <link href="css/prettify.css" rel="stylesheet" />
+  <link href="fonts/awesome/all.css" rel="stylesheet" />
+  <!-- Web App Styles -->
+  <link href="css/story.css" rel="stylesheet" />
+  <link href="css/storyboard.css" rel="stylesheet" />
+  <link href="css/index.css" rel="stylesheet" />
+  <link href="fonts/awesome/all.css" rel="stylesheet" />
+  <!-- Load JavaScripts Dependencies -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+  <script
+    src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+  <script src="js/domjs-0.0.1.js"></script>
+  <script src="js/mambo-tools-0.0.1.js"></script>
+  <script src="js/run_prettify.js"></script>
+  <script src="js/feather.min.js"></script>
+  <script src="js/marked.min.js"></script>
+  <!-- Load Initializer JavaScript -->
+  <script src="js/init.js"></script>
+  <script src="ui/tools/Utilities.js"></script>
+  <script src="ui/tools/String.js"></script>
+  <script src="ui/tools/DateManager.js"></script>
+  <script src="ui/tools/Tags.js"></script>
+  <script src="ui/tools/Theme.js"></script>
+  <!-- Load Mambo UI Components JavaScripts -->
+  <script src="ui/components/Button/Button.js"></script>
+  <script src="ui/components/Button/story/button.js"></script>
+  <script src="ui/components/ButtonGroup/ButtonGroup.js"></script>
+  <script src="ui/components/ButtonGroup/story/buttonGroup.js"></script>
+  <script src="ui/components/ButtonSVG/ButtonSVG.js"></script>
+  <script src="ui/components/ButtonSVG/story/buttonSVG.js"></script>
+  <script src="ui/components/Calendar/Calendar.js"></script>
+  <script src="ui/components/Calendar/story/calendar.js"></script>
+  <script src="ui/components/Card/Card.js"></script>
+  <script src="ui/components/Card/story/card.js"></script>
+  <script src="ui/components/Checkbox/Checkbox.js"></script>
+  <script src="ui/components/Checkbox/story/checkbox.js"></script>
+  <script src="ui/components/CheckboxGroup/CheckboxGroup.js"></script>
+  <script src="ui/components/CheckboxGroup/story/checkboxGroup.js"></script>
+  <script src="ui/components/Combobox/Combobox.js"></script>
+  <script src="ui/components/Combobox/story/combobox.js"></script>
+  <script src="ui/components/DatePicker/DatePicker.js"></script>
+  <script src="ui/components/DatePicker/story/datePicker.js"></script>
+  <script src="ui/components/Dialog/Dialog.js"></script>
+  <script src="ui/components/Dialog/story/dialog.js"></script>
+  <script src="ui/components/DragDrop/DragDrop.js"></script>
+  <script src="ui/components/DragDrop/story/dragDrop.js"></script>
+  <script src="ui/components/Draggable/Draggable.js"></script>
+  <script src="ui/components/Draggable/story/draggable.js"></script>
+  <script src="ui/components/Dropdown/Dropdown.js"></script>
+  <script src="ui/components/Dropdown/story/dropdown.js"></script>
+  <script src="ui/components/FileChooser/FileChooser.js"></script>
+  <script src="ui/components/FileChooser/story/fileChooser.js"></script>
+  <script src="ui/components/Grid/Grid.js"></script>
+  <script src="ui/components/Grid/story/grid.js"></script>
+  <script src="ui/components/Input/Input.js"></script>
+  <script src="ui/components/Input/story/input.js"></script>
+  <script src="ui/components/Listbox/Listbox.js"></script>
+  <script src="ui/components/Listbox/story/listbox.js"></script>
+  <script src="ui/components/ListMenu/ListMenu.js"></script>
+  <script src="ui/components/ListMenu/story/listMenu.js"></script>
+  <script src="ui/components/MapBox/MapBox.js"></script>
+  <script src="ui/components/MapBox/story/mapbox.js"></script>
+  <script src="ui/components/Percentage/Percentage.js"></script>
+  <script src="ui/components/Percentage/story/percentage.js"></script>
+  <script src="ui/components/Pagination/Pagination.js"></script>
+  <script src="ui/components/Pagination/story/pagination.js"></script>
+  <script src="ui/components/Player/Player.js"></script>
+  <script src="ui/components/Player/story/player.js"></script>
+  <script src="ui/components/Radio/Radio.js"></script>
+  <script src="ui/components/Radio/story/radio.js"></script>
+  <script src="ui/components/RadioGroup/RadioGroup.js"></script>
+  <script src="ui/components/RadioGroup/story/radioGroup.js"></script>
+  <script src="ui/components/Rating/Rating.js"></script>
+  <script src="ui/components/Rating/story/rating.js"></script>
+  <script src="ui/components/Search/Search.js"></script>
+  <script src="ui/components/Search/story/search.js"></script>
+  <script src="ui/components/SlideOut/Slideout.js"></script>
+  <script src="ui/components/SlideOut/story/slideout.js"></script>
+  <script src="ui/components/Slider/Slider.js"></script>
+  <script src="ui/components/Slider/story/slider.js"></script>
+  <script src="ui/components/Switch/story/switch.js"></script>
+  <script src="ui/components/Switch/Switch.js"></script>
+  <script src="ui/components/Tab/story/tab.js"></script>
+  <script src="ui/components/Tab/Tab.js"></script>
+  <script src="ui/components/Textarea/story/textarea.js"></script>
+  <script src="ui/components/Textarea/Textarea.js"></script>
+  <script src="ui/components/TimePicker/story/timePicker.js"></script>
+  <script src="ui/components/TimePicker/TimePicker.js"></script>
+  <script src="ui/components/Toaster/story/toaster.js"></script>
+  <script src="ui/components/Toaster/Toaster.js"></script>
+  <script src="ui/components/Tooltip/story/tooltip.js"></script>
+  <script src="ui/components/Tooltip/Tooltip.js"></script>
+  <script src="ui/components/TreeView/story/treeView.js"></script>
+  <script src="ui/components/TreeView/TreeView.js"></script>
+  <script src="ui/components/UITemplate/UITemplate.js"></script>
+  <script src="ui/components/VideoPlayer/story/videoPlayer.js"></script>
+  <script src="ui/components/VideoPlayer/VideoPlayer.js"></script>
+  <!-- Load Storyboard JavaScripts -->
+  <script src="js/storyboard.js"></script>
+</head>
+<body>
+<ui-storyboard>
+  <card-content>
+    <card-header>
+      <mambo-button id="homeButton"></mambo-button>
+      <mambo-combobox id="themeCombobox"></mambo-combobox>
+    </card-header>
+    <card-body>
+      <storyboard-treeview></storyboard-treeview>
+      <storyboard-component>
+        <story-tab></story-tab>
+      </storyboard-component>
+    </card-body>
+  </card-content>
+</ui-storyboard>
+<mambo-tab-img>
+  <img alt="Mambo Tab" class="middle" src="img/mambo/mambo-tab/middle-k.jpg" />
+  <img alt="Mambo Tab" class="left" src="img/mambo/mambo-tab/left-k.jpg" />
+  <img alt="Mambo Tab" class="right" src="img/mambo/mambo-tab/right-k.jpg" />
+</mambo-tab-img>
+<!-- Load App JavaScript -->
+<script src="js/index-dev.js"></script>
+</body>
+</html>
