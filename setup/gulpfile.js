@@ -71,13 +71,10 @@ function cssOrangeLibFiles() {
 			break;
 	}
 
-	return src("../src/ui/**/*.css")
+	return src(["../src/ui/themes/m-orange.css", "../src/ui/**/*-Orange.css"])
 		.pipe(ignore.exclude("**/demo/**"))
-		.pipe(ignore.exclude("**/*-Purple.css"))
-		.pipe(ignore.include("**/themes/m-orange.css"))
-		.pipe(ignore.include("**/*-Orange.css"))
 		.pipe(mapInit)
-		.pipe(concat(`${libName}`))
+		.pipe(concat(libName))
 		.pipe(stripCssComments())
 		.pipe(cleanCss)
 		.pipe(headerComment(copyright))
@@ -108,13 +105,10 @@ function cssPurpleLibFiles() {
 			break;
 	}
 
-	return src("../src/ui/**/*.css")
+	return src(["../src/ui/themes/m-purple.css", "../src/ui/**/*-Purple.css"])
 		.pipe(ignore.exclude("**/demo/**"))
-		.pipe(ignore.exclude("**/*-Orange.css"))
-		.pipe(ignore.include("**/themes/m-purple.css"))
-		.pipe(ignore.include("**/*-Purple.css"))
 		.pipe(mapInit)
-		.pipe(concat(`${libName}`))
+		.pipe(concat(libName))
 		.pipe(stripCssComments())
 		.pipe(cleanCss)
 		.pipe(headerComment(copyright))
