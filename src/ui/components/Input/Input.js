@@ -5,17 +5,17 @@ ui.class.Input = class Input extends HTMLElement {
 		const m_iconList = [];
 
 		// HTML tag variables
-		let m_required;
-		let m_parentTag;
-		let m_inputTag;
-		let m_labelTag;
 		let m_clearButton;
-		let m_leftButton;
-		let m_props;
-		let m_dataChanged;
 		let m_containerTag;
-		let m_requiredTextTag;
-		let m_iconRequiredTag;
+		let m_dataChanged;
+		let m_errorTextTag;
+		let m_errorIconTag;
+		let m_inputTag;
+		let m_isValid;
+		let m_labelTag;
+		let m_leftButton;
+		let m_parentTag;
+		let m_props;
 
 		// Configure public methods
 		this.commitDataChange = () => (m_dataChanged = null);
@@ -24,10 +24,11 @@ ui.class.Input = class Input extends HTMLElement {
 		this.dataChanged = () => m_dataChanged;
 		this.getIconTagById = getIconTagById;
 		this.getTag = () => m_inputTag;
+		this.isValid = () => m_isValid;
 		this.leftButton = () => m_leftButton;
 		this.setup = setup;
 		this.setAttr = setAttribute;
-		this.showRequired = showRequired;
+		this.required = () => m_props.required;
 		this.value = value;
 
 		if (props) {
@@ -88,17 +89,17 @@ ui.class.Input = class Input extends HTMLElement {
 					validate();
 				}
 
-				installLeftButton();
-				installClearInput();
-
-				if (m_props.required) {
-					m_iconRequiredTag = ui.d.createTag({ ...m_props.tags.iconRequired, class: m_props.css.iconRequired });
-					m_iconList.push(m_iconRequiredTag);
-					m_containerTag.appendChild(m_iconRequiredTag);
-					m_requiredTextTag = ui.d.createTag({ ...m_props.tags.textRequired, class: m_props.css.textRequired });
-					if (m_props.requiredText) m_requiredTextTag.innerText = m_props.requiredText;
-					self.appendChild(m_requiredTextTag);
-				}
+				installLeftButton()
+					.then(() => installClearInput())
+					.then(() => {
+						if (m_props.required) {
+							m_errorIconTag = ui.d.createTag({ ...m_props.tags.errorIcon, class: m_props.css.errorIcon });
+							m_iconList.push(m_errorIconTag);
+							m_containerTag.appendChild(m_errorIconTag);
+							m_errorTextTag = ui.d.createTag({ ...m_props.tags.errorText, class: m_props.css.errorText });
+							self.appendChild(m_errorTextTag);
+						}
+					});
 
 				resolve();
 			});
@@ -171,52 +172,33 @@ ui.class.Input = class Input extends HTMLElement {
 
 		function installLeftButton() {
 			return new Promise((resolve) => {
-				if (m_props.enableLeftButton) {
-					const buttonConfig = {
-						...m_props.leftButton,
-						css: m_props.css.leftButton,
-						parentTag: m_containerTag,
-						onComplete: resolve,
-						onMouseDown: (context) => {
-							if (m_props.onMouseDown) {
-								m_props.onMouseDown({
-									Input: self,
-									Button: context.Button,
-									ev: context.ev,
-								});
-							}
-						},
-						onMouseUp: (context) => {
-							if (m_props.onMouseUp) {
-								m_props.onMouseUp({
-									Input: self,
-									Button: context.Button,
-									ev: context.ev,
-								});
-							}
-						},
-						onTouchStart: (context) => {
-							if (m_props.onTouchStart) {
-								m_props.onTouchStart({
-									Input: self,
-									Button: context.Button,
-									ev: context.ev,
-								});
-							}
-						},
-						onTouchEnd: (context) => {
-							if (m_props.onTouchEnd) {
-								m_props.onTouchEnd({
-									Input: self,
-									Button: context.Button,
-									ev: context.ev,
-								});
-							}
-						},
-					};
-					m_leftButton = ui.button(buttonConfig);
+				if (!m_props.enableLeftButton) {
+					return resolve();
 				}
 
+				const eventHandlers = ["onMouseDown", "onMouseUp", "onTouchStart", "onTouchEnd"];
+				const buttonConfig = {
+					...m_props.leftButton,
+					css: m_props.css.leftButton,
+					parentTag: m_containerTag,
+					onComplete: resolve,
+				};
+
+				eventHandlers.forEach((event) => {
+					const propHandler = m_props[event];
+
+					if (propHandler) {
+						buttonConfig[event] = (context) => {
+							propHandler({
+								Input: self,
+								Button: context.Button,
+								ev: context.ev,
+							});
+						};
+					}
+				});
+
+				m_leftButton = ui.button(buttonConfig);
 				resolve();
 			});
 		}
@@ -265,6 +247,9 @@ ui.class.Input = class Input extends HTMLElement {
 		}
 
 		function validate(ev) {
+			let isValid = true;
+			let errorMessage = [];
+
 			if (Array.isArray(m_props.validate?.types)) {
 				m_props.validate.types.forEach((validate) => {
 					const keys = Object.keys(validate);
@@ -273,9 +258,81 @@ ui.class.Input = class Input extends HTMLElement {
 							case "minLength":
 								validateMinLength(validate.minLength, ev);
 								break;
+
+							case "required":
+								if (!validateRequired(validate.required)) {
+									isValid = false;
+									errorMessage.push(validate.required.message || m_props.requiredText);
+								}
+
+								break;
+
+							case "custom":
+								if (!validateCustom(validate.custom)) {
+									isValid = false;
+									errorMessage.push(validate.custom.message || m_props.invalidInput);
+								}
+
+								break;
 						}
 					});
 				});
+			}
+
+			if (m_props.onDataValidationChange) {
+				m_props.onDataValidationChange({
+					Input: self,
+					ev: ev,
+					errorMessage: errorMessage,
+				});
+			}
+
+			showValidationResult(isValid, errorMessage);
+			m_isValid = isValid;
+
+			return isValid;
+		}
+
+		function validateRequired() {
+			return m_inputTag.value.trim() !== "";
+		}
+
+		function validateCustom(config) {
+			if (typeof config.validator === "function") {
+				return config.validator(m_inputTag.value);
+			}
+
+			return true;
+		}
+
+		function showValidationResult(isValid, messages) {
+			if (!isValid && messages.length > 0) {
+				if (m_props.validate.show) {
+					m_errorTextTag.innerHTML = "";
+
+					messages.forEach((message) => {
+						const messageElement = ui.d.createTag({
+							name: "div",
+							text: message,
+						});
+						m_errorTextTag.appendChild(messageElement);
+					});
+
+					m_errorTextTag.style.display = "block";
+				}
+
+				if (m_errorIconTag) {
+					m_errorIconTag.classList.remove("hidden");
+				}
+			} else {
+				if (m_errorTextTag) {
+					m_errorTextTag.style.display = "none";
+					m_errorTextTag.innerHTML = "";
+				}
+
+				if (m_errorIconTag) {
+					m_errorIconTag.classList.add("hidden");
+				}
 			}
 		}
 
@@ -316,16 +373,6 @@ ui.class.Input = class Input extends HTMLElement {
 			return m_iconList.find((icon) => icon.id === id);
 		}
 
-		function showRequired() {
-			if (m_iconRequiredTag && m_props.required && m_inputTag.value === "") {
-				m_iconRequiredTag.classList.remove("hidden");
-				m_requiredTextTag.classList.remove("hidden");
-			} else {
-				m_iconRequiredTag.classList.add("hidden");
-				m_requiredTextTag.classList.add("hidden");
-			}
-		}
-
 		function setupComplete() {
 			if (m_props.onComplete) {
 				m_props.onComplete({ Input: self });
@@ -342,6 +389,11 @@ ui.class.Input = class Input extends HTMLElement {
 					leftButton: { text: "" },
 					icon: [],
 					requiredText: "This is a required field.",
+					invalidInput: "Invalid input.",
+					validate: {
+						show: true,
+						types: [],
+					},
 				};
 
 				m_props = ui.utils.extend(true, m_props, customProps);

@@ -91,8 +91,8 @@ ui.defaultTags = {
 		self: { name: "mambo-input" },
 		container: { name: "mambo-input-container" },
 		input: { name: "input", attr: { type: "text" } },
-		iconRequired: { name: "i" },
-		textRequired: { name: "mambo-input-text-required" },
+		errorIcon: { name: "i" },
+		errorText: { name: "mambo-input-error-text" },
 	},
 	listbox: {
 		self: { name: "mambo-listbox" },
