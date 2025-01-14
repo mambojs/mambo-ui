@@ -240,8 +240,8 @@ ui.defaultTheme = {
 		label: "m-input-label",
 		self: "m-input-self",
 		icon: "m-input-icon",
-		iconRequired: "m-input-icon-required fa-solid fa-exclamation-triangle hidden",
-		textRequired: "m-input-text-required hidden",
+		errorIcon: "m-input-error-icon fa-solid fa-exclamation-triangle hidden",
+		errorText: "m-input-error-text hidden",
 	},
 	listbox: {
 		container: "m-listbox-container",
