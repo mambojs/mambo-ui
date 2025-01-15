@@ -73,7 +73,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  pointer-events: auto;
+  pointer-events: none;
   flex-grow: 2;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .m-toaster-left {
-  left: 1.5rem;
+  left: var(--m-toaster-distance-x);
 }
 
 .m-toaster-center {
@@ -130,11 +130,11 @@
 }
 
 .m-toaster-right {
-  right: 1.5rem;
+  right: var(--m-toaster-distance-x);
 }
 
 .m-toaster-top {
-  top: 1.5rem;
+  top: var(--m-toaster-distance-y);
 }
 
 .m-toaster-center-v {
@@ -147,5 +147,156 @@
 }
 
 .m-toaster-bottom {
-  bottom: 1.5rem;
+  bottom: var(--m-toaster-distance-y);
 }
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(var(--m-toaster-animation-distance));
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(calc(-1 * var(--m-toaster-animation-distance)));
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(calc(-1 * var(--m-toaster-animation-distance)));
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(var(--m-toaster-animation-distance));
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromBottom-centered {
+  from {
+    transform: translate(-50%, var(--m-toaster-animation-distance));
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop-centered {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, calc(-1 * var(--m-toaster-animation-distance)));
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromTop-centered {
+  from {
+    transform: translate(-50%, calc(-1 * var(--m-toaster-animation-distance)));
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToBottom-centered {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, var(--m-toaster-animation-distance));
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromBottom-centerV {
+  from {
+    transform: translate(-50%, var(--m-toaster-animation-distance));
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToTop-centerV {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, calc(-1 * var(--m-toaster-animation-distance)));
+    opacity: 0;
+  }
+}
+
+.m-toaster-self:not(.m-toaster-center).m-toaster-slide-in-bottom {
+  animation: slideInFromBottom var(--m-toaster-animation-duration) var(--m-toaster-animation-timing) forwards;
+}
+
+.m-toaster-self:not(.m-toaster-center).m-toaster-slide-out-top {
+  animation: slideOutToTop var(--m-toaster-animation-duration) var(--m-toaster-animation-timing-out) forwards;
+}
+
+.m-toaster-self:not(.m-toaster-center).m-toaster-slide-in-top {
+  animation: slideInFromTop var(--m-toaster-animation-duration) var(--m-toaster-animation-timing) forwards;
+}
+
+.m-toaster-self:not(.m-toaster-center).m-toaster-slide-out-bottom {
+  animation: slideOutToBottom var(--m-toaster-animation-duration) var(--m-toaster-animation-timing-out) forwards;
+}
+
+.m-toaster-center:not(.m-toaster-center-v).m-toaster-slide-in-bottom {
+  animation: slideInFromBottom-centered var(--m-toaster-animation-duration) var(--m-toaster-animation-timing) forwards;
+}
+
+.m-toaster-center:not(.m-toaster-center-v).m-toaster-slide-out-top {
+  animation: slideOutToTop-centered var(--m-toaster-animation-duration) var(--m-toaster-animation-timing-out) forwards;
+}
+
+.m-toaster-center:not(.m-toaster-center-v).m-toaster-slide-in-top {
+  animation: slideInFromTop-centered var(--m-toaster-animation-duration) var(--m-toaster-animation-timing) forwards;
+}
+
+.m-toaster-center:not(.m-toaster-center-v).m-toaster-slide-out-bottom {
+  animation: slideOutToBottom-centered var(--m-toaster-animation-duration) var(--m-toaster-animation-timing-out) forwards;
+}
+
+.m-toaster-center.m-toaster-center-v.m-toaster-slide-in-bottom {
+  animation: slideInFromBottom-centerV var(--m-toaster-animation-duration) var(--m-toaster-animation-timing) forwards;
+}
+
+.m-toaster-center.m-toaster-center-v.m-toaster-slide-out-top {
+  animation: slideOutToTop-centerV var(--m-toaster-animation-duration) var(--m-toaster-animation-timing-out) forwards;
+}
+

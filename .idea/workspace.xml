@@ -54,7 +54,7 @@
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/input-validation-rules&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/toaster-animation&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/dist/0.0.3&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -145,7 +145,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-WS-243.21565.180" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
       </set>
     </attachedChunks>
   </component>
@@ -210,6 +210,9 @@
       <workItem from="1735324685705" duration="2271000" />
       <workItem from="1735327127377" duration="375000" />
       <workItem from="1735959603719" duration="3667000" />
+      <workItem from="1736900878201" duration="3120000" />
+      <workItem from="1736962275172" duration="17624000" />
+      <workItem from="1737047680204" duration="3863000" />
     </task>
     <servers />
   </component>
@@ -226,5 +229,12 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="JavascriptDebugType">
+        <watch expression="m_open" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

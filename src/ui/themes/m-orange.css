@@ -136,4 +136,6 @@
   --m-min-height-toaster-medium: 3.5rem;
   --m-min-width-toaster-large: 18rem;
   --m-min-height-toaster-large: 4.5rem;
+  --m-toaster-animation-timing: ease-out;
+  --m-toaster-animation-timing-out: ease-in;
 }

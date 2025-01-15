@@ -455,6 +455,12 @@ ui.defaultTheme = {
 			top: "m-toaster-top",
 			bottom: "m-toaster-bottom",
 		},
+		animation: {
+			topBottomIn: "m-toaster-slide-in-top",
+			bottomTopIn: "m-toaster-slide-in-bottom",
+			topBottomOut: "m-toaster-slide-out-top",
+			bottomTopOut: "m-toaster-slide-out-bottom",
+		},
 	},
 	tooltip: {
 		body: "m-tooltip-body",

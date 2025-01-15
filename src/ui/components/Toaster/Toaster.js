@@ -28,6 +28,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 		this.getIconList = () => m_iconList;
 		this.autoHideDuration = () => m_autoHideDuration;
 		this.open = () => m_open;
+		this.restart = restart;
 		this.setup = setup;
 
 		if (props) {
@@ -55,28 +56,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 				installCloseButton();
 				self.classList.add(m_props.css.self);
 
-				if (m_props.parentTag !== "body") {
-					self.classList.add("m-toaster-static");
-				} else {
-					m_position = m_props.anchorOrigin;
-					m_size = m_props.size;
-					m_type = m_props.type;
-					self.classList.add(m_props.css.position[m_position.horizontal]);
-
-					if (m_position.vertical === "center") {
-						self.classList.add(m_props.css.position.centerV);
-					} else {
-						self.classList.add(m_props.css.position[m_position.vertical]);
-					}
-
-					if (m_size) {
-						self.classList.add(m_props.css.size[m_size]);
-					}
-				}
-
-				if (m_type) {
-					self.classList.add(m_props.css.type[m_type]);
-				}
+				setupStyles();
 
 				addIcon(m_props.css.icon[m_type]);
 				m_message = m_props.message;
@@ -86,6 +66,82 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 				self.appendChild(m_buttonContainer);
 				resolve();
 			});
+		}
+
+		async function restart(context = {}) {
+			m_iconList.length = 0;
+			m_iconContainer.innerHTML = "";
+			m_props.open = context.open;
+
+			await configure(context);
+
+			self.classList.remove(m_props.css.position[m_position?.horizontal]);
+			self.classList.remove(m_props.css.position[m_position?.vertical]);
+			self.classList.remove(m_props.css.position.centerV);
+
+			if (m_type) {
+				self.classList.remove(m_props.css.type[m_type]);
+			}
+
+			if (m_size) {
+				self.classList.remove(m_props.css.size[m_size]);
+			}
+
+			m_autoHideDuration = m_props.autoHideDuration;
+
+			setupStyles();
+
+			addIcon(m_props.css.icon[m_type]);
+			m_message = m_props.message;
+			m_bodyTag.innerHTML = m_props.message;
+
+			if (m_props.onComplete) {
+				m_props.onComplete({ Toaster: self });
+			}
+		}
+
+		function setupStyles() {
+			self.style.setProperty(m_props.distanceXVar, `${m_props.distance.x}`);
+			self.style.setProperty(m_props.distanceYVar, `${m_props.distance.y}`);
+			self.style.setProperty(m_props.animationDistanceVar, `${m_props.animation.distance}`);
+			self.style.setProperty(m_props.animationDurationVar, `${m_props.animation.duration}`);
+
+			if (m_props.animation.name === "top-bottom") {
+				self.classList.remove(m_props.css.animation.topBottomOut);
+				self.classList.remove(m_props.css.animation.bottomTopOut);
+				self.classList.add(m_props.css.animation.topBottomIn);
+			}
+
+			if (m_props.animation.name === "bottom-top") {
+				self.classList.remove(m_props.css.animation.topBottomOut);
+				self.classList.remove(m_props.css.animation.bottomTopOut);
+				self.classList.add(m_props.css.animation.bottomTopIn);
+			}
+
+			if (m_props.parentTag !== "body") {
+				self.classList.add("m-toaster-static");
+			} else {
+				m_position = m_props.anchorOrigin;
+				m_size = m_props.size;
+				m_type = m_props.type;
+				self.classList.add(m_props.css.position[m_position.horizontal]);
+
+				if (m_position.vertical === "center") {
+					self.classList.add(m_props.css.position.centerV);
+				} else {
+					self.classList.add(m_props.css.position[m_position.vertical]);
+				}
+
+				if (m_size) {
+					self.classList.add(m_props.css.size[m_size]);
+				}
+			}
+
+			if (m_type) {
+				self.classList.add(m_props.css.type[m_type]);
+			}
+
+			m_props.open ? (self.style.display = "flex") : (self.style.display = "none");
 		}
 
 		function addIcon(icon) {
@@ -126,9 +182,60 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 
 		function close() {
 			if (m_open) {
-				ui.d.remove(self);
-				m_open = false;
+				if (m_props.animation.name) {
+					closeAnimation();
+				} else {
+					if (m_props.persist) {
+						self.style.display = "none";
+						m_open = false;
+					} else {
+						ui.d.remove(self);
+						m_open = false;
+					}
+				}
 			}
+
+			if (!m_open) {
+				if (m_props.persist) {
+					if (m_props.animation.name) {
+						closeAnimation();
+					} else {
+						self.style.display = "none";
+					}
+				}
+
+				if (m_props.animation.name) {
+					closeAnimation();
+				}
+			}
+		}
+
+		function closeAnimation() {
+			if (m_props.animation.name === "top-bottom") {
+				self.classList.remove(m_props.css.animation.topBottomIn);
+				self.classList.add(m_props.css.animation.topBottomOut);
+			}
+
+			if (m_props.animation.name === "bottom-top") {
+				self.classList.remove(m_props.css.animation.bottomTopIn);
+				self.classList.add(m_props.css.animation.bottomTopOut);
+			}
+
+			const animationName = window.getComputedStyle(self).getPropertyValue("animation-name");
+
+			self.addEventListener("animationend", function handler(event) {
+				if (event.animationName === animationName) {
+					if (m_props.persist) {
+						self.style.display = "none";
+						m_open = false;
+					} else {
+						ui.d.remove(self);
+						m_open = false;
+					}
+
+					self.removeEventListener("animationend", handler);
+				}
+			});
 		}
 
 		function setupComplete() {
@@ -140,6 +247,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 		function configure(customProps = {}) {
 			return new Promise((resolve) => {
 				m_props = {
+					open: true,
 					parentTag: "body",
 					closeButton: true,
 					button: { text: "" },
@@ -147,6 +255,12 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 					theme: "default",
 					tag: "default",
 					anchorOrigin: { horizontal: "center", vertical: "top" },
+					distanceXVar: "--m-toaster-distance-x",
+					distanceYVar: "--m-toaster-distance-y",
+					animationDistanceVar: "--m-toaster-animation-distance",
+					animationDurationVar: "--m-toaster-animation-duration",
+					animation: { distance: "100%", duration: "0.3s" },
+					distance: { x: "1.5rem", y: "1.5rem" },
 				};
 				m_props = ui.utils.extend(true, m_props, customProps);
 				m_parentTag = ui.d.getTag(m_props.parentTag);
