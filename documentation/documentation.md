@@ -22,39 +22,41 @@
 
 ### Table of Contents
 
-1. [Button](#button)
-2. [ButtonSVG](#buttonsvg)
-3. [ButtonGroup](#buttongroup)
-4. [Calendar](#calendar)
-5. [Card](#card)
-5. [Combobox](#combobox)
-6. [Checkbox](#checkbox)
-7. [CheckboxGroup](#checkboxgroup)
-8. [DatePicker](#datepicker)
-9. [Dialog](#dialog)
-10. [DragDrop](#dragdrop)
-11. [Draggable](#draggable)
-12. [Dropdown](#dropdown)
-13. [FileChooser](#filechooser)
-14. [Grid](#grid)
-15. [Input](#input)
-16. [Listbox](#listbox)
-17. [ListMenu](#listmenu)
-17. [MapBox](#mapbox)
-18. [Percentage](#percentage)
-19. [Radio](#radio)
-20. [RadioGroup](#radiogroup)
-21. [Rating](#rating)
-22. [Search](#search)
-23. [Slideout](#slideout)
-24. [Slider](#slider)
-25. [Switch](#switch)
-26. [Tab](#tab)
-27. [Textarea](#textarea)
-28. [TimePicker](#timepicker)
-29. [Toaster](#toaster)
-29. [TreeView](#treeview)
-30. [VideoPlayer](#videoplayer)
+- [Button](#button)
+- [ButtonSVG](#buttonsvg)
+- [ButtonGroup](#buttongroup)
+- [Calendar](#calendar)
+- [Card](#card)
+- [Checkbox](#checkbox)
+- [CheckboxGroup](#checkboxgroup)
+- [Combobox](#combobox)
+- [DatePicker](#datepicker)
+- [Dialog](#dialog)
+- [DragDrop](#dragdrop)
+- [Draggable](#draggable)
+- [Dropdown](#dropdown)
+- [FileChooser](#filechooser)
+- [Grid](#grid)
+- [Input](#input)
+- [Listbox](#listbox)
+- [ListMenu](#listmenu)
+- [MapBox](#mapbox)
+- [Percentage](#percentage)
+- [Pagination](#pagination)
+- [Radio](#radio)
+- [RadioGroup](#radiogroup)
+- [Rating](#rating)
+- [Search](#search)
+- [Slideout](#slideout)
+- [Slider](#slider)
+- [Switch](#switch)
+- [Tab](#tab)
+- [Textarea](#textarea)
+- [Toaster](#toaster)
+- [Tooltip](#tooltip)
+- [TimePicker](#timepicker)
+- [TreeView](#treeview)
+- [VideoPlayer](#videoplayer)
 
 ## Button
 
@@ -746,34 +748,65 @@ The `FileChooser` class is registered as a custom element using `customElements.
 
 ## Input
 
-* **Purpose**: Provides a basic input field with support for icons, labels, clear buttons and validation.
-* **Public Properties (m\_props):**
-    * `tag` (string): Defines the tag set.
-    * `theme` (string): Defines the theme.
-    * `parentTag` (HTMLElement): Parent element.
-    * `name` (string): The input name attribute.
-    * `value` (string): Initial input value.
-    * `labelText` (string): Label text for the input.
-    * `icon` (Object or Array): Icon configuration, can specify the `class`, `size`, `position`, and other `attributes`.
-    * `required` (boolean):  Marks the field as required and shows an error if not completed.
-    * `requiredText` (string):  The error text to display if the required input is not completed.
-    * `enableClear` (boolean): Shows or hides the clear button.
-    * `onBlur` (Function): Handler for when the input loses focus.
-    * `onComplete` (Function): Callback after setup is complete.
-* **Public Methods:**
-    * `setup(props)`: Configures the input.
-    * `clear()`: Clears the input value.
-    * `value(context)`: Gets or sets the input's value.
-    * `setAttr(context)`: Sets additional HTML attributes on the input tag.
-    * `showRequired()`: Shows the required field indicator on the input.
-    * `commitDataChange()`:  Used to reset a data-changed flag.
-* **Private Functions:**
-    * `setupDOM()`: Creates the DOM elements for the input.
-    * `insertIcon()`: Creates the DOM elements for icons in the input.
-    * `handleOnBlur()`: Manages blur events on the input.
-    * `validate()`: Handles validating the input and displaying errors.
-* **Key Features:** Supports clearable inputs, icons, and labels. It includes built-in validation and can show a
-  required field indicator.
+The `Input` component, which extends `HTMLElement`, provides a customizable input field with validation, icons, and
+buttons.
+
+**Public Properties (m_props):**
+
+* `tag` (string): Defines the tag set to use, default is "default".
+* `theme` (string): Defines the theme, default is "default".
+* `parentTag` (HTMLElement): The parent element where the input will mount.
+* `name` (string): The name attribute for the input, defaults to a random string.
+* `value` (string): Initial value of the input.
+* `labelText` (string): Label text for the input.
+* `icon` (Object|Array): Configuration for one or more icons:
+    * `attr` (Object): Icon attributes including `class`.
+    * `size` (string): Icon size class.
+    * `position` (string): Position of icon ('left'|'right').
+* `hidden` (boolean): Whether the input is hidden.
+* `required` (boolean): Whether the input is required.
+* `requiredText` (string): Error message for required validation, default "This is a required field."
+* `invalidInput` (string): Error message for invalid input, default "Invalid input."
+* `enableClear` (boolean): Shows a clear button.
+* `enableLeftButton` (boolean): Shows a left button.
+* `validate` (Object): Validation configuration:
+    * `show` (boolean): Show validation messages, default true.
+    * `onStart` (boolean): Validate on start.
+    * `types` (Array): Array of validation rules.
+* `onBlur` (Function): Blur event handler.
+* `onChange` (Function): Change event handler.
+* `onKeyup` (Function): Keyup event handler.
+* `onClear` (Function): Clear button click handler.
+* `onDataValidationChange` (Function): Validation state change handler.
+
+**Public Methods:**
+
+* `setup(props)`: Configures the input.
+* `clear()`: Clears the input value.
+* `clearButton()`: Returns the clear button instance.
+* `dataChanged()`: Returns if data has changed.
+* `getIconTagById(id)`: Returns an icon tag by ID.
+* `getTag()`: Returns the input element.
+* `isValid()`: Returns validation state.
+* `leftButton()`: Returns the left button instance.
+* `required()`: Returns if input is required.
+* `setAttr(context)`: Sets HTML attributes on the input.
+* `value(context)`: Gets or sets the input value.
+
+**Private Functions:**
+
+* `configure(customProps)`: Sets initial configuration.
+* `setupDOM()`: Creates the DOM structure.
+* `insertIcon()`: Adds icons to the input.
+* `installClearInput()`: Sets up the clear button.
+* `installLeftButton()`: Sets up the left button.
+* `validate()`: Performs validation.
+* `handleOnBlur()`: Handles blur events.
+* `handleOnChange()`: Handles change events.
+* `handleOnKeyup()`: Handles keyup events.
+* `setupComplete()`: Handles setup completion tasks.
+
+The `Input` class is registered as a custom element using `customElements.define`.
 
 ## Listbox
 
@@ -1096,29 +1129,56 @@ The `FileChooser` class is registered as a custom element using `customElements.
 
 ## Toaster
 
-* **Purpose:** Displays temporary messages or notifications.
-* **Public Properties (m\_props):**
-    * `tag` (string): Defines tag set.
-    * `theme` (string): Defines the theme.
-    * `parentTag` (HTMLElement): Parent element, defaults to 'body'.
-    * `message` (string): The message to display.
-    * `type` (string): Type of toast ('success'|'error'|'warning'|'info').
-    * `position` (Object): Toast position (`vertical` and `horizontal`).
-    * `autoHideDuration` (number): Auto-hide delay in milliseconds.
-    * `anchorOrigin` (Object): Position relative to an anchor element.
-    * `closeButton` (boolean): Shows the close button, default is `true`.
-    * `onClose` (Function): Handler for when the toast is closed.
-    * `size` (string): Size of the toast.
-    * `onComplete` (Function): Callback after setup is complete.
-* **Public Methods:**
-    * `setup(props)`: Configures the toaster.
-    * `close()`:  Closes the toaster.
-* **Private Functions:**
-    * `setupDOM()`: Creates the DOM elements for the toaster.
-    * `installCloseButton()`: Creates the close button.
-    * `addIcon()`: Adds an icon to the toaster based on its type.
-* **Key Features:**  Displays temporary messages, supports different types (success, error, etc), positions, auto-hide,
-  and close button.
+The `Toaster` component, which extends `HTMLElement`, displays temporary notification messages.
+
+**Public Properties (m_props):**
+
+* `tag` (string): Defines the tag set to use, default is "default".
+* `theme` (string): Defines the theme, default is "default".
+* `parentTag` (HTMLElement): Parent element, defaults to "body".
+* `message` (string): The message to display.
+* `type` (string): Type of toast ('success'|'error'|'warning'|'info').
+* `open` (boolean): Initial visibility state, default true.
+* `closeButton` (boolean): Shows close button, default true.
+* `persist` (boolean): Keep the toaster in DOM after closing.
+* `anchorOrigin` (Object): Position configuration:
+    * `horizontal` (string): Horizontal position ('left'|'center'|'right'), default "center".
+    * `vertical` (string): Vertical position ('top'|'center'|'bottom'), default "top".
+* `animation` (Object): Animation configuration:
+    * `name` (string): Animation name ('top-bottom'|'bottom-top').
+    * `distance` (string): Animation distance, default "100%".
+    * `duration` (string): Animation duration, default "0.3s".
+* `distance` (Object): Distance from edges:
+    * `x` (string): Horizontal distance, default "1.5rem".
+    * `y` (string): Vertical distance, default "1.5rem".
+* `onClose` (Function): Close event handler.
+* `onComplete` (Function): Setup completion callback.
+
+**Public Methods:**
+
+* `setup(props)`: Configures the toaster.
+* `close()`: Closes the toaster.
+* `button()`: Returns the close button instance.
+* `getParentTag()`: Returns the parent element.
+* `getBodyTag()`: Returns the body element.
+* `getMessage()`: Returns the current message.
+* `getButtonContainer()`: Returns the button container.
+* `getIconList()`: Returns the list of icons.
+* `autoHideDuration()`: Returns auto-hide duration.
+* `open()`: Returns open state.
+* `restart(context)`: Restarts the toaster with new configuration.
+
+**Private Functions:**
+
+* `configure(customProps)`: Sets initial configuration.
+* `setupDOM()`: Creates the DOM structure.
+* `setupStyles()`: Sets up CSS custom properties and classes.
+* `addIcon()`: Adds an icon to the toaster.
+* `installCloseButton()`: Sets up the close button.
+* `closeAnimation()`: Handles closing animation.
+* `setupComplete()`: Handles setup completion tasks.
+
+The `Toaster` class is registered as a custom element using `customElements.define`.
 
 ## Tooltip
 

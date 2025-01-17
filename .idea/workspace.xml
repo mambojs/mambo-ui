@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="" />
+    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/documentation.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/documentation.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +57,7 @@
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/toaster-animation&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;documentation/add-change-log&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/dist/0.0.3&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -87,6 +90,7 @@
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\VideoPlayer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui" />
       <recent name="C:\Users\Daniela\Desktop\Proyectos\mambo-ui\src\ui\components\ListMenu\story" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\public\css" />
@@ -213,6 +217,9 @@
       <workItem from="1736900878201" duration="3120000" />
       <workItem from="1736962275172" duration="17624000" />
       <workItem from="1737047680204" duration="3863000" />
+      <workItem from="1737083831819" duration="784000" />
+      <workItem from="1737133597918" duration="5278000" />
+      <workItem from="1737139134104" duration="683000" />
     </task>
     <servers />
   </component>

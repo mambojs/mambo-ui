@@ -33,6 +33,7 @@
     "babel-eslint": "^10.1.0",
     "esbuild": "^0.14.32",
     "eslint": "^9.16.0",
+    "git-cliff": "^2.7.0",
     "globals": "^15.13.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
