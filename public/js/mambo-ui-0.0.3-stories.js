@@ -1087,26 +1087,53 @@ function storyInput(selectedStory) {
     };
     ui.input(config);
   }
+  const togglePasswordVisibility = (context, showPassword) => {
+    context.Input.setAttr({ type: showPassword ? "text" : "password" });
+    context.Button.getTag().classList.toggle("fa-eye", showPassword);
+    context.Button.getTag().classList.toggle("fa-eye-slash", !showPassword);
+  };
   function inputWithLeftButton() {
     const config = {
       parentTag: selectedStory.parentTag,
-      value: "My value",
       enableClear: false,
       enableLeftButton: true,
+      validate: {
+        show: false,
+        types: [
+          {
+            required: {
+              message: "Password is required"
+            }
+          },
+          {
+            custom: {
+              validator: (value) => value.length >= 8,
+              message: "Enter at least 8 characters"
+            }
+          },
+          {
+            custom: {
+              validator: (value) => /[A-Z]/.test(value),
+              message: "Enter at least one uppercase letter"
+            }
+          },
+          {
+            custom: {
+              validator: (value) => /[0-9]/.test(value),
+              message: "Enter at least one number"
+            }
+          }
+        ]
+      },
+      required: true,
       labelText: "Password",
-      onMouseDown: (context) => {
-        context.Input.setAttr({ type: "text" });
-        context.Button.getTag().classList.toggle("fa-eye", true);
-        context.Button.getTag().classList.toggle("fa-eye-slash", false);
-      },
-      onMouseUp: (context) => {
-        context.Input.setAttr({ type: "password" });
-        context.Button.getTag().classList.toggle("fa-eye-slash", true);
-        context.Button.getTag().classList.toggle("fa-eye", false);
-      },
-      onComplete: (context) => {
-        context.Input.setAttr({ type: "password" });
-      }
+      onMouseDown: (context) => togglePasswordVisibility(context, true),
+      onTouchStart: (context) => togglePasswordVisibility(context, true),
+      onMouseUp: (context) => togglePasswordVisibility(context, false),
+      onTouchEnd: (context) => togglePasswordVisibility(context, false),
+      onKeyup: (context) => console.log(context.Input.isValid()),
+      onDataValidationChange: (context) => console.log(context.errorMessage),
+      onComplete: (context) => context.Input.setAttr({ type: "password" })
     };
     ui.input(config);
   }
@@ -1114,6 +1141,23 @@ function storyInput(selectedStory) {
     const config = {
       parentTag: selectedStory.parentTag,
       labelText: "Email",
+      validate: {
+        types: [
+          {
+            required: {
+              message: "Email field is required"
+            }
+          },
+          {
+            custom: {
+              validator: (value) => {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+              },
+              message: "Please enter a valid email"
+            }
+          }
+        ]
+      },
       icon: [
         {
           attr: {
@@ -1126,14 +1170,13 @@ function storyInput(selectedStory) {
       tags: {
         input: {
           prop: {
-            placeholder: "Ingresa tu email"
+            placeholder: "Enter your email"
           }
         }
       },
       required: true,
-      onBlur: ({ Input }) => {
-        Input.showRequired();
-      }
+      onKeyup: (context) => console.log(context.Input.isValid()),
+      onDataValidationChange: (context) => console.log(context.errorMessage)
     };
     ui.input(config);
   }
@@ -1895,7 +1938,7 @@ function storyToaster(selectedStory) {
 										<span style="font-size: var(--m-font-size-m);"> Titulo: </span>
 										<span>Mambo Toaster + Mambo Button</span>
 									</div>
-									<mambo-button style="padding-left: 1rem;" id='btn-undo-mambo-button'></mambo-button>`;
+									<mambo-button style="padding-left: 1rem; pointer-events: auto;" id='btn-undo-mambo-button'></mambo-button>`;
           const buttonUndo = document.getElementById("btn-undo-mambo-button");
           const timeOut = setTimeout(() => {
             context.Toaster.close();
@@ -1917,18 +1960,19 @@ function storyToaster(selectedStory) {
     }
   };
   ui.button(configButton);
-  const variants = [
-    { h: "left", v: "top", type: "info", size: "small" },
-    { h: "center", v: "top", type: "success", size: "medium" },
-    { h: "right", v: "top", type: "error", size: "large" },
-    { h: "left", v: "center", type: "warning", size: "small" },
-    { h: "center", v: "center", type: "info", size: "medium" },
-    { h: "right", v: "center", type: "success", size: "large" },
-    { h: "left", v: "bottom", type: "error", size: "small" },
-    { h: "center", v: "bottom", type: "warning", size: "medium" },
-    { h: "right", v: "bottom", type: "success", size: "large" }
+  const normalVariants = [{ h: "center", v: "top", type: "success", size: "medium", animation: "top-bottom" }];
+  const persistentVariants = [
+    { h: "left", v: "top", type: "info", size: "small", animation: "top-bottom" },
+    { h: "center", v: "top", type: "success", size: "medium", animation: "top-bottom" },
+    { h: "right", v: "top", type: "error", size: "large", animation: "top-bottom" },
+    { h: "left", v: "center", type: "warning", size: "small", animation: "top-bottom" },
+    { h: "center", v: "center", type: "info", size: "medium", animation: "top-bottom" },
+    { h: "right", v: "center", type: "success", size: "large", animation: "top-bottom" },
+    { h: "left", v: "bottom", type: "error", size: "small", animation: "bottom-top" },
+    { h: "center", v: "bottom", type: "warning", size: "medium", animation: "bottom-top" },
+    { h: "right", v: "bottom", type: "success", size: "large", animation: "bottom-top" }
   ];
-  variants.forEach((variant) => {
+  normalVariants.forEach((variant) => {
     const config = {
       text: `Toaster ${variant.h}-${variant.v}`,
       parentTag: selectedStory.parentTag,
@@ -1941,16 +1985,17 @@ function storyToaster(selectedStory) {
         let toasterConfig = {
           closeButton: true,
           anchorOrigin: { horizontal: variant.h, vertical: variant.v },
-          open: true,
           message: variant.size === "small" ? `<div style="display: flex; flex-direction: column;">
-							   <span style="font-size: 0.85rem; font-weight: 400;">Toaster: ${variant.h}-${variant.v}</span>
-							    </div>` : `<div style="display: flex; flex-direction: column;">
-								 <span style="font-size: 1rem; font-weight: 600;">Title:</span>
-								 <span style="font-size: 0.85rem; font-weight: 400;">toaster: ${variant.h}-${variant.v}</span>
-							    </div>`,
-          autoHideDuration: 5e3,
+	 						   <span style="font-size: 0.85rem; font-weight: 400;">Toaster: ${variant.h}-${variant.v}</span>
+	 						    </div>` : `<div style="display: flex; flex-direction: column;">
+	 							 <span style="font-size: 1rem; font-weight: 600;">Title:</span>
+	 							 <span style="font-size: 0.85rem; font-weight: 400;">toaster: ${variant.h}-${variant.v}</span>
+	 						    </div>`,
+          autoHideDuration: 1e3,
           type: variant.type,
           size: variant.size,
+          animation: { name: variant.animation },
+          persist: false,
           onClose: (context) => {
             context.Toaster.close();
             delete activeToasters[`${variant.h}-${variant.v}`];
@@ -1966,6 +2011,74 @@ function storyToaster(selectedStory) {
       }
     };
     ui.button(config);
+  });
+  let toasterInstance = null;
+  let currentTimeout = null;
+  const createToaster = (context) => {
+    const baseConfig = {
+      message: `<div style="display: flex; flex-direction: column;">
+								<span style="font-size: 0.85rem; font-weight: 400;">Persistent Toaster Created!</span>
+								</div>`,
+      closeButton: true,
+      autoHideDuration: 1e3,
+      open: context.open,
+      persist: true,
+      distance: { y: "1rem", x: "0rem" },
+      onClose: (context2) => {
+        context2.Toaster.close();
+        if (currentTimeout) {
+          clearTimeout(currentTimeout);
+          currentTimeout = null;
+        }
+      },
+      onComplete: (context2) => {
+        currentTimeout = setTimeout(() => {
+          context2.Toaster.close();
+          currentTimeout = null;
+        }, context2.Toaster.autoHideDuration());
+      }
+    };
+    toasterInstance = ui.toaster(baseConfig);
+  };
+  createToaster({ open: true });
+  persistentVariants.forEach((variant) => {
+    const buttonConfig = {
+      text: `Persistent Toaster ${variant.h}-${variant.v}`,
+      parentTag: selectedStory.parentTag,
+      onClick: async () => {
+        if (currentTimeout) {
+          clearTimeout(currentTimeout);
+          currentTimeout = null;
+        }
+        if (!toasterInstance) {
+          createToaster();
+        } else {
+          const toasterConfig = {
+            closeButton: true,
+            anchorOrigin: { horizontal: variant.h, vertical: variant.v },
+            message: variant.size === "small" ? `<div style="display: flex; flex-direction: column;">
+                           <span style="font-size: 0.85rem; font-weight: 400;">Toaster: ${variant.h}-${variant.v}</span>
+                           </div>` : `<div style="display: flex; flex-direction: column;">
+                             <span style="font-size: 1rem; font-weight: 600;">Title:</span>
+                             <span style="font-size: 0.85rem; font-weight: 400;">toaster: ${variant.h}-${variant.v}</span>
+                           </div>`,
+            autoHideDuration: 1e3,
+            type: variant.type,
+            size: variant.size,
+            animation: { name: variant.animation },
+            persist: true,
+            onComplete: (context) => {
+              currentTimeout = setTimeout(() => {
+                context.Toaster.close();
+                currentTimeout = null;
+              }, context.Toaster.autoHideDuration());
+            }
+          };
+          await toasterInstance.restart(toasterConfig);
+        }
+      }
+    };
+    ui.button(buttonConfig);
   });
 }
 function storyTooltip(selectedStory) {

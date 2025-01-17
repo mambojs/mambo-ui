@@ -555,8 +555,8 @@ ui.defaultTags = {
     self: { name: "mambo-input" },
     container: { name: "mambo-input-container" },
     input: { name: "input", attr: { type: "text" } },
-    iconRequired: { name: "i" },
-    textRequired: { name: "mambo-input-text-required" }
+    errorIcon: { name: "i" },
+    errorText: { name: "mambo-input-error-text" }
   },
   listbox: {
     self: { name: "mambo-listbox" },
@@ -954,8 +954,8 @@ ui.defaultTheme = {
     label: "m-input-label",
     self: "m-input-self",
     icon: "m-input-icon",
-    iconRequired: "m-input-icon-required fa-solid fa-exclamation-triangle hidden",
-    textRequired: "m-input-text-required hidden"
+    errorIcon: "m-input-error-icon fa-solid fa-exclamation-triangle hidden",
+    errorText: "m-input-error-text hidden"
   },
   listbox: {
     container: "m-listbox-container",
@@ -1168,6 +1168,12 @@ ui.defaultTheme = {
       right: "m-toaster-right",
       top: "m-toaster-top",
       bottom: "m-toaster-bottom"
+    },
+    animation: {
+      topBottomIn: "m-toaster-slide-in-top",
+      bottomTopIn: "m-toaster-slide-in-bottom",
+      topBottomOut: "m-toaster-slide-out-top",
+      bottomTopOut: "m-toaster-slide-out-bottom"
     }
   },
   tooltip: {
@@ -1383,7 +1389,9 @@ ui.class.Button = class Button extends HTMLElement {
           mouseleave: () => {
             mouseLeaveOverButton();
             mouseLeaveOverImage();
-          }
+          },
+          touchstart: handleTouchStart,
+          touchend: handleTouchEnd
         };
         m_buttonTag = ui.d.createTag(tagConfig);
         if (m_props.img) {
@@ -1490,6 +1498,28 @@ ui.class.Button = class Button extends HTMLElement {
         m_buttonTag.classList.remove(m_props.css.pressed);
         if (m_props.onMouseUp) {
           m_props.onMouseUp({
+            Button: self,
+            ev
+          });
+        }
+      }
+    }
+    function handleTouchStart(ev) {
+      if (m_enable) {
+        m_buttonTag.classList.add(m_props.css.pressed);
+        if (m_props.onTouchStart) {
+          m_props.onTouchStart({
+            Button: self,
+            ev
+          });
+        }
+      }
+    }
+    function handleTouchEnd(ev) {
+      if (m_enable) {
+        m_buttonTag.classList.remove(m_props.css.pressed);
+        if (m_props.onTouchEnd) {
+          m_props.onTouchEnd({
             Button: self,
             ev
           });
@@ -4495,27 +4525,28 @@ ui.class.Input = class Input extends HTMLElement {
     super();
     const self = this;
     const m_iconList = [];
-    let m_required;
-    let m_parentTag;
-    let m_inputTag;
-    let m_labelTag;
     let m_clearButton;
-    let m_leftButton;
-    let m_props;
-    let m_dataChanged;
     let m_containerTag;
-    let m_requiredTextTag;
-    let m_iconRequiredTag;
+    let m_dataChanged;
+    let m_errorTextTag;
+    let m_errorIconTag;
+    let m_inputTag;
+    let m_isValid;
+    let m_labelTag;
+    let m_leftButton;
+    let m_parentTag;
+    let m_props;
     this.commitDataChange = () => m_dataChanged = null;
     this.clear = clearInput;
     this.clearButton = () => m_clearButton;
     this.dataChanged = () => m_dataChanged;
     this.getIconTagById = getIconTagById;
     this.getTag = () => m_inputTag;
+    this.isValid = () => m_isValid;
     this.leftButton = () => m_leftButton;
     this.setup = setup;
     this.setAttr = setAttribute;
-    this.showRequired = showRequired;
+    this.required = () => m_props.required;
     this.value = value;
     if (props) {
       setup(props);
@@ -4566,17 +4597,15 @@ ui.class.Input = class Input extends HTMLElement {
         if (m_props?.validate?.onStart) {
           validate();
         }
-        installLeftButton();
-        installClearInput();
-        if (m_props.required) {
-          m_iconRequiredTag = ui.d.createTag({ ...m_props.tags.iconRequired, class: m_props.css.iconRequired });
-          m_iconList.push(m_iconRequiredTag);
-          m_containerTag.appendChild(m_iconRequiredTag);
-          m_requiredTextTag = ui.d.createTag({ ...m_props.tags.textRequired, class: m_props.css.textRequired });
-          if (m_props.requiredText)
-            m_requiredTextTag.innerText = m_props.requiredText;
-          self.appendChild(m_requiredTextTag);
-        }
+        installLeftButton().then(() => installClearInput()).then(() => {
+          if (m_props.required) {
+            m_errorIconTag = ui.d.createTag({ ...m_props.tags.errorIcon, class: m_props.css.errorIcon });
+            m_iconList.push(m_errorIconTag);
+            m_containerTag.appendChild(m_errorIconTag);
+            m_errorTextTag = ui.d.createTag({ ...m_props.tags.errorText, class: m_props.css.errorText });
+            self.appendChild(m_errorTextTag);
+          }
+        });
         resolve();
       });
     }
@@ -4637,33 +4666,29 @@ ui.class.Input = class Input extends HTMLElement {
     }
     function installLeftButton() {
       return new Promise((resolve) => {
-        if (m_props.enableLeftButton) {
-          const buttonConfig = {
-            ...m_props.leftButton,
-            css: m_props.css.leftButton,
-            parentTag: m_containerTag,
-            onComplete: resolve,
-            onMouseDown: (context) => {
-              if (m_props.onMouseDown) {
-                m_props.onMouseDown({
-                  Input: self,
-                  Button: context.Button,
-                  ev: context.ev
-                });
-              }
-            },
-            onMouseUp: (context) => {
-              if (m_props.onMouseUp) {
-                m_props.onMouseUp({
-                  Input: self,
-                  Button: context.Button,
-                  ev: context.ev
-                });
-              }
-            }
-          };
-          m_leftButton = ui.button(buttonConfig);
+        if (!m_props.enableLeftButton) {
+          return resolve();
         }
+        const eventHandlers = ["onMouseDown", "onMouseUp", "onTouchStart", "onTouchEnd"];
+        const buttonConfig = {
+          ...m_props.leftButton,
+          css: m_props.css.leftButton,
+          parentTag: m_containerTag,
+          onComplete: resolve
+        };
+        eventHandlers.forEach((event) => {
+          const propHandler = m_props[event];
+          if (propHandler) {
+            buttonConfig[event] = (context) => {
+              propHandler({
+                Input: self,
+                Button: context.Button,
+                ev: context.ev
+              });
+            };
+          }
+        });
+        m_leftButton = ui.button(buttonConfig);
         resolve();
       });
     }
@@ -4705,6 +4730,8 @@ ui.class.Input = class Input extends HTMLElement {
       }
     }
     function validate(ev) {
+      let isValid = true;
+      let errorMessage = [];
       if (Array.isArray(m_props.validate?.types)) {
         m_props.validate.types.forEach((validate2) => {
           const keys = Object.keys(validate2);
@@ -4713,9 +4740,66 @@ ui.class.Input = class Input extends HTMLElement {
               case "minLength":
                 validateMinLength(validate2.minLength, ev);
                 break;
+              case "required":
+                if (!validateRequired(validate2.required)) {
+                  isValid = false;
+                  errorMessage.push(validate2.required.message || m_props.requiredText);
+                }
+                break;
+              case "custom":
+                if (!validateCustom(validate2.custom)) {
+                  isValid = false;
+                  errorMessage.push(validate2.custom.message || m_props.invalidInput);
+                }
+                break;
             }
           });
         });
+      }
+      if (m_props.onDataValidationChange) {
+        m_props.onDataValidationChange({
+          Input: self,
+          ev,
+          errorMessage
+        });
+      }
+      showValidationResult(isValid, errorMessage);
+      m_isValid = isValid;
+      return isValid;
+    }
+    function validateRequired() {
+      return m_inputTag.value.trim() !== "";
+    }
+    function validateCustom(config) {
+      if (typeof config.validator === "function") {
+        return config.validator(m_inputTag.value);
+      }
+      return true;
+    }
+    function showValidationResult(isValid, messages) {
+      if (!isValid && messages.length > 0) {
+        if (m_props.validate.show) {
+          m_errorTextTag.innerHTML = "";
+          messages.forEach((message) => {
+            const messageElement = ui.d.createTag({
+              name: "div",
+              text: message
+            });
+            m_errorTextTag.appendChild(messageElement);
+          });
+          m_errorTextTag.style.display = "block";
+        }
+        if (m_errorIconTag) {
+          m_errorIconTag.classList.remove("hidden");
+        }
+      } else {
+        if (m_errorTextTag) {
+          m_errorTextTag.style.display = "none";
+          m_errorTextTag.innerHTML = "";
+        }
+        if (m_errorIconTag) {
+          m_errorIconTag.classList.add("hidden");
+        }
       }
     }
     function validateMinLength(config, ev) {
@@ -4748,15 +4832,6 @@ ui.class.Input = class Input extends HTMLElement {
     function getIconTagById(id) {
       return m_iconList.find((icon) => icon.id === id);
     }
-    function showRequired() {
-      if (m_iconRequiredTag && m_props.required && m_inputTag.value === "") {
-        m_iconRequiredTag.classList.remove("hidden");
-        m_requiredTextTag.classList.remove("hidden");
-      } else {
-        m_iconRequiredTag.classList.add("hidden");
-        m_requiredTextTag.classList.add("hidden");
-      }
-    }
     function setupComplete() {
       if (m_props.onComplete) {
         m_props.onComplete({ Input: self });
@@ -4771,7 +4846,12 @@ ui.class.Input = class Input extends HTMLElement {
           clearButton: { text: "" },
           leftButton: { text: "" },
           icon: [],
-          requiredText: "This is a required field."
+          requiredText: "This is a required field.",
+          invalidInput: "Invalid input.",
+          validate: {
+            show: true,
+            types: []
+          }
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
@@ -7451,6 +7531,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
     this.getIconList = () => m_iconList;
     this.autoHideDuration = () => m_autoHideDuration;
     this.open = () => m_open;
+    this.restart = restart;
     this.setup = setup;
     if (props) {
       setup(props);
@@ -7472,25 +7553,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
         m_buttonContainer = ui.d.createTag({ ...m_props.tags.buttonContainer, class: m_props.css.buttonContainer });
         installCloseButton();
         self.classList.add(m_props.css.self);
-        if (m_props.parentTag !== "body") {
-          self.classList.add("m-toaster-static");
-        } else {
-          m_position = m_props.anchorOrigin;
-          m_size = m_props.size;
-          m_type = m_props.type;
-          self.classList.add(m_props.css.position[m_position.horizontal]);
-          if (m_position.vertical === "center") {
-            self.classList.add(m_props.css.position.centerV);
-          } else {
-            self.classList.add(m_props.css.position[m_position.vertical]);
-          }
-          if (m_size) {
-            self.classList.add(m_props.css.size[m_size]);
-          }
-        }
-        if (m_type) {
-          self.classList.add(m_props.css.type[m_type]);
-        }
+        setupStyles();
         addIcon(m_props.css.icon[m_type]);
         m_message = m_props.message;
         m_bodyTag.innerHTML = m_props.message;
@@ -7499,6 +7562,65 @@ ui.class.Toaster = class Toaster extends HTMLElement {
         self.appendChild(m_buttonContainer);
         resolve();
       });
+    }
+    async function restart(context = {}) {
+      m_iconList.length = 0;
+      m_iconContainer.innerHTML = "";
+      m_props.open = context.open;
+      await configure(context);
+      self.classList.remove(m_props.css.position[m_position?.horizontal]);
+      self.classList.remove(m_props.css.position[m_position?.vertical]);
+      self.classList.remove(m_props.css.position.centerV);
+      if (m_type) {
+        self.classList.remove(m_props.css.type[m_type]);
+      }
+      if (m_size) {
+        self.classList.remove(m_props.css.size[m_size]);
+      }
+      m_autoHideDuration = m_props.autoHideDuration;
+      setupStyles();
+      addIcon(m_props.css.icon[m_type]);
+      m_message = m_props.message;
+      m_bodyTag.innerHTML = m_props.message;
+      if (m_props.onComplete) {
+        m_props.onComplete({ Toaster: self });
+      }
+    }
+    function setupStyles() {
+      self.style.setProperty(m_props.distanceXVar, `${m_props.distance.x}`);
+      self.style.setProperty(m_props.distanceYVar, `${m_props.distance.y}`);
+      self.style.setProperty(m_props.animationDistanceVar, `${m_props.animation.distance}`);
+      self.style.setProperty(m_props.animationDurationVar, `${m_props.animation.duration}`);
+      if (m_props.animation.name === "top-bottom") {
+        self.classList.remove(m_props.css.animation.topBottomOut);
+        self.classList.remove(m_props.css.animation.bottomTopOut);
+        self.classList.add(m_props.css.animation.topBottomIn);
+      }
+      if (m_props.animation.name === "bottom-top") {
+        self.classList.remove(m_props.css.animation.topBottomOut);
+        self.classList.remove(m_props.css.animation.bottomTopOut);
+        self.classList.add(m_props.css.animation.bottomTopIn);
+      }
+      if (m_props.parentTag !== "body") {
+        self.classList.add("m-toaster-static");
+      } else {
+        m_position = m_props.anchorOrigin;
+        m_size = m_props.size;
+        m_type = m_props.type;
+        self.classList.add(m_props.css.position[m_position.horizontal]);
+        if (m_position.vertical === "center") {
+          self.classList.add(m_props.css.position.centerV);
+        } else {
+          self.classList.add(m_props.css.position[m_position.vertical]);
+        }
+        if (m_size) {
+          self.classList.add(m_props.css.size[m_size]);
+        }
+      }
+      if (m_type) {
+        self.classList.add(m_props.css.type[m_type]);
+      }
+      m_props.open ? self.style.display = "flex" : self.style.display = "none";
     }
     function addIcon(icon) {
       const tagConfig = {
@@ -7533,9 +7655,53 @@ ui.class.Toaster = class Toaster extends HTMLElement {
     }
     function close() {
       if (m_open) {
-        ui.d.remove(self);
-        m_open = false;
+        if (m_props.animation.name) {
+          closeAnimation();
+        } else {
+          if (m_props.persist) {
+            self.style.display = "none";
+            m_open = false;
+          } else {
+            ui.d.remove(self);
+            m_open = false;
+          }
+        }
       }
+      if (!m_open) {
+        if (m_props.persist) {
+          if (m_props.animation.name) {
+            closeAnimation();
+          } else {
+            self.style.display = "none";
+          }
+        }
+        if (m_props.animation.name) {
+          closeAnimation();
+        }
+      }
+    }
+    function closeAnimation() {
+      if (m_props.animation.name === "top-bottom") {
+        self.classList.remove(m_props.css.animation.topBottomIn);
+        self.classList.add(m_props.css.animation.topBottomOut);
+      }
+      if (m_props.animation.name === "bottom-top") {
+        self.classList.remove(m_props.css.animation.bottomTopIn);
+        self.classList.add(m_props.css.animation.bottomTopOut);
+      }
+      const animationName = window.getComputedStyle(self).getPropertyValue("animation-name");
+      self.addEventListener("animationend", function handler(event) {
+        if (event.animationName === animationName) {
+          if (m_props.persist) {
+            self.style.display = "none";
+            m_open = false;
+          } else {
+            ui.d.remove(self);
+            m_open = false;
+          }
+          self.removeEventListener("animationend", handler);
+        }
+      });
     }
     function setupComplete() {
       if (m_props.onComplete) {
@@ -7545,13 +7711,20 @@ ui.class.Toaster = class Toaster extends HTMLElement {
     function configure(customProps = {}) {
       return new Promise((resolve) => {
         m_props = {
+          open: true,
           parentTag: "body",
           closeButton: true,
           button: { text: "" },
           closeText: "",
           theme: "default",
           tag: "default",
-          anchorOrigin: { horizontal: "center", vertical: "top" }
+          anchorOrigin: { horizontal: "center", vertical: "top" },
+          distanceXVar: "--m-toaster-distance-x",
+          distanceYVar: "--m-toaster-distance-y",
+          animationDistanceVar: "--m-toaster-animation-distance",
+          animationDurationVar: "--m-toaster-animation-duration",
+          animation: { distance: "100%", duration: "0.3s" },
+          distance: { x: "1.5rem", y: "1.5rem" }
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
