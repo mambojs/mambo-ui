@@ -92,6 +92,7 @@ ui.defaultTags = {
 		container: { name: "mambo-input-container" },
 		input: { name: "input", attr: { type: "text" } },
 		errorIcon: { name: "i" },
+		successIcon: { name: "i" },
 		errorText: { name: "mambo-input-error-text" },
 	},
 	listbox: {

@@ -2,8 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.0.4]
 
+### 🚀 Features
+
+- [Documentation] Add git-cliff to create changelog.md and update documentation
+- [Input] new validation functions
 - [Changelog] Create Changelog.md file
 - [Toaster] Add animation to toaster component. Add persistent toaster option.
 - [Input] Implemented touch event support and adjusted required text size.

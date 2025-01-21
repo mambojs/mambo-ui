@@ -241,6 +241,7 @@ ui.defaultTheme = {
 		self: "m-input-self",
 		icon: "m-input-icon",
 		errorIcon: "m-input-error-icon fa-solid fa-exclamation-triangle hidden",
+		successIcon: "m-input-success-icon fa-solid fa-check hidden",
 		errorText: "m-input-error-text hidden",
 	},
 	listbox: {

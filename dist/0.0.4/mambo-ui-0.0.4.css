@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * @author Alejandro Sebastian Scotti
- * @version 0.0.3
+ * @version 0.0.4
  */
 
 * {
@@ -968,18 +968,6 @@
   font-size: 3rem;
 }
 
-.m-draggable {
-  position: absolute;
-  background-color: #000;
-  color: #fff;
-  min-width: 1rem;
-  min-height: 1rem;
-  border-radius: 1rem;
-  cursor: grab;
-  left: 50%;
-  top: 50%;
-}
-
 .m-dropdown-button {
   color: white;
   font-size: 1.2rem;
@@ -1016,6 +1004,18 @@
 
 .m-dropdown-container.m-open {
   display: block;
+}
+
+.m-draggable {
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  min-width: 1rem;
+  min-height: 1rem;
+  border-radius: 1rem;
+  cursor: grab;
+  left: 50%;
+  top: 50%;
 }
 
 .m-file-chooser-self {
@@ -1321,12 +1321,24 @@
   color: var(--m-error-color);
 }
 
+.m-input-success-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--m-success-color);
+}
+
+.m-input-success-icon.hidden,
 .m-input-error-icon.hidden {
   display: none;
 }
 
 .m-input-container:has(.m-input-error-icon:not(.hidden)) {
   border-color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-success-icon:not(.hidden)) {
+  border-color: var(--m-success-color);
 }
 
 .m-input-error-text {
@@ -1493,6 +1505,10 @@
   align-content: center;
   line-height: var(--m-line-height);
 }
+.m-html5player-player {
+  width: 100%;
+}
+
 .m-percentage-self {
   display: flex;
   width: 100%;
@@ -1517,10 +1533,6 @@
 
 .m-percentage-range-high {
   background-color: #00b300;
-}
-
-.m-html5player-player {
-  width: 100%;
 }
 
 .m-radio-container {

@@ -2,6 +2,7 @@ function storyInput(selectedStory) {
 	inputWithClearButton();
 	inputWithLeftButton();
 	inputWithIcon();
+	inputWithIconOnlyNumbers();
 
 	function inputWithClearButton() {
 		const config = {
@@ -30,6 +31,8 @@ function storyInput(selectedStory) {
 	};
 
 	function inputWithLeftButton() {
+		let visited = false;
+
 		const config = {
 			parentTag: selectedStory.parentTag,
 			enableClear: false,
@@ -68,15 +71,28 @@ function storyInput(selectedStory) {
 			onTouchStart: (context) => togglePasswordVisibility(context, true),
 			onMouseUp: (context) => togglePasswordVisibility(context, false),
 			onTouchEnd: (context) => togglePasswordVisibility(context, false),
-			onKeyup: (context) => console.log(context.Input.isValid()),
-			onDataValidationChange: (context) => console.log(context.errorMessage),
 			onComplete: (context) => context.Input.setAttr({ type: "password" }),
+			onKeyup: (context) => {
+				if (!visited) return;
+				context.Input.validate();
+				console.log("is valid?: ", context.Input.isValid());
+			},
+			onFocus: (context) => {
+				if (!visited) return;
+				context.Input.validate();
+			},
+			onBlur: (context) => {
+				if (!visited) visited = true;
+				context.Input.validate();
+			},
+			onDataValidationChange: (context) => console.log(context.errorMessage),
 		};
 
 		ui.input(config);
 	}
 
 	function inputWithIcon() {
+		let visited = false;
 		const config = {
 			parentTag: selectedStory.parentTag,
 			labelText: "Email",
@@ -114,10 +130,71 @@ function storyInput(selectedStory) {
 				},
 			},
 			required: true,
-			onKeyup: (context) => console.log(context.Input.isValid()),
+			onKeyup: (context) => {
+				if (!visited) return;
+				context.Input.validate();
+				console.log("is valid?: ", context.Input.isValid());
+			},
+			onFocus: (context) => {
+				if (!visited) return;
+				context.Input.validate();
+			},
+			onBlur: (context) => {
+				if (!visited) visited = true;
+				context.Input.validate();
+			},
 			onDataValidationChange: (context) => console.log(context.errorMessage),
 		};
 
 		ui.input(config);
+	}
+
+	function inputWithIconOnlyNumbers() {
+		const config = {
+			parentTag: selectedStory.parentTag,
+			labelText: "Secret Code",
+			validate: {
+				types: [
+					{
+						required: {
+							message: "Secrete Code is required",
+						},
+						custom: {
+							validator: (value) => value.length >= 8,
+							message: "Enter at least 8 characters",
+						},
+					},
+				],
+			},
+			icon: [
+				{
+					attr: {
+						class: "fa-regular fa-smile",
+					},
+					size: "small",
+					position: "left",
+				},
+			],
+			tags: {
+				input: {
+					prop: {
+						placeholder: "Enter only numbers",
+					},
+				},
+			},
+			required: true,
+			validateEvents: ["keyup", "keydown", "blur", "change", "focus"],
+			onDataValidationChange: (context) => console.log(context.errorMessage),
+			onKeydown: (context) => {
+				if (!/[0-9]/.test(context.ev.key) && context.ev.key.length === 1) {
+					context.ev.preventDefault();
+				}
+			},
+			onComplete: (context) => {
+				context.Input.focus();
+			},
+		};
+
+		const input = ui.input(config);
 	}
 }
