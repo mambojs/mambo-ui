@@ -82,6 +82,7 @@
   color: var(--m-error-color);
 }
 
+.m-input-success-icon.hidden,
 .m-input-error-icon.hidden {
   display: none;
   width: 1rem;
@@ -89,6 +90,29 @@
 
 .m-input-container:has(.m-input-error-icon:not(.hidden)) {
   border-color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-error-icon:not(.hidden)) .m-input-button {
+  color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-success-icon:not(.hidden)) .m-input-button {
+  color: var(--m-success-color);
+}
+
+.m-input-success-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--m-success-color);
+}
+
+.m-input-container:has(.m-input-error-icon:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-success-icon:not(.hidden)) {
+  border-color: var(--m-success-color);
 }
 
 .m-input-error-text {

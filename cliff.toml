@@ -30,8 +30,6 @@ body = """
 """
 # template for the changelog footer
 footer = """
-## [unreleased]
-
 - [Changelog] Create Changelog.md file
 - [Toaster] Add animation to toaster component. Add persistent toaster option.
 - [Input] Implemented touch event support and adjusted required text size.

@@ -16,12 +16,14 @@ ui.class.Input = class Input extends HTMLElement {
 		let m_leftButton;
 		let m_parentTag;
 		let m_props;
+		let m_successIconTag;
 
 		// Configure public methods
 		this.commitDataChange = () => (m_dataChanged = null);
 		this.clear = clearInput;
 		this.clearButton = () => m_clearButton;
 		this.dataChanged = () => m_dataChanged;
+		this.focus = focus;
 		this.getIconTagById = getIconTagById;
 		this.getTag = () => m_inputTag;
 		this.isValid = () => m_isValid;
@@ -30,6 +32,7 @@ ui.class.Input = class Input extends HTMLElement {
 		this.setAttr = setAttribute;
 		this.required = () => m_props.required;
 		this.value = value;
+		this.validate = validate;
 
 		if (props) {
 			setup(props);
@@ -56,12 +59,9 @@ ui.class.Input = class Input extends HTMLElement {
 					...m_props.tags.input,
 					class: m_props.css.input,
 					text: m_props.value,
-					event: {
-						blur: handleOnBlur,
-						change: handleOnChange,
-						keyup: handleOnKeyup,
-					},
+					event: eventHandlers,
 				};
+
 				tagConfig.attr.name = m_props.name;
 				tagConfig.attr.id = m_props.name;
 				m_inputTag = ui.d.createTag(tagConfig);
@@ -95,13 +95,17 @@ ui.class.Input = class Input extends HTMLElement {
 						if (m_props.required) {
 							m_errorIconTag = ui.d.createTag({ ...m_props.tags.errorIcon, class: m_props.css.errorIcon });
 							m_iconList.push(m_errorIconTag);
+							m_successIconTag = ui.d.createTag({ ...m_props.tags.successIcon, class: m_props.css.successIcon });
+							m_iconList.push(m_successIconTag);
+
 							m_containerTag.appendChild(m_errorIconTag);
+							m_containerTag.appendChild(m_successIconTag);
 							m_errorTextTag = ui.d.createTag({ ...m_props.tags.errorText, class: m_props.css.errorText });
 							self.appendChild(m_errorTextTag);
 						}
-					});
 
-				resolve();
+						resolve();
+					});
 			});
 		}
 
@@ -203,47 +207,66 @@ ui.class.Input = class Input extends HTMLElement {
 			});
 		}
 
-		function handleOnBlur(ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			validate(ev);
+		const eventHandlers = {
+			blur: (ev) => {
+				ev.stopPropagation();
+				if (m_props.validateEvents?.includes(ev.type)) validate(ev);
 
-			if (m_props.onBlur) {
-				m_props.onBlur({
-					Input: self,
-					value: m_inputTag.value,
-					ev: ev,
-				});
-			}
-		}
-
-		function handleOnChange(ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			validate(ev);
-
-			if (m_props.onChange) {
-				m_props.onChange({
-					Input: self,
-					value: m_inputTag.value,
-					ev: ev,
-				});
-			}
-		}
-
-		function handleOnKeyup(ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-			validate(ev);
-
-			if (m_props.onKeyup) {
-				m_props.onKeyup({
+				m_props.onBlur?.({
 					Input: self,
 					value: m_inputTag.value,
 					Button: m_clearButton,
-					ev: ev,
+					ev,
 				});
-			}
+			},
+			change: (ev) => {
+				ev.stopPropagation();
+				if (m_props.validateEvents?.includes(ev.type)) validate(ev);
+
+				m_props.onChange?.({
+					Input: self,
+					value: m_inputTag.value,
+					Button: m_clearButton,
+					ev,
+				});
+			},
+			keydown: (ev) => {
+				ev.stopPropagation();
+				if (m_props.validateEvents?.includes(ev.type)) validate(ev);
+
+				m_props.onKeydown?.({
+					Input: self,
+					value: m_inputTag.value,
+					Button: m_clearButton,
+					ev,
+				});
+			},
+			keyup: (ev) => {
+				ev.stopPropagation();
+				if (m_props.validateEvents?.includes(ev.type)) validate(ev);
+
+				m_props.onKeyup?.({
+					Input: self,
+					value: m_inputTag.value,
+					Button: m_clearButton,
+					ev,
+				});
+			},
+			focus: (ev) => {
+				ev.stopPropagation();
+				if (m_props.validateEvents?.includes(ev.type)) validate(ev);
+
+				m_props.onFocus?.({
+					Input: self,
+					value: m_inputTag.value,
+					Button: m_clearButton,
+					ev,
+				});
+			},
+		};
+
+		function focus(context = {}) {
+			if (m_inputTag) m_inputTag.focus(context);
 		}
 
 		function validate(ev) {
@@ -309,6 +332,7 @@ ui.class.Input = class Input extends HTMLElement {
 			if (!isValid && messages.length > 0) {
 				if (m_props.validate.show) {
 					m_errorTextTag.innerHTML = "";
+					m_errorTextTag.style.display = "block";
 
 					messages.forEach((message) => {
 						const messageElement = ui.d.createTag({
@@ -317,12 +341,11 @@ ui.class.Input = class Input extends HTMLElement {
 						});
 						m_errorTextTag.appendChild(messageElement);
 					});
-
-					m_errorTextTag.style.display = "block";
 				}
 
 				if (m_errorIconTag) {
 					m_errorIconTag.classList.remove("hidden");
+					m_successIconTag.classList.toggle("hidden", true);
 				}
 			} else {
 				if (m_errorTextTag) {
@@ -332,6 +355,7 @@ ui.class.Input = class Input extends HTMLElement {
 
 				if (m_errorIconTag) {
 					m_errorIconTag.classList.add("hidden");
+					m_successIconTag.classList.toggle("hidden", false);
 				}
 			}
 		}
