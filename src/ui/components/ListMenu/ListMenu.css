@@ -3,7 +3,6 @@
   flex-direction: column;
   width: 100%;
   cursor: pointer;
-  background-color: red;
 }
 
 .m-list-menu-wrapper {
@@ -21,7 +20,7 @@
 }
 
 .m-list-menu-wrapper.child-item {
-  background-color: #FFF0E9;
+  background-color: var(--m-gray-200);
 }
 
 .m-list-menu-body {

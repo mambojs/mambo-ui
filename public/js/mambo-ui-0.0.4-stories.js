@@ -1367,7 +1367,10 @@ function storyListMenu(selectedStory) {
     const config = {
       data,
       onSelect: (e) => console.log(e),
-      parentTag: selectedStory.parentTag
+      parentTag: selectedStory.parentTag,
+      onComplete: (context) => {
+        context.ListMenu.closeAllItems();
+      }
     };
     ui.listMenu(config);
   }

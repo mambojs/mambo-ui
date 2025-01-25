@@ -3,7 +3,6 @@
   flex-direction: column;
   width: 100%;
   cursor: pointer;
-  background-color: red;
 }
 
 .m-list-menu-wrapper {
@@ -14,14 +13,14 @@
   cursor: pointer;
   padding: var(--m-padding-m) var(--m-padding-xxxxl);
   gap: 1rem;
-  background-color: var(--m-gray-100);
+  background-color: var(--m-primary-50-color);
   border-right: 1px solid var(--m-gray-200);
   border-bottom: 1px solid var(--m-gray-400);
   border-left: 1px solid var(--m-gray-200);
 }
 
 .m-list-menu-wrapper.child-item {
-  background-color: #FFF0E9;
+  background-color: var(--m-primary-100-color);
 }
 
 .m-list-menu-body {

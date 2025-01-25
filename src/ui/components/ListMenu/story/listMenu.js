@@ -94,6 +94,9 @@ function storyListMenu(selectedStory) {
 			data,
 			onSelect: (e) => console.log(e),
 			parentTag: selectedStory.parentTag,
+			onComplete: (context) => {
+				context.ListMenu.closeAllItems();
+			},
 		};
 
 		ui.listMenu(config);
