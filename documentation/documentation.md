@@ -850,23 +850,33 @@ The `Input` class is registered as a custom element using `customElements.define
 
 ## ListMenu
 
-* **Purpose**: A component for displaying a list of items, possibly with sub-lists.
-* **Public Properties (m\_props):**
-    * `tag` (string): Defines the tag set.
-    * `theme` (string): Defines the theme.
-    * `parentTag` (HTMLElement): Parent element.
-    * `data` (Array): The list of items to display.
-    * `onComplete` (Function): Callback after setup is complete.
-* **Public Methods:**
-    * `setup(props)`: Configures the list menu.
-    * `addToList(items)`: Adds items to the list.
-    * `replaceList(items)`: Replaces the current list.
-    * `toggleChildren(item)`: Expands or collapses a sublist under a given item.
-    * `getIconTagById(id)`: Retrieves an icon tag by its ID.
-* **Private Functions:**
-    * `setupDOM()`: Creates the DOM structure.
-* **Key Features**:  Allows for nested lists and provides a method for toggling sublists, as well as managing associated
-  icons.
+### Public Properties (`m_props`)
+
+- **`tag`** (`string`): Defines the set of tags.
+- **`theme`** (`string`): Specifies the theme for styling.
+- **`parentTag`** (`HTMLElement`): The container where the list will be added.
+- **`data`** (`Array`): The list of items to display, supports nested structures.
+- **`onComplete`** (`Function`): Callback executed when the setup process is complete.
+- **`autoCloseItems`** (`boolean`): If enabled, only one parent item can be expanded at a time, automatically closing
+  others.
+
+### Public Methods
+
+- **`setup(props)`**: Initializes the list menu with the given properties and renders the items.
+- **`addToList(items)`**: Adds new items to the list without replacing existing ones.
+- **`replaceList(items)`**: Replaces the current list with a new set of items.
+- **`toggleChildren(item)`**: Expands or collapses a submenu associated with an item.
+- **`getIconTagById(id)`**: Retrieves a reference to the icon element by its ID.
+- **`closeAllItems()`**: Collapses all expanded items in the list.
+
+### Private Functions
+
+- **`setupDOM()`**: Creates the necessary DOM elements and applies styles.
+- **`installItems(data, parentId)`**: Processes and adds list items recursively, managing nesting.
+- **`processItem(itemData, parentId)`**: Generates the HTML structure for an individual list item.
+- **`insertIcon(context)`**: Adds icons to list items and determines their position (left or right).
+- **`setupItemEventListeners(item, data)`**: Assigns click, hover, and exit events to each list item.
+- **`getAllDescendants(parentId)`**: Retrieves all descendant elements of a parent item for hierarchical management.
 
 ## MapBox
 

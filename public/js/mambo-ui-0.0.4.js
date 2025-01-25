@@ -5030,12 +5030,14 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
     let m_data;
     let m_parentTag;
     let m_props;
+    let m_lastOpenParent = null;
     this.addToList = addToList;
     this.destroy = destroyListMenu;
     this.replaceList = replaceList;
     this.setup = setup;
     this.toggleChildren = toggleChildren;
     this.getIconTagById = getIconTagById;
+    this.closeAllItems = closeAllItems;
     if (props) {
       setup(props);
     }
@@ -5155,8 +5157,26 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
       return m_iconList.find((icon) => icon.id === id);
     }
     function toggleChildren(parentItem) {
+      const isTopLevelParent = !parentItem.closest(".child-item");
       const parentId = parentItem.getAttribute(m_props.itemIdAttrName);
       const isExpanded = parentItem.getAttribute(m_props.dataExpanded) === "true";
+      if (isTopLevelParent && m_props.autoCloseItems && m_lastOpenParent && m_lastOpenParent !== parentItem) {
+        const lastParentId = m_lastOpenParent.getAttribute(m_props.itemIdAttrName);
+        const lastAllDescendants = getAllDescendants(lastParentId);
+        lastAllDescendants.forEach((child) => {
+          child.style.display = "none";
+          child.setAttribute(m_props.dataExpanded, "false");
+          m_iconList.map((icon) => {
+            if (icon.rotatable && child === icon.parentElement)
+              icon.style.transform = "rotate(0deg)";
+          });
+        });
+        m_lastOpenParent.setAttribute(m_props.dataExpanded, "false");
+        m_iconList.map((icon) => {
+          if (icon.rotatable && m_lastOpenParent === icon.parentElement)
+            icon.style.transform = "rotate(0deg)";
+        });
+      }
       const allDescendants = getAllDescendants(parentId);
       if (isExpanded) {
         allDescendants.forEach((child) => {
@@ -5172,7 +5192,13 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
         directChildren.forEach((child) => {
           child.style.display = "flex";
         });
+        if (isTopLevelParent) {
+          m_lastOpenParent = parentItem;
+        }
       }
+      allDescendants.forEach((child) => {
+        child.setAttribute(m_props.dataExpanded, "false");
+      });
       parentItem.setAttribute(m_props.dataExpanded, !isExpanded);
       m_iconList.map((icon) => {
         if (icon.rotatable && parentItem === icon.parentElement)
@@ -5239,6 +5265,29 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
         m_props.onComplete({ ListMenu: self });
       }
     }
+    function closeAllItems() {
+      function recursiveClose(parentItem) {
+        const parentId = parentItem.getAttribute(m_props.itemIdAttrName);
+        const allDescendants = getAllDescendants(parentId);
+        allDescendants.forEach((child) => {
+          child.style.display = "none";
+          child.setAttribute(m_props.dataExpanded, "false");
+          if (child.classList.contains("has-children")) {
+            recursiveClose(child);
+          }
+        });
+        parentItem.setAttribute(m_props.dataExpanded, "false");
+        m_iconList.map((icon) => {
+          if (icon.rotatable && parentItem === icon.parentElement)
+            icon.style.transform = "rotate(0deg)";
+        });
+      }
+      const allParentItems = m_containerTag.querySelectorAll(".has-children");
+      allParentItems.forEach((parentItem) => {
+        recursiveClose(parentItem);
+      });
+      m_lastOpenParent = null;
+    }
     function configure(customProps = {}) {
       return new Promise((resolve) => {
         m_props = {
@@ -5246,7 +5295,8 @@ ui.class.ListMenu = class ListMenu extends HTMLElement {
           theme: "default",
           itemIdAttrName: "data-item-id",
           parentIdAttrName: "data-parent-id",
-          dataExpanded: "data-expanded"
+          dataExpanded: "data-expanded",
+          autoCloseItems: true
         };
         m_props = ui.utils.extend(true, m_props, customProps);
         m_parentTag = ui.d.getTag(m_props.parentTag);
