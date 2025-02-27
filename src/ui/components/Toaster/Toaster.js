@@ -17,6 +17,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 		let m_size;
 		let m_type;
 		let m_position;
+		let m_timeout;
 
 		// Configure public methods
 		this.close = close;
@@ -95,9 +96,9 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 			m_message = m_props.message;
 			m_bodyTag.innerHTML = m_props.message;
 
-			if (m_props.onComplete) {
-				m_props.onComplete({ Toaster: self });
-			}
+			setupComplete();
+
+			return self;
 		}
 
 		function setupStyles() {
@@ -164,8 +165,6 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 						type: "button",
 					},
 					onClick: (context) => {
-						close();
-
 						if (m_props.onClose) {
 							m_props.onClose({
 								Toaster: self,
@@ -181,6 +180,11 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 		}
 
 		function close() {
+			if (m_timeout) {
+				clearTimeout(m_timeout);
+				m_timeout = null;
+			}
+
 			if (m_open) {
 				if (m_props.animation.name) {
 					closeAnimation();
@@ -189,7 +193,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 						self.style.display = "none";
 						m_open = false;
 					} else {
-						ui.d.remove(self);
+						if (self && self.parentNode) ui.d.remove(self);
 						m_open = false;
 					}
 				}
@@ -208,6 +212,8 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 					closeAnimation();
 				}
 			}
+
+			if (m_props.onClosed) m_props.onClosed({ Toaster: self });
 		}
 
 		function closeAnimation() {
@@ -229,7 +235,7 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 						self.style.display = "none";
 						m_open = false;
 					} else {
-						ui.d.remove(self);
+						if (self && self.parentNode) ui.d.remove(self);
 						m_open = false;
 					}
 
@@ -240,6 +246,13 @@ ui.class.Toaster = class Toaster extends HTMLElement {
 
 		function setupComplete() {
 			if (m_props.onComplete) {
+				if (m_props.autoHideDuration) {
+					m_timeout = setTimeout(() => {
+						close();
+						m_timeout = null;
+					}, m_props.autoHideDuration);
+				}
+
 				m_props.onComplete({ Toaster: self });
 			}
 		}

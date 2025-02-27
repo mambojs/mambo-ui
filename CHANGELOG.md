@@ -2,12 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.4]
+## [unreleased]
 
 ### 🚀 Features
 
-- [Documentation] Add git-cliff to create changelog.md and update documentation
+- [Toaster] Add onClosed event and fix autoHideDuration
+
+## [0.0.4] - 2025-01-27
+
+### 🚀 Features
+
+- Add git-cliff to create changelog.md and update documentation
 - [Input] new validation functions
+
+### 💼 Other
+
+- Mambo-list-menu
 - [Changelog] Create Changelog.md file
 - [Toaster] Add animation to toaster component. Add persistent toaster option.
 - [Input] Implemented touch event support and adjusted required text size.
