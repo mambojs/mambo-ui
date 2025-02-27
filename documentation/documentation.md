@@ -1215,6 +1215,7 @@ The `Toaster` component, which extends `HTMLElement`, displays temporary notific
     * `y` (string): Vertical distance, default "1.5rem".
 * `onClose` (Function): Close event handler.
 * `onComplete` (Function): Setup completion callback.
+* `onClosed` (Function): Callback when the toaster is closed.
 
 **Public Methods:**
 
@@ -1235,7 +1236,7 @@ The `Toaster` component, which extends `HTMLElement`, displays temporary notific
 * `configure(customProps)`: Sets initial configuration.
 * `setupDOM()`: Creates the DOM structure.
 * `setupStyles()`: Sets up CSS custom properties and classes.
-* `addIcon()`: Adds an icon to the toaster.
+* `addIcon(icon)`: Adds an icon to the toaster.
 * `installCloseButton()`: Sets up the close button.
 * `closeAnimation()`: Handles closing animation.
 * `setupComplete()`: Handles setup completion tasks.
