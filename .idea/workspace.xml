@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup/build_documentation.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/setup/build_documentation.cjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +57,9 @@
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/toaster-closed-event&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;update/mapbox&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/dist/0.0.4&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/documentation/archived&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
@@ -82,11 +83,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.4" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\documentation\archived" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist" />
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.4" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.3" />
       <recent name="C:\Users\Daniela\Desktop\Proyectos\mambo-ui\src\ui\components" />
-      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\src\ui\components\Pagination" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui" />
@@ -226,6 +227,8 @@
       <workItem from="1737568586822" duration="1183000" />
       <workItem from="1740678798128" duration="1434000" />
       <workItem from="1740682522134" duration="20000" />
+      <workItem from="1742693371596" duration="2222000" />
+      <workItem from="1742750704987" duration="7335000" />
     </task>
     <servers />
   </component>

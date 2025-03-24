@@ -14,7 +14,7 @@
 *  limitations under the License.
 
 *  @author Alejandro Sebastian Scotti
-*  @version 0.0.4
+*  @version 0.0.5
 *******************************************/
 function mamboUI(domJS) {
 	if (!domJS) {
@@ -5326,6 +5326,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
     this.getMarker = getMarker;
     this.getMarkers = getMarkers;
     this.jumpTo = jumpTo;
+    this.flyTo = flyTo;
     this.setup = setup;
     if (props) {
       setup(props);
@@ -5369,6 +5370,17 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
       m_map.jumpTo({
         center: [lng, lat],
         zoom: m_props.zoom
+      });
+    }
+    async function flyTo(context) {
+      return new Promise((resolve) => {
+        m_map.flyTo({
+          ...context,
+          zoom: context.zoom ? context.zoom : m_props.zoom
+        });
+        m_map.once("moveend", () => {
+          resolve();
+        });
       });
     }
     function fitBounds(props2) {
