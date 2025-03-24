@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [unreleased]
+## [0.0.5] - 2025-03-24
 
 ### 🚀 Features
 
 - [Toaster] Add onClosed event and fix autoHideDuration
+- [MapBox] Add flyTo method to move map to specified coordinates. Update MapBox version to 3.10
 
 ## [0.0.4] - 2025-01-27
 
