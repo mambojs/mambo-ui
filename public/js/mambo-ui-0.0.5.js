@@ -5328,6 +5328,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
     this.jumpTo = jumpTo;
     this.flyTo = flyTo;
     this.setup = setup;
+    this.setMarker = setMarker;
     if (props) {
       setup(props);
     }
