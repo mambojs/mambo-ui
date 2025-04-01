@@ -18,6 +18,8 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		this.flyTo = flyTo;
 		this.setup = setup;
 		this.setMarker = setMarker;
+		this.getMap = () => m_map;
+		this.getBounds = () => m_map.getBounds();
 
 		if (props) {
 			setup(props);
@@ -66,10 +68,10 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 			});
 		}
 
-		function jumpTo(lng, lat) {
+		function jumpTo(context) {
 			m_map.jumpTo({
-				center: [lng, lat],
-				zoom: m_props.zoom,
+				...context,
+				zoom: context.zoom ? context.zoom : m_props.zoom,
 			});
 		}
 
