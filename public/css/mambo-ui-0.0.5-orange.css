@@ -1234,6 +1234,18 @@
   justify-content: center;
 }
 
+.m-draggable {
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  min-width: 1rem;
+  min-height: 1rem;
+  border-radius: 1rem;
+  cursor: grab;
+  left: 50%;
+  top: 50%;
+}
+
 .m-drag-drop-self {
   padding: var(--m-padding-xxl);
   border: 1px dashed #ccc;
@@ -1254,18 +1266,6 @@
 .m-drag-drop-icon {
   margin-bottom: var(--m-margin-xxl);
   font-size: 3rem;
-}
-
-.m-draggable {
-  position: absolute;
-  background-color: #000;
-  color: #fff;
-  min-width: 1rem;
-  min-height: 1rem;
-  border-radius: 1rem;
-  cursor: grab;
-  left: 50%;
-  top: 50%;
 }
 
 .m-dropdown-button {
