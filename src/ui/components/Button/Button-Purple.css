@@ -131,6 +131,9 @@
 }
 
 .m-button-icon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   margin: 0 var(--m-margin-s);
   align-content: center;
   line-height: var(--m-line-height);

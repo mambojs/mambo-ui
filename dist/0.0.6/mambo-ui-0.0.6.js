@@ -14,7 +14,7 @@
 *  limitations under the License.
 
 *  @author Alejandro Sebastian Scotti
-*  @version 0.0.5
+*  @version 0.0.6
 *******************************************/
 function mamboUI(domJS) {
 	if (!domJS) {

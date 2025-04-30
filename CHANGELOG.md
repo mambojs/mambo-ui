@@ -2,12 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6] - 2025-04-30
+
+### 🐛 Bug Fixes
+
+- [MamboButton] Fix icon styles on iOS
+
 ## [0.0.5] - 2025-03-24
 
 ### 🚀 Features
 
 - [Toaster] Add onClosed event and fix autoHideDuration
 - [MapBox] Add flyTo method to move map to specified coordinates. Update MapBox version to 3.10
+
+### 💼 Other
+
+- Change setMarker method to public
+- Change props pass to jumpto and add method getMap
 
 ## [0.0.4] - 2025-01-27
 

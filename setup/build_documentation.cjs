@@ -5,9 +5,9 @@ const version = require("../package.json").version;
 const documentationDir = path.join(__dirname, "../documentation");
 const archivedDir = path.join(documentationDir, "archived");
 const buildDir = path.join(__dirname, `../build/${version}`);
-const currentFileName = path.join(documentationDir, "documentation.md");
+const currentFileName = path.join(documentationDir, "documentation-0.0.6.md");
 const archivedFileName = path.join(archivedDir, `documentation-${version}.md`);
-const buildFileName = path.join(buildDir, "documentation.md");
+const buildFileName = path.join(buildDir, "documentation-0.0.6.md");
 const currentYear = new Date().getFullYear();
 
 const COPYRIGHT_AND_TITLE = `<!--
