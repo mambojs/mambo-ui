@@ -8,7 +8,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 		let m_props;
 		let m_map;
-		let m_markers = [];
+		const m_markers = [];
 
 		this.addPoints = addPoints;
 		this.fitBounds = fitBounds;
@@ -18,8 +18,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		this.flyTo = flyTo;
 		this.setup = setup;
 		this.setMarker = setMarker;
-		this.getMap = () => m_map;
+		this.getZoom = () => m_map.getZoom();
+		this.getCenter = () => m_map.getCenter();
+		this.getLngLat = () => m_map.getCenter();
 		this.getBounds = () => m_map.getBounds();
+		this.getMap = () => m_map;
 
 		if (props) {
 			setup(props);
@@ -42,7 +45,10 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		function setupDOM() {
 			return new Promise((resolve) => {
 				m_parentTag.style.setProperty(m_props.containerLoadingMessageVar, `"${m_props.loadingMessage}"`);
-				m_containerTag = ui.d.createTag({ ...m_props.tags.container, class: m_props.css.container });
+				m_containerTag = ui.d.createTag({
+					...m_props.tags.container,
+					class: m_props.css.container,
+				});
 				self.classList.add(m_props.css.self);
 				self.appendChild(m_containerTag);
 				resolve();
@@ -56,7 +62,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 						const lng = s.coords.longitude;
 						const lat = s.coords.latitude;
 						onMoveEnd(removeWait);
-						jumpTo(lng, lat);
+						jumpTo({ center: [lng, lat] });
 						addCurrentPositionMarked(lng, lat);
 						resolve();
 					},
@@ -137,13 +143,16 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		}
 
 		function addCurrentPositionMarked(lng, lat) {
-			const point = ui.d.createTag({ ...m_props.tags.currentPoint, class: m_props.css.currentPoint });
+			const point = ui.d.createTag({
+				...m_props.tags.currentPoint,
+				class: m_props.css.currentPoint,
+			});
 			setMarker([{ lng, lat }], point);
 		}
 
 		function setMarker(arrCoords, marker) {
 			arrCoords.forEach(({ lat, lng }) => {
-				let config = marker || m_props.marker;
+				const config = marker || m_props.marker;
 				m_markers.push(new mapboxgl.Marker(config).setLngLat([lng, lat]).addTo(m_map));
 			});
 		}
@@ -198,9 +207,15 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 				m_props = ui.utils.extend(true, m_props, customProps);
 				mapboxgl.accessToken = m_props.accessToken;
 				m_parentTag = ui.d.getTag(m_props.parentTag);
-				const tags = ui.tags.getTags({ name: m_props.tag, component: "mapbox" });
+				const tags = ui.tags.getTags({
+					name: m_props.tag,
+					component: "mapbox",
+				});
 				m_props.tags = ui.utils.extend(true, tags, m_props.tags);
-				const css = ui.theme.getTheme({ name: m_props.theme, component: "mapbox" });
+				const css = ui.theme.getTheme({
+					name: m_props.theme,
+					component: "mapbox",
+				});
 				m_props.css = ui.utils.extend(true, css, m_props.css);
 				resolve();
 			});

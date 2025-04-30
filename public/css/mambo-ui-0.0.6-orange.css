@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * @author Alejandro Sebastian Scotti
- * @version 0.0.5
+ * @version 0.0.6
  */
 
 * {
@@ -1234,18 +1234,6 @@
   justify-content: center;
 }
 
-.m-draggable {
-  position: absolute;
-  background-color: #000;
-  color: #fff;
-  min-width: 1rem;
-  min-height: 1rem;
-  border-radius: 1rem;
-  cursor: grab;
-  left: 50%;
-  top: 50%;
-}
-
 .m-drag-drop-self {
   padding: var(--m-padding-xxl);
   border: 1px dashed #ccc;
@@ -1266,6 +1254,18 @@
 .m-drag-drop-icon {
   margin-bottom: var(--m-margin-xxl);
   font-size: 3rem;
+}
+
+.m-draggable {
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  min-width: 1rem;
+  min-height: 1rem;
+  border-radius: 1rem;
+  cursor: grab;
+  left: 50%;
+  top: 50%;
 }
 
 .m-dropdown-button {
@@ -1344,6 +1344,142 @@
 
 .m-file-chooser-label {
   text-align: center;
+}
+
+.m-input-self {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.m-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--m-gray-300);
+  border-radius: var(--m-border-radius-primary);
+  overflow: hidden;
+  outline: none;
+  background: var(--m-gray-100);
+  padding: var(--m-padding-lg) var(--m-padding-lg);
+  gap: 0.5rem;
+}
+
+.m-input-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: var(--m-gray-100);
+  color: var(--m-sub-color);
+}
+
+.m-input-button {
+  background: none;
+  cursor: pointer;
+  color: var(--m-accent-color);
+  border: none;
+  padding: var(--m-padding-s);
+}
+
+.m-input-button:hover {
+  color: var(--m-gray-500);
+}
+
+.m-input-self .m-button-self .no-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  min-width: 1rem;
+}
+
+.m-input-container:focus-within {
+  border-color: var(--m-gray-200);
+  overflow: hidden;
+}
+
+.m-input-container:active {
+  border-color: var(--m-accent-color);
+  overflow: hidden;
+}
+
+.m-input-self .m-input-icon {
+  width: 1.25rem;
+  height: auto;
+  color: var(--m-gray-400);
+}
+
+.m-input-icon.large {
+  font-size: 1.5rem;
+}
+
+.m-input-icon.medium {
+  font-size: 1.25rem;
+}
+
+.m-input-icon.small {
+  font-size: 1rem;
+  justify-self: flex-start;
+}
+
+.m-input-error-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--m-error-color);
+}
+
+.m-input-success-icon.hidden,
+.m-input-error-icon.hidden {
+  display: none;
+  width: 1rem;
+}
+
+.m-input-container:has(.m-input-error-icon:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-error-icon:not(.hidden)) .m-input-button {
+  color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-success-icon:not(.hidden)) .m-input-button {
+  color: var(--m-success-color);
+}
+
+.m-input-success-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--m-success-color);
+}
+
+.m-input-container:has(.m-input-error-icon:not(.hidden)) {
+  border-color: var(--m-error-color);
+}
+
+.m-input-container:has(.m-input-success-icon:not(.hidden)) {
+  border-color: var(--m-success-color);
+}
+
+.m-input-error-text {
+  display: inline-block;
+  color: var(--m-error-color);
+  font-size: var(--m-font-size-s);
+  font-weight: var(--m-font-weight-regular);
+  font-family: var(--m-font-family);
+  padding-left: var(--m-padding-lg);
+  line-height: var(--m-line-height-xs);
+  letter-spacing: -0.133px;
+}
+
+.m-input-error-text.hidden {
+  display: none;
+}
+
+.m-input-label {
+  font-size: var(--m-font-size-xs);
 }
 
 .m-grid-parent {
@@ -1665,142 +1801,6 @@
   flex-direction: row;
   align-items: stretch;
   width: 8em;
-}
-
-.m-input-self {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.m-input-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--m-gray-300);
-  border-radius: var(--m-border-radius-primary);
-  overflow: hidden;
-  outline: none;
-  background: var(--m-gray-100);
-  padding: var(--m-padding-lg) var(--m-padding-lg);
-  gap: 0.5rem;
-}
-
-.m-input-input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: var(--m-gray-100);
-  color: var(--m-sub-color);
-}
-
-.m-input-button {
-  background: none;
-  cursor: pointer;
-  color: var(--m-accent-color);
-  border: none;
-  padding: var(--m-padding-s);
-}
-
-.m-input-button:hover {
-  color: var(--m-gray-500);
-}
-
-.m-input-self .m-button-self .no-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-  min-width: 1rem;
-}
-
-.m-input-container:focus-within {
-  border-color: var(--m-gray-200);
-  overflow: hidden;
-}
-
-.m-input-container:active {
-  border-color: var(--m-accent-color);
-  overflow: hidden;
-}
-
-.m-input-self .m-input-icon {
-  width: 1.25rem;
-  height: auto;
-  color: var(--m-gray-400);
-}
-
-.m-input-icon.large {
-  font-size: 1.5rem;
-}
-
-.m-input-icon.medium {
-  font-size: 1.25rem;
-}
-
-.m-input-icon.small {
-  font-size: 1rem;
-  justify-self: flex-start;
-}
-
-.m-input-error-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--m-error-color);
-}
-
-.m-input-success-icon.hidden,
-.m-input-error-icon.hidden {
-  display: none;
-  width: 1rem;
-}
-
-.m-input-container:has(.m-input-error-icon:not(.hidden)) {
-  border-color: var(--m-error-color);
-}
-
-.m-input-container:has(.m-input-error-icon:not(.hidden)) .m-input-button {
-  color: var(--m-error-color);
-}
-
-.m-input-container:has(.m-input-success-icon:not(.hidden)) .m-input-button {
-  color: var(--m-success-color);
-}
-
-.m-input-success-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--m-success-color);
-}
-
-.m-input-container:has(.m-input-error-icon:not(.hidden)) {
-  border-color: var(--m-error-color);
-}
-
-.m-input-container:has(.m-input-success-icon:not(.hidden)) {
-  border-color: var(--m-success-color);
-}
-
-.m-input-error-text {
-  display: inline-block;
-  color: var(--m-error-color);
-  font-size: var(--m-font-size-s);
-  font-weight: var(--m-font-weight-regular);
-  font-family: var(--m-font-family);
-  padding-left: var(--m-padding-lg);
-  line-height: var(--m-line-height-xs);
-  letter-spacing: -0.133px;
-}
-
-.m-input-error-text.hidden {
-  display: none;
-}
-
-.m-input-label {
-  font-size: var(--m-font-size-xs);
 }
 
 .m-listbox-container {

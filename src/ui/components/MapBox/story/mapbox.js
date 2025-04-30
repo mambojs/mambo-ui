@@ -45,7 +45,7 @@ function storyMapBox(selectedStory) {
 						[-58.493848, -34.602807],
 						[-58.498737, -34.584316],
 					];
-					await component.Mapbox.flyTo({ center: pointsArr[0] });
+					component.Mapbox.jumpTo({ center: pointsArr[0] });
 					await component.Mapbox.flyTo({ center: pointsArr[1], zoom: 10 });
 					await component.Mapbox.flyTo({ center: pointsArr[2] });
 				}
