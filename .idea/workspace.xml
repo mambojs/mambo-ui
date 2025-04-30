@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/components/MapBox/MapBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/components/MapBox/MapBox.js" afterDir="false" />
-    </list>
+    <list default="true" id="5786c4e3-d924-4be3-912f-6f3e78c407f1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,9 +54,9 @@
     &quot;Node.js.Input.js.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;update/mapbox-set-marker&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/documentation/archived&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/diego/Desktop/Mambo/mambo-ui/dist/0.0.6&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
@@ -83,11 +80,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.6" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\documentation\archived" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.4" />
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui\dist\0.0.3" />
-      <recent name="C:\Users\Daniela\Desktop\Proyectos\mambo-ui\src\ui\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\diego\Desktop\Mambo\mambo-ui" />
@@ -231,6 +228,9 @@
       <workItem from="1742750704987" duration="7335000" />
       <workItem from="1743437547149" duration="5137000" />
       <workItem from="1743459341457" duration="5000" />
+      <workItem from="1746059635167" duration="569000" />
+      <workItem from="1746064012271" duration="13000" />
+      <workItem from="1746109016558" duration="422000" />
     </task>
     <servers />
   </component>
@@ -247,6 +247,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
