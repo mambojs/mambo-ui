@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### 💼 Other
 
+- [MamboButton] Change .m-mambo-icon style to fix iOS centering issue
 - Change setMarker method to public
 - Change props pass to jumpto and add method getMap
 
