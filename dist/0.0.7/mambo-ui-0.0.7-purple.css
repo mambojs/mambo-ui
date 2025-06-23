@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * @author Alejandro Sebastian Scotti
- * @version 0.0.6
+ * @version 0.0.7
  */
 
 * {
@@ -340,49 +340,6 @@
 .m-button-button.secondary.m-selected {
   background: var(--m-selected-secondary-background-color);
 }
-.m-buttonsvg-button {
-  color: var(--m-text-color);
-  font-size: var(--m-font-size-m);
-  padding: var(--m-padding-s);
-  background: var(--m-background-color);
-  border: var(--m-border);
-  border-radius: var(--m-border-radius);
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.m-buttonsvg-button.m-hover {
-  background: var(--m-hover-background-color);
-}
-
-.m-buttonsvg-button.m-selected {
-  background: var(--m-selected-background-color);
-}
-
-.m-buttonsvg-img {
-  height: 1.25em;
-  margin: 0 0.5rem;
-}
-
-.m-buttonsvg-svg {
-  width: 1.25em;
-  height: 1.25em;
-  margin: 0 0.5rem;
-}
-
-.m-buttonsvg-svg path {
-  fill: #fff;
-}
-
-.m-buttonsvg-disabled {
-  opacity: 0.6;
-  cursor: default;
-  pointer-events: none;
-}
-
 .m-button-group-self {
   display: flex;
 }
@@ -513,6 +470,49 @@
   background: var(--m-selected-secondary-background-color);
   box-shadow: var(--m-box-shadow-secondary-active);
 }
+.m-buttonsvg-button {
+  color: var(--m-text-color);
+  font-size: var(--m-font-size-m);
+  padding: var(--m-padding-s);
+  background: var(--m-background-color);
+  border: var(--m-border);
+  border-radius: var(--m-border-radius);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.m-buttonsvg-button.m-hover {
+  background: var(--m-hover-background-color);
+}
+
+.m-buttonsvg-button.m-selected {
+  background: var(--m-selected-background-color);
+}
+
+.m-buttonsvg-img {
+  height: 1.25em;
+  margin: 0 0.5rem;
+}
+
+.m-buttonsvg-svg {
+  width: 1.25em;
+  height: 1.25em;
+  margin: 0 0.5rem;
+}
+
+.m-buttonsvg-svg path {
+  fill: #fff;
+}
+
+.m-buttonsvg-disabled {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
+}
+
 .m-calendar-self {
   display: flex;
   flex-direction: column;
@@ -1690,6 +1690,15 @@
   width: 8em;
 }
 
+.m-listbox-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-listbox-item {
+  padding: var(--m-padding-s) 0;
+}
+
 .m-input-self {
   display: flex;
   flex-direction: column;
@@ -1822,15 +1831,6 @@
 .m-input-label {
   font-size: var(--m-font-size-xs);
   font-weight: var(--m-font-weight-bold);
-}
-
-.m-listbox-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.m-listbox-item {
-  padding: var(--m-padding-s) 0;
 }
 
 .m-list-menu-container {

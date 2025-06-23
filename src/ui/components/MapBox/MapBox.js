@@ -38,7 +38,13 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 
 			await setupDOM();
 			await renderMap();
-			await getUserLocation();
+
+			if (m_props.autoLocation) {
+				await getUserLocation();
+			} else {
+				removeWait();
+			}
+
 			setupComplete();
 		}
 
