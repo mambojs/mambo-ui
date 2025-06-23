@@ -1382,6 +1382,7 @@ function storyMapBox(selectedStory) {
     const config = {
       accessToken: token,
       parentTag: selectedStory.parentTag,
+      autoLocation: true,
       tags: {
         container: {
           attr: {
@@ -1412,17 +1413,6 @@ function storyMapBox(selectedStory) {
       },
       onComplete: (component) => {
         addPoints(component);
-        async function fly() {
-          const pointsArr = [
-            [-58.485783, -34.576503],
-            [-58.493848, -34.602807],
-            [-58.498737, -34.584316]
-          ];
-          component.Mapbox.jumpTo({ center: pointsArr[0] });
-          await component.Mapbox.flyTo({ center: pointsArr[1], zoom: 10 });
-          await component.Mapbox.flyTo({ center: pointsArr[2] });
-        }
-        fly();
       }
     };
     ui.mapbox(config);

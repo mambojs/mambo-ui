@@ -14,7 +14,7 @@
 *  limitations under the License.
 
 *  @author Alejandro Sebastian Scotti
-*  @version 0.0.6
+*  @version 0.0.7
 *******************************************/
 function mamboUI(domJS) {
 	if (!domJS) {
@@ -5345,7 +5345,11 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
       }
       await setupDOM();
       await renderMap();
-      await getUserLocation();
+      if (m_props.autoLocation) {
+        await getUserLocation();
+      } else {
+        removeWait();
+      }
       setupComplete();
     }
     function setupDOM() {
