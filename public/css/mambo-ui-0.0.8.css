@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  * @author Alejandro Sebastian Scotti
- * @version 0.0.7
+ * @version 0.0.8
  */
 
 * {
@@ -1507,10 +1507,6 @@
   align-content: center;
   line-height: var(--m-line-height);
 }
-.m-html5player-player {
-  width: 100%;
-}
-
 .m-percentage-self {
   display: flex;
   width: 100%;
@@ -1535,6 +1531,10 @@
 
 .m-percentage-range-high {
   background-color: #00b300;
+}
+
+.m-html5player-player {
+  width: 100%;
 }
 
 .m-radio-container {

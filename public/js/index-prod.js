@@ -9,9 +9,9 @@ object.save(tools.api(), "api");
 const dom = domJS();
 const ui = mamboUI(domJS);
 
-const defaultStylesheets = { stylesheets: ["css/mambo-ui-0.0.7.css"] };
-const orangeStylesheets = { stylesheets: ["css/mambo-ui-0.0.7-orange.css"] };
-const purpleStylesheets = { stylesheets: ["css/mambo-ui-0.0.7-purple.css"] };
+const defaultStylesheets = { stylesheets: ["css/mambo-ui-0.0.8.css"] };
+const orangeStylesheets = { stylesheets: ["css/mambo-ui-0.0.8-orange.css"] };
+const purpleStylesheets = { stylesheets: ["css/mambo-ui-0.0.8-purple.css"] };
 
 ui.theme.loadStylesheets(defaultStylesheets);
 
