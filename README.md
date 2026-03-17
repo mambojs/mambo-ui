@@ -1,3 +1,5 @@
+> **El desarrollo activo de este package se realiza en el monorepo [eventmap-city/eventmap](https://github.com/eventmap-city/eventmap), bajo `packages/mambo-ui`.**
+
 # Mambo UI Development Web App
 
 ### Installation
