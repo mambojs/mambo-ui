@@ -39,6 +39,7 @@ function storyMapBox(selectedStory) {
 			},
 			onComplete: (component) => {
 				addPoints(component);
+				component.Mapbox.addCurrentPositionMarked(-58.498737, -34.602807);
 			},
 		};
 		ui.mapbox(config);

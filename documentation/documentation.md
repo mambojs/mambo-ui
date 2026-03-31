@@ -14,11 +14,11 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 *
-*  @version 0.0.7
+*  @version 0.0.8
 ******************************************
 -->
 
-# MAMBO.JS - UI Components Documentation - Version 0.0.7
+# MAMBO.JS - UI Components Documentation - Version 0.0.8
 
 ### Table of Contents
 
@@ -898,7 +898,8 @@ The `Mapbox` component, which extends `HTMLElement`, provides a map interface us
 * `containerLoadingMessageVar` (string): CSS variable for loading message.
 * `loadingMessage` (string): Loading message text, default "Loading...".
 * `onComplete` (Function): Setup completion callback.
-* `autoLocation` (boolean): setup auto geolocation
+* `autoLocation` (boolean): Setup auto geolocation
+* `addCurrentPositionMarked` (number, number): Add a marker to current position
 
 **Private Properties:**
 

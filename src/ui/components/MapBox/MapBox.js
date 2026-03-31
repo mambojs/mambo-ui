@@ -23,6 +23,7 @@ ui.class.Mapbox = class Mapbox extends HTMLElement {
 		this.getLngLat = () => m_map.getCenter();
 		this.getBounds = () => m_map.getBounds();
 		this.getMap = () => m_map;
+		this.addCurrentPositionMarked = addCurrentPositionMarked;
 
 		if (props) {
 			setup(props);
